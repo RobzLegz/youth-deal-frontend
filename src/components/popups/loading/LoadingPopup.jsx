@@ -1,11 +1,7 @@
 import React from 'react'
-// import { useSelector } from 'react-redux';
-// import { loadingData } from '../../../slices/loading/loadingSlice';
 import "./LoadingPopup.scss"
 
 function LoadingPopup() {
-    // const loadingInfo = useSelector(loadingData);
-
     return (
         <div className="loading__popup">
             <div class="loading__popup__loader">

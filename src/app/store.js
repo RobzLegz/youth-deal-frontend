@@ -3,6 +3,7 @@ import userReducer from "../slices/user/userSlice";
 import loadingReducer from "../slices/loading/loadingSlice";
 import proffessionReducer from "../slices/proffessions/proffessionSlice";
 import searchReducer from "../slices/searchresults/searchResultSlice";
+import locationReducer from "../slices/locations/locationSlice";
 
 export const store = configureStore({
     reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
         loading: loadingReducer,
         proffessions: proffessionReducer,
         search: searchReducer,
+        locations: locationReducer,
     },
 });

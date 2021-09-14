@@ -95,6 +95,8 @@
                     border: 2px solid #EBEBEB;
                     border-radius: 5px;
                     padding: 0 10px;
+                    position: relative;
+
                     div {
                         display: flex;
                         align-items: center;
@@ -109,6 +111,45 @@
                     }
                     input {
                         border: none;
+                    }
+
+                    &__listopened,
+                    &__listclosed{
+                        position: absolute;
+                        top: 43px;
+                        list-style: none;
+                        background: #fff;
+                        width: 100%;
+                        z-index: 4;
+                        left: 0;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        transition: all 0.5s ease;
+                        overflow-y: scroll;
+
+                        li{
+                            width: 100%;
+                            padding-left: 10px;
+                            height: 40px;
+                            border-bottom: 1px solid lightgrey;
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            cursor: pointer;
+                            background: #fff;
+                        }
+                    }
+
+                    &__listopened{
+                        opacity: 1;
+                        height: 200px;
+                    }
+
+                    &__listclosed{
+                        opacity: 0;
+                        height: 0;
                     }
                 }
 
@@ -127,13 +168,22 @@
 
                     &__active{
                         background: $buttonBg;
+                        border: none;
                     }
 
                     &__notactive{
-                        background: $buttonBorder;
+                        background: $grayColor;
+                        border: none;
                     }
 
                     margin-bottom: 10px;
+                }
+
+                &__jobselection{
+                    width: 100%;
+                    height: 40px;
+                    color: #fff;
+                    background: $buttonBg;
                 }
             }
         }

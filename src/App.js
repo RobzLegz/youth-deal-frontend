@@ -26,6 +26,9 @@ import NewJobSearch from './components/AJS/offers/NewJobSearch';
 import { getProffessionCategories, getProffessions } from './logic/proffessions/getProffesions';
 import { proffessionData } from './slices/proffessions/proffessionSlice';
 import AdminPage from './components/admin/AdminPage';
+import { getCountries } from './logic/locations/getLoactionData';
+import { locationData } from './slices/locations/locationSlice';
+
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -37,6 +40,7 @@ function App() {
   const dispatch = useDispatch();
   const userInfo = useSelector(userData);
   const proffessionInfo = useSelector(proffessionData);
+  const locationInfo = useSelector(locationData);
   const loadingInfo = useSelector(loadingData);
 
   useEffect(() => {
@@ -69,17 +73,21 @@ function App() {
   }, [userInfo.info, dispatch, userInfo, userInfo.accessToken]);
 
   useEffect(() => {
+    getCountries(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
     const accessToken = window.localStorage.getItem("accessToken");
 
-    if(!accessToken && userInfo && proffessionInfo.proffessions && proffessionInfo.categories){
+    if(!accessToken && userInfo && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries){
       setLoaded(true);
       return
-    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories){
+    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries){
       setLoaded(true);
       return
     }
     setLoaded(false)
-  }, [userInfo, proffessionInfo.proffessions, proffessionInfo.categories]);
+  }, [userInfo, proffessionInfo.proffessions, proffessionInfo.categories, locationInfo.countries]);
 
   AOS.init();
   AOS.init({

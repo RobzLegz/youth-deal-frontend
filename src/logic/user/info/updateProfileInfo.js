@@ -16,7 +16,8 @@ export const updateProfileInfo = (
     extraSkills,
     proffessionID,
     activeJobSeeker,
-    dispatch
+    dispatch,
+    accessToken
 ) => {
     dispatch(handleLoading(true));
 
@@ -36,7 +37,7 @@ export const updateProfileInfo = (
 
     const headers = {
         headers: {
-            Authorization: `Token ${token}`,
+            Authorization: `Token ${accessToken}`,
             "Content-Type": "multipart/form-data"
         }
     }
