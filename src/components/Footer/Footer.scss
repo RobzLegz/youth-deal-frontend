@@ -1,0 +1,108 @@
+// Main Footer 
+.footer {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background: #F3F3F3;
+    padding: 0 180px;
+    border-top:1px solid #707070;
+}
+
+//first row
+
+#footer__row-first {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+//second row
+
+#footer__row-second {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 15px 0;
+}
+
+// Footer Links 
+.footer {
+    &__links {
+    display: flex;
+    align-items: center;
+        &__block {
+            color: #7D7D7D;
+            margin-right: 30px;
+            display: flex;
+            flex-direction: column;
+            &__title {
+                font-size: 18px;
+                font-family: 'Hammersmith One', sans-serif;
+            }
+            &__link {
+                font-size: 16px;
+                color: #7D7D7D;
+                margin: 5px 0;
+                font-family: 'Manrope', sans-serif;
+                &:hover{
+                    text-decoration:underline;
+                }
+            }
+        }
+    }
+}
+
+// Footer info
+.footer {
+    &__info {
+        max-width: 700px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        
+        svg {
+            min-width:150px;
+            margin-right: 6%;
+        }
+        &__texts {
+            display: flex;
+            flex-direction: column;
+            color: #7D7D7D;
+            font-family: 'Manrope', sans-serif;
+            margin-top:20px;
+
+            #first{
+                margin-bottom:10px;
+            }
+        }
+    }
+}
+
+// Footer copyrights 
+.footer {
+    &__copyright {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        small {
+            color: #7D7D7D;
+            font-size: 16px;
+            font-family: 'Hammersmith One', sans-serif;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    #footer__row-first {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px 0;
+    }
+    .footer {
+        &__info {
+            margin: 30px 0;
+            flex-direction: column;
+        }
+    }
+}

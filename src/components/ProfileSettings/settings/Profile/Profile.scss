@@ -1,0 +1,221 @@
+.profile {
+    width: 100%;
+    &__title {
+        padding-bottom: 10px;
+        border-bottom: .5px solid #a4a3a333;
+    }
+    &__options {
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        &__option {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            &__name {
+                max-width: 213px;
+                width: 100%;
+                text-transform: uppercase;
+                font-size: 20px;
+            }
+            &__input-group {
+                display: flex;
+                align-items: center;
+                background: white;
+                border: 2px solid #EBEBEB;
+                padding: 5px;
+                max-width: 500px;
+                width: 100%;
+                height: 30px;
+                color: #7D7D7D;
+                font-size: 15px;
+                input {
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                    color: #7D7D7D;
+                    &:focus {
+                        color: black;
+                    }
+                }
+                p {
+                    display: flex;
+                    flex: 1;
+                    align-items: center;
+                    img {
+                        padding-right: 5px;
+                        object-fit: contain;
+                        width: 25px;
+                        cursor: default;
+                    }
+                }
+                img {
+                    object-fit: contain;
+                    width: 14px;
+                    cursor: pointer;
+                    transition: all .2s;
+                }
+                img.active {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        &__save-button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px;
+            border-bottom: 1px solid #a4a3a333;
+            button {
+                background: #3E66FF;
+                border-radius: 3px;
+                color: white;
+                border: 1px solid #707070;
+                font-size: 18px;
+                font-family: 'Hammersmith One';
+                width: 180px;
+                height: 35px;
+            }
+        }
+    }
+    .extra-options__title {
+        font-size: 20px;
+        padding: 20px 0;
+    }
+    &__extra-options {
+        border-radius: 35px;
+        width: 100%;
+        padding: 20px;
+        box-shadow: 0px 3px 10px .1px #00000027;
+        &__option {
+            padding: 20px 0;
+            font-family: 'Manrope';
+            font-size: 13px;
+            display: flex;
+            p {
+                flex: 1;
+            }
+            &__switch {
+                border-radius: 15px;
+                width: 45px;
+                height: 22px;
+                background: rgb(216, 216, 216);
+                position: relative;
+                border: 2px solid rgb(216, 216, 216);
+                position: relative;
+                transition: all 1s;
+                &__circle {
+                    position: absolute;
+                    width: 50%;
+                    height: 100%;
+                    top: 0px;
+                    border-radius: 999px;
+                    background: white;
+                    transition: all 1s;
+                    cursor: pointer;
+                }
+            }
+            &__switch.active {
+                transition: all 1s;
+                border: 2px solid #02D363;
+                background: #02D363;
+            }
+            &__switch.active .profile__extra-options__option__switch__circle {
+                transform: translateX(100%);
+            }
+        }
+    }
+    &__deactivization {
+        &__title {
+            font-size: 20px;
+            color: #DF5555;
+            text-align: center;
+        }
+        &__answers {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 40px;
+            &__answer {
+                div {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    h1 {
+                        font-size: 16px;
+                    }
+                    p {
+                        color: #A4A4A4;
+                        padding: 0 15px;
+                    }
+                }
+            }
+        }
+        &__reason {
+            margin-top: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            p {
+                padding-right: 20px;
+            }
+            &__input {
+                display: flex;
+                align-items: center;
+                background: white;
+                border: 2px solid #EBEBEB;
+                padding: 5px 10px;
+                max-width: 480px;
+                width: 100%;
+                height: 30px;
+                color: #7D7D7D;
+                font-size: 15px;
+                p {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+                img {
+                    object-fit: contain;
+                    width: 14px;
+                    cursor: pointer;
+                    transition: all .2s;
+                }
+                img.active {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+        &__submit {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px;
+            button {
+                width: 230px;
+                height: 40px;
+                border: 1px solid #EB0D0D;
+                color: #FF0A0A;
+                border-radius: 15px;
+                transition: all .2s;
+                &:hover {
+                    background: #FF0A0A;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+#profile-row1, #profile-row2 {
+    border: 1px solid #3e65ff65;
+    padding: 20px 30px;
+    border-radius: 29px;
+    margin-bottom: 50px;
+}
+#answer-col1 {
+    p {
+        padding: 10px 15px;
+        color: #A4A4A4;
+    }
+}

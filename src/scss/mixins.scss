@@ -1,0 +1,44 @@
+@mixin scrollbar {
+    /* width */
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #dfdfdfab;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #B7B7B7;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3;
+  }
+}
+@mixin avatar {
+  padding-right: 5px;
+  border-radius: 50%;
+  object-fit: contain;
+  width: 39px;
+}
+@mixin profile {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  img {
+    @include avatar;
+  }
+  &__text {
+      #username {
+          position: relative;
+          top: 5px;
+      }
+      #activity-status {
+          font-size: 12px;
+      }
+  }
+}

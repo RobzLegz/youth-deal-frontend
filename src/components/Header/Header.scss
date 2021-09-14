@@ -1,0 +1,251 @@
+@import '../../scss/variables.scss';
+
+#header__right {
+    display: flex;
+    align-items: center;
+}
+
+
+.header {
+    position: sticky;
+    top:0;
+    background-color: #FBFBFB;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 35px;
+    box-shadow: 0px 0px 1px 1px #B8B8B8;
+    z-index:10;
+    
+    &__logo {
+        display: flex;
+        object-fit: contain;
+        min-width: 150px;
+        max-width: 150px;
+        width: 100%;
+        margin: 0 150px;
+        padding-top:20px;
+        cursor: pointer;
+    }
+
+    &__links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: 'Hammersmith One', sans-serif;
+        &__link {
+            margin: 0 40px;
+            color: $secondaryColor;
+            cursor: pointer;
+            &:hover{ 
+                color: $buttonBg;
+            }
+        }
+         #premium {
+            display: flex;
+            align-items: center;
+            #crown {
+                position:relative;
+                object-fit: contain;
+                width: 23px;
+                margin:-3px 10px 5px 0;
+
+            }
+        }
+
+    }
+
+    &__languages{
+        display: flex;
+        align-items: center;
+        margin-right: 40px;
+        position: relative;
+        width: 12px;
+        font-family: 'Hammersmith One', sans-serif;
+        color:$grayColor;
+        font-size:18px;
+        &__options {
+            position: absolute;
+            height: fit-content;
+            top: 30px;
+            right: -25px;
+            overflow: hidden;
+            height: 0%;
+            background: whitesmoke;
+            transition: all .5s;
+            padding: 0 10px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            margin-top: 25px;
+            &.active {
+                height: calc(100% + 20px * 3);
+                background-color:white;
+                border-radius:5px;
+                z-index: 1;
+            }
+
+            &__option {
+                li {
+                    object-fit: contain;
+                    width: 20px;
+                    cursor: pointer;
+                    transition: all .15s;
+                    list-style: none;
+                    &:hover {
+                        background-color:#EBEBEB;
+                    }
+                }
+            }
+        }
+
+        i {
+            cursor: pointer;
+            width: 100px;
+            color: $secondaryColor;
+            transition: all .2s;
+            border-radius:5px;
+            color:$grayColor;
+            &.active {
+                transform: rotate(180deg);
+                margin-right: 10px;
+            }
+        }
+    }
+
+    &__auth-options{
+        display: flex;
+        align-items: center;
+        padding-right:125px;
+        &__register { 
+            font-size: 1.2rem;
+            font-family: 'Hammersmith One', sans-serif;
+            border: 0px;
+            margin-right: 10px;
+            color: $secondaryColor;
+            &:hover {
+                color: $mainColor;
+            }
+        }
+        &__login {
+            font-family: 'Hammersmith One', sans-serif;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            padding: 5px 40px;
+            color: $buttonBg;
+            font-weight: 550;
+            transition: all .25s;
+            border:2px solid $buttonBorder;
+            &:hover {
+                background: $buttonBg;
+                color: white;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            }
+        }
+    }
+    
+}
+// responsive header styling
+
+@media (max-width: 1024px) {
+    .header {
+        position: relative;
+        &__hamburger {
+            display: inline-block;
+            cursor: pointer;
+
+              .bar1, .bar2, .bar3 {
+                width: 35px;
+                height: 5px;
+                background-color: #333;
+                margin: 6px 0;
+                transition: 0.4s;
+              }
+            &.active {
+                .bar1 {
+                    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+                    transform: rotate(-45deg) translate(-9px, 6px);
+                }
+                .bar2 {opacity: 0;}
+                .bar3 {
+                    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+                    transform: rotate(45deg) translate(-8px, -8px);
+                }
+            }
+        }
+        &__links {
+            z-index: 1;
+            position: absolute;
+            top: 130px;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            overflow: hidden;
+            flex-direction: column;
+            box-shadow: 0px 5px 20px 0.1px rgba(132, 145, 163, 0.5);
+            background: white;
+            transition: all .8s;
+            &.active {
+                height: 258%;
+            }
+            &__link {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                padding: 10px 0;
+                margin: 0 !important;
+                transition: all .25s;
+                &:hover {
+                    background: rgba(209, 209, 209, 1);
+                }
+            }
+            #header__right {
+                flex-direction: column;
+                .header__languages {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+                    left: -5px;
+                    &__options {
+                        display: flex;
+                        top: -5px;
+                        right: 0;
+                        left: 40px;
+                        height: 140%;
+                        width: 0%;
+                        padding: 0;
+                        border: none;
+                        &.active {
+                            border: 1px solid rgb(206, 206, 206);
+                            width: calc(100% + 42px * 3);
+                            height: 36px;
+                        }
+                        &__option {
+                            margin: 0 5px;
+                        }
+                    }
+                }
+                .header__auth-options {
+                    flex-direction: column;
+                    margin: 20px 0;
+                    width: 100%;
+                    a {
+                        text-align: center;
+                        width: 100%;
+                        margin: 5px 0;
+                    }
+                    &__register {
+                        margin: 0;
+                    }
+                    &__login {
+                        padding: 10px;
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+}

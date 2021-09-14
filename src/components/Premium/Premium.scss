@@ -1,0 +1,117 @@
+.premium {
+    min-height: calc(100% - 324px);
+    height: fit-content;
+    padding: 50px 0;
+    border: none !important;
+    &__title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 45px;
+        font-weight: 'bold';
+        font-family: 'Candara';
+        img {
+            object-fit: contain;
+            width: 45px;
+            margin-right: 10px;
+        }
+    }
+    &__desc {
+        font-family: 'Manrope';
+        font-size: 28px;
+        max-width: 1224px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 25px;
+    }
+    &__plans {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-around;
+        margin-top: 50px;
+        &__plan {
+            max-width: 370px;
+            width: 100%;
+            height: 578px;
+            box-shadow: 0px 5px 6px 1px #00000028;
+            border-radius: 19px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            padding: 15px;
+            position: relative;
+            &__recommended {
+                position: absolute;
+                width: 100%;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                justify-content: center;
+                img {
+                    width: 270px;
+                    height: 50px;
+                }
+            }
+            &__icon img {
+                object-fit: contain;
+                width: 75px;
+            }
+            &__name {
+                font-family: 'Candara';
+                font-size: 42px;
+                font-weight: bold;
+            }
+            &__price {
+                display: flex;
+                align-items: flex-end;
+                p {
+                    font-family: 'Candara';
+                    font-size: 48px;
+                    font-weight: bold;
+                    color: #3EB2FF;
+                }
+                small {
+                    color: #979393;
+                    padding-left: 15px;
+                }
+            }
+            &__options {
+                margin: 10px;
+                &__option {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 0;
+                    img {
+                        display: flex;
+                        padding-right: 50px;
+                    }
+                    p {
+                        font-family: "Manrope";
+                        font-size: 18px;   
+                    }
+
+                }
+            }
+            &__buy {
+                max-width: 210px;
+                width: 100%;
+                height: 48px;
+                color: white;
+                font-size: 26px;
+                font-family: 'Candara';
+                font-style: italic;
+                font-weight: bold;
+                background: #3E66FF;
+                margin-top: 20px;
+                transition: all .25s;
+                &:hover {
+                    background: #2f58fc;
+                }
+            }
+        }
+
+    }
+}
