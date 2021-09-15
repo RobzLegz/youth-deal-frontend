@@ -50,6 +50,42 @@ export const updateMainInfo = (
     });
 }
 
+export const updateKnowledgeJobExtra = (
+    e,
+    profileID,
+    knowledge,
+    experience,
+    extra,
+    dispatch,
+    accessToken,
+) => {
+    e.preventDefault();
+    dispatch(handleLoading(true));
+
+    const formData = new FormData();
+    formData.append("experience", experience);
+    formData.append("knowledge", knowledge);
+    formData.append("extra", extra);
+
+    const headers = {
+        headers: {
+            Authorization: `Token ${accessToken}`,
+            "Content-Type": "multipart/form-data"
+        }
+    }
+
+    axios.put(
+        `${USER_PROFILE}/${profileID}/`, 
+        formData,
+        headers
+    ).then((res) => {
+        getUserInfo(accessToken, dispatch, 2)
+        getUserInfoByID(profileID, dispatch);
+    }).catch((err) => {
+        dispatch(resetLoadingState());
+    });
+}
+
 export const updateProfileInfo = (
     profileID,
     avatar,

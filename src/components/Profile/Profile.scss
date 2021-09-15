@@ -1,3 +1,5 @@
+@import "../../scss/variables.scss";
+
 .profile {
     padding: 80px 50px;
     min-height: calc(100% - 324px);
@@ -193,6 +195,33 @@
                         &__year {
                             font-size: 19px;
                         }
+                    }
+                }
+
+                form{
+                    width: 100%;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    textarea{
+                        resize: none;
+                        width: calc(100% - 120px);
+                        height: 100%;
+                        border: 1px solid $buttonBg;
+                        outline: none;
+                        padding: 5px;
+                        border-radius: 5px;
+                        font-size: 16px;
+                        letter-spacing: normal;
+                    }
+
+                    button{
+                        width: 100px;
+                        height: 100%;
+                        color: #fff;
+                        background: $buttonBg;
                     }
                 }
             }

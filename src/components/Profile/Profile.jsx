@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './Profile.scss'
 
 import pen from '../../assets/svg/pen.svg';
+import CloseIcon from '../../assets/svg/close.svg';
 import calendar from '../../assets/svg/calendar.svg';
 import marker from '../../assets/svg/marker.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
-import EducationModal from './editModals/EducationModal/EducationModal';
-import PositionModal from './editModals/PositionModal/PositionModal';
-import KnowledgeModal from './editModals/KnowledgeModal/KnowledgeModal';
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
 import { useHistory, useParams } from 'react-router-dom';
@@ -19,13 +17,14 @@ import { useDispatch } from 'react-redux';
 import { proffessionData } from '../../slices/proffessions/proffessionSlice';
 import { getUserInfoByID } from '../../logic/user/info/getUserInfo';
 import { searchData, setSearchInfo } from '../../slices/searchresults/searchResultSlice';
+import { updateKnowledgeJobExtra } from '../../logic/user/info/updateProfileInfo';
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
-    const [editEducation, setEditEducation] = useState(false);
-    const [editPosition, setEditPosition] = useState(false);
-    const [editKnowledge, setEditKnowledge] = useState(false);
     const [isUsersProfile, setIsUsersProfile] = useState(false);
+    const [editingKnowledge, setEditingKnowledge] = useState(false);
+    const [editingLastJob, setEditingLastJob] = useState(false);
+    const [editingExtraSkills, setEditingExtraSkills] = useState(false);
 
     const {searchID} = useParams()
 
@@ -35,11 +34,23 @@ function Profile(){
     const history = useHistory();
     const dispatch = useDispatch();
 
+    const [editLastJob, setEditLastJob] = useState("");
+    const [editKnowledge, setEditKnowledge] = useState("");
+    const [editExtraSkills, setEditExtraSkills] = useState("");
+
     useEffect(() => {
         if(!userInfo.loggedIn){
             history.push("/");
         }
     }, [history, userInfo.loggedIn]);
+
+    useEffect(() => {
+        if(searchInfo.info){
+            setEditLastJob(searchInfo.info.profile.experience);
+            setEditKnowledge(searchInfo.info.profile.knowledge);
+            setEditExtraSkills(searchInfo.info.profile.extra);
+        }
+    }, [searchInfo.info]);
 
     useEffect(() => {
         if(userInfo.info){
@@ -63,22 +74,6 @@ function Profile(){
         setEditProfile(!editProfile)
     }
 
-    const updateProfileInfo = () => {
-        
-    }
-
-    const handleEducationModal = () => {
-        setEditEducation(!editEducation)
-    }
-    
-    const handlePositionModal = () => {
-        setEditPosition(!editPosition)
-    }
-
-    const handleKnowledgeModal = () => {
-        setEditKnowledge(!editKnowledge);
-    }
-
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
@@ -89,9 +84,6 @@ function Profile(){
                 <div className="profile">
         
                     {editProfile && <ProfileModal handleProfileModal={handleProfileModal} /> }
-                    {editEducation && <EducationModal updateProfileInfo={updateProfileInfo} handleEducationModal={handleEducationModal}  /> }
-                    {editPosition && <PositionModal updateProfileInfo={updateProfileInfo} handlePositionModal={handlePositionModal}  /> }
-                    {editKnowledge && <KnowledgeModal updateProfileInfo={updateProfileInfo} handleKnowledgeModal={handleKnowledgeModal}  /> }
         
                     <div className="profile__left">
         
@@ -154,10 +146,21 @@ function Profile(){
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
                                             <p className='profile__right__section__header__title'>Izglītība</p>
-                                            {isUsersProfile && (<img src={pen} alt="edit" />)}
+                                            {isUsersProfile && (<img src={editingKnowledge ? CloseIcon : pen} alt="edit" onClick={() => setEditingKnowledge(!editingKnowledge)} />)}
                                         </div>
                                         <div className="profile__right__section__items">
-                                            <p>{searchInfo.info.profile.knowledge}</p>
+                                            {editingKnowledge ? (
+                                                <form>
+                                                    <textarea 
+                                                        value={editKnowledge}
+                                                        onChange={(e) => setEditKnowledge(e.target.value)}
+                                                        type="text" 
+                                                    ></textarea>
+                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditKnowledge(false)}}>Saglabāt</button>
+                                                </form>
+                                            ) : (
+                                                <p>{searchInfo.info.profile.knowledge}</p>
+                                            )}
                                         </div>
                                     </section>
                                 )}
@@ -165,10 +168,21 @@ function Profile(){
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
                                             <p className='profile__right__section__header__title'>{userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"} amats</p>
-                                            {isUsersProfile && (<img src={pen} alt="edit" />)}
+                                            {isUsersProfile && (<img src={editingLastJob ? CloseIcon : pen} alt="edit" onClick={() => setEditingLastJob(!editingLastJob)} />)}
                                         </div>
                                         <div className="profile__right__section__items">
-                                            <p>{searchInfo.info.profile.experience}</p>
+                                            {editingLastJob ? (
+                                                <form>
+                                                    <textarea 
+                                                        value={editLastJob}
+                                                        onChange={(e) => setEditLastJob(e.target.value)}
+                                                        type="text" 
+                                                    ></textarea>
+                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditingLastJob(false)}}>Saglabāt</button>
+                                                </form>
+                                            ) : (
+                                                <p>{searchInfo.info.profile.experience}</p>
+                                            )}
                                         </div>
                                     </section>
                                 )}
@@ -176,10 +190,21 @@ function Profile(){
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
                                             <p className='profile__right__section__header__title'>Papildus prasmes</p>
-                                            {isUsersProfile && (<img src={pen} alt="edit" />)}
+                                            {isUsersProfile && (<img src={editingExtraSkills ? CloseIcon : pen} alt="edit" onClick={() => setEditingExtraSkills(!editingExtraSkills)} />)}
                                         </div>
                                         <div className="profile__right__section__items">
-                                            <p>{searchInfo.info.profile.extra}</p>
+                                            {editingExtraSkills ? (
+                                                <form>
+                                                    <textarea 
+                                                        value={editExtraSkills}
+                                                        onChange={(e) => setEditExtraSkills(e.target.value)}
+                                                        type="text" 
+                                                    ></textarea>
+                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditingExtraSkills(false)}}>Saglabāt</button>
+                                                </form>
+                                            ) : (
+                                                <p>{searchInfo.info.profile.extra}</p>
+                                            )}
                                         </div>
                                     </section>
                                 )}
