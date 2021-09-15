@@ -67,24 +67,23 @@ function Header({categoryRef, admRef, homeTop}){
 
                 {innerWidth <= 1024 &&               
                     <div id="header__right">
-                        <div className="header__languages">
-                            <div className={`header__languages__options ${isLanguagesExpanded ? 'active' : ''}`}>
-                                <ul className="header__languages__options__option">
-                                    <li>LV</li>
-                                </ul>
-                                <ul className="header__languages__options__option">
-                                    <li>EN</li>
-                                </ul>
-                                <ul className="header__languages__options__option">
-                                    <li>RU</li>
-                                </ul>
-                            </div>
-                            <i onClick={languageExpandHandler} className={`fa fa-caret-down ${isLanguagesExpanded ? 'active' : ''}`} aria-hidden="true"></i> 
+                        <div className="header__auth-options">
+                            <button onClick={() => { history.push("/login"); }} className='header__auth-options__login'>Ieiet</button>
+                            <button onClick={() => { history.push("/register"); }} className='header__auth-options__register'>Reģistrēties</button>
                         </div>
 
-                        <div className="header__auth-options">
-                            <button onClick={() => {history.push("/register")}} className='header__auth-options__register'>Reģistrēties</button>
-                            <button onClick={() => {history.push("/login")}} className='header__auth-options__login'>Ieiet</button>
+                        <div className="header__languages">
+                                <div className={`header__languages__options ${isLanguagesExpanded ? 'active' : ''}`}>
+                                    <ul className="header__languages__options__option">
+                                        <li>LV</li>
+                                    </ul>
+                                    <ul className="header__languages__options__option">
+                                        <li>EN</li>
+                                    </ul>
+                                    <ul className="header__languages__options__option">
+                                        <li>RU</li>
+                                    </ul>
+                            </div>
                         </div>
                     </div>}
             </div>

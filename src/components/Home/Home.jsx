@@ -79,7 +79,6 @@ function Home({categoryRef, admRef, homeTop}){
                         </div>
                     </div>
                 </div>
-                <img src={vawes} alt="vawes" className="home__find-options__vawes" data-aos="fade-up" data-aos-duration="2000"></img> 
             </section>
 
             <section className="home__find-talents" id="find">
