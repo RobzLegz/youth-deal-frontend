@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import adm from '../../assets/svg/home/adm.svg';
 import contacts from '../../assets/svg/home/contacts.svg';
-import vawes from '../../assets/svg/home/waves.svg';
 import welcome from '../../assets/svg/home/welcome.svg';
 import team from '../../assets/svg/home/team.svg';
 import rightArrow from '../../assets/svg/home/rightArrow.svg';
