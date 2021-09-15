@@ -6,19 +6,24 @@ const API_EMAIL = process.env.REACT_APP_LOCATION_API_EMAIL;
 const API_TOKEN = process.env.REACT_APP_LOCATION_API_TOKEN;
 
 export const getLocationToken = (dispatch) => {
-    const headers = {
-        headers: {
-            "Accept": "application/json",
-            "api-token": API_TOKEN,
-            "user-email": API_EMAIL,
-        }
-    };
+    if(API_EMAIL && API_TOKEN){
+        const headers = {
+            headers: {
+                "Accept": "application/json",
+                "api-token": API_TOKEN,
+                "user-email": API_EMAIL,
+            }
+        };
 
-    axios.get(TOKEN_ROUTE, headers).then((res) => {
-        dispatch(setToken(res.data.auth_token));
-    }).catch((err) => {
-        console.log(err);
-    });
+        console.log(API_EMAIL)
+        console.log(API_TOKEN)
+    
+        axios.get(TOKEN_ROUTE, headers).then((res) => {
+            dispatch(setToken(res.data.auth_token));
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 }
 
 export const getCountries = (token, dispatch) => {
