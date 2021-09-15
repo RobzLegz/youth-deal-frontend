@@ -104,7 +104,11 @@ function Profile(){
                             <div className="profile__left__top__info">
                                 <div>
                                     <p>{searchInfo.info.first_name} {searchInfo.info.last_name} <span>{searchInfo.info.profile.is_active_jobseeker && '#ADM'}</span> </p>
-                                    <small>{searchInfo.info.profile.jobCategory ? searchInfo.info.profile.jobCategory : ""} {searchInfo.info.profile.job ? searchInfo.info.profile.job : ""}</small>
+                                    {searchInfo.info.profile.jobCategory && searchInfo.info.profile.job ? (
+                                        <small>{`${searchInfo.info.profile.jobCategory} | ${searchInfo.info.profile.job}`}</small>
+                                    ) : searchInfo.info.profile.job && (
+                                        <small>{searchInfo.info.profile.job}</small>
+                                    )}
                                 </div>
                             </div>
                             {isUsersProfile && (
