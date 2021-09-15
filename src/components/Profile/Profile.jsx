@@ -4,7 +4,6 @@ import './Profile.scss'
 import pen from '../../assets/svg/pen.svg';
 import calendar from '../../assets/svg/calendar.svg';
 import marker from '../../assets/svg/marker.svg';
-// import plus from '../../assets/svg/plus.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
@@ -179,7 +178,7 @@ function Profile(){
                                 {searchInfo.info.profile.extra && searchInfo.info.profile.extra !== "" && (
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Pēdējais amats</p>
+                                            <p className='profile__right__section__header__title'>Papildus prasmes</p>
                                             {isUsersProfile && (<img src={pen} alt="edit" />)}
                                         </div>
                                         <div className="profile__right__section__items">

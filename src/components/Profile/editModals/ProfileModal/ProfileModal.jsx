@@ -9,7 +9,7 @@ import { userData } from '../../../../slices/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { locationData } from '../../../../slices/locations/locationSlice';
 import { getCountryCities } from '../../../../logic/locations/getLoactionData';
-import { updateProfileInfo } from '../../../../logic/user/info/updateProfileInfo';
+import { updateMainInfo } from '../../../../logic/user/info/updateProfileInfo';
 
 function ProfileModal({handleProfileModal}){
     const userInfo = useSelector(userData);
@@ -22,8 +22,8 @@ function ProfileModal({handleProfileModal}){
     const [city, setCity] = useState(userInfo.info.profile.city);
     const [isActiveJobSeeker, setIsActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
     const [bio, setBio] = useState(userInfo.info.profile.bio);
-    const [avatar] = useState(userInfo.info.profile.photo);
-    const [noAvatar, setNoAvatar] = useState();
+    const [avatar, setAvatar] = useState(userInfo.info.profile.photo);
+    const [sendAvatar, setSendAvatar] = useState(userInfo.info.profile.photo);
 
     const [countryListOpen, setCountryListOpen] = useState(false);
     const [cityListOpen, setCityListOpen] = useState(false);
@@ -32,8 +32,8 @@ function ProfileModal({handleProfileModal}){
 
     const selectAvatar = (e) => {
         if(e.target.files && e.target.files[0]){
-            setNoAvatar(e.target.files[0]);
-            console.log(noAvatar)
+            setAvatar(URL.createObjectURL(e.target.files[0]))
+            setSendAvatar(e.target.files[0]);
         }
     }
 
@@ -43,7 +43,8 @@ function ProfileModal({handleProfileModal}){
         }
     }, [country, dispatch, locationInfo.countries]);
 
-    const sendData = () => {
+    const sendData = (e) => {
+        e.preventDefault();
         if(
             country !== userInfo.info.profile.country || 
             city !== userInfo.info.profile.city || 
@@ -54,30 +55,26 @@ function ProfileModal({handleProfileModal}){
             bio !== userInfo.info.profile.bio ||
             avatar !== userInfo.info.profile.photo
         ){
-            updateProfileInfo(
+            updateMainInfo(
                 userInfo.info.id,
-                avatar,
+                sendAvatar,
                 bio,
                 birthDate,
                 country,
                 city,
-                userInfo.info.profile.interests,
-                userInfo.info.profile.experience,
-                userInfo.info.profile.languages,
-                userInfo.info.profile.knowledge,
-                userInfo.info.profile.extra,
-                parseInt(userInfo.info.profile.profession_aka_activity),
+                26,
                 isActiveJobSeeker,
                 dispatch,
                 userInfo.accessToken
             );
+            handleProfileModal();
         }
     }
     
     return (
         <div className="profileModal">
             
-            <div className="profileModal__inner">
+            <form className="profileModal__inner" autocomplete="off">
                 <div className="profileModal__inner__close">
                     <img onClick={handleProfileModal} src={close} alt="close" />
                 </div>
@@ -137,7 +134,7 @@ function ProfileModal({handleProfileModal}){
                     <div className="profileModal__inner__personal-information__input-group">
                         <label htmlFor="country">Valsts:</label>
                         <div className="profileModal__inner__personal-information__input-group__custom-input">
-                            <div onClick={() => setCountryListOpen(!countryListOpen)}>
+                            <div onClick={() => setCountryListOpen(true)}>
                                 <img src={marker} alt="dropdown" />
                                 <input
                                     type="text"
@@ -148,7 +145,7 @@ function ProfileModal({handleProfileModal}){
                                     onChange={(e) => {setCountry(e.target.value);setCountryListOpen(true)}}
                                 />
                             </div>
-                            <img src={dropdown} alt="dropdown" />
+                            <img src={dropdown} alt="dropdown" onClick={() => setCountryListOpen(!cityListOpen)} />
                             <ul className={countryListOpen ? "profileModal__inner__personal-information__input-group__custom-input__listopened" : "profileModal__inner__personal-information__input-group__custom-input__listclosed"}>
                                 {locationInfo.countries.map((mappedCountry, i) => {
                                     if(mappedCountry && mappedCountry.country_name && mappedCountry.country_name.substr(0, country.length).toLowerCase() === country.toLowerCase()){
@@ -164,7 +161,7 @@ function ProfileModal({handleProfileModal}){
                     <div className="profileModal__inner__personal-information__input-group">
                         <label htmlFor="city">Pilsēta:</label>
                         <div className="profileModal__inner__personal-information__input-group__custom-input">
-                            <div onClick={() => setCityListOpen(!cityListOpen)}>
+                            <div onClick={() => setCityListOpen(true)}>
                                 <img src={marker} alt="dropdown" />
                                 <input
                                     type="text"
@@ -175,7 +172,7 @@ function ProfileModal({handleProfileModal}){
                                     onChange={(e) => {setCity(e.target.value);setCityListOpen(true)}}
                                 />
                             </div>
-                            <img src={dropdown} alt="dropdown" />
+                            <img src={dropdown} alt="dropdown" onClick={() => setCityListOpen(!cityListOpen)} />
                             <ul className={cityListOpen && locationInfo.countryCitys ? "profileModal__inner__personal-information__input-group__custom-input__listopened" : "profileModal__inner__personal-information__input-group__custom-input__listclosed"}>
                                 {locationInfo.countryCitys && locationInfo.countryCitys.map((mappedCity, i) => {
                                     if(mappedCity && mappedCity.state_name && mappedCity.state_name.substr(0, city.length).toLowerCase() === city.toLowerCase()){
@@ -216,11 +213,11 @@ function ProfileModal({handleProfileModal}){
                 </div>
 
                 <div className="profileModal__inner__edit-options">
-                    <button onClick={handleProfileModal}>Atpakaļ</button>
-                    <button onClick={() => sendData()}>Saglabāt</button>
+                    <button onClick={(e) => {e.preventDefault();handleProfileModal()}}>Atpakaļ</button>
+                    <button onClick={(e) => sendData(e)}>Saglabāt</button>
                 </div>
 
-            </div>
+            </form>
 
         </div>
     )

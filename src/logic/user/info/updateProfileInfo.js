@@ -1,6 +1,7 @@
 import axios from "axios";
 import { handleLoading, resetLoadingState } from "../../../slices/loading/loadingSlice";
 import { USER_PROFILE } from "../../api/apiRoutes";
+import { getUserInfo, getUserInfoByID } from "./getUserInfo";
 
 export const updateMainInfo = (
     profileID,
@@ -13,22 +14,19 @@ export const updateMainInfo = (
     activeJobSeeker,
     dispatch,
     accessToken,
-    userInfo
 ) => {
     dispatch(handleLoading(true));
 
     const formData = new FormData();
-    formData.append("photo", avatar);
+    
+    if(typeof(avatar) === "object"){
+        formData.append("photo", avatar);
+    }
     formData.append("bio", bio);
     formData.append("birth_date", birthDate);
     formData.append("country", country);
     formData.append("city", city);
-    formData.append("interests", userInfo.info.pofile.interests);
-    formData.append("experience", userInfo.info.pofile.experience);
-    formData.append("languages", userInfo.info.pofile.languages);
-    formData.append("knowledge", userInfo.info.pofile.knowledg);
-    formData.append("extra", userInfo.info.pofile.extra);
-    formData.append("profession_aka_activity", proffessionID);
+    // formData.append("profession_aka_activity", parseInt(proffessionID));
     formData.append("is_active_jobseeker", activeJobSeeker);
 
     const headers = {
@@ -43,7 +41,8 @@ export const updateMainInfo = (
         formData,
         headers
     ).then((res) => {
-        dispatch(resetLoadingState());
+        getUserInfo(accessToken, dispatch, 2)
+        getUserInfoByID(profileID, dispatch);
     }).catch((err) => {
         dispatch(resetLoadingState());
     });
