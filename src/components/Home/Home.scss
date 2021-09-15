@@ -115,18 +115,20 @@
         justify-content: space-around;
         height: 500px; 
         padding: 20px;
+        background: url(../../assets/svg/home/waves.svg) no-repeat;
+        background-position: bottom;
+        background-size: auto 300%;
         background-color:#F7F7F7;
-        z-index:2;
-        &__left h3 {
-            z-index:2;
-            font-family: 'Hammersmith One', sans-serif;
-            font-size: 2rem;
-            color: $mainColor;
-            margin-left:10px;
+        &__left {
+            h3 {
+                font-family: 'Hammersmith One', sans-serif;
+                font-size: 2rem;
+                color: $mainColor;
+                margin-left:10px;
+            }
         }
 
         &__right {
-            z-index:2;
             &__title {
                 font-size: .8rem;
                 color: $secondaryColor;
@@ -143,6 +145,7 @@
                 grid-gap: 15px;
                 font-family: 'Hammersmith One', sans-serif;
                 &__find {
+                    min-width: 230px;
                     input {
                         z-index:2;
                         cursor: pointer;
@@ -181,14 +184,6 @@
                     }
                 }
             }
-        }
-        &__vawes{
-            position:absolute;
-            z-index:1;
-            left:0;
-            top:50px;
-            width:100%;
-            
         }
     }
 }
@@ -313,10 +308,9 @@
         &__introduction {
             flex-direction: column-reverse;
             text-align: center;
+            padding: 50px 1rem;
             &__right {
-                img {
-                    max-width: 500px !important;
-                }
+                display: none;
             }
             &__left {
                 margin-top: 50px;
@@ -329,8 +323,14 @@
         }
         &__find-options {
             flex-direction: column;
+            &__left {
+                h3 {
+                    text-align: center;
+                }
+            }
         }
         &__find-talents {
+            padding: 20px 2rem;
             img {
                 margin-top: 40px;
                 max-width: 600px;
@@ -339,6 +339,25 @@
         }
         &__info {
             grid-template-columns: 1fr !important;
+            &__adm {
+                &__desc {
+                    max-width: 80%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .home {
+        &__find-options {
+            height: auto;
+            &__right {
+                width: 90%;
+                &__finds {
+                    grid-template-columns: 1fr;
+                }
+            }
         }
     }
 }
@@ -388,6 +407,9 @@
         &__info {
             &__contacts, &__adm {
                 height: 300px;
+                &__desc {
+                    max-width: 90%;
+                }
             }
         }
     }
