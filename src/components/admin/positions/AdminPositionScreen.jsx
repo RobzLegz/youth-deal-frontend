@@ -47,6 +47,7 @@ function AdminPositionScreen() {
             newProffession(newPositionCategoryID, newPositionTitle, userInfo.accessToken, dispatch);
             setNewPositionCategoryID(null);
             setNewPositionCategory(null);
+            setNewPositionTitle("");
         }
     }
 
