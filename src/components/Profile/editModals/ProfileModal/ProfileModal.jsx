@@ -11,10 +11,13 @@ import { locationData } from '../../../../slices/locations/locationSlice';
 import { getCountryCities } from '../../../../logic/locations/getLoactionData';
 import { updateMainInfo } from '../../../../logic/user/info/updateProfileInfo';
 import ProffessionPopup from '../../../popups/proffessions/ProffessionPopup';
+import { getUserJob } from '../../../../logic/user/proffessions/proffessions';
+import { proffessionData } from '../../../../slices/proffessions/proffessionSlice';
 
 function ProfileModal({handleProfileModal}){
     const userInfo = useSelector(userData);
     const locationInfo = useSelector(locationData);
+    const proffessionInfo = useSelector(proffessionData);
 
     const [name, setName] = useState(userInfo.info.first_name);
     const [surname, setSurName] = useState(userInfo.info.last_name);
@@ -25,11 +28,10 @@ function ProfileModal({handleProfileModal}){
     const [bio, setBio] = useState(userInfo.info.profile.bio);
     const [avatar, setAvatar] = useState(userInfo.info.profile.photo);
     const [sendAvatar, setSendAvatar] = useState(userInfo.info.profile.photo);
-    const [proffessionID, setProffessionID] = useState(userInfo.info.profile.proffession_aka_activity);
+    const [proffessionID, setProffessionID] = useState(userInfo.info.profile.profession_aka_activity);
 
     const [countryListOpen, setCountryListOpen] = useState(false);
     const [cityListOpen, setCityListOpen] = useState(false);
-
 
     const [proffessionListOpen, setProffessionListOpen] = useState(false);
 
@@ -41,6 +43,12 @@ function ProfileModal({handleProfileModal}){
             setSendAvatar(e.target.files[0]);
         }
     }
+
+    useEffect(() => {
+        if(proffessionID){
+            getUserJob(proffessionID, dispatch, proffessionInfo.proffessions);
+        }
+    }, [proffessionID, dispatch, proffessionInfo.proffessions]);
 
     useEffect(() => {
         if(country && country !== "" && locationInfo.countries.some(c => c.country_name === country)){
@@ -79,13 +87,6 @@ function ProfileModal({handleProfileModal}){
     return (
         <div className="profileModal">
             <form className="profileModal__inner" autoComplete="off">
-                {proffessionListOpen && (
-                    <ProffessionPopup 
-                        proffessionID={proffessionID}
-                        setProffessionID={setProffessionID}
-                        setProffessionListOpen={setProffessionListOpen}
-                    />
-                )}
                 <div className="profileModal__inner__close">
                     <img onClick={handleProfileModal} src={close} alt="close" />
                 </div>
@@ -130,6 +131,14 @@ function ProfileModal({handleProfileModal}){
                             className="profileModal__inner__personal-information__input-group__jobselection"
                             onClick={(e) => {e.preventDefault();setProffessionListOpen(true)}}
                         >{userInfo.info.profile.user_proffession ? "Mainīt" : "Izvēlēties"}</button>
+                        
+                        {proffessionListOpen && (
+                            <ProffessionPopup 
+                                proffessionID={proffessionID}
+                                setProffessionID={setProffessionID}
+                                setProffessionListOpen={setProffessionListOpen}
+                            />
+                        )}
                     </div>
 
                     <div className="profileModal__inner__personal-information__input-group">
