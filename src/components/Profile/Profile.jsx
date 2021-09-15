@@ -61,11 +61,10 @@ function Profile(){
 
     const handleProfileModal = () => {
         setEditProfile(!editProfile)
-        console.log('clicked')
     }
 
     const updateProfileInfo = () => {
-        console.log('Profile information updated')
+        
     }
 
     const handleEducationModal = () => {
@@ -89,7 +88,7 @@ function Profile(){
             return (
                 <div className="profile">
         
-                    {editProfile && <ProfileModal handleProfileModal={handleProfileModal} updateProfileInfo={updateProfileInfo} /> }
+                    {editProfile && <ProfileModal handleProfileModal={handleProfileModal} /> }
                     {editEducation && <EducationModal updateProfileInfo={updateProfileInfo} handleEducationModal={handleEducationModal}  /> }
                     {editPosition && <PositionModal updateProfileInfo={updateProfileInfo} handlePositionModal={handlePositionModal}  /> }
                     {editKnowledge && <KnowledgeModal updateProfileInfo={updateProfileInfo} handleKnowledgeModal={handleKnowledgeModal}  /> }

@@ -159,7 +159,7 @@ function ProfileModal({handleProfileModal}){
                                     onChange={(e) => {setCountry(e.target.value);setCountryListOpen(true)}}
                                 />
                             </div>
-                            <img src={dropdown} alt="dropdown" onClick={() => setCountryListOpen(!cityListOpen)} />
+                            <img src={dropdown} alt="dropdown" onClick={() => setCountryListOpen(!countryListOpen)} />
                             <ul className={countryListOpen ? "profileModal__inner__personal-information__input-group__custom-input__listopened" : "profileModal__inner__personal-information__input-group__custom-input__listclosed"}>
                                 {locationInfo.countries.map((mappedCountry, i) => {
                                     if(mappedCountry && mappedCountry.country_name && mappedCountry.country_name.substr(0, country.length).toLowerCase() === country.toLowerCase()){
