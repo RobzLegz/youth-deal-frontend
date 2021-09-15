@@ -15,9 +15,6 @@ export const getLocationToken = (dispatch) => {
             }
         };
 
-        console.log(API_EMAIL)
-        console.log(API_TOKEN)
-    
         axios.get(TOKEN_ROUTE, headers).then((res) => {
             dispatch(setToken(res.data.auth_token));
         }).catch((err) => {
