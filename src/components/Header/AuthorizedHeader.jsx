@@ -48,9 +48,9 @@ function AuthorizedHeader() {
                         <button type="submit">Meklēt</button>
                     </div>
                     <ul className="header__top__links">
-                        <li>Galvenā</li>
-                        <li>Čats</li>
-                        <li>Kontakti</li>
+                        <li onClick={() => history.push("/")}>Galvenā</li>
+                        <li onClick={() => history.push("/chat")}>Čats</li>
+                        <li onClick={() => history.push("/contacts")}>Kontakti</li>
                         <li>Paziņojumi</li>
                     </ul>
                     <div className="header__top__right">
@@ -67,7 +67,7 @@ function AuthorizedHeader() {
                             <ul>
                                 <div className="dropdown__with__icon" onClick={() => {history.push(`/profile/${userInfo.info.id}`);setOpen(false)}}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile"/><li>Mans Konts</li></div>
                                 <li>Jauna darba vakance</li>
-                                <div className="dropdown__with__icon"><img src={Crown} alt="premium" id="profile_icon"/><li>Premium</li></div>
+                                <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon"/><li>Premium</li></div>
                                 <li>Darbības</li>
                                 <li>Saglābātie</li>
                                 <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon"/><li>Latviešu</li></div>

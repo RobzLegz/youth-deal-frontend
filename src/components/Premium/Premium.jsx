@@ -1,100 +1,57 @@
-import React from 'react';
-import './Premium.scss'
-import crown from '../../assets/svg/crown.svg'
-
-// plan icons
-
-import bronze from '../../assets/svg/plans/bronze.svg'
-import silver from '../../assets/svg/plans/silver.svg'
-import gold from '../../assets/svg/plans/gold.svg'
-import recommended from '../../assets/svg/plans/recommended.svg'
-import active from '../../assets/svg/plans/active.svg'
-import inactive from '../../assets/svg/plans/inactive.svg'
+import React from 'react'
+import "./Premium.scss";
+import CrownIcon from "../../assets/svg/crown.svg";
+import SecureIcon from "../../assets/svg/premium/secure.svg";
+import AdIcon from "../../assets/svg/premium/ad.svg";
+import CommunicationIcon from "../../assets/svg/premium/communication.svg";
+import FolderIcon from "../../assets/svg/premium/folder.svg";
 
 function Premium() {
-
-    const options = {
-        bronze: [
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: false, option: 'Option'},
-            {active: false, option: 'Option'},
-            {active: false, option: 'Option'},
-        ],
-        silver: [
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: false, option: 'Option'},
-            {active: false, option: 'Option'},
-        ],
-        gold: [
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-            {active: true, option: 'Option'},
-        ],
-    }
-
-    const plans = [
-        {id: 1, name: 'Bronzas Plāns', price: '3,99', icon: bronze, options: options.bronze},
-        {id: 2, name: 'Zelta Plāns', recommended: true, price: '7,99', icon: gold, options: options.gold},
-        {id: 3, name: 'Sudraba Plāns', price: '5,99', icon: silver, options: options.silver}
-    ]
-
     return (
-        <div className='premium'>
-            <h1 className='premium__title'>
-                <img src={crown} alt="Crown" />
-                Prēmiju cenu Plāni    
-            </h1>            
-            <p className='premium__desc'>
-                Šeit var iegādāties mūsu premium tarifus. Tas dos Jums jaunus Premium funkcijas, kuri atvērs jaunu 
-                Youth Deal funkcionalitāti. Esiet augšpusē ar Premium!    
-            </p>            
-        
-            <div className="premium__plans">
-                {plans.map((plan, i) => (
-
-                    <div key={i} id={plan.name} className="premium__plans__plan" style={ plan.recommended && {height: "650px"}}>
-                  
-                        {plan.recommended &&
-                            <div className="premium__plans__plan__recommended">
-                                <img src={recommended} alt="" />
-                            </div>
-                        }
-
-                        <div className="premium__plans__plan__icon">
-                            <img style={plan.recommended && {width: '100px'}} src={plan.icon} alt={plan.name} />
-                        </div>
-
-                        <p className="premium__plans__plan__name">{plan.name}</p>
-
-                        <div className="premium__plans__plan__price">
-                            <p>€{plan.price}</p> <small>/mēnesī</small>
-                        </div>
-
-                        <div className="premium__plans__plan__options">
-                            {plan.options.map((option, i) => (
-                                <div key={i} className="premium__plans__plan__options__option">
-                                    
-                                    {option.active ? <img src={active} alt="active" /> : <img src={inactive} alt="inactive" />}
-                                    
-                                    <p>{option.option}</p>
-                                
-                                </div>
-                            ))}
-                        </div>
-
-                        <button className='premium__plans__plan__buy'>Pirkt</button>
-
-                    </div>
-                ))}
+        <div className="premium">
+            <header className="premium__header">
+                <div className="premium__header__option">
+                    <img src={CrownIcon} alt="crown" />
+                    <h3>Darba devējs</h3>
+                </div>
+                <div className="premium__header__option">
+                    <img src={CrownIcon} alt="crown" />
+                    <h3>Darba ņēmējs</h3>
+                </div>
+            </header>
+            <div className="premium__body">
+                <div className="premium__body__top">
+                    <p>Šeit var iegādāties mūsu premium tarifus. Tas dos Jums jaunas Premium funkcijas, kuras atvērs jaunu Youth Deal funkcionalitāti. Esiet augšpusē ar Premium!</p>
+                </div>
+                <div className="premium__body__bottom">
+                    <ul className="premium__body__bottom__reasons">
+                        <li>
+                            <img src={SecureIcon} alt="secure" />
+                            <h4>Divpakāpju autentifikācija</h4>
+                        </li>
+                        <li>
+                            <img src={AdIcon} alt="secure" />
+                            <h4>Bez reklāmām</h4>
+                        </li>
+                        <li>
+                            <img src={FolderIcon} alt="secure" />
+                            <h4>Datu glabāšana</h4>
+                        </li>
+                        <li>
+                            <img src={CommunicationIcon} alt="secure" />
+                            <h4>Komunicēšana</h4>
+                        </li>
+                        <li>
+                            <img src={SecureIcon} alt="secure" />
+                            <h4>Un daudz vairāk</h4>
+                        </li>
+                        <button>3.99/Mēnesī. ABONĒT</button>
+                    </ul>
+                </div>
             </div>
-
+            <img src={CrownIcon} alt="" />
         </div>
     )
 }
 
-export default Premium;
+export default Premium
