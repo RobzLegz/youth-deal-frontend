@@ -5,6 +5,7 @@ export const locationSlice = createSlice({
     initialState: {
         countries: null,
         countryCitys: null,
+        token: null,
     },
     reducers: {
         getCountrys: (state, action) => {
@@ -13,12 +14,16 @@ export const locationSlice = createSlice({
         getCountryCitys: (state, action) => {
             state.countryCitys = action.payload;
         },
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
     },
 });
 
 export const { 
     getCountrys,
-    getCountryCitys
+    getCountryCitys,
+    setToken
 } = locationSlice.actions;
 
 export const locationData = (state) => state.locations;

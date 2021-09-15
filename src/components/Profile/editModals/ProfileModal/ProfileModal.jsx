@@ -52,9 +52,9 @@ function ProfileModal({handleProfileModal}){
 
     useEffect(() => {
         if(country && country !== "" && locationInfo.countries.some(c => c.country_name === country)){
-            getCountryCities(country, dispatch);
+            getCountryCities(country, dispatch, locationInfo.token);
         }
-    }, [country, dispatch, locationInfo.countries]);
+    }, [country, dispatch, locationInfo.countries, locationInfo.token]);
 
     const sendData = (e) => {
         e.preventDefault();
@@ -80,6 +80,8 @@ function ProfileModal({handleProfileModal}){
                 dispatch,
                 userInfo.accessToken
             );
+            handleProfileModal();
+        }else{
             handleProfileModal();
         }
     }

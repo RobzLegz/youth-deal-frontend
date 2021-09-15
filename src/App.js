@@ -26,7 +26,7 @@ import NewJobSearch from './components/AJS/offers/NewJobSearch';
 import { getProffessionCategories, getProffessions } from './logic/proffessions/getProffesions';
 import { proffessionData } from './slices/proffessions/proffessionSlice';
 import AdminPage from './components/admin/AdminPage';
-import { getCountries } from './logic/locations/getLoactionData';
+import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 import { locationData } from './slices/locations/locationSlice';
 
 
@@ -76,8 +76,12 @@ function App() {
   }, [userInfo.info, dispatch, userInfo, userInfo.accessToken]);
 
   useEffect(() => {
-    getCountries(dispatch);
-  }, [dispatch]);
+    if(!locationInfo.token){
+      getLocationToken(dispatch);
+    }else if(locationInfo.token && !locationInfo.countries){
+      getCountries(locationInfo.token, dispatch);
+    }
+  }, [dispatch, locationInfo.token, locationInfo.countries]);
 
   useEffect(() => {
     const accessToken = window.localStorage.getItem("accessToken");

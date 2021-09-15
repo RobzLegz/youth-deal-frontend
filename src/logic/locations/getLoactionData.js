@@ -1,13 +1,30 @@
 import axios from "axios";
-import { getCountrys, getCountryCitys } from "../../slices/locations/locationSlice";
-import { GET_COUNTRYS_ROUTE, GET_STATES_ROUTE } from "../api/locationRoutes";
+import { getCountrys, getCountryCitys, setToken } from "../../slices/locations/locationSlice";
+import { GET_COUNTRYS_ROUTE, GET_STATES_ROUTE, TOKEN_ROUTE } from "../api/locationRoutes";
 
-const COUNTRY_API_AUTH_TOKEN = process.env.REACT_APP_COUNTRY_API_AUTH_TOKEN;
+const API_EMAIL = process.env.REACT_APP_LOCATION_API_EMAIL;
+const API_TOKEN = process.env.REACT_APP_LOCATION_API_TOKEN;
 
-export const getCountries = (dispatch) => {
+export const getLocationToken = (dispatch) => {
     const headers = {
         headers: {
-            "Authorization": `Bearer ${COUNTRY_API_AUTH_TOKEN}`,
+            "Accept": "application/json",
+            "api-token": API_TOKEN,
+            "user-email": API_EMAIL,
+        }
+    };
+
+    axios.get(TOKEN_ROUTE, headers).then((res) => {
+        dispatch(setToken(res.data.auth_token));
+    }).catch((err) => {
+        console.log(err);
+    });
+}
+
+export const getCountries = (token, dispatch) => {
+    const headers = {
+        headers: {
+            "Authorization": `Bearer ${token}`,
             "Accept": "application/json"
         }
     };
@@ -19,10 +36,10 @@ export const getCountries = (dispatch) => {
     });
 };
 
-export const getCountryCities = (country, dispatch) => {
+export const getCountryCities = (country, dispatch, token) => {
     const headers = {
         headers: {
-            "Authorization": `Bearer ${COUNTRY_API_AUTH_TOKEN}`,
+            "Authorization": `Bearer ${token}`,
             "Accept": "application/json"
         }
     };
