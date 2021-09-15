@@ -4,7 +4,6 @@ import './Profile.scss'
 import pen from '../../assets/svg/pen.svg';
 import calendar from '../../assets/svg/calendar.svg';
 import marker from '../../assets/svg/marker.svg';
-import plus from '../../assets/svg/plus.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
@@ -62,11 +61,10 @@ function Profile(){
 
     const handleProfileModal = () => {
         setEditProfile(!editProfile)
-        console.log('clicked')
     }
 
     const updateProfileInfo = () => {
-        console.log('Profile information updated')
+        
     }
 
     const handleEducationModal = () => {
@@ -81,12 +79,6 @@ function Profile(){
         setEditKnowledge(!editKnowledge);
     }
 
-    const [user] = useState({
-        jobTaker: true,
-        adm: true,
-        onlineStatus: 'online',
-    })
-
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
@@ -96,7 +88,7 @@ function Profile(){
             return (
                 <div className="profile">
         
-                    {editProfile && <ProfileModal handleProfileModal={handleProfileModal} updateProfileInfo={updateProfileInfo} /> }
+                    {editProfile && <ProfileModal handleProfileModal={handleProfileModal} /> }
                     {editEducation && <EducationModal updateProfileInfo={updateProfileInfo} handleEducationModal={handleEducationModal}  /> }
                     {editPosition && <PositionModal updateProfileInfo={updateProfileInfo} handlePositionModal={handlePositionModal}  /> }
                     {editKnowledge && <KnowledgeModal updateProfileInfo={updateProfileInfo} handleKnowledgeModal={handleKnowledgeModal}  /> }
@@ -107,7 +99,7 @@ function Profile(){
                            
                             <div className="profile__left__top__img-wrapper">
                                 <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
-                                <div className='onlineStatus' id={user.onlineStatus || 'offline'}></div>
+                                {/* <div className='onlineStatus' id={user.onlineStatus || 'offline'}></div> */}
                             </div>
                             <div className="profile__left__top__info">
                                 <div>
@@ -150,9 +142,9 @@ function Profile(){
                     </div>
         
                     {
-                        searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== "" || 
-                        searchInfo.info.profile.experience && searchInfo.info.profile.experience !== "" || 
-                        searchInfo.info.profile.extra && searchInfo.info.profile.extra !== "" ? (
+                        searchInfo.info.profile.knowledge || 
+                        searchInfo.info.profile.experience || 
+                        searchInfo.info.profile.extra  ? (
                             <div className="profile__right">
                                 {searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== "" && (
                                     <section className="profile__right__section">
@@ -168,7 +160,7 @@ function Profile(){
                                 {searchInfo.info.profile.experience && searchInfo.info.profile.experience !== "" && (
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Pēdējais amats</p>
+                                            <p className='profile__right__section__header__title'>{userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"} amats</p>
                                             {isUsersProfile && (<img src={pen} alt="edit" />)}
                                         </div>
                                         <div className="profile__right__section__items">
@@ -179,7 +171,7 @@ function Profile(){
                                 {searchInfo.info.profile.extra && searchInfo.info.profile.extra !== "" && (
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Pēdējais amats</p>
+                                            <p className='profile__right__section__header__title'>Papildus prasmes</p>
                                             {isUsersProfile && (<img src={pen} alt="edit" />)}
                                         </div>
                                         <div className="profile__right__section__items">
