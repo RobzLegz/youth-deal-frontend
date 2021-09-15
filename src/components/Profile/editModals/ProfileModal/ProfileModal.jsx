@@ -33,7 +33,7 @@ function ProfileModal({handleProfileModal}){
     const selectAvatar = (e) => {
         if(e.target.files && e.target.files[0]){
             setNoAvatar(e.target.files[0]);
-            console.log(e.target.files[0])
+            console.log(noAvatar)
         }
     }
 

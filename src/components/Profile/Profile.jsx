@@ -4,7 +4,7 @@ import './Profile.scss'
 import pen from '../../assets/svg/pen.svg';
 import calendar from '../../assets/svg/calendar.svg';
 import marker from '../../assets/svg/marker.svg';
-import plus from '../../assets/svg/plus.svg';
+// import plus from '../../assets/svg/plus.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
@@ -150,9 +150,9 @@ function Profile(){
                     </div>
         
                     {
-                        searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== "" || 
-                        searchInfo.info.profile.experience && searchInfo.info.profile.experience !== "" || 
-                        searchInfo.info.profile.extra && searchInfo.info.profile.extra !== "" ? (
+                        searchInfo.info.profile.knowledge || 
+                        searchInfo.info.profile.experience || 
+                        searchInfo.info.profile.extra  ? (
                             <div className="profile__right">
                                 {searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== "" && (
                                     <section className="profile__right__section">

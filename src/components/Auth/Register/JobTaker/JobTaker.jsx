@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './JobTaker.scss'
 
-import dropdown from '../../../../assets/svg/dropdown.svg';
 import jobOne from '../../../../assets/svg/jobGiver/jobGiver-1.svg';
 import { registerUser } from '../../../../logic/user/auth';
 import {useHistory} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { proffessionData } from '../../../../slices/proffessions/proffessionSlice';
 import { userData } from '../../../../slices/user/userSlice';
 
 function JobTaker(){
@@ -24,7 +22,7 @@ function JobTaker(){
         if(userInfo.loggedIn){
             history.push("/");
         }
-    }, []);
+    }, [userInfo.loggedIn, history]);
 
 
     return (
