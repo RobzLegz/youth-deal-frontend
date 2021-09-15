@@ -80,12 +80,6 @@ function Profile(){
         setEditKnowledge(!editKnowledge);
     }
 
-    const [user] = useState({
-        jobTaker: true,
-        adm: true,
-        onlineStatus: 'online',
-    })
-
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
@@ -106,7 +100,7 @@ function Profile(){
                            
                             <div className="profile__left__top__img-wrapper">
                                 <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
-                                <div className='onlineStatus' id={user.onlineStatus || 'offline'}></div>
+                                {/* <div className='onlineStatus' id={user.onlineStatus || 'offline'}></div> */}
                             </div>
                             <div className="profile__left__top__info">
                                 <div>

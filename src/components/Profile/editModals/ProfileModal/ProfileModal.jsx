@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { locationData } from '../../../../slices/locations/locationSlice';
 import { getCountryCities } from '../../../../logic/locations/getLoactionData';
 import { updateMainInfo } from '../../../../logic/user/info/updateProfileInfo';
+import ProffessionPopup from '../../../popups/proffessions/ProffessionPopup';
 
 function ProfileModal({handleProfileModal}){
     const userInfo = useSelector(userData);
@@ -24,9 +25,13 @@ function ProfileModal({handleProfileModal}){
     const [bio, setBio] = useState(userInfo.info.profile.bio);
     const [avatar, setAvatar] = useState(userInfo.info.profile.photo);
     const [sendAvatar, setSendAvatar] = useState(userInfo.info.profile.photo);
+    const [proffessionID, setProffessionID] = useState(userInfo.info.profile.proffession_aka_activity);
 
     const [countryListOpen, setCountryListOpen] = useState(false);
     const [cityListOpen, setCityListOpen] = useState(false);
+
+
+    const [proffessionListOpen, setProffessionListOpen] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -62,7 +67,7 @@ function ProfileModal({handleProfileModal}){
                 birthDate,
                 country,
                 city,
-                26,
+                proffessionID,
                 isActiveJobSeeker,
                 dispatch,
                 userInfo.accessToken
@@ -73,8 +78,14 @@ function ProfileModal({handleProfileModal}){
     
     return (
         <div className="profileModal">
-            
-            <form className="profileModal__inner" autocomplete="off">
+            <form className="profileModal__inner" autoComplete="off">
+                {proffessionListOpen && (
+                    <ProffessionPopup 
+                        proffessionID={proffessionID}
+                        setProffessionID={setProffessionID}
+                        setProffessionListOpen={setProffessionListOpen}
+                    />
+                )}
                 <div className="profileModal__inner__close">
                     <img onClick={handleProfileModal} src={close} alt="close" />
                 </div>
@@ -114,8 +125,11 @@ function ProfileModal({handleProfileModal}){
                     </div>
 
                     <div className="profileModal__inner__personal-information__input-group">
-                        <label>Profesija</label>
-                        <button className="profileModal__inner__personal-information__input-group__jobselection">Izvēlēties</button>
+                        <label>Profesija{userInfo.info.profile.user_proffession && `: ${userInfo.info.profile.user_proffession}`}</label>
+                        <button 
+                            className="profileModal__inner__personal-information__input-group__jobselection"
+                            onClick={(e) => {e.preventDefault();setProffessionListOpen(true)}}
+                        >{userInfo.info.profile.user_proffession ? "Mainīt" : "Izvēlēties"}</button>
                     </div>
 
                     <div className="profileModal__inner__personal-information__input-group">
@@ -190,11 +204,11 @@ function ProfileModal({handleProfileModal}){
                         <div className="profileModal__inner__personal-information__input-group__admbuttons">
                             <button 
                                 className={isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
-                                onClick={() => setIsActiveJobSeeker(true)}
+                                onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(true)}}
                             >Jā</button>
                             <button 
                                 className={!isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
-                                onClick={() => setIsActiveJobSeeker(false)}
+                                onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(false)}}
                             >Nē</button>
                         </div>
                     </div>

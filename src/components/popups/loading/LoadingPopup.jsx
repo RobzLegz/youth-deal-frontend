@@ -4,11 +4,11 @@ import "./LoadingPopup.scss"
 function LoadingPopup() {
     return (
         <div className="loading__popup">
-            <div class="loading__popup__loader">
-                <div class="loading__popup__loader__first" id="dash"></div>
-                <div class="loading__popup__loader__second" id="dash"></div>
-                <div class="loading__popup__loader__third" id="dash"></div>
-                <div class="loading__popup__loader__fourth" id="dash"></div>
+            <div className="loading__popup__loader">
+                <div className="loading__popup__loader__first" id="dash"></div>
+                <div className="loading__popup__loader__second" id="dash"></div>
+                <div className="loading__popup__loader__third" id="dash"></div>
+                <div className="loading__popup__loader__fourth" id="dash"></div>
             </div>
             <h1>
                 <span>Y</span>

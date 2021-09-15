@@ -54,11 +54,14 @@ function App() {
 
   useEffect(() => {
     if(userInfo){
+      const localAccessToken = window.localStorage.getItem("accessToken");
+      let accessToken = null;
 
-      if(userInfo.accessToken){
-        console.log(userInfo.accessToken)
+      if(userInfo.accessToken && userInfo.accessToken !== ""){
+        accessToken = userInfo.accessToken;
+      }else if(localAccessToken){
+        accessToken = localAccessToken;
       }
-      const accessToken = window.localStorage.getItem("accessToken");
 
       if(accessToken){
         dispatch(updateLoadingStage(1));

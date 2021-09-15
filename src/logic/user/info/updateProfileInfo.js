@@ -26,7 +26,9 @@ export const updateMainInfo = (
     formData.append("birth_date", birthDate);
     formData.append("country", country);
     formData.append("city", city);
-    // formData.append("profession_aka_activity", parseInt(proffessionID));
+    if(proffessionID){
+        formData.append("profession_aka_activity", parseInt(proffessionID));
+    }
     formData.append("is_active_jobseeker", activeJobSeeker);
 
     const headers = {
