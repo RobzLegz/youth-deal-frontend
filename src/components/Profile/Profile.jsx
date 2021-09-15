@@ -160,7 +160,7 @@ function Profile(){
                                 {searchInfo.info.profile.experience && searchInfo.info.profile.experience !== "" && (
                                     <section className="profile__right__section">
                                         <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Pēdējais amats</p>
+                                            <p className='profile__right__section__header__title'>{userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"} amats</p>
                                             {isUsersProfile && (<img src={pen} alt="edit" />)}
                                         </div>
                                         <div className="profile__right__section__items">
