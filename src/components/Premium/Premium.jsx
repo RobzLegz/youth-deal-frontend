@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Premium.scss";
 import CrownIcon from "../../assets/svg/crown.svg";
 // import AdIcon from "../../assets/svg/premium/ad.svg";
@@ -12,21 +12,30 @@ import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
 import MoreIcon from "../../assets/svg/premium/more.svg";
 
 function Premium() {
+    const [premiumShocase, setPremiumShocase] = useState("jobGiver");
+
     return (
         <div className="premium">
             <header className="premium__header">
-                <div className="premium__header__option">
+                <div 
+                    className={premiumShocase === "jobGiver" ? "premium__header__optionActive" : "premium__header__option"}
+                    onClick={() => setPremiumShocase("jobGiver")}
+                >
                     <img src={CrownIcon} alt="crown" />
                     <h3>Darba devējs</h3>
                 </div>
-                <div className="premium__header__option">
+                <div 
+                    className={premiumShocase === "jobSeeker" ? "premium__header__optionActive" : "premium__header__option"}
+                    onClick={() => setPremiumShocase("jobSeeker")}    
+                >
                     <img src={CrownIcon} alt="crown" />
                     <h3>Darba ņēmējs</h3>
                 </div>
             </header>
             <div className="premium__body">
                 <div className="premium__body__top">
-                    <p>Šeit var iegādāties mūsu premium tarifus. Tas dos Jums jaunas Premium funkcijas, kuras atvērs jaunu Youth Deal funkcionalitāti. Esiet augšpusē ar Premium!</p>
+                    <p>Šeit var iegādāties mūsu premium tarifus. Tas dos Jums jaunas Premium funkcijas, kuras atvērs jaunu Youth Deal funkcionalitāti.</p>
+                    <p>Esiet augšpusē ar Premium!</p>
                 </div>
                 <div className="premium__body__bottom">
                     <ul className="premium__body__bottom__reasons">

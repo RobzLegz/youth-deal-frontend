@@ -170,11 +170,15 @@ function App() {
   
   
             <Route path='/premium'>
-              <Header 
-                homeTop={homeTop}
-                categoryRef={categoryRef}
-                admRef={admRef}
-              />
+              {userInfo.loggedIn ? (
+                <AuthorizedHeader />
+              ) : (
+                <Header 
+                  homeTop={homeTop}
+                  categoryRef={categoryRef}
+                  admRef={admRef}
+                />
+              )}
               <Premium />
               <Footer />
             </Route>
