@@ -5,7 +5,7 @@ import CrownIcon from "../../assets/svg/crown.svg";
 // import CommunicationIcon from "../../assets/svg/premium/communication.svg";
 import FolderIcon from "../../assets/svg/premium/folder.svg";
 // import ArrowRightCircleIcon from "../../assets/svg/premium/arrow-right-circle.svg";
-// import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
+import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
 import SecureIcon from "../../assets/svg/premium/secure.svg";
 import BlockedIcon from "../../assets/svg/premium/blocked.svg";
 import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
@@ -53,7 +53,7 @@ function Premium() {
                         <button>3.99/Mēnesī. ABONĒT</button>
                     </ul>
                     <div className="premium__body__bottom__imageContainer">
-                        <img src={PremiumIcon} alt="premium" />
+                        <img src={PremiumSuccessIcon} alt="premium" />
                     </div>
                 </div>
             </div>
