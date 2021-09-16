@@ -7,6 +7,7 @@ import { locationData, resetCountryCities } from '../../../slices/locations/loca
 import { userData } from '../../../slices/user/userSlice';
 import { getCountryCities } from '../../../logic/locations/getLoactionData';
 import { newPossition } from '../../../logic/company/positions/positions';
+import { useHistory } from 'react-router-dom';
 
 function NewJobOffer() {
     const proffessionInfo = useSelector(proffessionData);
@@ -31,13 +32,17 @@ function NewJobOffer() {
     const [firstLoad, setFirstLoad] = useState(true);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
+        if(userInfo.info && !userInfo.info.is_employer){
+            history.push("/");
+        }
         if(firstLoad){
             dispatch(resetCountryCities());
             setFirstLoad(false);
         }
-    }, [dispatch, firstLoad]);
+    }, [dispatch, firstLoad, history, userInfo.info]);
 
     const getCitys = () => {
         if(country && country !== lastSearchCountry && locationInfo.countries.some(c => c.country_name === country)){
