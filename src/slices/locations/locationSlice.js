@@ -17,13 +17,17 @@ export const locationSlice = createSlice({
         setToken: (state, action) => {
             state.token = action.payload;
         },
+        resetCountryCities: (state) => {
+            state.countryCitys = null;
+        },
     },
 });
 
 export const { 
     getCountrys,
     getCountryCitys,
-    setToken
+    setToken,
+    resetCountryCities
 } = locationSlice.actions;
 
 export const locationData = (state) => state.locations;

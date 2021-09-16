@@ -7,19 +7,16 @@ import Bookmark2 from '../../assets/svg/bookmark2.svg';
 
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
-import { searchData, setSearchInfo } from '../../slices/searchresults/searchResultSlice';
-import { useHistory, useParams } from 'react-router-dom';
-import { getUserProffession } from '../../logic/user/proffessions/proffessions';
+import { useHistory } from 'react-router-dom';
+import { getUserJobNoSearch } from '../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
 import { proffessionData } from '../../slices/proffessions/proffessionSlice';
-import { getUserInfoByID } from '../../logic/user/info/getUserInfo';
 
 import LoadingPopup from '../popups/loading/LoadingPopup';
 import ScrollJobs from './JobsPanel/ScrollJobs';
 import SwipeJobs from './JobsPanel/SwipeJobs';
 
 function AuthorizedHome() {
-    // Temp data for developement
     const contacts = Array(5).fill({
         name: "Pseidons",
         avatar: "https://group.renault.com/wp-content/uploads/2021/03/nouveau_logo_renault_banner.jpg",
@@ -42,21 +39,13 @@ function AuthorizedHome() {
         price: "1000"
     });
 
-    const [isUsersProfile, setIsUsersProfile] = useState(false);
     const [activeJobPanel, setActiveJobPanel] = useState(<ScrollJobs jobs={jobs} />);
     const [activeJobOption, setActiveJobOption] = useState('longterm');
 
-    const { searchID } = useParams();
-
     const userInfo = useSelector(userData);
-    const searchInfo = useSelector(searchData);
     const proffessionInfo = useSelector(proffessionData);
     const history = useHistory();
     const dispatch = useDispatch();
-
-    const [editLastJob, setEditLastJob] = useState("");
-    const [editKnowledge, setEditKnowledge] = useState("");
-    const [editExtraSkills, setEditExtraSkills] = useState("");
 
     useEffect(() => {
         if (!userInfo.loggedIn) {
@@ -65,46 +54,25 @@ function AuthorizedHome() {
     }, [history, userInfo.loggedIn]);
 
     useEffect(() => {
-        if (searchInfo.info) {
-            setEditLastJob(searchInfo.info.profile.experience);
-            setEditKnowledge(searchInfo.info.profile.knowledge);
-            setEditExtraSkills(searchInfo.info.profile.extra);
+        if (userInfo.info && !userInfo.info.is_employer) {
+            getUserJobNoSearch(userInfo.info.id, dispatch, proffessionInfo.proffessions);
         }
-    }, [searchInfo.info]);
+    }, [userInfo.info, dispatch, proffessionInfo.proffessions]);
 
-
-    useEffect(() => {
-        if (userInfo.info) {
-            if (userInfo.info.id === parseInt(searchID)) {
-                dispatch(setSearchInfo(userInfo.info));
-                setIsUsersProfile(true);
-            } else {
-                getUserInfoByID(searchID, dispatch);
-                setIsUsersProfile(false);
-            }
-        }
-    }, [userInfo.info, searchID, dispatch, proffessionInfo.proffessions]);
-
-    useEffect(() => {
-        if (searchInfo.info && !searchInfo.info.is_employer) {
-            getUserProffession(searchInfo.info.profile.profession_aka_activity, dispatch, proffessionInfo.proffessions);
-        }
-    }, [searchInfo.info, dispatch, proffessionInfo.proffessions]);
-
-    if (searchInfo.info) {
+    if (userInfo.info) {
         return (
             <div className="auth-home">
 
                 <div className="auth-home__left">
                     <div className="panel">
                         <div className="auth-home__left__user">
-                            <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
+                            <img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="avatar" />
                             <div className="username-wrapper">
-                                <h2>{searchInfo.info.first_name} {searchInfo.info.last_name} <span>{searchInfo.info.profile.is_active_jobseeker && '#AMD'}</span></h2>
-                                {searchInfo.info.profile.jobCategory && searchInfo.info.profile.job ? (
-                                    <small>{`${searchInfo.info.profile.jobCategory} | ${searchInfo.info.profile.job}`}</small>
-                                ) : searchInfo.info.profile.job && (
-                                    <small>{searchInfo.info.profile.job}</small>
+                                <h2>{userInfo.info.first_name} {userInfo.info.last_name} <span>{userInfo.info.profile.is_active_jobseeker && '#AMD'}</span></h2>
+                                {userInfo.info.profile.jobCategory && userInfo.info.profile.job ? (
+                                    <small>{`${userInfo.info.profile.jobCategory} | ${userInfo.info.profile.job}`}</small>
+                                ) : userInfo.info.profile.job && (
+                                    <small>{userInfo.info.profile.job}</small>
                                 )}
                             </div>
                         </div>
@@ -116,7 +84,7 @@ function AuthorizedHome() {
                             <p>Atrodiet savus kontaktus, lai ar viņiem tērzētu</p>
                         </div>
                         <div className="auth-home__left__saved">
-                            <p><img src={Bookmark2} alt="" /> Saglabātie</p>
+                            <p><img src={Bookmark2} alt="bookmark" /> Saglabātie</p>
                         </div>
                     </div>
                 </div>
@@ -153,8 +121,8 @@ function AuthorizedHome() {
                 <div className="auth-home__right">
                     <h2>Čats</h2>
                     <div className="auth-home__right__chat panel">
-                        {contacts.map((contact) =>
-                            <div className="auth-home__right__chat__contact">
+                        {contacts.map((contact, i) =>
+                            <div className="auth-home__right__chat__contact" key={i}>
                                 <img src={contact.avatar} alt="renault" />
                                 <div className="auth-home__right__chat__contact__info">
                                     <p id="username">{contact.name}</p>
@@ -167,8 +135,8 @@ function AuthorizedHome() {
 
                     <h2>Recomendācijas</h2>
                     <div className="auth-home__right__recomendations panel">
-                        {recomendations.map((recomendation) =>
-                            <div className="auth-home__right__recomendations__recomendation">
+                        {recomendations.map((recomendation, i) =>
+                            <div className="auth-home__right__recomendations__recomendation" key={i}>
                                 <img src={recomendation.avatar} alt="avatar" />
                                 <div className="info">
                                     <p id="name">{recomendation.name}</p>
@@ -182,7 +150,7 @@ function AuthorizedHome() {
                 </div>
 
             </div >
-        )
+        );
     } else {
         return <LoadingPopup />;
     }

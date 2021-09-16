@@ -19,7 +19,7 @@ export const getUserProffession = (id, dispatch, allOccupations) => {
     }
 }
 
-export const getUserJob = (id, dispatch, allOccupations) => {
+export const getUserJobNoSearch = (id, dispatch, allOccupations) => {
     if(id){
         axios.get(`${ONE_OCCUPATION}/${id}/`).then((res) => {
             dispatch(setUserProffession(res.data.title));

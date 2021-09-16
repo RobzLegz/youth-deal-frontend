@@ -11,7 +11,7 @@ import { locationData } from '../../../../slices/locations/locationSlice';
 import { getCountryCities } from '../../../../logic/locations/getLoactionData';
 import { updateMainInfo } from '../../../../logic/user/info/updateProfileInfo';
 import ProffessionPopup from '../../../popups/proffessions/ProffessionPopup';
-import { getUserJob } from '../../../../logic/user/proffessions/proffessions';
+import { getUserJobNoSearch } from '../../../../logic/user/proffessions/proffessions';
 import { proffessionData } from '../../../../slices/proffessions/proffessionSlice';
 
 function ProfileModal({handleProfileModal}){
@@ -46,7 +46,7 @@ function ProfileModal({handleProfileModal}){
 
     useEffect(() => {
         if(proffessionID){
-            getUserJob(proffessionID, dispatch, proffessionInfo.proffessions);
+            getUserJobNoSearch(proffessionID, dispatch, proffessionInfo.proffessions);
         }
     }, [proffessionID, dispatch, proffessionInfo.proffessions]);
 

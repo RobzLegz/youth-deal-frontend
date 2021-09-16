@@ -1,24 +1,109 @@
-.premium{
-    &_header{
-        &__option{
+@import "../../scss/variables.scss";
 
+.premium{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 100px 500px;
+    
+    &__header{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__option,
+        &__optionActive{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            img{
+                height: 30px;
+                width: 30px;
+            }
+
+            h3{
+                margin-left: 10px;
+            }
+        }
+
+        &__option{
+            border-bottom: 3px #fff solid;
+            opacity: 0.7;
+        }
+
+        &__optionActive{
+            border-bottom: 3px #3E66FF solid;
         }
     }
 
     &__body{
-        &__top{
+        margin-top: 50px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
 
+        &__top{
+            height: 140px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            p{
+                font-size: 20px;
+                color: #505050;
+            }
         }
 
         &__bottom{
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
 
             &__reasons{
+                list-style: none;
 
+                li{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin-bottom: 15px;
+
+                    img{
+                        width: 30px;
+                        height: 30px;
+                    }
+
+                    h4{
+                        margin-left: 20px;
+                        font-size: 16px;
+                    }
+                }
+
+                button{
+                    width: 100%;
+                    height: 40px;
+                    background: $buttonBg;
+                    color: #fff;
+                    margin-top: 40px;
+                }
             }
 
             &__imageContainer{
                 img{
-                    
+                    width: 350px;
                 }
             }
         }

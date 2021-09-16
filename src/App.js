@@ -22,12 +22,12 @@ import AuthorizedHome from './components/Home/AuthorizedHome';
 import AuthorizedHeader from './components/Header/AuthorizedHeader';
 import { handleLoading, loadingData, updateLoadingStage } from './slices/loading/loadingSlice';
 import LoadingPopup from './components/popups/loading/LoadingPopup';
-import NewJobSearch from './components/AJS/offers/NewJobSearch';
 import { getProffessionCategories, getProffessions } from './logic/proffessions/getProffesions';
 import { proffessionData } from './slices/proffessions/proffessionSlice';
 import AdminPage from './components/admin/AdminPage';
 import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 import { locationData } from './slices/locations/locationSlice';
+import NewJobOffer from './components/new/jobOffer/NewJobOffer';
 
 
 function App() {
@@ -170,11 +170,15 @@ function App() {
   
   
             <Route path='/premium'>
-              <Header 
-                homeTop={homeTop}
-                categoryRef={categoryRef}
-                admRef={admRef}
-              />
+              {userInfo.loggedIn ? (
+                <AuthorizedHeader />
+              ) : (
+                <Header 
+                  homeTop={homeTop}
+                  categoryRef={categoryRef}
+                  admRef={admRef}
+                />
+              )}
               <Premium />
               <Footer />
             </Route>
@@ -185,16 +189,17 @@ function App() {
               <Footer />
             </Route>
   
-            <Route path='/profile/settings'>
+            <Route path='/settings'>
               <ProfileSettings />
               <Footer />
             </Route>
   
             {userInfo.loggedIn && (
-              <Route path="/new/jobsearch">
-                <NewJobSearch />
+              <Route path="/new/jobOffer">
+                <AuthorizedHeader />
+                <NewJobOffer />
               </Route>
-            )}          
+            )}
   
             <Route path='/'>
               {userInfo.loggedIn ? (
