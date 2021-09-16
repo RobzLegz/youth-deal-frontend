@@ -72,6 +72,7 @@ function AuthorizedHome() {
         }
     }, [searchInfo.info]);
 
+
     useEffect(() => {
         if (userInfo.info) {
             if (userInfo.info.id === parseInt(searchID)) {
