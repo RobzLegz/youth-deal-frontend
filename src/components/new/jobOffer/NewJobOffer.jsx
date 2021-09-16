@@ -176,7 +176,7 @@ function NewJobOffer() {
                             {showCountries && (
                                 <ul>
                                     {
-                                        country && locationInfo.countries.map((mappedCountry, i) => {
+                                        locationInfo.countries.map((mappedCountry, i) => {
                                             if(mappedCountry.country_name.substr(0, country.length).toLowerCase() === country.toLowerCase()){
                                                 return <li key={i} onClick={() => {setCountry(mappedCountry.country_name);getCitys()}}>{mappedCountry.country_name}</li>
                                             };
