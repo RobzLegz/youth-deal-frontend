@@ -1,11 +1,10 @@
 import axios from "axios";
 import { COMPANY_POSITIONS, COMPANY_POSITION_OPTIONS } from "../../api/apiRoutes";
 
-export const newPossition = (occupation, info, tools, city, country, languages, requirements, priceRange, contractType, accessToken) => {
+export const newPossition = (occupation, info, city, country, languages, requirements, priceRange, contractType, accessToken) => {
     const data = {
         position_occupation: occupation,
         position_info: info,
-        position_tools: tools,
         position_city: city,
         position_country: country,
         position_languages: languages,
