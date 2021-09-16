@@ -1,10 +1,15 @@
 import React from 'react'
 import "./Premium.scss";
 import CrownIcon from "../../assets/svg/crown.svg";
-import SecureIcon from "../../assets/svg/premium/secure.svg";
 import AdIcon from "../../assets/svg/premium/ad.svg";
 import CommunicationIcon from "../../assets/svg/premium/communication.svg";
 import FolderIcon from "../../assets/svg/premium/folder.svg";
+import ArrowRightCircleIcon from "../../assets/svg/premium/arrow-right-circle.svg";
+import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
+import SecureIcon from "../../assets/svg/premium/secure.svg";
+import BlockedIcon from "../../assets/svg/premium/blocked.svg";
+import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
+import MoreIcon from "../../assets/svg/premium/more.svg";
 
 function Premium() {
     return (
@@ -30,7 +35,7 @@ function Premium() {
                             <h4>Divpakāpju autentifikācija</h4>
                         </li>
                         <li>
-                            <img src={AdIcon} alt="secure" />
+                            <img src={BlockedIcon} alt="secure" />
                             <h4>Bez reklāmām</h4>
                         </li>
                         <li>
@@ -38,15 +43,18 @@ function Premium() {
                             <h4>Datu glabāšana</h4>
                         </li>
                         <li>
-                            <img src={CommunicationIcon} alt="secure" />
+                            <img src={CoordinationIcon} alt="secure" />
                             <h4>Komunicēšana</h4>
                         </li>
                         <li>
-                            <img src={SecureIcon} alt="secure" />
+                            <img src={MoreIcon} alt="secure" />
                             <h4>Un daudz vairāk</h4>
                         </li>
                         <button>3.99/Mēnesī. ABONĒT</button>
                     </ul>
+                    <div className="premium__body__bottom__imageContainer">
+                        <img src={PremiumIcon} alt="premium" />
+                    </div>
                 </div>
             </div>
             <img src={CrownIcon} alt="" />
