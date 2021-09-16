@@ -74,7 +74,7 @@ function AuthorizedHeader() {
                         <div className="dropdown">
                             <ul>
                                 <div className="dropdown__with__icon" onClick={() => {history.push(`/profile/${userInfo.info.id}`);setOpen(false)}}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile"/><li>Mans Konts</li></div>
-                                <li>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
+                                <li onClick={() => history.push(`/${isCompany ? "new/jobOffer" : ""}`)}>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
                                 <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon"/><li>Premium</li></div>
                                 <li>Darbības</li>
                                 <li>Saglābātie</li>

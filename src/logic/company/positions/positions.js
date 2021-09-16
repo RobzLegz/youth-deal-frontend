@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setJobOffers } from "../../../slices/info/infoSlice";
 import { COMPANY_POSITIONS, COMPANY_POSITION_OPTIONS } from "../../api/apiRoutes";
 
 export const newPossition = (occupation, info, city, country, requirements, priceRange, contractType, accessToken) => {
@@ -76,9 +77,9 @@ export const deletePossition = (id, accessToken) => {
     });
 };
 
-export const getPossitions = () => {
+export const getPossitions = (dispatch) => {
     axios.get(COMPANY_POSITION_OPTIONS).then((res) => {
-        console.log(res.data)
+        dispatch(setJobOffers(res.data));
     }).catch((err) => {
         console.log(err)
     });
