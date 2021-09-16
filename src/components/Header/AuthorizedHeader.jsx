@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import dropdown from '../../assets/svg/dropdown.svg'
 import Crown from '../../assets/svg/crown.svg'
 import Language from '../../assets/svg/global.svg'
@@ -12,22 +12,26 @@ import { proffessionData } from '../../slices/proffessions/proffessionSlice'
 import Avatar from '../../assets/svg/avatar.svg';
 
 function AuthorizedHeader() {
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    const [isHamburgerActive, setIsHamburgerActive] = useState(false)
     const [search, setSearch] = useState("");
-    const [open, setOpen] = useState(false);
 
     const proffessionInfo = useSelector(proffessionData);
     const userInfo = useSelector(userData);
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [isCompany, setIsCompany] = useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        if(userInfo.info.is_employer){
-            setIsCompany(true);
-        }
-    }, [userInfo.info.is_employer]);
+        window.addEventListener('resize', function (e) {
+            setInnerWidth(e.target.innerWidth);
+        });
+    }, []);
 
+    function handleHamburger() {
+        setIsHamburgerActive(!isHamburgerActive);
+    }
 
     const logout = () => {
         window.localStorage.removeItem("accessToken");
@@ -35,7 +39,78 @@ function AuthorizedHeader() {
         history.push("/");
     };
 
-    if(userInfo.info){
+    const SearchBar = () => {
+        return <div className="header__search">
+            <input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Cilvēki, nosaukumi,kompānijas..."
+            />
+            <button type="submit">Meklēt</button>
+        </div>
+    };
+
+    const TopLinks = () => {
+        return <ul className="header__top__links">
+            <li onClick={() => history.push("/")}>Galvenā</li>
+            <li onClick={() => history.push("/chat")}>Čats</li>
+            <li onClick={() => history.push("/contacts")}>Kontakti</li>
+            <li>Paziņojumi</li>
+        </ul>
+    };
+
+    const TopRight = ({ mobile }) => {
+        return <div className="header__top__right">
+            <div className="header__top__right__user-wrapper" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}>
+                <img
+                    className="header__top__right__user-wrapper__profile__image"
+                    src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar}
+                    alt="profile"
+                />
+                <p>{userInfo.info.first_name} {userInfo.info.last_name}</p>
+            </div>
+            <div onClick={() => setOpen(!open)}>
+                {innerWidth < 1024 && <p>Extra Options</p>}
+                <img src={dropdown} alt="dropdown" id="dropdown" />
+            </div>
+            {open && (
+                <div className="dropdown">
+                    <ul>
+                        <div className="dropdown__with__icon" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile" /><li>Mans Konts</li></div>
+                        <li>Jauna darba vakance</li>
+                        <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon" /><li>Premium</li></div>
+                        <li>Darbības</li>
+                        <li>Saglābātie</li>
+                        <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
+                        <li>€ EUR</li>
+                        <li>Iestatījumi</li>
+                        {userInfo.info.isAdmin && (
+                            <li onClick={() => { history.push("/admin"); setOpen(false); }}>Admin</li>
+                        )}
+                        <li className="dropdown__last" onClick={logout}>Iziet</li>
+                    </ul>
+                </div>
+            )}
+        </div>;
+    };
+
+    const Hamburger = () => {
+        return <div onClick={handleHamburger} className={`header__top__hamburger ${isHamburgerActive ? 'active' : ''}`}>
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
+        </div>;
+    };
+
+    const Dropdown = () => {
+        return <div className={`header__dropdown ${isHamburgerActive ? 'active' : ''}`}>
+            <SearchBar />
+            <TopLinks />
+            <TopRight mobile={true} />
+        </div>;
+    };
+
+    if (userInfo.info) {
         return (
             <nav>
                 <div className="header__top">
@@ -43,54 +118,17 @@ function AuthorizedHeader() {
                         <svg className="header__top__left__logo" alt="Web Logo" onClick={() => history.push("/")} xmlns="http://www.w3.org/2000/svg" width="282.734" height="121.223" viewBox="0 0 282.734 121.223">
                             <g id="Logo" transform="translate(4.725 3.5)">
                                 <g id="Group_2" data-name="Group 2" transform="translate(0 13.723)">
-                                <text id="Youth_Deal" data-name="Youth Deal" transform="translate(0 67)" fill="#3e66ff" fontSize="41" fontFamily="Bungee-Regular, Bungee"><tspan x="0" y="0" fill="#000">Youth </tspan><tspan y="0" fill="#3e66ff">Deal</tspan></text>
+                                    <text id="Youth_Deal" data-name="Youth Deal" transform="translate(0 67)" fill="#3e66ff" fontSize="41" fontFamily="Bungee-Regular, Bungee"><tspan x="0" y="0" fill="#000">Youth </tspan><tspan y="0" fill="#3e66ff">Deal</tspan></text>
                                 </g>
-                                <path id="Path_4" data-name="Path 4" d="M0,4.593S52.391-22.854,120.791-22.854,273.6,4.593,273.6,4.593" transform="translate(0 22.854)" fill="none" stroke="#01f" strokeLinecap="round" strokeWidth="7" strokeDasharray="25"/>
+                                <path id="Path_4" data-name="Path 4" d="M0,4.593S52.391-22.854,120.791-22.854,273.6,4.593,273.6,4.593" transform="translate(0 22.854)" fill="none" stroke="#01f" strokeLinecap="round" strokeWidth="7" strokeDasharray="25" />
                             </g>
                         </svg>
-                        <input 
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            placeholder="Cilvēki, nosaukumi,kompānijas..."
-                        />
-                        <button type="submit">Meklēt</button>
+                        {innerWidth > 1024 && <SearchBar />}
                     </div>
-                    <ul className="header__top__links">
-                        <li onClick={() => history.push("/")}>Galvenā</li>
-                        <li onClick={() => history.push("/chat")}>Čats</li>
-                        <li onClick={() => history.push("/contacts")}>Kontakti</li>
-                        <li>Paziņojumi</li>
-                    </ul>
-                    <div className="header__top__right">
-                        <img 
-                            className="header__top__right__profile__image" 
-                            src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} 
-                            alt="profile" 
-                            onClick={() => {history.push(`/profile/${userInfo.info.id}`);setOpen(false)}}
-                        />
-                        <p>{userInfo.info.name}</p>
-                        <img src={dropdown} alt="dropdown" id="dropdown" onClick={() => setOpen(!open)}/>
-                        {open && (
-                        <div className="dropdown">
-                            <ul>
-                                <div className="dropdown__with__icon" onClick={() => {history.push(`/profile/${userInfo.info.id}`);setOpen(false)}}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile"/><li>Mans Konts</li></div>
-                                <li>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
-                                <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon"/><li>Premium</li></div>
-                                <li>Darbības</li>
-                                <li>Saglābātie</li>
-                                <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon"/><li>Latviešu</li></div>
-                                <li>€ EUR</li>
-                                <li onClick={() => history.push(`/settings`)}>Iestatījumi</li>
-                                {userInfo.info.isAdmin && (
-                                    <li onClick={() => {history.push("/admin");setOpen(false)}}>Admin</li>
-                                )}
-                                <li className="dropdown__last" onClick={logout}>Iziet</li>
-                            </ul>
-                        </div>
-                        )}
-                    </div>
+                    {innerWidth > 1024 && <TopLinks />}
+                    {innerWidth > 1024 && <TopRight mobile={false} />}
+                    {innerWidth <= 1024 && <Hamburger />}
                 </div>
-                
                 <div className="header__bottom">
                     <li className="header__bottom__link">#ADM</li>
                     <li className="header__bottom__link">Darba vakances</li>
@@ -103,6 +141,7 @@ function AuthorizedHeader() {
                         </div>    
                     </li>
                 </div>
+                {innerWidth <= 1024 && <Dropdown />}
             </nav>
         )
     }else{
