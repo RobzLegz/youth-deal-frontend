@@ -1,0 +1,55 @@
+.job-panel {
+    margin-bottom: 3rem;
+    &__top {
+        display: flex;
+        img {
+            padding-right: 5px;
+            border-radius: 50%;
+            height: 40px;
+        }
+        .info {
+            width: 100%;
+            small {
+                color: #8b8b8b;
+                font-size: 14px;
+            }
+        }
+        button {
+            background-color: #3E66FF;
+            color: white;
+            font-weight: bold;
+            border: none;
+            padding: 0 12px;
+            white-space: nowrap;
+            height: 26px;
+        }
+    }
+    img {
+        max-width: 100%;
+    }
+    h2 {
+        padding: 0 1.2rem !important;
+    }
+    &__requirements {
+        display: flex;
+        padding: .8rem 1.2rem !important;
+        &__requirement {
+            background-color: #3E66FF;
+            color: white;
+            font-weight: bold;
+            padding: 6px 4px;
+            margin-right: .6rem;
+            max-width: fit-content;
+            border-radius: 5px;
+        }
+    }
+    &__bottom {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid lightgray;
+        img {
+            padding-top: .5rem;
+            height: 30px;
+        }
+    }
+}
