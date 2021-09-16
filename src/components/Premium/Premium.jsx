@@ -1,11 +1,11 @@
 import React from 'react'
 import "./Premium.scss";
 import CrownIcon from "../../assets/svg/crown.svg";
-import AdIcon from "../../assets/svg/premium/ad.svg";
-import CommunicationIcon from "../../assets/svg/premium/communication.svg";
+// import AdIcon from "../../assets/svg/premium/ad.svg";
+// import CommunicationIcon from "../../assets/svg/premium/communication.svg";
 import FolderIcon from "../../assets/svg/premium/folder.svg";
-import ArrowRightCircleIcon from "../../assets/svg/premium/arrow-right-circle.svg";
-import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
+// import ArrowRightCircleIcon from "../../assets/svg/premium/arrow-right-circle.svg";
+// import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
 import SecureIcon from "../../assets/svg/premium/secure.svg";
 import BlockedIcon from "../../assets/svg/premium/blocked.svg";
 import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
@@ -57,7 +57,6 @@ function Premium() {
                     </div>
                 </div>
             </div>
-            <img src={CrownIcon} alt="" />
         </div>
     )
 }
