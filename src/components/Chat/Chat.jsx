@@ -7,10 +7,12 @@ import Contacts from './Contacts/Contacts';
 import {io} from "socket.io-client";
 import {useSelector} from "react-redux";
 import {userData} from "../../slices/user/userSlice"
+import Avatar from '../../assets/svg/avatar.svg'
 
 function Chat() {
     const userInfo = useSelector(userData)
 
+    const [contactsToggled, setContactsToggled] = useState(false)
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
@@ -64,6 +66,10 @@ function Chat() {
     //   }, [currentChat]);
 
 
+    function handleContactsToggle() {
+        setContactsToggled(!contactsToggled);
+    }
+
     function handleOptionsPopup() {
         setIsOptionsPopup(() => {
             if (isOptionsPopup) {
@@ -78,10 +84,11 @@ function Chat() {
         <div id={'chat-container'}>
 
             
-            <Contacts />
+            <Contacts active={contactsToggled} handleToggle={handleContactsToggle} />
             <div className="chat">
                 <div className="chat__header">
                     <div className="chat__header__profile-info">
+                        <img src={Avatar} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
                         <img src="https://group.renault.com/wp-content/uploads/2021/03/nouveau_logo_renault_banner.jpg" alt="renault" />
                         
                         <div className="chat__header__profile-info__text">

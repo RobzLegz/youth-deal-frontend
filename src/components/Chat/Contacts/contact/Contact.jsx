@@ -8,7 +8,7 @@ function Contact({chat}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
 
     const userInfo = useSelector(userData);
-    let otherMembers = chat.users.find(m => m !== userInfo.info.id)
+    let otherMembers = parseInt(chat.users.find(m => m !== userInfo.info.id.toString()))
     
     useEffect(() => {
         if(!chatMemberInfo){

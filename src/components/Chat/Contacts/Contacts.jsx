@@ -5,16 +5,17 @@ import { useSelector } from 'react-redux';
 import { chatData } from '../../../slices/chat/chatSlice';
 import { userData } from '../../../slices/user/userSlice';
 import Contact from './contact/Contact';
+import Close from '../../../assets/svg/close.svg'
 
-
-function Contacts() {
+function Contacts({ active, handleToggle }) {
     const chatInfo = useSelector(chatData);
     const userInfo = useSelector(userData);
     
     return(
-        <div className="contacts-container">
+        <div className={`contacts-container ${active ? 'active' : ''}`}>
             <header className="contacts-container__header">
                 <p>Pēdējie kontakti</p>
+                <img src={Close} alt="close" onClick={() => handleToggle()} className="contacts-container__header__close" />
             </header>
             <div className="contacts-container__contacts">
                 

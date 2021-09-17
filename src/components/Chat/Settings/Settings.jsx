@@ -36,7 +36,7 @@ function Settings({closePopup}){
                     <>
                         <header className="settings__inner__header">
                         {stage > 0 && (
-                            <svg onClick={() => setStage(0)} className="settings__inner__header__back" xmlns="http://www.w3.org/2000/svg" width="8" height="12.947" viewBox="0 0 8 12.947">
+                            <svg onClick={() => setStage(0)} className="settings__inner__header__back" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 12.947">
                                 <g id="left-chevron_9_" data-name="left-chevron(9)" transform="translate(-48.907)">
                                 <g id="Group_56" data-name="Group 56" transform="translate(48.907)">
                                     <g id="Group_55" data-name="Group 55">
@@ -52,7 +52,7 @@ function Settings({closePopup}){
                             {stage === 2 && 'Bloķētie kontakti'}
                             {stage === 3 && 'Palīdzība'}
                         </p>
-                        <svg className='settings__inner__header__close' onClick={closePopup} xmlns="http://www.w3.org/2000/svg" width="11.615" height="11.452" viewBox="0 0 11.615 11.452">
+                        <svg className='settings__inner__header__close' onClick={closePopup} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.615 11.452">
                             <line id="Line_36" data-name="Line 36" y2="12.195" transform="translate(1.414 1.414) rotate(-45)" fill="none" stroke="#b2b2b2" stroke-linecap="round" stroke-width="2"/>
                             <path id="Path_353" data-name="Path 353" d="M0,0H12.195" transform="translate(1.577 10.037) rotate(-45)" fill="none" stroke="#b2b2b2" stroke-linecap="round" stroke-width="2"/>
                         </svg>
@@ -83,7 +83,7 @@ function Settings({closePopup}){
                                     <div key={user.id} className="settings__inner__main__stage__blocked-user">
                                         <img src={user.img} className="settings__inner__main__stage__blocked-user__avatar" alt='user-avatar' />
                                         <p className="settings__inner__main__stage__blocked-user__username">{user.username}</p>
-                                        <svg onClick={() => handleUnblockUserPopup(user.id, false)}className="settings__inner__main__stage__blocked-user__unblock" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 11 11">
+                                        <svg onClick={() => handleUnblockUserPopup(user.id, false)}className="settings__inner__main__stage__blocked-user__unblock" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 11">
                                             <circle id="Ellipse_164" data-name="Ellipse 164" cx="5.5" cy="5.5" r="5.5" fill="#ff8183"/>
                                             <line id="Line_52" data-name="Line 52" y2="5.798" transform="translate(3.322 3.389) rotate(-45)" fill="none" stroke="#ff0007" stroke-linecap="round" stroke-width="1"/>
                                             <path id="Path_388" data-name="Path 388" d="M0,0H5.8" transform="translate(3.4 7.489) rotate(-45)" fill="#f90007" stroke="#ff0007" stroke-linecap="round" stroke-width="1"/>

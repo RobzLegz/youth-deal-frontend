@@ -37,4 +37,5 @@ input::-webkit-inner-spin-button {
 }
 .App{
   width: 100%;
+  overflow: hidden;
 }

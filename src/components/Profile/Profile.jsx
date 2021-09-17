@@ -220,6 +220,7 @@ function Profile(){
                         ) : (
                             <div className="profile__right">
                                 <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
+                                {isUsersProfile && (<button className="profile__right__add-entry">Pievieno Ierakstu</button>)}
                             </div>
                         )
                     }

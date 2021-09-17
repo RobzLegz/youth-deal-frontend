@@ -12,7 +12,6 @@
     z-index: 1;
     &__inner {
         background: white;
-        padding: 20px;
         border-radius: 16px;
         width: 250px;
         &__unblock-popup {
@@ -55,14 +54,16 @@
         &__header {
             display: flex;
             align-items: center;
-            padding: 10px 0;
+            padding: 0 20px;
             border-bottom: .5px solid #A4A3A3;
             &__title {
+                padding: 10px;
                 width: 100%;
                 text-align: center;
             }
             &__close, &__back {
                 cursor: pointer;
+                height: 20px;
             }
             &__back {
                 position: relative;
@@ -71,6 +72,7 @@
         }
         &__main {
             padding: 25px 0;
+            padding: 20px;
             @include scrollbar;
             &__stage {
                 max-height: 400px;
@@ -103,6 +105,7 @@
                     }
                     &__unblock {
                         cursor: pointer;
+                        height: 40px;
                     }
                 }
             }
