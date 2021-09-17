@@ -4,7 +4,6 @@ import { getUserChatInfo } from '../../../../logic/user/info/getUserInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import Avatar from '../../../../assets/svg/avatar.svg';
 import Option from '../../../../assets/svg/options-icon-no-background.svg'
-import { activateChat } from '../../../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
 
 function Contact({chat}) {
@@ -12,7 +11,6 @@ function Contact({chat}) {
     const [contactOptionsActive, setContactOptionsActive] = useState(false);
 
     const history = useHistory();
-    const dispatch = useDispatch();
 
     const userInfo = useSelector(userData);
     let otherMembers = parseInt(chat.users.find(m => m !== userInfo.info.id.toString()))
@@ -23,12 +21,9 @@ function Contact({chat}) {
         }
     }, [chatMemberInfo, otherMembers]);
 
-    console.log(chat)
-
-
     if(chatMemberInfo){
         return(
-            <div className="contacts-container__contacts__contacts-list__contact" onClick={() => activateChat(chat._id, chatMemberInfo.profile.photo, `${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`, dispatch, history)}>
+            <div className="contacts-container__contacts__contacts-list__contact" onClick={() => history.push(`/chats/${chat._id}`)}>
                 <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar" />
                 <div className="contacts-container__contacts__contacts-list__contact__info">
                     <p id="username">{chatMemberInfo.first_name} {chatMemberInfo.last_name}</p>

@@ -2,6 +2,7 @@ import { CHAT_ID_OPTIONS, MESSAGE_OPTIONS, NEW_CHAT, USER_CHATS } from "./chatRo
 import axios from "axios"
 import { handleLoading, resetLoadingState } from "../../slices/loading/loadingSlice";
 import { setActiveChat, setChats } from "../../slices/chat/chatSlice";
+import { getUserChatHeaderInfo } from "../user/info/getUserInfo";
 
 export const getUserChats = (accessToken, dispatch) => {
     dispatch(handleLoading(true));
@@ -46,6 +47,16 @@ export const deleteChat = (id) => {
     if(id){
         axios.delete(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
             console.log(res.data);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+};
+
+export const getChatByID = (id, userID, dispatch) => {
+    if(id){
+        axios.get(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
+            getUserChatHeaderInfo(res.data.users.find(m => parseInt(m.user) !== parseInt(userID)).user, dispatch);
         }).catch((err) => {
             console.log(err);
         });

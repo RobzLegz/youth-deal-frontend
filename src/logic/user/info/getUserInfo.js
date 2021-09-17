@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setActiveChat } from "../../../slices/chat/chatSlice";
 import { handleLoading, resetLoadingState, updateLoadingMessage, updateLoadingStage, updateTotalStages } from "../../../slices/loading/loadingSlice";
 import { setSearchInfo } from "../../../slices/searchresults/searchResultSlice";
 import { login, setUserInfo } from "../../../slices/user/userSlice";
@@ -46,5 +47,14 @@ export const getUserChatInfo = (userID, setChatMemberInfo) => {
         setChatMemberInfo(res.data)
     }).catch((err) => {
         setChatMemberInfo(null)
+    });
+};
+
+
+export const getUserChatHeaderInfo = (user, dispatch) => {
+    axios.get(`${USER_INFO}/${user}`).then((res) => {
+        dispatch(setActiveChat(res.data));
+    }).catch((err) => {
+        console.log(err)
     });
 };
