@@ -13,56 +13,7 @@ import { userData } from '../../../../slices/user/userSlice';
 import { Link } from 'react-router-dom';
 
 function JobGiver(){
-    // const [companyName, setCompanyName] = useState('');
-    // const [companyLocation, setCompanyLocation] = useState('')
-    // const [companyCity, setCompanyCity] = useState('')
-    // const [companySpecialization, setCompanySpecialization] = useState('');
-    // const [companyDescription, setCompanyDescription] = useState('');
-    // const [companyEmail, setCompanyEmail] = useState('');
-    // const [isRevealPwd, setIsRevealPwd] = useState(false);
-    // const [companySize, setCompanySize] = useState('');
-    // const [companyPhone, setCompanyPhone] = useState('');
-    // const [companyPhoneCode, setCompanyPhoneCode] = useState('');
-    // const [companyLogo, setCompanyLogo] = useState('');
-    // const [countriesList, setCountriesList] = useState([]);
-    
-    // const companySizes = ['1-20', '20-50', '50-100', '100-500', '500+'];
-
-    // const [showCountriesList, setShowCountriesList] = useState(false);
-    // const [showCompanySizes, setShowCompanySizes] = useState(false);
-    // const [success, setSuccess] = useState(false);
-
-
-    // useEffect(() => {
-    //     setCountries();
-    // }, [])
-
-    // useEffect(() => {
-    //     if(success){
-    //         history.push("/login");
-    //     }
-    // }, [success, history])
-
-    // function setCountries() {
-    //     const listOfCountries = Object.keys(countries.countries).map(cont => countries.countries[cont])
-    //     listOfCountries.sort();
-    //     setCountriesList(listOfCountries)
-    // }
-
-    // function handleCountryClick(country) {
-    //     setShowCountriesList(false);
-    //     setCompanyPhoneCode('+' + country.phone)
-    //     setCompanyLocation(country.name)
-    // }
-
-    // const handleCountriesDropdown = () => {
-    //     setShowCountriesList(!showCountriesList);
-    // }
-    // const handleCompanySizesDropdown = () => {
-    //     setShowCompanySizes(!showCompanySizes);
-    // }
     const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isRevealPwd, setIsRevealPwd] = useState(false);
@@ -147,18 +98,18 @@ function JobGiver(){
                 
                 <div className="company__right">
                     <div className="company__right__input-group">
-                        <input className="company__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="company__right__input-group__input" placeholder='' required/>
+                        <input className="company__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' placeholder='' required/>
                         <label className="company__right__input-group__label" htmlFor="name">Uzņēmuma nosaukums:</label>
                     </div>           
                     <div className="company__right__input-group">
-                        <input className="company__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="company__right__input-group__input" placeholder='' required/>
+                        <input className="company__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' placeholder='' required/>
                         <label className="company__right__input-group__label" htmlFor="email">Uzņēmuma e-pasts:</label>
                     </div>        
                     {(emailDirty && emailError) && <div className="company__right__error"style={{color:"#FA4251"}}>{emailError}</div>}
                     <div className="company__right__input-group">
-                        <input className="company__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' className="company__right__input-group__input" placeholder='' autoComplete="off" required/>
+                        <input className="company__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' placeholder='' autoComplete="off" required/>
                         <label className="company__right__input-group__label" htmlFor="password">Parole:</label>
-                        <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="company__right__input-group__eye"></img>
+                        <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} />
                     </div>   
                     {(passwordDirty && passwordError) && <div className="company__right__error"style={{color:"#FA4251"}}>{passwordError}</div>}
                     <div className="company__right__checkbox">
@@ -167,12 +118,11 @@ function JobGiver(){
                     </div>
                     <button type='submit' onClick={(e) => {
                         e.preventDefault();
-                        if (name !== "" && surname !== "" && email !== "" && password !== ""){
+                        if (name !== "" && email !== "" && password !== ""){
                             registerUser(
                                 email,
                                 password,
                                 name,
-                                surname,
                                 dispatch
                             );
                         }

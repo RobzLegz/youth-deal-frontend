@@ -1,7 +1,7 @@
 import { CHAT_ID_OPTIONS, MESSAGE_OPTIONS, NEW_CHAT, USER_CHATS } from "./chatRoutes"
 import axios from "axios"
 import { handleLoading, resetLoadingState } from "../../slices/loading/loadingSlice";
-import { setActiveChat, setChats } from "../../slices/chat/chatSlice";
+import { setActiveChat, setActiveChatID, setActiveChatMessages, setChats } from "../../slices/chat/chatSlice";
 import { getUserChatHeaderInfo } from "../user/info/getUserInfo";
 
 export const getUserChats = (accessToken, dispatch) => {
@@ -11,7 +11,6 @@ export const getUserChats = (accessToken, dispatch) => {
         axios.get(`${USER_CHATS}/${accessToken}`).then((res) => {
             dispatch(setChats(res.data));
             dispatch(resetLoadingState());
-            console.log(res.data)
         }).catch((err) => {
             console.log(err);
             dispatch(resetLoadingState());
@@ -56,6 +55,7 @@ export const deleteChat = (id) => {
 export const getChatByID = (id, userID, dispatch) => {
     if(id){
         axios.get(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
+            dispatch(setActiveChatID(res.data._id));
             getUserChatHeaderInfo(res.data.users.find(m => parseInt(m.user) !== parseInt(userID)).user, dispatch);
         }).catch((err) => {
             console.log(err);
@@ -63,7 +63,7 @@ export const getChatByID = (id, userID, dispatch) => {
     }
 };
 
-export const newMessage = (senderID, receiverID, chatID, text) => {
+export const newMessage = (senderID, receiverID, chatID, text, dispatch) => {
     if(senderID && receiverID && chatID && text){
         const data = {
             senderAccesstoken: senderID, 
@@ -73,17 +73,17 @@ export const newMessage = (senderID, receiverID, chatID, text) => {
         };
 
         axios.post(MESSAGE_OPTIONS, data).then((res) => {
-            console.log(res.data);
+            getChatMessages(chatID, dispatch);
         }).catch((err) => {
             console.log(err);
         });
     }
 };
 
-export const getChatMessages = (chatID) => {
+export const getChatMessages = (chatID, dispatch) => {
     if(chatID){
         axios.get(`${MESSAGE_OPTIONS}/${chatID}`).then((res) => {
-            console.log(res.data);
+            dispatch(setActiveChatMessages(res.data));
         }).catch((err) => {
             console.log(err);
         });

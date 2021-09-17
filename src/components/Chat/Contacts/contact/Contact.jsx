@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getUserChatInfo } from '../../../../logic/user/info/getUserInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import Avatar from '../../../../assets/svg/avatar.svg';
+import CloseIcon from '../../../../assets/svg/close.svg';
 import Option from '../../../../assets/svg/options-icon-no-background.svg'
 import {useHistory} from "react-router-dom"
 
@@ -31,6 +32,9 @@ function Contact({chat}) {
                 <img src={Option} alt="options" className="contacts-container__contacts__contacts-list__contact__options" onClick={() => setContactOptionsActive(true)} />
                 {contactOptionsActive && (
                     <ul className="contacts-container__contacts__contacts-list__options">
+                        <div className="contacts-container__contacts__contacts-list__options__header">
+                            <img src={CloseIcon} alt="close" onClick={() => setContactOptionsActive(false)} />
+                        </div>
                         <li>delete chat</li>
                     </ul>
                 )}

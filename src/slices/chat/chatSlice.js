@@ -7,6 +7,7 @@ export const chatSlice = createSlice({
         chats: null,
         onlineUsers: null,
         activeChat: null,
+        activeChatID: null,
     },
     reducers: {
         setChats: (state, action) => {
@@ -24,6 +25,9 @@ export const chatSlice = createSlice({
         setActiveChatMessages: (state, action) => {
             state.activeChat.messages = action.payload;
         },
+        setActiveChatID: (state, action) => {
+            state.activeChatID = action.payload;
+        },
     },
 });
 
@@ -32,7 +36,8 @@ export const {
     setMessages,
     setOnlineUsers,
     setActiveChat,
-    setActiveChatMessages
+    setActiveChatMessages,
+    setActiveChatID
 } = chatSlice.actions;
 
 export const chatData = (state) => state.chat;

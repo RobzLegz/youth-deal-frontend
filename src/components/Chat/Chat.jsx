@@ -9,9 +9,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {userData} from "../../slices/user/userSlice"
 import Avatar from '../../assets/svg/avatar.svg'
 import { useParams } from 'react-router-dom';
-import { getChatByID } from '../../logic/chat/chatOptions';
-import { chatData } from '../../slices/chat/chatSlice';
+import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
+import { chatData, setActiveChatMessages, setOnlineUsers } from '../../slices/chat/chatSlice';
 import AvatarIcon from "../../assets/svg/avatar.svg"
+import { getChatMessages } from '../../logic/chat/chatOptions';
 
 function Chat() {
     const {id} = useParams();
@@ -20,11 +21,8 @@ function Chat() {
 
     const [contactsToggled, setContactsToggled] = useState(false)
     const [socket, setSocket] = useState(null);
-    const [messages, setMessages] = useState([]);
-    const [currentChat, setCurrentChat] = useState(null);
-    const [newMessage, setNewMessage] = useState("");
+    const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [onlineUsers, setOnlineUsers] = useState([]);
     const [isOptionsPopup, setIsOptionsPopup] = useState(false)
     const [userAddedToSocket, setUserAddedToSocket] = useState(false)
     const scrollRef = useRef();
@@ -34,37 +32,47 @@ function Chat() {
         if(id && userInfo.info){
             getChatByID(id, userInfo.info.id, dispatch);
         }
-    }, [id, dispatch]);
+    }, [id, dispatch, userInfo.info]);
 
     useEffect(() => {
         if(socket){
             if(!userAddedToSocket && userInfo.info){
                 socket.emit("addUser", userInfo.info.id);
                 socket.on("getUsers", users => {
-                    console.log(users)
+                    dispatch(setOnlineUsers(users));
                 })
                 setUserAddedToSocket(true);
             }
 
             socket.on("getMessage", (data) => {
                 setArrivalMessage({
-                  sender: data.senderId,
-                  text: data.text,
-                  createdAt: Date.now(),
+                    sender: data.senderId,
+                    text: data.text,
+                    createdAt: Date.now(),
                 });
             });
         }else{
-            setSocket(io("https://youth-deal-socket.herokuapp.com/"));
+            setSocket(io("ws://localhost:8900"));
         }
-    }, [socket, userInfo.info, userAddedToSocket]);
+    }, [socket, userInfo.info, userAddedToSocket, dispatch]);
 
     useEffect(() => {
-        if(arrivalMessage && currentChat){
-            if(currentChat.members.includes(arrivalMessage.sender)){
-                setMessages((prev) => [...prev, arrivalMessage]);
+        if(chatInfo.activeChat){
+            if(chatInfo.activeChat.messages){
+                if(arrivalMessage){
+                    dispatch(setActiveChatMessages([...chatInfo.activeChat.messages, arrivalMessage]))
+                }
+            }else{
+                dispatch(setActiveChatMessages([arrivalMessage]))
             }
         }
-    }, [arrivalMessage, currentChat]);
+    }, [arrivalMessage, chatInfo.activeChat, dispatch]);
+
+    useEffect(() => {
+        if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.activeChat.messages){
+            getChatMessages(chatInfo.activeChatID, dispatch);
+        }
+    }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch]);
 
     // useEffect(() => {
     //     const getMessages = async () => {
@@ -93,13 +101,26 @@ function Chat() {
         })
     }
 
+    const sendMessage = async (e) => {
+        e.preventDefault();
+
+        if(socket && messageText && messageText !== ""){
+            socket.emit("sendMessage", {
+                senderId: userInfo.info.id,
+                receiverId: chatInfo.activeChat.id,
+                text: messageText,
+            });
+      
+            newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch);
+            setMessageText("");
+        }
+    };
+
     return (
         <div id={'chat-container'}>
-
-            
             <Contacts active={contactsToggled} handleToggle={handleContactsToggle} />
-            {chatInfo.activeChat && (
-                <div className="chat">
+            {chatInfo.activeChat ? (
+                <form className="chat">
                     <div className="chat__header">
                         <div className="chat__header__profile-info">
                             <img src={Avatar} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
@@ -117,16 +138,21 @@ function Chat() {
                         </div>
                     </div>
                     <div className="chat__messages">
-                        {messages.map((msg, i) => (
-                            
-                            <div key={i} className={`chat__messages__message ${msg.author === userInfo.info.name ? 'my-msg' : 'target-msg'}`}>
-                                <div className="chat__messages__message__text-box">
-                                    <p id='msg'>{msg.message}</p>
-                                    <small id='time'>12:20</small>
-                                </div>
-                            </div>
+                        {chatInfo.activeChat.messages && chatInfo.activeChat.messages.map((msg, i) => {
+                            if(msg){
+                                let postTime = new Date(msg.createdAt).toUTCString().split(new Date().getFullYear())[1].split("GMT")[0];
 
-                        ))}
+                                return(
+                                    <div key={i} className={`chat__messages__message ${msg.sender === userInfo.info.id.toString() ? 'my-msg' : 'target-msg'}`}>
+                                        <div className="chat__messages__message__text-box">
+                                            <p id='msg'>{msg.text}</p>
+                                            <small id='time'>{postTime}</small>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            return null
+                        })}
                     </div>
                     <div className="chat__input-container">
                         <div className="chat__input-container__options">
@@ -145,15 +171,17 @@ function Chat() {
                         </svg>
                         </div>
                         <div className="chat__input-container__input">
-                            <input type="text" placeholder="Raksti šeit" />
+                            <input type="text" placeholder="Raksti šeit" onChange={(e) => setMessageText(e.target.value)} />
                         </div>
                         <div className="chat__input-container__send">
-                            <img src={sendIcon} alt="send icon" />
+                            <img src={sendIcon} alt="send icon" onClick={(e) => sendMessage(e)} />
                         </div>
                     </div>
-                </div>    
+                    <button className="chat__invizButton" onClick={(e) => sendMessage(e)}></button>
+                </form>    
+            ) : (
+                <h3>Izvēlieties kontaktu ar kuru sarakstīties</h3>
             )}
-            
         </div>
     )
 }
