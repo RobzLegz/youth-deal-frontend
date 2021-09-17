@@ -1,66 +1,198 @@
-import React, { useState } from 'react';
-
-import jobOne from '../../../../assets/svg/jobGiver/jobGiver-1.svg';
-import './JobGiver.scss';
-import { registerCompany } from '../../../../logic/company/auth/auth';
+import React, { useEffect, useState } from 'react';
+import './JobGiver.scss'
+import jobGiver from '../../../../assets/svg/jobGiver/jobGiver.svg';
+import showPwdImg from '../../../../assets/svg/eye.svg';
+import hidePwdImg from '../../../../assets/svg/eye_hide.svg';
+import facebook from '../../../../assets/svg/socials/facebook.svg';
+import google from '../../../../assets/svg/socials/google.svg';
+import { registerUser } from '../../../../logic/user/auth';
+import {useHistory} from "react-router-dom";
 import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
+import { userData } from '../../../../slices/user/userSlice';
+import { Link } from 'react-router-dom';
 
 function JobGiver(){
-    const [companyName, setCompanyName] = useState('');
-    const [companyEmail, setCompanyEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [companyName, setCompanyName] = useState('');
+    // const [companyLocation, setCompanyLocation] = useState('')
+    // const [companyCity, setCompanyCity] = useState('')
+    // const [companySpecialization, setCompanySpecialization] = useState('');
+    // const [companyDescription, setCompanyDescription] = useState('');
+    // const [companyEmail, setCompanyEmail] = useState('');
+    // const [isRevealPwd, setIsRevealPwd] = useState(false);
+    // const [companySize, setCompanySize] = useState('');
+    // const [companyPhone, setCompanyPhone] = useState('');
+    // const [companyPhoneCode, setCompanyPhoneCode] = useState('');
+    // const [companyLogo, setCompanyLogo] = useState('');
+    // const [countriesList, setCountriesList] = useState([]);
     
+    // const companySizes = ['1-20', '20-50', '50-100', '100-500', '500+'];
 
+    // const [showCountriesList, setShowCountriesList] = useState(false);
+    // const [showCompanySizes, setShowCompanySizes] = useState(false);
+    // const [success, setSuccess] = useState(false);
+
+
+    // useEffect(() => {
+    //     setCountries();
+    // }, [])
+
+    // useEffect(() => {
+    //     if(success){
+    //         history.push("/login");
+    //     }
+    // }, [success, history])
+
+    // function setCountries() {
+    //     const listOfCountries = Object.keys(countries.countries).map(cont => countries.countries[cont])
+    //     listOfCountries.sort();
+    //     setCountriesList(listOfCountries)
+    // }
+
+    // function handleCountryClick(country) {
+    //     setShowCountriesList(false);
+    //     setCompanyPhoneCode('+' + country.phone)
+    //     setCompanyLocation(country.name)
+    // }
+
+    // const handleCountriesDropdown = () => {
+    //     setShowCountriesList(!showCountriesList);
+    // }
+    // const handleCompanySizesDropdown = () => {
+    //     setShowCompanySizes(!showCompanySizes);
+    // }
+    const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isRevealPwd, setIsRevealPwd] = useState(false);
+   
+    const [emailDirty, setEmailDirty] = useState('');
+    const [passwordDirty, setPasswordDirty] = useState('');
+    const [emailError, setEmailError] = useState('E-pasts nevar būt tukšs!');
+    const [passwordError,setPasswordError] = useState('Parole nevar būt tukša!')
+
+    const history = useHistory();
     const dispatch = useDispatch();
+    const userInfo = useSelector(userData);
 
+    useEffect(() => {
+        if(userInfo.loggedIn){
+            history.push("/");
+        }
+    }, []);
+
+    useEffect(() => {
+        if(userInfo.loggedIn){
+            history.push("/");
+        }
+    }, [history, userInfo.loggedIn]);
+
+    const emailHandler = (e) =>{
+        setEmail(e.target.value)
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!re.test(String(e.target.value).toLowerCase())){
+            setEmailError('Nav pareizs E-pasts!')
+        }
+        else{
+            setEmailError('')
+        }
+        
+    }
+    const passwordHandler = (e) =>{
+        setPassword(e.target.value)
+        
+        if(e.target.value.length < 5 ) {
+            setPasswordError('Parolei ir jābūt ne mazāk nekā 5 simboli!')
+            if(!e.target.value){
+                setPasswordError('Parole nevar būt tukša!')
+            }
+        }
+        else{
+            setPasswordError('')
+        }
+    }
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            default:
+                setEmailDirty(false);
+                setPasswordDirty(false);
+            break
+
+            case 'email':
+                setEmailDirty(true)
+            break
+
+            case 'password':
+                setPasswordDirty(true)
+            break
+        }
+    }
+
+
+   
     return (
-        <div id='jobGiver' className='job'>
-            <main className='job__main'>
-                <div data-aos='fade-right' className="job__main__left">
-                    <h1 className="job__main__left__title">
-                        Uzņēmuma Reģistrācija
-                    </h1>
+        <div id='jobGiver' className='main'>
+            <div className='company'>
+                <div className='company__left'> 
+                        <h1 className="company__left__title">
+                            Uzņēmuma Reģistrācija
+                        </h1>
+                        <p className="company__left__desc">Tas neaizņems daudz laika</p>
+                        <img src={jobGiver}/>
+                        <div className="company__left__login">
+                            <p>Jau esiet reģistrēts?</p> <Link to="/login">Ieiet</Link>
+                        </div>
+                </div>
+                
+                <div className="company__right">
+                    <div className="company__right__input-group">
+                        <input className="company__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="company__right__input-group__input" placeholder='' required/>
+                        <label className="company__right__input-group__label" htmlFor="name">Uzņēmuma nosaukums:</label>
+                    </div>           
+                    <div className="company__right__input-group">
+                        <input className="company__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="company__right__input-group__input" placeholder='' required/>
+                        <label className="company__right__input-group__label" htmlFor="email">Uzņēmuma e-pasts:</label>
+                    </div>        
+                    {(emailDirty && emailError) && <div className="company__right__error"style={{color:"#FA4251"}}>{emailError}</div>}
+                    <div className="company__right__input-group">
+                        <input className="company__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' className="company__right__input-group__input" placeholder='' autoComplete="off" required/>
+                        <label className="company__right__input-group__label" htmlFor="password">Parole:</label>
+                        <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="company__right__input-group__eye"></img>
+                    </div>   
+                    {(passwordDirty && passwordError) && <div className="company__right__error"style={{color:"#FA4251"}}>{passwordError}</div>}
+                    <div className="company__right__checkbox">
+                        <input type="checkbox" id="checkbox" name="" value=""/>
+                        <label htmlFor="checkbox">Es piekrītu mūsu <u>Privātuma Politikai</u></label>
+                    </div>
+                    <button type='submit' onClick={(e) => {
+                        e.preventDefault();
+                        if (name !== "" && surname !== "" && email !== "" && password !== ""){
+                            registerUser(
+                                email,
+                                password,
+                                name,
+                                surname,
+                                dispatch
+                            );
+                        }
+                    }} className='company__right__submit'>Reģistrēties</button>
 
-                    <p className="job__main__left__desc">
-                        Ievadi datus:
-                    </p>
-
-                    <form className='job__main__left__form'>
-                        <div className="job__main__left__form__input-group">
-                            <label htmlFor="company-name">Uzņēmuma nosaukums</label>
-                            <input onChange={(e) => setCompanyName(e.target.value)} type="text" id='company-name' className="job__main__left__form__input-group__input" placeholder='Nosaukums' />
-                        </div>     
-
-                        <div className="job__main__left__form__input-group">
-                            <label htmlFor="company-email">Uzņēmuma e-pasts:</label>
-                            <input onChange={(e) => setCompanyEmail(e.target.value)} type="text" id='company-email' className="job__main__left__form__input-group__input" placeholder='Ievadiet uzņēmuma e-pastu' />
+                    <div className="company__right__divider">
+                    <span className="company__right__divider__line"></span>
+                    </div>
+                    <div className="auth__form-wrapper__socials">
+                        <div className="auth__form-wrapper__socials__social">
+                            <img src={facebook} href="https://www.facebook.com" alt="facebook" ></img>
                         </div>
 
-                        <div className="job__main__left__form__input-group">
-                            <label htmlFor="company-password">Uzņēmuma profila parole:</label>
-                            <input onChange={(e) => setPassword(e.target.value)} type="password" id='company-password' className="job__main__left__form__input-group__input" placeholder='Ievadiet paroli' />
+                        <div className="auth__form-wrapper__socials__social">
+                            <img src={google} href="https://www.google.com" alt="google" ></img>
                         </div>
-
-                        <button type='submit' className='job__main__left__form__submit' onClick={(e) => {e.preventDefault();registerCompany(
-                            companyEmail,
-                            password,
-                            companyName,
-                            dispatch
-                        )}}>Pabeigt</button>
-
-                    </form>
-
+                    </div>
                 </div>
-
-                <div data-aos='fade-left' className="job__main__right">
-                    <img src={jobOne} alt='' />
-                </div>
-
-            </main>
-                <p className="job__information-text">(Visus datus tu varēsi nomainīt pēc tam iestatījumos)</p>
-        </div>
+            </div>
+    </div>
     )
 }
-
 export default JobGiver;

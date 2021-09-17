@@ -5,6 +5,7 @@ import proffessionReducer from "../slices/proffessions/proffessionSlice";
 import searchReducer from "../slices/searchresults/searchResultSlice";
 import locationReducer from "../slices/locations/locationSlice";
 import infoReducer from "../slices/info/infoSlice";
+import chatReducer from "../slices/chat/chatSlice";
 
 export const store = configureStore({
     reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
         search: searchReducer,
         locations: locationReducer,
         info: infoReducer,
+        chat: chatReducer,
     },
 });

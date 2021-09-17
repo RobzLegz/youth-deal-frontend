@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './Chat.scss'
 import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
@@ -12,19 +12,23 @@ function Chat() {
     const userInfo = useSelector(userData)
 
     const [socket, setSocket] = useState(null);
-    const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [currentChat] = useState(null);
     const [messages, setMessages] = useState([]);
-    // const [newMessage, setNewMessage] = useState("");
+    const [currentChat, setCurrentChat] = useState(null);
+    const [newMessage, setNewMessage] = useState("");
+    const [arrivalMessage, setArrivalMessage] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
     const [isOptionsPopup, setIsOptionsPopup] = useState(false)
+    const [userAddedToSocket, setUserAddedToSocket] = useState(false)
+    const scrollRef = useRef();
 
     useEffect(() => {
         if(socket){
-            if(userInfo.info){
+            if(!userAddedToSocket && userInfo.info){
                 socket.emit("addUser", userInfo.info.id);
                 socket.on("getUsers", users => {
                     console.log(users)
                 })
+                setUserAddedToSocket(true);
             }
 
             socket.on("getMessage", (data) => {
@@ -33,18 +37,31 @@ function Chat() {
                   text: data.text,
                   createdAt: Date.now(),
                 });
-              });
+            });
         }else{
             setSocket(io("ws://localhost:8900"));
         }
-    }, [socket, userInfo.info]);
+    }, [socket, userInfo.info, userAddedToSocket]);
 
     useEffect(() => {
         if(arrivalMessage && currentChat){
-            currentChat.members.includes(arrivalMessage.sender) &&
-            setMessages((prev) => [...prev, arrivalMessage]);
+            if(currentChat.members.includes(arrivalMessage.sender)){
+                setMessages((prev) => [...prev, arrivalMessage]);
+            }
         }
-      }, [arrivalMessage, currentChat]);
+    }, [arrivalMessage, currentChat]);
+
+    // useEffect(() => {
+    //     const getMessages = async () => {
+    //         try {
+    //             const res = await axios.get("/messages/" + currentChat?._id);
+    //             setMessages(res.data);
+    //         } catch (err) {
+    //             console.log(err);
+    //         }
+    //     };
+    //     getMessages();
+    //   }, [currentChat]);
 
 
     function handleOptionsPopup() {

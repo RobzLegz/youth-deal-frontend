@@ -30,6 +30,8 @@ import { locationData } from './slices/locations/locationSlice';
 import NewJobOffer from './components/new/jobOffer/NewJobOffer';
 import { getPossitions } from './logic/company/positions/positions';
 import { infoData } from './slices/info/infoSlice';
+import { getUserChats } from './logic/chat/chatOptions';
+import { chatData } from './slices/chat/chatSlice';
 
 
 function App() {
@@ -45,6 +47,7 @@ function App() {
   const locationInfo = useSelector(locationData);
   const loadingInfo = useSelector(loadingData);
   const pageInfo = useSelector(infoData);
+  const chatInfo = useSelector(chatData);
 
   useEffect(() => {
     if(!proffessionInfo.proffessions){
@@ -77,6 +80,12 @@ function App() {
       }
     }
   }, [userInfo.info, dispatch, userInfo, userInfo.accessToken]);
+
+  useEffect(() => {
+    if(userInfo.loggedIn && userInfo.info && !chatInfo.chats){
+      getUserChats(userInfo.info.id, dispatch)
+    }
+  }, [userInfo.info, userInfo.loggedIn, chatInfo.chats, dispatch]);
 
   useEffect(() => {
     if(!locationInfo.token){

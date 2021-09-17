@@ -18,6 +18,7 @@ import { proffessionData } from '../../slices/proffessions/proffessionSlice';
 import { getUserInfoByID } from '../../logic/user/info/getUserInfo';
 import { searchData, setSearchInfo } from '../../slices/searchresults/searchResultSlice';
 import { updateKnowledgeJobExtra } from '../../logic/user/info/updateProfileInfo';
+import { NewChat } from '../../logic/chat/chatOptions';
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -102,6 +103,13 @@ function Profile(){
                                         <small>{searchInfo.info.profile.job}</small>
                                     )}
                                 </div>
+                                {!isUsersProfile && userInfo.info.id && searchInfo.info.id && (
+                                    <button
+                                        onClick={() => {
+                                            NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
+                                        }}
+                                    >Sākt saraksti</button>
+                                )}
                             </div>
                             {isUsersProfile && (
                                 <img onClick={handleProfileModal} className='profile__left__top__change-info' src={pen} alt="pen" />

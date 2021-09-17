@@ -40,3 +40,11 @@ export const getUserInfoByID = (userID, dispatch) => {
         dispatch(resetLoadingState());
     });
 };
+
+export const getUserChatInfo = (userID, setChatMemberInfo) => {
+    axios.get(`${USER_INFO}/${userID}/`).then((res) => {
+        setChatMemberInfo(res.data)
+    }).catch((err) => {
+        setChatMemberInfo(null)
+    });
+};

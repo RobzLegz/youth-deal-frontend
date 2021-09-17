@@ -48,7 +48,16 @@
             &__info {
                 height: 90px;
                 display: flex;
-                align-items: flex-end;
+                flex-direction: column;
+                justify-content:center;
+
+                button{
+                    height: 30px;
+                    margin: 10px 0 0 30px;
+                    background: $buttonBg;
+                    color: #fff;
+                }
+
                 div {
                     padding-left: 30px;
                     p {

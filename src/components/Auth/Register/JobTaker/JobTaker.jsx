@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './JobTaker.scss'
-import jobOne from '../../../../assets/svg/jobGiver/jobGiver.svg';
+import jobTaker from '../../../../assets/svg/jobTaker/jobTaker.svg';
 import showPwdImg from '../../../../assets/svg/eye.svg';
 import hidePwdImg from '../../../../assets/svg/eye_hide.svg';
 import facebook from '../../../../assets/svg/socials/facebook.svg';
@@ -27,6 +27,12 @@ function JobTaker(){
     const history = useHistory();
     const dispatch = useDispatch();
     const userInfo = useSelector(userData);
+
+    useEffect(() => {
+        if(userInfo.loggedIn){
+            history.push("/");
+        }
+    }, []);
 
     useEffect(() => {
         if(userInfo.loggedIn){
@@ -84,7 +90,7 @@ function JobTaker(){
                             Reģistrācija
                         </h1>
                         <p className="job__left__desc">Tas neaizņems daudz laika</p>
-                        <img src={jobOne} alt="job one" />
+                        <img src={jobTaker}/>
                         <div className="job__left__login">
                             <p>Jau es reģistrēts?</p> <Link to="/login">Ieiet</Link>
                         </div>
@@ -92,27 +98,30 @@ function JobTaker(){
                 
                 <div className="job__right">
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' placeholder='' required/>
+                        <input className="job__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="job__right__input-group__input" placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="name">Vārds:</label>
                     </div>        
 
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id='surname' placeholder='' required/>
+                        <input className="job__right__input-group__input" value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id='surname' className="job__right__input-group__input" placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="surname">Uzvārds:</label>
                     </div>        
 
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={email} onChange={(e) => {setEmail(e.target.value);emailHandler(e)}} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' placeholder='' required/>
+                        <input className="job__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="job__right__input-group__input" placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="email">E-pasts:</label>
                     </div>        
                     {(emailDirty && emailError) && <div className="job__right__error"style={{color:"#FA4251"}}>{emailError}</div>}
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)} value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' placeholder='' autoComplete="off" required/>
+                        <input className="job__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' className="job__right__input-group__input" placeholder='' autoComplete="off" required/>
                         <label className="job__right__input-group__label" htmlFor="password">Parole:</label>
                         <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="job__right__input-group__eye"></img>
                     </div>   
                     {(passwordDirty && passwordError) && <div className="job__right__error"style={{color:"#FA4251"}}>{passwordError}</div>}
-
+                    <div className="job__right__checkbox">
+                        <input type="checkbox" id="checkbox" name="" value=""/>
+                        <label htmlFor="checkbox">Es piekrītu mūsu <u>Privātuma Politikai</u></label>
+                    </div>
                     <button type='submit' onClick={(e) => {
                         e.preventDefault();
                         if (name !== "" && surname !== "" && email !== "" && password !== ""){
@@ -127,7 +136,7 @@ function JobTaker(){
                     }} className='job__right__submit'>Reģistrēties</button>
 
                     <div className="job__right__divider">
-                    <span className="job__right__divider__line"></span>
+                        <span className="job__right__divider__line"></span>
                     </div>
                     <div className="auth__form-wrapper__socials">
                         <div className="auth__form-wrapper__socials__social">
