@@ -55,7 +55,7 @@ function AuthorizedHome() {
 
     useEffect(() => {
         if (userInfo.info && !userInfo.info.is_employer) {
-            getUserJobNoSearch(userInfo.info.profile.profession_aka_activity, dispatch, proffessionInfo.proffessions)
+            getUserJobNoSearch(userInfo.info.profile.profession_aka_activity, dispatch, proffessionInfo.proffessions);
         }
     }, [userInfo.info, dispatch, proffessionInfo.proffessions]);
 
@@ -150,7 +150,7 @@ function AuthorizedHome() {
                 </div>
 
             </div >
-        )
+        );
     } else {
         return <LoadingPopup />;
     }

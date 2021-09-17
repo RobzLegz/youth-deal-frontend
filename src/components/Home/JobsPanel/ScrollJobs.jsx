@@ -45,8 +45,8 @@ function ScrollJobs() {
                 )
             })}
         </>
-    )
-    
+    );
+
 }
 
 export default ScrollJobs;
