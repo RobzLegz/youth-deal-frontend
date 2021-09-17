@@ -41,7 +41,6 @@ function CategoryChild({proffession}) {
                         onClick={(e) => updateThisCategory(e)}
                     />
                 </div>
-                <button type="submit" onClick={(e) => updateThisCategory(e)}></button>
             </form>
         </li>
     )
