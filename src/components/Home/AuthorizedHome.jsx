@@ -113,7 +113,7 @@ function AuthorizedHome() {
                             <div className="active-line"></div>
                         </div>
                     </div>
-                    <div className="auth-home__middle__jobs">
+                    <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
                         {activeJobPanel}
                     </div>
                 </div>

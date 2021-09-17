@@ -1,11 +1,16 @@
 .job-panel {
+    width: 100%;
     margin-bottom: 3rem;
     &__top {
         display: flex;
-        img {
+        img.logo {
             padding-right: 5px;
-            border-radius: 50%;
             height: 40px;
+        }
+        img.options {
+            height: 20px;
+            padding: 0 .5rem;
+            cursor: pointer;
         }
         .info {
             width: 100%;
@@ -49,7 +54,17 @@
         border-top: 1px solid lightgray;
         img {
             padding-top: .5rem;
-            height: 30px;
+            height: 40px;
+        }
+        &__price-wrapper {
+            small {
+                color: #8b8b8b;
+                font-weight: 600;
+            }
+            h2 {
+                font-size: larger;
+                padding: 0 !important;
+            }
         }
     }
 }

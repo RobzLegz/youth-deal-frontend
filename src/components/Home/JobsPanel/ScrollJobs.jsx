@@ -1,7 +1,7 @@
 import React from "react";
 import './ScrollJobs.scss';
 
-import OptionsIcon from '../../../assets/svg/options-icon.svg';
+import OptionsIcon from '../../../assets/svg/options-icon-no-background.svg';
 import Bookmark1 from '../../../assets/svg/bookmark1.svg';
 import { useSelector } from "react-redux";
 import { infoData } from "../../../slices/info/infoSlice";
@@ -20,12 +20,12 @@ function ScrollJobs() {
                 return (
                     <div className="job-panel panel" key={i}>
                         <div className="job-panel__top">
-                            <img src={companyInfo.logo} alt="avatar" />
+                            <img src={companyInfo.logo} alt="logo" className="logo" />
                             <div className="info">
                                 <h4>{companyInfo.name}</h4>
                                 <small>{jobOffer.post_time}</small>
                             </div>
-                            <img src={OptionsIcon} alt="options" />
+                            <img src={OptionsIcon} alt="options" className="options" />
                         </div>
                         <div className="job-panel__location">
                             <p>{jobOffer.position_city}, {jobOffer.position_country}</p>
@@ -37,7 +37,7 @@ function ScrollJobs() {
                         <div className="job-panel__bottom">
                             <img src={Bookmark1} alt="bookmark" />
                             <div className="job-panel__bottom__price-wrapper">
-                                <span>SĀKOT NO</span>
+                                <small>SĀKOT NO</small>
                                 <h2>€ {jobOffer.price_range}/mēnesī</h2>
                             </div>
                         </div>
@@ -45,7 +45,7 @@ function ScrollJobs() {
                 )
             })}
         </>
-    );
+    )
 
 }
 

@@ -1,0 +1,24 @@
+.swipe-card {
+    max-width: 360px !important;
+    &__image {
+        overflow: hidden;
+        img {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__bottom {
+        display: flex;
+        justify-content: space-around;
+        button {
+            border: none;
+            height: 2rem;
+            width: 2rem;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
