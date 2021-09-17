@@ -15,13 +15,20 @@ function AuthorizedHeader() {
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
     const [isHamburgerActive, setIsHamburgerActive] = useState(false)
     const [search, setSearch] = useState("");
+    const [open, setOpen] = useState(false);
 
     const proffessionInfo = useSelector(proffessionData);
     const userInfo = useSelector(userData);
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [open, setOpen] = useState(false);
+    const [isCompany, setIsCompany] = useState(false);
+
+    useEffect(() => {
+        if (userInfo.info.is_employer) {
+            setIsCompany(true);
+        }
+    }, [userInfo.info.is_employer]);
 
     useEffect(() => {
         window.addEventListener('resize', function (e) {
@@ -77,13 +84,13 @@ function AuthorizedHeader() {
                 <div className="dropdown">
                     <ul>
                         <div className="dropdown__with__icon" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile" /><li>Mans Konts</li></div>
-                        <li>Jauna darba vakance</li>
+                        <li onClick={() => history.push(`/${isCompany ? "new/jobOffer" : ""}`)}>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
                         <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon" /><li>Premium</li></div>
                         <li>Darbības</li>
                         <li>Saglābātie</li>
                         <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
                         <li>€ EUR</li>
-                        <li>Iestatījumi</li>
+                        <li onClick={() => history.push(`/settings`)}>Iestatījumi</li>
                         {userInfo.info.isAdmin && (
                             <li onClick={() => { history.push("/admin"); setOpen(false); }}>Admin</li>
                         )}
