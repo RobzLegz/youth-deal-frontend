@@ -1,22 +1,17 @@
 import React from "react";
 import './ScrollJobs.scss';
-
 import OptionsIcon from '../../../assets/svg/options-icon-no-background.svg';
 import Bookmark1 from '../../../assets/svg/bookmark1.svg';
-import { useSelector } from "react-redux";
-import { infoData } from "../../../slices/info/infoSlice";
 
-function ScrollJobs() {
-    const pageInfo = useSelector(infoData);
-
+function ScrollJobs({jobs}) {
     return (
         <>
-            {pageInfo.jobOffers.map((jobOffer, i) => {
+            {jobs && jobs.map((jobOffer, i) => {
                 let companyInfo = {
                     logo: "https://tse4.mm.bing.net/th?id=OIP.v-Kd-ya8T4msyd4Gk2VpzgHaHa&pid=Api",
                     name: "datorium"
                 }
-
+        
                 return (
                     <div className="job-panel panel" key={i}>
                         <div className="job-panel__top">
@@ -46,7 +41,6 @@ function ScrollJobs() {
             })}
         </>
     )
-
 }
 
 export default ScrollJobs;
