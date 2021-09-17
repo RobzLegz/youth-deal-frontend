@@ -4,7 +4,7 @@
 .auth-home {
     display: flex;
     justify-content: space-evenly;
-    padding: 5rem 5rem 0 5rem;
+    padding: 2rem 5rem 0 5rem;
     .panel {
         max-width: 30vw;
         min-width: 16vw;
@@ -72,20 +72,26 @@
         }
         &__saved {
             background-color: lightgray;
-            padding: 0 !important;
             p {
                 font-size: 20px;
                 font-weight: bold;
                 color: #5a5a5a;
-                padding: .5rem;
+                display: flex;
+                align-items: flex-end;
+                cursor: pointer;
                 img {
-                    padding-top: .5rem;
-                    height: 30px;
+                    height: 26px;
+                    margin-right: .5rem;
+                }
+                &:hover {
+                    color: #3E66FF;
                 }
             }
         }
     }
     &__middle {
+        display: flex;
+        flex-direction: column;
         &__job-options {
             display: flex;
             justify-content: space-around;
@@ -119,10 +125,14 @@
         }
         &__jobs {
             @include scrollbar;
-            overflow-y: scroll;
-            overflow-x: hidden;
-            max-height: 70vh;
+            height: 80vh;
             padding: 2%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            &.scroll {
+                overflow-y: scroll;
+            }
         }
     }
     &__right {

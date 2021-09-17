@@ -171,7 +171,7 @@ function AuthorizedHome() {
                     </div>
                     {
                         (scrollJobs && swipeJobs && woluntaryJobs) && (
-                            <div className="auth-home__middle__jobs">
+                            <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
                                 {activeJobPanel}
                             </div>
                         )   
