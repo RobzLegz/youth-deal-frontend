@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserChatInfo } from '../../../../logic/user/info/getUserInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import Avatar from '../../../../assets/svg/avatar.svg';
 import CloseIcon from '../../../../assets/svg/close.svg';
 import Option from '../../../../assets/svg/options-icon-no-background.svg'
 import {useHistory} from "react-router-dom"
+import { deleteChat } from '../../../../logic/chat/chatOptions';
 
 function Contact({chat}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
     const [contactOptionsActive, setContactOptionsActive] = useState(false);
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const userInfo = useSelector(userData);
     let otherMembers = parseInt(chat.users.find(m => m !== userInfo.info.id.toString()))
@@ -35,7 +37,7 @@ function Contact({chat}) {
                         <div className="contacts-container__contacts__contacts-list__options__header">
                             <img src={CloseIcon} alt="close" onClick={() => setContactOptionsActive(false)} />
                         </div>
-                        <li>delete chat</li>
+                        <li onClick={() => deleteChat(chat._id, userInfo.info.id, dispatch)}>Dzēst saraksti</li>
                     </ul>
                 )}
             </div>

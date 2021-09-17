@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Chat.scss'
 import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
@@ -13,11 +13,13 @@ import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
 import { chatData, setActiveChatMessages, setOnlineUsers } from '../../slices/chat/chatSlice';
 import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
+import {useHistory} from "react-router-dom"
 
 function Chat() {
     const {id} = useParams();
     const userInfo = useSelector(userData);
     const chatInfo = useSelector(chatData);
+    const history = useHistory();
 
     const [contactsToggled, setContactsToggled] = useState(false)
     const [socket, setSocket] = useState(null);
@@ -25,14 +27,14 @@ function Chat() {
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [isOptionsPopup, setIsOptionsPopup] = useState(false)
     const [userAddedToSocket, setUserAddedToSocket] = useState(false)
-    const scrollRef = useRef();
+    // const scrollRef = useRef();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if(id && userInfo.info){
-            getChatByID(id, userInfo.info.id, dispatch);
+            getChatByID(id, userInfo.info.id, dispatch, history);
         }
-    }, [id, dispatch, userInfo.info]);
+    }, [id, dispatch, userInfo.info, history]);
 
     useEffect(() => {
         if(socket){

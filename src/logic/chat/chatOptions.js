@@ -42,23 +42,23 @@ export const NewChat = (senderID, receiverID, history, dispatch) => {
     }
 };
 
-export const deleteChat = (id) => {
+export const deleteChat = (id, userID, dispatch) => {
     if(id){
         axios.delete(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
-            console.log(res.data);
+            getUserChats(userID, dispatch);
         }).catch((err) => {
             console.log(err);
         });
     }
 };
 
-export const getChatByID = (id, userID, dispatch) => {
+export const getChatByID = (id, userID, dispatch, history) => {
     if(id){
         axios.get(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
             dispatch(setActiveChatID(res.data._id));
             getUserChatHeaderInfo(res.data.users.find(m => parseInt(m.user) !== parseInt(userID)).user, dispatch);
         }).catch((err) => {
-            console.log(err);
+            history.push("/chat");
         });
     }
 };
