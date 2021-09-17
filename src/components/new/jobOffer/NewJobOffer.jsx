@@ -7,6 +7,7 @@ import { locationData, resetCountryCities } from '../../../slices/locations/loca
 import { userData } from '../../../slices/user/userSlice';
 import { getCountryCities } from '../../../logic/locations/getLoactionData';
 import { newPossition } from '../../../logic/company/positions/positions';
+import { useHistory } from 'react-router-dom';
 
 function NewJobOffer() {
     const proffessionInfo = useSelector(proffessionData);
@@ -19,7 +20,6 @@ function NewJobOffer() {
     const [proffession, setProffession] = useState(null);
     const [name, setName] = useState("");
     const [about, setAbout] = useState("");
-    const [languages, setLanguages] = useState("");
     const [requirements, setRequirements] = useState("");
     const [contractType, setContractType] = useState("short term");
     const [price, setPrice] = useState(null);
@@ -31,6 +31,13 @@ function NewJobOffer() {
     const [firstLoad, setFirstLoad] = useState(true);
 
     const dispatch = useDispatch();
+    const history = useHistory();
+
+    useEffect(() => {
+        if(userInfo.info && !userInfo.info.is_employer){
+            history.push("/");
+        }
+    }, [history, userInfo.info]);
 
     useEffect(() => {
         if(firstLoad){
@@ -44,26 +51,28 @@ function NewJobOffer() {
             getCountryCities(country, dispatch, locationInfo.token);
             setLastSearchCountry(country);
             setShowCities(true);
-            setShowCountries(false);
         }
+        setShowCountries(false);
     }
 
     const submitData = (e) => {
         e.preventDefault();
+        if(contractType === "woluntary job"){
+            setPrice("00.00");
+        }
         if(locationInfo && locationInfo.countries && locationInfo.countryCitys){
             if(country && city && locationInfo.countries.some(c => c.country_name === country) && locationInfo.countryCitys.some(c => c.state_name === city)){
-                if(proffession && name && about && languages && requirements && price){
+                if(proffession && name && about && requirements && price){
                     newPossition(
                         proffession.id,
                         about,
                         city,
                         country,
-                        languages,
                         requirements,
                         price,
                         contractType,
                         userInfo.accessToken
-                    )
+                    );
                 }
             }
         }
@@ -87,31 +96,7 @@ function NewJobOffer() {
                         />
                     </div>
                     <div className="newJobOffer__inner__form__labelInpContainer">
-                        <label htmlFor="name">Kādas valodas jāzin darbiniekam?</label>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            id="name" 
-                            placeholder="Valodas"
-                            autoComplete="off"
-                            value={languages}
-                            onChange={(e) => setLanguages(e.target.value)}
-                        />
-                    </div>
-                    <div className="newJobOffer__inner__form__labelInpContainer">
-                        <label htmlFor="about">Kas jāprot darbiniekam?</label>
-                        <textarea 
-                            type="text" 
-                            name="about" 
-                            id="about" 
-                            placeholder="Darbinieka prasmes"
-                            autoComplete="off"
-                            value={requirements}
-                            onChange={(e) => setRequirements(e.target.value)}
-                        ></textarea>
-                    </div>
-                    <div className="newJobOffer__inner__form__labelInpContainer">
-                        <label htmlFor="about">Darba pienākumu apraksts</label>
+                        <label htmlFor="about">Darbinieku prasmes un pienākumi</label>
                         <textarea 
                             type="text" 
                             name="about" 
@@ -120,6 +105,18 @@ function NewJobOffer() {
                             autoComplete="off"
                             value={about}
                             onChange={(e) => setAbout(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div className="newJobOffer__inner__form__labelInpContainer">
+                        <label htmlFor="offers">Uzņēmums darbiniekiem piedāvā:</label>
+                        <textarea 
+                            type="text" 
+                            name="offers" 
+                            id="offers" 
+                            placeholder="Darbinieka prasmes"
+                            autoComplete="off"
+                            value={requirements}
+                            onChange={(e) => setRequirements(e.target.value)}
                         ></textarea>
                     </div>
                     <div className="newJobOffer__inner__form__categoryContainer">
@@ -173,7 +170,7 @@ function NewJobOffer() {
                                 value={country ? country : ""}
                                 onClick={() => setShowCountries(true)}
                             />
-                            {showCountries && (
+                            {showCountries && country && (
                                 <ul>
                                     {
                                         locationInfo.countries.map((mappedCountry, i) => {
@@ -226,20 +223,29 @@ function NewJobOffer() {
                                     setContractType("short term")
                                 }}
                             >Īstermiņa</button>
+                            <button 
+                                className={contractType === "woluntary job" ? "newJobOffer__inner__form__container__buttons__active" : "newJobOffer__inner__form__container__buttons__inactive"}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setContractType("woluntary job")
+                                }}
+                            >Brīvprātigs</button>
                         </div>
                     </div>
-                    <div className="newJobOffer__inner__form__labelInpContainer">
-                        <label htmlFor="pay">Kāda būs mēneša alga?</label>
-                        <input 
-                            type="number" 
-                            name="pay" 
-                            id="pay" 
-                            placeholder="000.00€"
-                            autoComplete="off"
-                            value={price ? price : ""}
-                            onChange={(e) => setPrice(parseInt(e.target.value))}
-                        />
-                    </div>
+                    {contractType !== "woluntary job" && (
+                        <div className="newJobOffer__inner__form__labelInpContainer">
+                            <label htmlFor="pay">Kāda būs mēneša alga?</label>
+                            <input 
+                                type="number" 
+                                name="pay" 
+                                id="pay" 
+                                placeholder="000.00€"
+                                autoComplete="off"
+                                value={price ? price : ""}
+                                onChange={(e) => setPrice(parseInt(e.target.value))}
+                            />
+                        </div>
+                    )}
                     <button className="newJobOffer__inner__form__button" onClick={(e) => submitData(e)}>Iesniegt</button>
                 </form>
             </div>

@@ -28,6 +28,8 @@ import AdminPage from './components/admin/AdminPage';
 import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 import { locationData } from './slices/locations/locationSlice';
 import NewJobOffer from './components/new/jobOffer/NewJobOffer';
+import { getPossitions } from './logic/company/positions/positions';
+import { infoData } from './slices/info/infoSlice';
 
 
 function App() {
@@ -42,6 +44,7 @@ function App() {
   const proffessionInfo = useSelector(proffessionData);
   const locationInfo = useSelector(locationData);
   const loadingInfo = useSelector(loadingData);
+  const pageInfo = useSelector(infoData);
 
   useEffect(() => {
     if(!proffessionInfo.proffessions){
@@ -84,17 +87,23 @@ function App() {
   }, [dispatch, locationInfo.token, locationInfo.countries]);
 
   useEffect(() => {
+    if(!pageInfo.jobOffers){
+      getPossitions(dispatch);
+    }
+  }, [dispatch, pageInfo.jobOffers]);
+
+  useEffect(() => {
     const accessToken = window.localStorage.getItem("accessToken");
 
-    if(!accessToken && userInfo && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries){
+    if(!accessToken && userInfo && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers){
       setLoaded(true);
       return
-    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries){
+    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers){
       setLoaded(true);
       return
     }
     setLoaded(false)
-  }, [userInfo, proffessionInfo.proffessions, proffessionInfo.categories, locationInfo.countries]);
+  }, [userInfo, proffessionInfo.proffessions, proffessionInfo.categories, locationInfo.countries, pageInfo.jobOffers]);
 
   AOS.init();
   AOS.init({

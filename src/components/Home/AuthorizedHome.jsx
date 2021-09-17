@@ -39,7 +39,7 @@ function AuthorizedHome() {
         price: "1000"
     });
 
-    const [activeJobPanel, setActiveJobPanel] = useState(<ScrollJobs jobs={jobs} />);
+    const [activeJobPanel, setActiveJobPanel] = useState(<ScrollJobs />);
     const [activeJobOption, setActiveJobOption] = useState('longterm');
 
     const userInfo = useSelector(userData);
