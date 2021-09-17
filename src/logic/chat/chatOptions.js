@@ -1,7 +1,7 @@
 import { CHAT_ID_OPTIONS, MESSAGE_OPTIONS, NEW_CHAT, USER_CHATS } from "./chatRoutes"
 import axios from "axios"
 import { handleLoading, resetLoadingState } from "../../slices/loading/loadingSlice";
-import { setChats } from "../../slices/chat/chatSlice";
+import { setActiveChat, setChats } from "../../slices/chat/chatSlice";
 
 export const getUserChats = (accessToken, dispatch) => {
     dispatch(handleLoading(true));
@@ -100,5 +100,18 @@ export const deleteChatMessage = (id) => {
         }).catch((err) => {
             console.log(err);
         });
+    }
+};
+
+export const activateChat = (id, profileImage, profileName, dispatch, history) => {
+    if(id && profileImage && profileName){
+        const data = {
+            chatID: id,
+            profileImage: profileImage,
+            profileName: profileName,
+        }
+
+        history.push(`/chats/${id}`);
+        dispatch(setActiveChat(data));
     }
 };

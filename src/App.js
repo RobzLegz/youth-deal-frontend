@@ -158,6 +158,11 @@ function App() {
               <AuthorizedHeader />
               <Chat />
             </Route>
+
+            <Route path='/chats/:id'>
+              <AuthorizedHeader />
+              <Chat />
+            </Route>
   
             <Route path='/login'>
               <Header />

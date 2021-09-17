@@ -8,9 +8,12 @@ import {io} from "socket.io-client";
 import {useSelector} from "react-redux";
 import {userData} from "../../slices/user/userSlice"
 import Avatar from '../../assets/svg/avatar.svg'
+import { useParams } from 'react-router-dom';
 
 function Chat() {
+    const {id} = useParams();
     const userInfo = useSelector(userData)
+    console.log(id)
 
     const [contactsToggled, setContactsToggled] = useState(false)
     const [socket, setSocket] = useState(null);

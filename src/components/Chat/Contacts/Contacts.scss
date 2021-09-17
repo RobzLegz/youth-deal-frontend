@@ -72,14 +72,22 @@
                 padding: 10px;
                 border-radius: 10px;
                 cursor: pointer;
-                img {
+                &__avatar {
                     padding-right: 5px;
                     border-radius: 50%;
                     object-fit: contain;
                     height: 39px;
                 }
+                &__options {
+                    display: none;
+                    align-self: center;
+                    height: 20px;
+                }
                 &:hover {
                     background-color: #F0F0F0;
+                }
+                &:hover &__options {
+                    display: unset;
                 }
                 &__info {
                     width: 100%;
