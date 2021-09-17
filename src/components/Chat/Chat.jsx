@@ -41,7 +41,7 @@ function Chat() {
             if(!userAddedToSocket && userInfo.info){
                 socket.emit("addUser", userInfo.info.id);
                 socket.on("getUsers", users => {
-                    // console.log(users)
+                    console.log(users)
                 })
                 setUserAddedToSocket(true);
             }
@@ -54,7 +54,7 @@ function Chat() {
                 });
             });
         }else{
-            setSocket(io("ws://localhost:8900"));
+            setSocket(io("https://youth-deal-socket.herokuapp.com/"));
         }
     }, [socket, userInfo.info, userAddedToSocket]);
 
