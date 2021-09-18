@@ -74,7 +74,7 @@ function AuthorizedHeader() {
                     src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar}
                     alt="profile"
                 />
-                <p>{userInfo.info.first_name} {userInfo.info.last_name}</p>
+                <p>{isCompany ? `${userInfo.info.profile.company_name}` : `${userInfo.info.first_name} ${userInfo.info.last_name}`}</p>
             </div>
             <div onClick={() => setOpen(!open)} id="dropdown">
                 <span>

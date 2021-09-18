@@ -5,7 +5,6 @@ import showPwdImg from '../../../../assets/svg/eye.svg';
 import hidePwdImg from '../../../../assets/svg/eye_hide.svg';
 import facebook from '../../../../assets/svg/socials/facebook.svg';
 import google from '../../../../assets/svg/socials/google.svg';
-import { registerUser } from '../../../../logic/user/auth';
 import {useHistory} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
