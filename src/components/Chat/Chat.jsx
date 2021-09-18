@@ -6,7 +6,7 @@ import smileEmoji from '../../../src/assets/svg/emoji/smile.svg'
 import Contacts from './Contacts/Contacts';
 import {useDispatch, useSelector} from "react-redux";
 import {userData} from "../../slices/user/userSlice"
-import Avatar from '../../assets/svg/avatar.svg'
+import ContactBook from '../../assets/svg/chat/contact-book.svg'
 import { useParams } from 'react-router-dom';
 import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
 import { chatData, setActiveChatMessages } from '../../slices/chat/chatSlice';
@@ -100,7 +100,7 @@ function Chat() {
                 <form className="chat">
                     <div className="chat__header">
                         <div className="chat__header__profile-info">
-                            <img src={Avatar} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
+                            <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
                             <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" />
                             <div className="chat__header__profile-info__text">
                                 <p id="username">{chatInfo.activeChat.first_name} {chatInfo.activeChat.last_name}</p>
