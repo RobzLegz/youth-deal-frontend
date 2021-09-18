@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Contacts.scss'
 import searchIcon from '../../../assets/svg/search-icon.svg'
 import { useSelector } from 'react-redux';
@@ -8,6 +8,8 @@ import Contact from './contact/Contact';
 import Close from '../../../assets/svg/close.svg'
 
 function Contacts({ active, handleToggle }) {
+    const [search, setSearch] = useState("");
+
     const chatInfo = useSelector(chatData);
     const userInfo = useSelector(userData);
     
@@ -22,7 +24,7 @@ function Contacts({ active, handleToggle }) {
                 <div className="contacts-container__contacts__find-contacts">
                     <div className="input-group">
                         <img src={searchIcon} alt="searchIcon" />
-                        <input type="text" placeholder='Meklēt kontaktu' />
+                        <input type="text" placeholder='Meklēt kontaktu' value={search} onChange={(e) => setSearch(e.target.value)} />
                     </div>
                 </div>
 
@@ -31,6 +33,8 @@ function Contacts({ active, handleToggle }) {
                         <Contact 
                             chat={chat}
                             key={i}
+                            search={search}
+                            setSearch={setSearch}
                         />
                     ))}
                 </div>

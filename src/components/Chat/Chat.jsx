@@ -95,7 +95,10 @@ function Chat() {
 
     return (
         <div id={'chat-container'}>
-            <Contacts active={contactsToggled} handleToggle={handleContactsToggle} />
+            <Contacts 
+                active={contactsToggled} 
+                handleToggle={handleContactsToggle} 
+            />
             {chatInfo.activeChat ? (
                 <form className="chat">
                     <div className="chat__header">

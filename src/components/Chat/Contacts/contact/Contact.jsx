@@ -8,9 +8,10 @@ import Option from '../../../../assets/svg/options-icon-no-background.svg'
 import {useHistory} from "react-router-dom"
 import { deleteChat } from '../../../../logic/chat/chatOptions';
 
-function Contact({chat}) {
+function Contact({chat, search, setSearch}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
     const [contactOptionsActive, setContactOptionsActive] = useState(false);
+    const [name, setName] = useState(null);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -21,15 +22,17 @@ function Contact({chat}) {
     useEffect(() => {
         if(!chatMemberInfo){
             getUserChatInfo(otherMembers, setChatMemberInfo);
+        }else{
+            setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
         }
     }, [chatMemberInfo, otherMembers]);
 
-    if(chatMemberInfo){
+    if(chatMemberInfo && (search === "" || name.substr(0, search.length).toLowerCase() === search.toLowerCase())){
         return(
-            <div className="contacts-container__contacts__contacts-list__contact" onClick={() => history.push(`/chats/${chat._id}`)}>
+            <div className="contacts-container__contacts__contacts-list__contact" onClick={() => {history.push(`/chats/${chat._id}`);setSearch("")}}>
                 <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar" />
                 <div className="contacts-container__contacts__contacts-list__contact__info">
-                    <p id="username">{chatMemberInfo.first_name} {chatMemberInfo.last_name}</p>
+                    <p id="username">{name}</p>
                 </div>
                 <img src={Option} alt="options" className="contacts-container__contacts__contacts-list__contact__options" onClick={() => setContactOptionsActive(true)} />
                 {contactOptionsActive && (
