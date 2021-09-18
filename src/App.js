@@ -32,6 +32,8 @@ import { getPossitions } from './logic/company/positions/positions';
 import { infoData } from './slices/info/infoSlice';
 import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
+import {io} from "socket.io-client";
+import { connect, getOnlineUsers, socketData } from './slices/socket/socketSlice';
 
 
 function App() {
@@ -48,6 +50,20 @@ function App() {
   const loadingInfo = useSelector(loadingData);
   const pageInfo = useSelector(infoData);
   const chatInfo = useSelector(chatData);
+  const socketInfo = useSelector(socketData);
+
+  useEffect(() => {
+    const socketURL = process.env.REACT_APP_SOCKET_URL;
+
+    if(userInfo.info && !socketInfo.socket && socketURL){
+      dispatch(connect(io(socketURL)));
+    }else if(socketInfo.socket){
+      socketInfo.socket.emit("addUser", userInfo.info.id);
+      socketInfo.socket.on("getUsers", users => {
+        dispatch(getOnlineUsers(users));
+      });
+    }
+}, [socketInfo.socket, dispatch, userInfo.info]);
 
   useEffect(() => {
     if(!proffessionInfo.proffessions){
@@ -104,15 +120,15 @@ function App() {
   useEffect(() => {
     const accessToken = window.localStorage.getItem("accessToken");
 
-    if(!accessToken && userInfo && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers){
+    if(!accessToken && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers){
       setLoaded(true);
       return
-    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers){
+    }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers && socketInfo.socket){
       setLoaded(true);
       return
     }
     setLoaded(false)
-  }, [userInfo, proffessionInfo.proffessions, proffessionInfo.categories, locationInfo.countries, pageInfo.jobOffers]);
+  }, [userInfo, socketInfo.socket, proffessionInfo.proffessions, proffessionInfo.categories, locationInfo.countries, pageInfo.jobOffers]);
 
   AOS.init();
   AOS.init({

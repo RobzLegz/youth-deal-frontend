@@ -4,30 +4,31 @@ import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
 import smileEmoji from '../../../src/assets/svg/emoji/smile.svg'
 import Contacts from './Contacts/Contacts';
-import {io} from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
 import {userData} from "../../slices/user/userSlice"
 import Avatar from '../../assets/svg/avatar.svg'
 import { useParams } from 'react-router-dom';
 import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
-import { chatData, setActiveChatMessages, setOnlineUsers } from '../../slices/chat/chatSlice';
+import { chatData, setActiveChatMessages } from '../../slices/chat/chatSlice';
 import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
+import { socketData } from '../../slices/socket/socketSlice';
 
 function Chat() {
     const {id} = useParams();
     const userInfo = useSelector(userData);
     const chatInfo = useSelector(chatData);
-    const history = useHistory();
+    const socketInfo = useSelector(socketData);
 
     const [contactsToggled, setContactsToggled] = useState(false)
-    const [socket, setSocket] = useState(null);
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [isOptionsPopup, setIsOptionsPopup] = useState(false)
+    const [isOptionsPopup, setIsOptionsPopup] = useState(false);
+
     const scrollRef = useRef();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         if(id && userInfo.info){
@@ -36,25 +37,8 @@ function Chat() {
     }, [id, dispatch, userInfo.info, history]);
 
     useEffect(() => {
-        if(!socket){
-            setSocket(io("https://youth-deal-socket.herokuapp.com/"));
-        }
-    }, [socket]);
-
-    useEffect(() => {
-        if(socket){
-            if(userInfo.info){
-                socket.emit("addUser", userInfo.info.id);
-                socket.on("getUsers", users => {
-                    dispatch(setOnlineUsers(users));
-                })
-            }
-        }
-    }, [socket, dispatch, userInfo.info]);
-
-    useEffect(() => {
-        if(socket){
-            socket.on("getMessage", (data) => {
+        if(socketInfo.socket){
+            socketInfo.socket.on("getMessage", (data) => {
                 setArrivalMessage({
                     sender: data.senderId,
                     text: data.text,
@@ -62,7 +46,7 @@ function Chat() {
                 });
             });
         }
-    }, [socket]);
+    }, [socketInfo.socket]);
 
     useEffect(() => {
         if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text){
@@ -98,8 +82,8 @@ function Chat() {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        if(socket && messageText !== ""){
-            socket.emit("sendMessage", {
+        if(socketInfo.socket && messageText !== ""){
+            socketInfo.socket.emit("sendMessage", {
                 senderId: userInfo.info.id,
                 receiverId: chatInfo.activeChat.id,
                 text: messageText,
