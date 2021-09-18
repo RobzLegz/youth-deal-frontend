@@ -32,7 +32,7 @@ function JobTaker(){
         if(userInfo.loggedIn){
             history.push("/");
         }
-    }, []);
+    }, [userInfo.loggedIn, history]);
 
     useEffect(() => {
         if(userInfo.loggedIn){
@@ -98,22 +98,22 @@ function JobTaker(){
                 
                 <div className="job__right">
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="job__right__input-group__input" placeholder='' required/>
+                        <input className="job__right__input-group__input" value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="name">Vārds:</label>
                     </div>        
 
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id='surname' className="job__right__input-group__input" placeholder='' required/>
+                        <input className="job__right__input-group__input" value={surname} onChange={(e) => setSurname(e.target.value)} type="text" id='surname' placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="surname">Uzvārds:</label>
                     </div>        
 
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={email} onChange={(e) => {setEmail(e.target.value);emailHandler(e)}} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="job__right__input-group__input" placeholder='' required/>
+                        <input className="job__right__input-group__input" value={email} onChange={(e) => {setEmail(e.target.value);emailHandler(e)}} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="email">E-pasts:</label>
                     </div>        
                     {(emailDirty && emailError) && <div className="job__right__error"style={{color:"#FA4251"}}>{emailError}</div>}
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' className="job__right__input-group__input" placeholder='' autoComplete="off" required/>
+                        <input className="job__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' placeholder='' autoComplete="off" required/>
                         <label className="job__right__input-group__label" htmlFor="password">Parole:</label>
                         <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="job__right__input-group__eye"></img>
                     </div>   

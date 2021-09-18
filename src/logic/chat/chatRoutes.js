@@ -1,4 +1,4 @@
-const BASE = "http://localhost:5000";
+const BASE = "https://youth-deal-backend.herokuapp.com";
 const CHAT_BASE = `${BASE}/chat`;
 const MESSAGE_BASE = `${BASE}/message`;
 

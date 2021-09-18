@@ -31,12 +31,6 @@ function JobGiver(){
         if(userInfo.loggedIn){
             history.push("/");
         }
-    }, []);
-
-    useEffect(() => {
-        if(userInfo.loggedIn){
-            history.push("/");
-        }
     }, [history, userInfo.loggedIn]);
 
     const emailHandler = (e) =>{
