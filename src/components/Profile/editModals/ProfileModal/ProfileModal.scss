@@ -243,3 +243,63 @@
         opacity: 1;
     }
 }
+
+@media (max-width: 600px) {
+    .profileModal {
+        &__inner {
+            height: fit-content !important;
+            &__avatar-wrapper {
+                padding: 0 .5rem;
+            }
+            &__personal-information {
+                padding: .5rem;
+                &__input-group {
+                    max-width: 100%;
+                }
+            }
+            &__desc {
+                padding: 0 .5rem;
+                padding-bottom: 2rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .profileModal {
+        &__inner {
+            &__avatar-wrapper {
+                padding: 0 .5rem;
+            }
+            &__personal-information {
+                grid-template-columns: 1fr;
+                padding: .5rem;
+                &__input-group {
+                    max-width: 100%;
+                }
+            }
+            &__desc {
+                padding: 0 .5rem;
+                padding-bottom: 2rem;
+            }
+        }
+    }
+    .proffessionPopup {
+        margin-top: 2rem;
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: fit-content !important;
+        width: 100% !important;
+        &__header {
+            padding: auto !important;
+        }
+        ul {
+            display: flex;
+            flex-direction: column;
+            li {
+                margin: .2rem;
+            }
+        }
+    }
+}

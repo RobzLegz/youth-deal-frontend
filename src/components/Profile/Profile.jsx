@@ -75,6 +75,46 @@ function Profile(){
         setEditProfile(!editProfile)
     }
 
+    const EditForm = ({ value, setValue, setEditing }) => {
+        return (
+            <form>
+                <textarea 
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    type="text" 
+                ></textarea>
+                <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditing(false)}}>Saglabāt</button>
+            </form>
+        )
+    }
+
+    const ProfileRightSection = ({ title, value, formValue, setFormValue, editing, setEditing }) => {
+        return (value && value !== "") ? (
+            <section className="profile__right__section">
+                <div className="profile__right__section__header">
+                    <p className='profile__right__section__header__title'>{title}</p>
+                    {isUsersProfile && (<img src={editing ? CloseIcon : pen} alt="edit" onClick={() => setEditing(!editing)} />)}
+                </div>
+                <div className="profile__right__section__items">
+                    {editing ? (
+                        <EditForm value={formValue} setValue={setFormValue} setEditing={setEditing} />
+                    ) : (
+                        <p>{value}</p>
+                    )}
+                </div>
+            </section>
+        ) : (
+            <section className="profile__right__section">
+                <div className="profile__right__section__header">
+                    <p className='profile__right__section__header__title'>{title}</p>
+                </div>
+                <div className="profile__right__section__items">
+                    <EditForm value={formValue} setValue={setFormValue} setEditing={setEditing} />
+                </div>
+            </section>
+        )
+    }
+
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
@@ -150,77 +190,34 @@ function Profile(){
                         searchInfo.info.profile.experience || 
                         searchInfo.info.profile.extra  ? (
                             <div className="profile__right">
-                                {searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== "" && (
-                                    <section className="profile__right__section">
-                                        <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Izglītība</p>
-                                            {isUsersProfile && (<img src={editingKnowledge ? CloseIcon : pen} alt="edit" onClick={() => setEditingKnowledge(!editingKnowledge)} />)}
-                                        </div>
-                                        <div className="profile__right__section__items">
-                                            {editingKnowledge ? (
-                                                <form>
-                                                    <textarea 
-                                                        value={editKnowledge}
-                                                        onChange={(e) => setEditKnowledge(e.target.value)}
-                                                        type="text" 
-                                                    ></textarea>
-                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditKnowledge(false)}}>Saglabāt</button>
-                                                </form>
-                                            ) : (
-                                                <p>{searchInfo.info.profile.knowledge}</p>
-                                            )}
-                                        </div>
-                                    </section>
-                                )}
-                                {searchInfo.info.profile.experience && searchInfo.info.profile.experience !== "" && (
-                                    <section className="profile__right__section">
-                                        <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>{userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"} amats</p>
-                                            {isUsersProfile && (<img src={editingLastJob ? CloseIcon : pen} alt="edit" onClick={() => setEditingLastJob(!editingLastJob)} />)}
-                                        </div>
-                                        <div className="profile__right__section__items">
-                                            {editingLastJob ? (
-                                                <form>
-                                                    <textarea 
-                                                        value={editLastJob}
-                                                        onChange={(e) => setEditLastJob(e.target.value)}
-                                                        type="text" 
-                                                    ></textarea>
-                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditingLastJob(false)}}>Saglabāt</button>
-                                                </form>
-                                            ) : (
-                                                <p>{searchInfo.info.profile.experience}</p>
-                                            )}
-                                        </div>
-                                    </section>
-                                )}
-                                {searchInfo.info.profile.extra && searchInfo.info.profile.extra !== "" && (
-                                    <section className="profile__right__section">
-                                        <div className="profile__right__section__header">
-                                            <p className='profile__right__section__header__title'>Papildus prasmes</p>
-                                            {isUsersProfile && (<img src={editingExtraSkills ? CloseIcon : pen} alt="edit" onClick={() => setEditingExtraSkills(!editingExtraSkills)} />)}
-                                        </div>
-                                        <div className="profile__right__section__items">
-                                            {editingExtraSkills ? (
-                                                <form>
-                                                    <textarea 
-                                                        value={editExtraSkills}
-                                                        onChange={(e) => setEditExtraSkills(e.target.value)}
-                                                        type="text" 
-                                                    ></textarea>
-                                                    <button onClick={(e) => {updateKnowledgeJobExtra(e, userInfo.info.id, editKnowledge, editLastJob, editExtraSkills, dispatch, userInfo.accessToken);setEditingExtraSkills(false)}}>Saglabāt</button>
-                                                </form>
-                                            ) : (
-                                                <p>{searchInfo.info.profile.extra}</p>
-                                            )}
-                                        </div>
-                                    </section>
-                                )}
+                                <ProfileRightSection
+                                    title="Izglītība"
+                                    value={searchInfo.info.profile.knowledge}
+                                    formValue={editKnowledge}
+                                    setFormValue={setEditKnowledge}
+                                    editing={editingKnowledge}
+                                    setEditing={setEditingKnowledge}
+                                />
+                                <ProfileRightSection
+                                    title={userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"}
+                                    value={searchInfo.info.profile.experience}
+                                    formValue={editLastJob}
+                                    setFormValue={setEditLastJob}
+                                    editing={editingLastJob}
+                                    setEditing={setEditingLastJob}
+                                />
+                                <ProfileRightSection
+                                    title="Papildus prasmes"
+                                    value={searchInfo.info.profile.extra}
+                                    formValue={editExtraSkills}
+                                    setFormValue={setEditExtraSkills}
+                                    editing={editingExtraSkills}
+                                    setEditing={setEditingExtraSkills}
+                                />
                             </div>
                         ) : (
                             <div className="profile__right">
                                 <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
-                                {isUsersProfile && (<button className="profile__right__add-entry">Pievieno Ierakstu</button>)}
                             </div>
                         )
                     }
