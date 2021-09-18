@@ -19,6 +19,8 @@ import { getUserInfoByID } from '../../logic/user/info/getUserInfo';
 import { searchData, setSearchInfo } from '../../slices/searchresults/searchResultSlice';
 import { updateKnowledgeJobExtra } from '../../logic/user/info/updateProfileInfo';
 import { NewChat } from '../../logic/chat/chatOptions';
+import { socketData } from '../../slices/socket/socketSlice';
+import { chatData } from '../../slices/chat/chatSlice';
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -26,11 +28,14 @@ function Profile(){
     const [editingKnowledge, setEditingKnowledge] = useState(false);
     const [editingLastJob, setEditingLastJob] = useState(false);
     const [editingExtraSkills, setEditingExtraSkills] = useState(false);
+    const [hasChat, setHasChat] = useState(null);
 
     const {searchID} = useParams()
 
     const userInfo = useSelector(userData);
+    const chatInfo = useSelector(chatData);
     const searchInfo = useSelector(searchData);
+    const socketInfo = useSelector(socketData);
     const proffessionInfo = useSelector(proffessionData);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -44,6 +49,12 @@ function Profile(){
             history.push("/");
         }
     }, [history, userInfo.loggedIn]);
+
+    useEffect(() => {
+        if(chatInfo.chats && searchInfo.info && hasChat === null){
+            setHasChat(chatInfo.chats.some(c => c.users.includes(searchInfo.info.id.toString())));
+        }
+    }, [chatInfo.chats, searchInfo.info, hasChat]);
 
     useEffect(() => {
         if(searchInfo.info){
@@ -132,7 +143,7 @@ function Profile(){
                            
                             <div className="profile__left__top__img-wrapper">
                                 <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
-                                {/* <div className='onlineStatus' id={user.onlineStatus || 'offline'}></div> */}
+                                <div className='onlineStatus' id={socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div>
                             </div>
                             <div className="profile__left__top__info">
                                 <div>
@@ -143,12 +154,16 @@ function Profile(){
                                         <small>{searchInfo.info.profile.job}</small>
                                     )}
                                 </div>
-                                {!isUsersProfile && userInfo.info.id && searchInfo.info.id && (
+                                {!isUsersProfile && userInfo.info.id && searchInfo.info.id && hasChat !== null && (
                                     <button
                                         onClick={() => {
-                                            NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
+                                            if(hasChat){
+                                                history.push("/chat")
+                                            }else{
+                                                NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
+                                            }
                                         }}
-                                    >Sākt saraksti</button>
+                                    >{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
                                 )}
                             </div>
                             {isUsersProfile && (
