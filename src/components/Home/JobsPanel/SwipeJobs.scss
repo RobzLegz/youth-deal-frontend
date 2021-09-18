@@ -53,3 +53,12 @@
     height: 450px;
     position: relative;
 }
+
+@media (max-width: 425px) {
+    .swipeJobsCountainer {
+        width: 100%;
+    }
+    .swipe-card {
+        width: 100%;
+    }
+}

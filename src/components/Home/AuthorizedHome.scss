@@ -3,11 +3,11 @@
 
 .auth-home {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 2rem 5rem 0 5rem;
     .panel {
-        max-width: 30vw;
-        min-width: 16vw;
+        width: 100%;
+        min-width: 20vw;
         box-shadow: 2px 3px 10px 2px #b1b1b1;
         border: 1px solid lightgray;
         border-radius: .7rem;
@@ -95,17 +95,12 @@
         &__job-options {
             display: flex;
             justify-content: space-around;
-            min-width: max-content;
             margin-bottom: 3rem;
             &__job-option {
                 padding: 1rem 1rem 0 1rem !important;
                 h3 {
                     color: #5a5a5a;
                     cursor: pointer;
-                    white-space: nowrap;
-                    .active {
-                        color: black;
-                    }
                 }
                 div {
                     margin-top: 1rem;
@@ -113,8 +108,6 @@
                 &.active {
                     h3 {
                         color: black;
-                        display: flex;
-                        flex-direction: column;
                     }
                     div {
                         border-top: 5px solid #C9D4FF;
@@ -125,14 +118,12 @@
         }
         &__jobs {
             @include scrollbar;
-            height: 80vh;
+            height: auto;
             padding: 2%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            &.scroll {
-                overflow-y: scroll;
-            }
+            overflow-y: auto;
         }
     }
     &__right {
@@ -201,6 +192,78 @@
                     white-space: nowrap;
                     height: 26px;
                 }
+            }
+        }
+    }
+}
+.footer {
+    display: none;
+}
+
+@media (max-width: 1400px) {
+    .auth-home {
+        padding: 2rem 1rem;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 1290px) {
+    .auth-home {
+        .panel {
+            min-width: 30vw;
+        }
+        &__left {
+            display: none;
+        }
+        &__middle {
+            &__jobs {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 860px) {
+    .auth-home {
+        &__middle {
+            width: 80vw;
+        }
+        &__right {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 670px) {
+    .auth-home {
+        padding: 1rem;
+        &__middle {
+            width: 90vw;
+            &__job-options {
+                &__job-option {
+                    text-align: center;
+                    h3 {
+                        span {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        &__right {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .auth-home {
+        &__middle {
+            &__job-options {
+                &__job-option {
+                    padding: 1rem .2rem 0 .2rem !important;
+                }
+                margin-bottom: 1rem;
             }
         }
     }

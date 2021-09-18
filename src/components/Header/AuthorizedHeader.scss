@@ -35,6 +35,12 @@ nav{
 
     .header__search {
         display: flex;
+        input {
+            max-width: 13em;
+        }
+        button {
+            min-width: fit-content;
+        }
     }
 
     .header__top{
@@ -45,7 +51,7 @@ nav{
         align-items: center;
         height: 70px;
         width: 100%;
-        justify-content: space-between;
+        justify-content: space-around;
         padding: 0 35px;
         box-shadow: 0px 0px 1px 1px #B8B8B8;
         z-index:10;
@@ -58,7 +64,6 @@ nav{
                 min-width: 150px;
                 max-width: 150px;
                 width: 100%;
-                margin: 0 150px;
                 padding-top:20px;
                 cursor: pointer;
             }
@@ -78,7 +83,6 @@ nav{
        &__right{
             display: flex;
             align-items: center;
-            margin-right:150px;
             &__user-wrapper {
                 cursor: pointer;
                 display: flex;
@@ -101,7 +105,10 @@ nav{
             }
 
             #dropdown{
-               width:20px;
+                img {
+                    width:20px;
+                }
+                position: relative;
            }
        }
     }   
@@ -206,8 +213,8 @@ nav{
     background-color: white;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     position:absolute;
-    top:70px;
-    right:185px;
+    top:40px;
+    right:0px;
     font-family:'Roboto',sans-serif;
     font-size:16px;
     border-radius:5px;
@@ -225,6 +232,7 @@ nav{
         }       
     }
     ul{
+        width: 100%;
         li{
             padding: 15px 20px 5px 20px;
             list-style-type: none;
@@ -263,7 +271,7 @@ nav{
     }
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1500px) {
     .header {
         &__top {
             justify-content: space-evenly;
@@ -281,12 +289,9 @@ nav{
                 margin: 0 !important;
             }
         }
-        &__search {
-            margin-left: 1rem;
-            button {
-                min-width: fit-content;
-            }
-        }
+    }
+    .dropdown {
+        right: 35px;
     }
 }
 
@@ -294,7 +299,7 @@ nav{
     .header {
         position: relative;
         &__top {
-            justify-content: space-between;
+            justify-content: space-between !important;
             &__right {
                 margin: 0 !important;
                 flex-direction: column;
@@ -371,21 +376,29 @@ nav{
                         padding: 1rem 0;
                         padding: 1rem 0 0 0;
                         justify-content: center;
-                        img {
-                            width: 50px;
-                            height: 50px;
-                        }
-                        p {
-                            font-size: 19px;
-                        }
-                        .dropdown {
-                            position: relative;
+                        #dropdown {
+                            flex-direction: column;
                             width: 100%;
-                            top: 0;
-                            right: 0;
-                            border-radius: 0;
-                            background-color: lightgray;
-                            border-top: 1px solid darkgray;
+                            align-items: center;
+                            span {
+                                display: flex;
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                }
+                                p {
+                                    font-size: 19px;
+                                }
+                            }
+                            .dropdown {
+                                position: relative;
+                                width: 100%;
+                                top: 0;
+                                right: 0;
+                                border-radius: 0;
+                                background-color: lightgray;
+                                border-top: 1px solid darkgray;
+                            }
                         }
                     }
                 }

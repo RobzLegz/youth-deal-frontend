@@ -151,21 +151,21 @@ function AuthorizedHome() {
                             }
                             setActiveJobOption('longterm');
                         }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
-                            <h3>Ilgtermiņa darbi</h3>
+                            <h3>Ilgtermiņa <span>darbi</span></h3>
                             <div className="active-line"></div>
                         </div>
                         <div onClick={() => {
                             setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
                             setActiveJobOption('shortterm');
                         }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
-                            <h3>Īstermiņa darbi</h3>
+                            <h3>Īstermiņa <span>darbi</span></h3>
                             <div className="active-line"></div>
                         </div>
                         <div onClick={() => {
                             setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
                             setActiveJobOption('volunteer');
                         }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
-                            <h3>Brīvprātīgie darbi</h3>
+                            <h3>Brīvprātīgie <span>darbi</span></h3>
                             <div className="active-line"></div>
                         </div>
                     </div>

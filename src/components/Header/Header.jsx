@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {useHistory} from 'react-router-dom'
 
 import CrownIcon from '../../assets/svg/crown.svg'
+import GlobalIcon from '../../assets/svg/global.svg'
 import './Header.scss'
 
 function Header({categoryRef, admRef, homeTop}){
@@ -89,6 +90,11 @@ function Header({categoryRef, admRef, homeTop}){
             </div>
             {innerWidth > 1024 &&
             <div id="header__right">
+                <div className="header__auth-options">
+                    <button onClick={() => {history.push("/register")}} className='header__auth-options__register'>Reģistrēties</button>
+                    <button onClick={() => {history.push("/login")}} className='header__auth-options__login'>Ieiet</button>
+                </div>
+
                 <div className="header__languages">
                     <div className={`header__languages__options ${isLanguagesExpanded ? 'active' : ''}`}>
                         <ul className="header__languages__options__option">
@@ -101,12 +107,10 @@ function Header({categoryRef, admRef, homeTop}){
                             <li>RU</li>
                         </ul>
                     </div>
-                    <i onClick={languageExpandHandler} className={`fa fa-caret-down ${isLanguagesExpanded ? 'active' : ''}`} aria-hidden="true"></i>
-                </div>
-
-                <div className="header__auth-options">
-                    <button onClick={() => {history.push("/register")}} className='header__auth-options__register'>Reģistrēties</button>
-                    <button onClick={() => {history.push("/login")}} className='header__auth-options__login'>Ieiet</button>
+                    <div className="header__languages__language-expander" onClick={languageExpandHandler}>
+                        <img src={GlobalIcon} alt="lang" />
+                        <i className={`fa fa-caret-down ${isLanguagesExpanded ? 'active' : ''}`} aria-hidden="true"></i>
+                    </div>
                 </div>
             </div>
             }
