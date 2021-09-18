@@ -102,16 +102,23 @@
             }
         }
 
-        i {
+        &__language-expander {
+            display: flex;
             cursor: pointer;
             width: 100px;
             color: $secondaryColor;
             transition: all .2s;
             border-radius:5px;
             color:$grayColor;
-            &.active {
-                transform: rotate(180deg);
+            img {
+                height: 20px;
                 margin-right: 10px;
+            }
+            i {
+                &.active {
+                    transform: rotate(180deg);
+                    margin-right: 10px;
+                }
             }
         }
     }
@@ -119,7 +126,7 @@
     &__auth-options{
         display: flex;
         align-items: center;
-        padding-right:125px;
+        padding-right:2rem;
         &__register { 
             font-size: 1.2rem;
             font-family: 'Hammersmith One', sans-serif;

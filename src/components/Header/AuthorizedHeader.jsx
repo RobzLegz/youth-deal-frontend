@@ -51,7 +51,7 @@ function AuthorizedHeader() {
             <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Cilvēki, nosaukumi,kompānijas..."
+                placeholder="Cilvēki, kompānijas..."
             />
             <button type="submit">Meklēt</button>
         </div>
@@ -76,28 +76,30 @@ function AuthorizedHeader() {
                 />
                 <p>{userInfo.info.first_name} {userInfo.info.last_name}</p>
             </div>
-            <div onClick={() => setOpen(!open)}>
-                {innerWidth < 1024 && <p>Extra Options</p>}
-                <img src={dropdown} alt="dropdown" id="dropdown" />
+            <div onClick={() => setOpen(!open)} id="dropdown">
+                <span>
+                    {innerWidth < 1024 && <p>Extra Options</p>}
+                    <img src={dropdown} alt="dropdown" />
+                </span>
+                    {open && (
+                        <div className="dropdown">
+                            <ul>
+                                <div className="dropdown__with__icon" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile" /><li>Mans Konts</li></div>
+                                <li onClick={() => history.push(`/${isCompany ? "new/jobOffer" : ""}`)}>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
+                                <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon" /><li>Premium</li></div>
+                                <li>Darbības</li>
+                                <li>Saglābātie</li>
+                                <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
+                                <li>€ EUR</li>
+                                <li onClick={() => history.push(`/settings`)}>Iestatījumi</li>
+                                {userInfo.info.isAdmin && (
+                                    <li onClick={() => { history.push("/admin"); setOpen(false); }}>Admin</li>
+                                )}
+                                <li className="dropdown__last" onClick={logout}>Iziet</li>
+                            </ul>
+                        </div>
+                    )}
             </div>
-            {open && (
-                <div className="dropdown">
-                    <ul>
-                        <div className="dropdown__with__icon" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile" /><li>Mans Konts</li></div>
-                        <li onClick={() => history.push(`/${isCompany ? "new/jobOffer" : ""}`)}>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
-                        <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon" /><li>Premium</li></div>
-                        <li>Darbības</li>
-                        <li>Saglābātie</li>
-                        <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
-                        <li>€ EUR</li>
-                        <li onClick={() => history.push(`/settings`)}>Iestatījumi</li>
-                        {userInfo.info.isAdmin && (
-                            <li onClick={() => { history.push("/admin"); setOpen(false); }}>Admin</li>
-                        )}
-                        <li className="dropdown__last" onClick={logout}>Iziet</li>
-                    </ul>
-                </div>
-            )}
         </div>;
     };
 
@@ -130,8 +132,8 @@ function AuthorizedHeader() {
                                 <path id="Path_4" data-name="Path 4" d="M0,4.593S52.391-22.854,120.791-22.854,273.6,4.593,273.6,4.593" transform="translate(0 22.854)" fill="none" stroke="#01f" strokeLinecap="round" strokeWidth="7" strokeDasharray="25" />
                             </g>
                         </svg>
-                        {innerWidth > 1024 && <SearchBar />}
                     </div>
+                    {innerWidth > 1024 && <SearchBar />}
                     {innerWidth > 1024 && <TopLinks />}
                     {innerWidth > 1024 && <TopRight mobile={false} />}
                     {innerWidth <= 1024 && <Hamburger />}
