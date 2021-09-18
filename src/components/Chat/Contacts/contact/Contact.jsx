@@ -12,17 +12,23 @@ function Contact({chat, search, setSearch}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
     const [contactOptionsActive, setContactOptionsActive] = useState(false);
     const [name, setName] = useState(null);
+    const [otherMembers, setOtherMembers] = useState(null);
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     const userInfo = useSelector(userData);
-    let otherMembers = parseInt(chat.users.find(m => m !== userInfo.info.id.toString()))
+
+    useEffect(() => {
+        if(!otherMembers){
+            setOtherMembers(parseInt(chat.users.find(m => m !== userInfo.info.id.toString())))
+        }
+    }, [otherMembers, chat.users, userInfo.info.id]);
     
     useEffect(() => {
-        if(!chatMemberInfo){
+        if(!chatMemberInfo && otherMembers){
             getUserChatInfo(otherMembers, setChatMemberInfo);
-        }else{
+        }else if(chatMemberInfo){
             setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
         }
     }, [chatMemberInfo, otherMembers]);

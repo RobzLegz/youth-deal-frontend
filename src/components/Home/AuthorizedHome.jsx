@@ -16,6 +16,8 @@ import LoadingPopup from '../popups/loading/LoadingPopup';
 import ScrollJobs from './JobsPanel/ScrollJobs';
 import SwipeJobs from './JobsPanel/SwipeJobs';
 import { infoData } from '../../slices/info/infoSlice';
+import { chatData } from '../../slices/chat/chatSlice';
+import Contact from './chats/Contact';
 
 function AuthorizedHome() {
     const pageInfo = useSelector(infoData);
@@ -81,22 +83,11 @@ function AuthorizedHome() {
     }, [scrollJobs]);
 
 
-    const contacts = Array(5).fill({
-        name: "Pseidons",
-        avatar: "https://group.renault.com/wp-content/uploads/2021/03/nouveau_logo_renault_banner.jpg",
-        last_msg: "Hello",
-        last_msg_time: "15:30"
-    });
-    const recomendations = Array(3).fill({
-        avatar: "https://group.renault.com/wp-content/uploads/2021/03/nouveau_logo_renault_banner.jpg",
-        name: "Renault",
-        positionInfo: "Kompānija"
-    });
-
     const [activeJobPanel, setActiveJobPanel] = useState(null);
     const [activeJobOption, setActiveJobOption] = useState('longterm');
 
     const userInfo = useSelector(userData);
+    const chatInfo = useSelector(chatData);
     const proffessionInfo = useSelector(proffessionData);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -181,21 +172,17 @@ function AuthorizedHome() {
                 <div className="auth-home__right">
                     <h2>Čats</h2>
                     <div className="auth-home__right__chat panel">
-                        {contacts.map((contact, i) =>
-                            <div className="auth-home__right__chat__contact" key={i}>
-                                <img src={contact.avatar} alt="renault" />
-                                <div className="auth-home__right__chat__contact__info">
-                                    <p id="username">{contact.name}</p>
-                                    <small id="last-msg">{contact.last_msg}</small>
-                                </div>
-                                <p className="auth-home__right__chat__contact__last-msg-time">{contact.last_msg_time}</p>
-                            </div>
+                        {chatInfo.chats.map((contact, i) =>
+                            <Contact 
+                                contact={contact}
+                                key={i}
+                            />
                         )}
                     </div>
 
-                    <h2>Recomendācijas</h2>
+                    {/* <h2>Recomendācijas</h2>
                     <div className="auth-home__right__recomendations panel">
-                        {recomendations.map((recomendation, i) =>
+                        {chatInfo.chats.map((recomendation, i) =>
                             <div className="auth-home__right__recomendations__recomendation" key={i}>
                                 <img src={recomendation.avatar} alt="avatar" />
                                 <div className="info">
@@ -205,7 +192,7 @@ function AuthorizedHome() {
                                 <button>+ Sekot</button>
                             </div>
                         )}
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
