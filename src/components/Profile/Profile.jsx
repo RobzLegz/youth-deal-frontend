@@ -99,7 +99,7 @@ function Profile(){
         )
     }
 
-    const ProfileRightSection = ({ title, value, formValue, setFormValue, editing, setEditing }) => {
+    const ProfileRightSection = ({ title, value, formValue, setFormValue, editing, setEditing, isUsersProfile }) => {
         return (value && value !== "") ? (
             <section className="profile__right__section">
                 <div className="profile__right__section__header">
@@ -107,7 +107,7 @@ function Profile(){
                     {isUsersProfile && (<img src={editing ? CloseIcon : pen} alt="edit" onClick={() => setEditing(!editing)} />)}
                 </div>
                 <div className="profile__right__section__items">
-                    {editing ? (
+                    {editing && isUsersProfile ? (
                         <EditForm value={formValue} setValue={setFormValue} setEditing={setEditing} />
                     ) : (
                         <p>{value}</p>
@@ -203,7 +203,7 @@ function Profile(){
                     {
                         searchInfo.info.profile.knowledge || 
                         searchInfo.info.profile.experience || 
-                        searchInfo.info.profile.extra  ? (
+                        searchInfo.info.profile.extra ? (
                             <div className="profile__right">
                                 <ProfileRightSection
                                     title="Izglītība"
@@ -212,6 +212,7 @@ function Profile(){
                                     setFormValue={setEditKnowledge}
                                     editing={editingKnowledge}
                                     setEditing={setEditingKnowledge}
+                                    isUsersProfile={isUsersProfile}
                                 />
                                 <ProfileRightSection
                                     title={userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"}
@@ -220,6 +221,7 @@ function Profile(){
                                     setFormValue={setEditLastJob}
                                     editing={editingLastJob}
                                     setEditing={setEditingLastJob}
+                                    isUsersProfile={isUsersProfile}
                                 />
                                 <ProfileRightSection
                                     title="Papildus prasmes"
@@ -228,6 +230,7 @@ function Profile(){
                                     setFormValue={setEditExtraSkills}
                                     editing={editingExtraSkills}
                                     setEditing={setEditingExtraSkills}
+                                    isUsersProfile={isUsersProfile}
                                 />
                             </div>
                         ) : (
