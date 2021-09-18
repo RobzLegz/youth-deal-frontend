@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import './Chat.scss'
 import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
@@ -26,8 +26,7 @@ function Chat() {
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [isOptionsPopup, setIsOptionsPopup] = useState(false)
-    const [userAddedToSocket, setUserAddedToSocket] = useState(false)
-    // const scrollRef = useRef();
+    const scrollRef = useRef();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -37,56 +36,55 @@ function Chat() {
     }, [id, dispatch, userInfo.info, history]);
 
     useEffect(() => {
+        if(!socket){
+            setSocket(io("ws://localhost:8900"));
+        }
+    }, [socket]);
+
+    useEffect(() => {
         if(socket){
-            if(!userAddedToSocket && userInfo.info){
+            if(userInfo.info){
                 socket.emit("addUser", userInfo.info.id);
                 socket.on("getUsers", users => {
                     dispatch(setOnlineUsers(users));
                 })
-                setUserAddedToSocket(true);
             }
+        }
+    }, [socket, dispatch, userInfo.info]);
 
+    useEffect(() => {
+        if(socket){
             socket.on("getMessage", (data) => {
                 setArrivalMessage({
                     sender: data.senderId,
                     text: data.text,
                     createdAt: Date.now(),
                 });
-            });
-        }else{
-            setSocket(io("ws://localhost:8900"));
-        }
-    }, [socket, userInfo.info, userAddedToSocket, dispatch]);
 
-    useEffect(() => {
-        if(chatInfo.activeChat){
-            if(chatInfo.activeChat.messages){
-                if(arrivalMessage){
-                    dispatch(setActiveChatMessages([...chatInfo.activeChat.messages, arrivalMessage]))
+                console.log({
+                    sender: data.senderId,
+                    text: data.text,
+                    createdAt: Date.now(),
+                })
+
+                if(chatInfo.activeChat && chatInfo.activeChat.messages && arrivalMessage && chatInfo.activeChat.id === arrivalMessage.sender){
+                    if(chatInfo.activeChat.messages[chatInfo.activeChat.messages.length - 1].text !== arrivalMessage.text){
+                        dispatch(setActiveChatMessages([...chatInfo.activeChat.messages, arrivalMessage]));
+                    }
                 }
-            }else{
-                dispatch(setActiveChatMessages([arrivalMessage]))
-            }
+            });
         }
-    }, [arrivalMessage, chatInfo.activeChat, dispatch]);
+    }, [socket, arrivalMessage, chatInfo.activeChat, dispatch]);
 
     useEffect(() => {
         if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.activeChat.messages){
             getChatMessages(chatInfo.activeChatID, dispatch);
+            
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",
+            });
         }
     }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch]);
-
-    // useEffect(() => {
-    //     const getMessages = async () => {
-    //         try {
-    //             const res = await axios.get("/messages/" + currentChat?._id);
-    //             setMessages(res.data);
-    //         } catch (err) {
-    //             console.log(err);
-    //         }
-    //     };
-    //     getMessages();
-    //   }, [currentChat]);
 
 
     function handleContactsToggle() {
@@ -103,18 +101,17 @@ function Chat() {
         })
     }
 
-    const sendMessage = async (e) => {
+    const sendMessage = (e) => {
         e.preventDefault();
 
-        if(socket && messageText && messageText !== ""){
+        if(socket && messageText !== ""){
             socket.emit("sendMessage", {
                 senderId: userInfo.info.id,
                 receiverId: chatInfo.activeChat.id,
                 text: messageText,
             });
       
-            newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch);
-            setMessageText("");
+            newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageText);
         }
     };
 
@@ -129,7 +126,7 @@ function Chat() {
                             <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" />
                             <div className="chat__header__profile-info__text">
                                 <p id="username">{chatInfo.activeChat.first_name} {chatInfo.activeChat.last_name}</p>
-                                <small id="activity-status">online</small>
+                                <small id="activity-status">{chatInfo.onlineUsers && chatInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>
                         <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
@@ -155,6 +152,7 @@ function Chat() {
                             }
                             return null
                         })}
+                        <div ref={scrollRef}></div>
                     </div>
                     <div className="chat__input-container">
                         <div className="chat__input-container__options">

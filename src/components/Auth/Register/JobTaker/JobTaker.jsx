@@ -90,7 +90,7 @@ function JobTaker(){
                             Reģistrācija
                         </h1>
                         <p className="job__left__desc">Tas neaizņems daudz laika</p>
-                        <img src={jobTaker}/>
+                        <img src={jobTaker} alt="jobTaker_image"/>
                         <div className="job__left__login">
                             <p>Jau es reģistrēts?</p> <Link to="/login">Ieiet</Link>
                         </div>
@@ -98,7 +98,7 @@ function JobTaker(){
                 
                 <div className="job__right">
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="job__right__input-group__input" placeholder='' required/>
+                        <input className="job__right__input-group__input" value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' className="job__right__input-group__input" placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="name">Vārds:</label>
                     </div>        
 
@@ -108,7 +108,7 @@ function JobTaker(){
                     </div>        
 
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="job__right__input-group__input" placeholder='' required/>
+                        <input className="job__right__input-group__input" value={email} onChange={(e) => {setEmail(e.target.value);emailHandler(e)}} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' className="job__right__input-group__input" placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="email">E-pasts:</label>
                     </div>        
                     {(emailDirty && emailError) && <div className="job__right__error"style={{color:"#FA4251"}}>{emailError}</div>}

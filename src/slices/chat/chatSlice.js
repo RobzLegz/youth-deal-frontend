@@ -28,6 +28,9 @@ export const chatSlice = createSlice({
         setActiveChatID: (state, action) => {
             state.activeChatID = action.payload;
         },
+        deleteActiveChat: (state) => {
+            state.activeChat = null;
+        },
     },
 });
 
@@ -37,7 +40,8 @@ export const {
     setOnlineUsers,
     setActiveChat,
     setActiveChatMessages,
-    setActiveChatID
+    setActiveChatID,
+    deleteActiveChat
 } = chatSlice.actions;
 
 export const chatData = (state) => state.chat;

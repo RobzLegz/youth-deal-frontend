@@ -90,7 +90,7 @@ function JobGiver(){
                             Uzņēmuma Reģistrācija
                         </h1>
                         <p className="company__left__desc">Tas neaizņems daudz laika</p>
-                        <img src={jobGiver}/>
+                        <img src={jobGiver} alt="jobGiver_image"/>
                         <div className="company__left__login">
                             <p>Jau esiet reģistrēts?</p> <Link to="/login">Ieiet</Link>
                         </div>
@@ -102,7 +102,7 @@ function JobGiver(){
                         <label className="company__right__input-group__label" htmlFor="name">Uzņēmuma nosaukums:</label>
                     </div>           
                     <div className="company__right__input-group">
-                        <input className="company__right__input-group__input" value={email} onChange={(e) => setEmail(e.target.value)} onChange= {e => emailHandler(e)} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' placeholder='' required/>
+                        <input className="company__right__input-group__input" value={email} onChange={(e) => {setEmail(e.target.value);emailHandler(e)}} onBlur={(e) => blurHandler(e)} name="email" type="email" id='email' placeholder='' required/>
                         <label className="company__right__input-group__label" htmlFor="email">Uzņēmuma e-pasts:</label>
                     </div>        
                     {(emailDirty && emailError) && <div className="company__right__error"style={{color:"#FA4251"}}>{emailError}</div>}

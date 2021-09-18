@@ -1,7 +1,7 @@
 import { CHAT_ID_OPTIONS, MESSAGE_OPTIONS, NEW_CHAT, USER_CHATS } from "./chatRoutes"
 import axios from "axios"
 import { handleLoading, resetLoadingState } from "../../slices/loading/loadingSlice";
-import { setActiveChat, setActiveChatID, setActiveChatMessages, setChats } from "../../slices/chat/chatSlice";
+import { deleteActiveChat, setActiveChat, setActiveChatID, setActiveChatMessages, setChats } from "../../slices/chat/chatSlice";
 import { getUserChatHeaderInfo } from "../user/info/getUserInfo";
 
 export const getUserChats = (accessToken, dispatch) => {
@@ -46,6 +46,7 @@ export const deleteChat = (id, userID, dispatch) => {
     if(id){
         axios.delete(`${CHAT_ID_OPTIONS}/${id}`).then((res) => {
             getUserChats(userID, dispatch);
+            dispatch(deleteActiveChat());
         }).catch((err) => {
             console.log(err);
         });
@@ -63,17 +64,19 @@ export const getChatByID = (id, userID, dispatch, history) => {
     }
 };
 
-export const newMessage = (senderID, receiverID, chatID, text, dispatch) => {
+export const newMessage = (senderID, receiverID, chatID, text, dispatch, setMessageText) => {
     if(senderID && receiverID && chatID && text){
         const data = {
             senderAccesstoken: senderID, 
             receiverAccessToken: receiverID,
-            chatID,
-            text
+            chatID: chatID,
+            text: text
         };
 
         axios.post(MESSAGE_OPTIONS, data).then((res) => {
+            setMessageText("");
             getChatMessages(chatID, dispatch);
+            dispatch(setActiveChatMessages(res.data));
         }).catch((err) => {
             console.log(err);
         });
