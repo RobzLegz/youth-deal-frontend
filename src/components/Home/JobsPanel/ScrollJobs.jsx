@@ -20,6 +20,7 @@ function ScrollJobs({jobs}) {
                                 <h4>{companyInfo.name}</h4>
                                 <small>{jobOffer.post_time}</small>
                             </div>
+                            <button>+ Sekot</button>
                             <img src={OptionsIcon} alt="options" className="options" />
                         </div>
                         <div className="job-panel__location">
