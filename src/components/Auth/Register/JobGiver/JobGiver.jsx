@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { userData } from '../../../../slices/user/userSlice';
 import { Link } from 'react-router-dom';
+import { registerCompany } from '../../../../logic/company/auth/auth';
 
 function JobGiver(){
     const [name, setName] = useState("");
@@ -113,7 +114,7 @@ function JobGiver(){
                     <button type='submit' onClick={(e) => {
                         e.preventDefault();
                         if (name !== "" && email !== "" && password !== ""){
-                            registerUser(
+                            registerCompany(
                                 email,
                                 password,
                                 name,

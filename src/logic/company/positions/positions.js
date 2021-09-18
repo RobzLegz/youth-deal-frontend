@@ -1,8 +1,10 @@
 import axios from "axios";
 import { setJobOffers } from "../../../slices/info/infoSlice";
+import { handleLoading } from "../../../slices/loading/loadingSlice";
 import { COMPANY_POSITIONS, COMPANY_POSITION_OPTIONS } from "../../api/apiRoutes";
 
-export const newPossition = (occupation, info, city, country, requirements, priceRange, contractType, accessToken) => {
+export const newPossition = (occupation, info, city, country, requirements, priceRange, contractType, accessToken, dispatch, history) => {
+    dispatch(handleLoading(true));
     const data = {
         position_occupation: occupation,
         position_info: info,
@@ -24,9 +26,12 @@ export const newPossition = (occupation, info, city, country, requirements, pric
         data, 
         headers
     ).then((res) => {
-        console.log(res.data)
+        dispatch(handleLoading(false));
+        history.push("/");
     }).catch((err) => {
         console.log(err)
+        dispatch(handleLoading(false));
+        history.push("/");
     });
 };
 

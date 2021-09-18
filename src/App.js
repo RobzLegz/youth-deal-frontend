@@ -57,7 +57,7 @@ function App() {
 
     if(userInfo.info && !socketInfo.socket && socketURL){
       dispatch(connect(io(socketURL)));
-    }else if(socketInfo.socket){
+    }else if(socketInfo.socket && userInfo.info){
       socketInfo.socket.emit("addUser", userInfo.info.id);
       socketInfo.socket.on("getUsers", users => {
         dispatch(getOnlineUsers(users));

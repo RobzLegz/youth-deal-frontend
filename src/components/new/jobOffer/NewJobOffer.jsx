@@ -71,7 +71,9 @@ function NewJobOffer() {
                         requirements,
                         price,
                         contractType,
-                        userInfo.accessToken
+                        userInfo.accessToken,
+                        dispatch,
+                        history
                     );
                 }
             }
@@ -175,7 +177,7 @@ function NewJobOffer() {
                                     {
                                         locationInfo.countries.map((mappedCountry, i) => {
                                             if(mappedCountry.country_name.substr(0, country.length).toLowerCase() === country.toLowerCase()){
-                                                return <li key={i} onClick={() => {setCountry(mappedCountry.country_name);getCitys()}}>{mappedCountry.country_name}</li>
+                                                return <li key={i} onClick={() => {setCountry(mappedCountry.country_name);setShowCountries(false)}}>{mappedCountry.country_name}</li>
                                             };
                                             return null;
                                         })
@@ -192,6 +194,7 @@ function NewJobOffer() {
                                 autoComplete="off"
                                 placeholder="Pilsēta"
                                 onChange={(e) => setCity(e.target.value)}
+                                onClick={getCitys}
                                 value={city ? city : ""}
                             />
                             {showCities && city && locationInfo.countryCitys && (

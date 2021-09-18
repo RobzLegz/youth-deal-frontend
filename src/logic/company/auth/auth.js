@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { handleLoading, resetLoadingState } from '../../../slices/loading/loadingSlice';
+import { login, setAccessToken } from '../../../slices/user/userSlice';
 import { REGISTER } from '../../api/apiRoutes';
 
 export const registerCompany = (
@@ -22,7 +23,8 @@ export const registerCompany = (
     axios.post(REGISTER, registerData).then((res) => {
         const token = res.data.token;
         window.localStorage.setItem("accessToken", token);
-
+        dispatch(setAccessToken(token));
+        dispatch(login());
         dispatch(resetLoadingState());
     }).catch((err) => {
         console.log(err.message);
