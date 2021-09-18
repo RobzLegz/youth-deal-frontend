@@ -37,7 +37,7 @@ function Chat() {
 
     useEffect(() => {
         if(!socket){
-            setSocket(io("ws://localhost:8900"));
+            setSocket(io("https://youth-deal-socket.herokuapp.com/"));
         }
     }, [socket]);
 
@@ -60,31 +60,25 @@ function Chat() {
                     text: data.text,
                     createdAt: Date.now(),
                 });
-
-                console.log({
-                    sender: data.senderId,
-                    text: data.text,
-                    createdAt: Date.now(),
-                })
-
-                if(chatInfo.activeChat && chatInfo.activeChat.messages && arrivalMessage && chatInfo.activeChat.id === arrivalMessage.sender){
-                    if(chatInfo.activeChat.messages[chatInfo.activeChat.messages.length - 1].text !== arrivalMessage.text){
-                        dispatch(setActiveChatMessages([...chatInfo.activeChat.messages, arrivalMessage]));
-                    }
-                }
             });
         }
-    }, [socket, arrivalMessage, chatInfo.activeChat, dispatch]);
+    }, [socket]);
 
     useEffect(() => {
-        if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.activeChat.messages){
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text){
+            dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+        }
+    }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
+
+    useEffect(() => {
+        if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.messages){
             getChatMessages(chatInfo.activeChatID, dispatch);
             
             scrollRef.current.scrollIntoView({
                 behavior: "smooth",
             });
         }
-    }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch]);
+    }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch, chatInfo.messages]);
 
 
     function handleContactsToggle() {
@@ -137,7 +131,7 @@ function Chat() {
                         </div>
                     </div>
                     <div className="chat__messages">
-                        {chatInfo.activeChat.messages && chatInfo.activeChat.messages.map((msg, i) => {
+                        {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
                                 let postTime = new Date(msg.createdAt).toUTCString().split(new Date().getFullYear())[1].split("GMT")[0];
 

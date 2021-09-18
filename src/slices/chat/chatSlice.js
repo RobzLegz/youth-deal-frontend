@@ -23,7 +23,7 @@ export const chatSlice = createSlice({
             state.activeChat = action.payload;
         },
         setActiveChatMessages: (state, action) => {
-            state.activeChat.messages = action.payload;
+            state.messages = action.payload;
         },
         setActiveChatID: (state, action) => {
             state.activeChatID = action.payload;
