@@ -3,11 +3,12 @@ import { filterCompanysByName } from '../../../logic/company/find/filter';
 import { getUserByName } from '../../../logic/user/find/filter';
 import CloseIcon from "../../../assets/svg/close.svg";
 import CompanyIcon from "../../../assets/svg/company.svg";
+import Avatar from "../../../assets/svg/avatar.svg";
 
 function SearchBar() {
     const [search, setSearch] = useState("");
     const [searched, setSearched] = useState(false);
-    const [searchResults] = useState([]);
+    const [searchResults, setResults] = useState([]);
 
     const searchDB = (e) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ function SearchBar() {
                         <ul className="header__search__results__all">
                             <div className="header__search__results__all__header">
                                 <p>Aizvērt</p>
-                                <img src={CloseIcon} alt="close" onClick={() => setSearched(false)} />
+                                <img src={CloseIcon} alt="close" onClick={() => {setSearched(false);setResults([])}} />
                             </div>
 
                             {searchResults.map((result, i) => {
@@ -45,7 +46,7 @@ function SearchBar() {
                                 }else{
                                     return(
                                         <li key={i}>
-                                            <img src={result.profile.photo} alt={result.first_name} />
+                                            <img src={result.profile.photo ? result.profile.photo : Avatar} alt={result.first_name} />
                                             <h4>{result.first_name} {result.last_name}</h4>
                                         </li>
                                     )
@@ -56,7 +57,7 @@ function SearchBar() {
                         <div className="header__search__results__noResults">
                             <div className="header__search__results__noResults__header">
                                 <p>Aizvērt</p>
-                                <img src={CloseIcon} alt="close" onClick={() => setSearched(false)} />
+                                <img src={CloseIcon} alt="close" onClick={() => {setSearched(false);setResults([])}} />
                             </div>
                             <p>Neatradām nevienu kompāniju vai lietotāju</p>
                         </div>
