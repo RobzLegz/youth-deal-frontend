@@ -14,6 +14,7 @@ import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
 import { socketData } from '../../slices/socket/socketSlice';
+import NoChatIcon from "../../assets/svg/chat/nochat.svg"
 
 function Chat() {
     const {id} = useParams();
@@ -161,7 +162,10 @@ function Chat() {
                     <button className="chat__invizButton" onClick={(e) => sendMessage(e)}></button>
                 </form>    
             ) : (
-                <h3>Izvēlieties kontaktu ar kuru sarakstīties</h3>
+                <div className="noChatSelected">
+                    <p>Izvēlieties kontaktu ar kuru sarakstīties</p>
+                    <img src={NoChatIcon} alt="no chat" />
+                </div>
             )}
         </div>
     )

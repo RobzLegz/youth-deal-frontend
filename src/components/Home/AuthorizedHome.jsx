@@ -172,7 +172,7 @@ function AuthorizedHome() {
                 <div className="auth-home__right">
                     <h2>Čats</h2>
                     <div className="auth-home__right__chat panel">
-                        {chatInfo.chats.map((contact, i) =>
+                        {chatInfo.chats && chatInfo.chats.map((contact, i) =>
                             <Contact 
                                 contact={contact}
                                 key={i}
