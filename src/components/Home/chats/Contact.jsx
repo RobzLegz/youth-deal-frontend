@@ -26,7 +26,11 @@ function Contact({contact}) {
         if(!chatMemberInfo && otherMembers){
             getUserChatInfo(otherMembers, setChatMemberInfo);
         }else if(chatMemberInfo){
-            setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
+            if(chatMemberInfo.is_employer){
+                setName(`${chatMemberInfo.profile.company_name}`);
+            }else{
+                setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
+            }
         }
     }, [chatMemberInfo, otherMembers]);
 
@@ -38,7 +42,6 @@ function Contact({contact}) {
                     <p id="username">{name}</p>
                     {socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatMemberInfo.id) ? "online" : "offline"}
                 </div>
-                <p className="auth-home__right__chat__contact__last-msg-time">{contact.last_msg_time}</p>
             </div>
         )
     }else{

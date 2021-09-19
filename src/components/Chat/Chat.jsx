@@ -14,7 +14,7 @@ import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
 import { socketData } from '../../slices/socket/socketSlice';
-import NoChatIcon from "../../assets/svg/chat/nochat.svg"
+import NoChatIcon from "../../assets/svg/chat/nochat.svg";
 
 function Chat() {
     const {id} = useParams();
@@ -105,9 +105,9 @@ function Chat() {
                     <div className="chat__header">
                         <div className="chat__header__profile-info">
                             <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
-                            <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} />
+                            <img src={chatInfo.activeChat.is_employer ? chatInfo.activeChat.profile.logo ? chatInfo.activeChat.profile.logo : AvatarIcon : chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} />
                             <div className="chat__header__profile-info__text" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} >
-                                <p id="username">{chatInfo.activeChat.first_name} {chatInfo.activeChat.last_name}</p>
+                                <p id="username">{chatInfo.activeChat.is_employer ? `${chatInfo.activeChat.profile.company_name}` : `${chatInfo.activeChat.first_name} ${chatInfo.activeChat.last_name}`}</p>
                                 <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>

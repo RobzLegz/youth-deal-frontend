@@ -29,7 +29,11 @@ function Contact({chat, search, setSearch}) {
         if(!chatMemberInfo && otherMembers){
             getUserChatInfo(otherMembers, setChatMemberInfo);
         }else if(chatMemberInfo){
-            setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
+            if(chatMemberInfo.is_employer){
+                setName(`${chatMemberInfo.profile.company_name}`);
+            }else{
+                setName(`${chatMemberInfo.first_name} ${chatMemberInfo.last_name}`);
+            }
         }
     }, [chatMemberInfo, otherMembers]);
 
