@@ -108,7 +108,7 @@ function Chat() {
                             <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" />
                             <div className="chat__header__profile-info__text">
                                 <p id="username">{chatInfo.activeChat.first_name} {chatInfo.activeChat.last_name}</p>
-                                <small id="activity-status">{chatInfo.onlineUsers && chatInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
+                                <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>
                         <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
