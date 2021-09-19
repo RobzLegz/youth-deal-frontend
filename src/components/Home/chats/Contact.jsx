@@ -36,7 +36,7 @@ function Contact({contact}) {
                 <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" />
                 <div className="auth-home__right__chat__contact__info">
                     <p id="username">{name}</p>
-                    {socketInfo.onlineUsers.some(u => u.userId === chatMemberInfo.id) ? "online" : "offline"}
+                    {socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatMemberInfo.id) ? "online" : "offline"}
                 </div>
                 <p className="auth-home__right__chat__contact__last-msg-time">{contact.last_msg_time}</p>
             </div>
