@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { getUserChatInfo } from '../../../logic/user/info/getUserInfo';
 import { userData } from '../../../slices/user/userSlice';
 import Avatar from '../../../assets/svg/avatar.svg';
+import { socketData } from '../../../slices/socket/socketSlice';
 
 function Contact({contact}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
@@ -12,6 +13,7 @@ function Contact({contact}) {
 
     const history = useHistory();
     const userInfo = useSelector(userData);
+    const socketInfo = useSelector(socketData);
 
     useEffect(() => {
         if(!otherMembers){
@@ -34,7 +36,7 @@ function Contact({contact}) {
                 <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" />
                 <div className="auth-home__right__chat__contact__info">
                     <p id="username">{name}</p>
-                    {/* <small id="last-msg">{contact.last_msg}</small> */}
+                    {socketInfo.onlineUsers.some(u => u.userId === chatMemberInfo.id) ? "online" : "offline"}
                 </div>
                 <p className="auth-home__right__chat__contact__last-msg-time">{contact.last_msg_time}</p>
             </div>

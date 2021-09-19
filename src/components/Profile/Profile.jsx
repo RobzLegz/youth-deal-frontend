@@ -6,6 +6,8 @@ import CloseIcon from '../../assets/svg/close.svg';
 import calendar from '../../assets/svg/calendar.svg';
 import marker from '../../assets/svg/marker.svg';
 import Avatar from '../../assets/svg/avatar.svg';
+import CompanyAvatar from '../../assets/svg/company.svg';
+import EmailIcon from '../../assets/svg/email.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
 import { useSelector } from 'react-redux';
@@ -21,6 +23,7 @@ import { updateKnowledgeJobExtra } from '../../logic/user/info/updateProfileInfo
 import { NewChat } from '../../logic/chat/chatOptions';
 import { socketData } from '../../slices/socket/socketSlice';
 import { chatData } from '../../slices/chat/chatSlice';
+import { getCompanysPositions } from '../../logic/company/find/findCompanysPositions';
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -29,6 +32,7 @@ function Profile(){
     const [editingLastJob, setEditingLastJob] = useState(false);
     const [editingExtraSkills, setEditingExtraSkills] = useState(false);
     const [hasChat, setHasChat] = useState(null);
+    const [companyPositions, setCompanyPositions] = useState(null);
 
     const {searchID} = useParams()
 
@@ -82,6 +86,12 @@ function Profile(){
         }
     }, [searchInfo.info, dispatch, proffessionInfo.proffessions]);
 
+    useEffect(() => {
+        if(searchInfo.info && searchInfo.info.is_employer && !companyPositions){
+            getCompanysPositions(searchInfo.info.profile.id, setCompanyPositions);
+        }
+    }, [searchInfo.info, companyPositions]);
+
     const handleProfileModal = () => {
         setEditProfile(!editProfile)
     }
@@ -129,7 +139,68 @@ function Profile(){
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
-                <div></div>
+                <div className="profile">
+                    <div className="profile__left">
+                        <div className="profile__left__top">
+                            <div className="profile__left__top__img-wrapper">
+                                <img src={searchInfo.info.profile.logo ? searchInfo.info.profile.logo : CompanyAvatar} alt="avatar" />
+                                <div className='onlineStatus' id={socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div>
+                            </div>
+                            <div className="profile__left__top__info">
+                                <div>
+                                    <p>{searchInfo.info.profile.company_name}</p>
+                                </div>
+                                {!isUsersProfile && userInfo.info.id && searchInfo.info.id && hasChat !== null && (
+                                    <button
+                                        onClick={() => {
+                                            if(hasChat){
+                                                history.push("/chat")
+                                            }else{
+                                                NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
+                                            }
+                                        }}
+                                    >{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
+                                )}
+                            </div>
+                            {isUsersProfile && (
+                                <img onClick={handleProfileModal} className='profile__left__top__change-info' src={pen} alt="pen" />
+                            )}
+                        </div>
+
+                        <div className="profile__left__middle">
+
+                            <div className="profile__left__middle__row" id='born-date'>
+                                <div>
+                                    <img src={EmailIcon} alt="email" />
+                                    <p>e-pasts</p>
+                                </div>
+                                <p>{searchInfo.info.email}</p>
+                            </div>
+
+                            {searchInfo.info.profile.city && (
+                                <div className="profile__left__middle__row" id='city'>
+                                    <div>
+                                        <img src={marker} alt="location" />
+                                        <p>Atrašanās vieta</p>
+                                    </div>
+                                    <p>{searchInfo.info.profile.city}{searchInfo.info.profile.country && `, ${searchInfo.info.profile.country}`}</p>
+                                </div>
+                            )}  
+                        </div>
+
+                        {searchInfo.info.profile.description && (
+                            <div className="profile__left__bottom">
+                                <div className="profile__left__bottom__my-desc">
+                                    <p className='profile__left__bottom__my-desc__title'>Informācija par kompāniju</p>
+                                    <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.description}</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    <div className="profile__companyRight">
+
+                    </div>
+                </div>
             )
         }else{
             return (

@@ -42,14 +42,14 @@ function SearchBar() {
                             {results.map((result, i) => {
                                 if(result.is_employer){
                                     return (
-                                        <li key={i} onClick={() => history.push(`/profile/${result.id}`)}>
+                                        <li key={i} onClick={() => {history.push(`/profile/${result.id}`);setSearched(false)}}>
                                             <img src={result.profile.logo ? result.profile.logo : CompanyIcon} alt={result.profile.company_name} />
                                             <h4>{result.profile.company_name}</h4>
                                         </li>
                                     )
                                 }else{
                                     return(
-                                        <li key={i} onClick={() => history.push(`/profile/${result.id}`)}>
+                                        <li key={i} onClick={() => {history.push(`/profile/${result.id}`);setSearched(false)}}>
                                             <img src={result.profile.photo ? result.profile.photo : Avatar} alt={result.first_name} />
                                             <h4>{result.first_name} {result.last_name}</h4>
                                         </li>

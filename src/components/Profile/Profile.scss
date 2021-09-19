@@ -97,10 +97,11 @@
                 div {
                     display: flex;
                     align-items: center;
+
                     img {
-                        padding-right: 10px;
                         object-fit: contain;
                         width: 30px;
+                        margin-right: 10px;
                     }
                     p {
                         font-size: 20px;
