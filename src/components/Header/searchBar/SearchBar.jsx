@@ -4,16 +4,20 @@ import { getUserByName } from '../../../logic/user/find/filter';
 import CloseIcon from "../../../assets/svg/close.svg";
 import CompanyIcon from "../../../assets/svg/company.svg";
 import Avatar from "../../../assets/svg/avatar.svg";
+import { useHistory } from 'react-router-dom';
 
 function SearchBar() {
     const [search, setSearch] = useState("");
     const [searched, setSearched] = useState(false);
-    const [searchResults, setResults] = useState([]);
+    const [results, setResults] = useState([]);
+
+    const history = useHistory();
 
     const searchDB = (e) => {
         e.preventDefault();
-        getUserByName(search, searchResults);
-        filterCompanysByName(search, searchResults);
+        setResults([]);
+        getUserByName(search, results, setResults);
+        filterCompanysByName(search, results, setResults);
         setSearched(true);
     }
 
@@ -28,24 +32,24 @@ function SearchBar() {
 
             {searched && (
                 <div className="header__search__results">
-                    {searchResults.length > 0 ? (
+                    {results.length > 0 ? (
                         <ul className="header__search__results__all">
                             <div className="header__search__results__all__header">
                                 <p>Aizvērt</p>
                                 <img src={CloseIcon} alt="close" onClick={() => {setSearched(false);setResults([])}} />
                             </div>
 
-                            {searchResults.map((result, i) => {
+                            {results.map((result, i) => {
                                 if(result.is_employer){
                                     return (
-                                        <li key={i}>
+                                        <li key={i} onClick={() => history.push(`/profile/${result.id}`)}>
                                             <img src={result.profile.logo ? result.profile.logo : CompanyIcon} alt={result.profile.company_name} />
                                             <h4>{result.profile.company_name}</h4>
                                         </li>
                                     )
                                 }else{
                                     return(
-                                        <li key={i}>
+                                        <li key={i} onClick={() => history.push(`/profile/${result.id}`)}>
                                             <img src={result.profile.photo ? result.profile.photo : Avatar} alt={result.first_name} />
                                             <h4>{result.first_name} {result.last_name}</h4>
                                         </li>
