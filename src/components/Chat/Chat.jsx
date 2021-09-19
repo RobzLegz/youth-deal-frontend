@@ -50,7 +50,7 @@ function Chat() {
     }, [socketInfo.socket]);
 
     useEffect(() => {
-        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text){
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && (chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender)){
             dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
         }
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
@@ -105,8 +105,8 @@ function Chat() {
                     <div className="chat__header">
                         <div className="chat__header__profile-info">
                             <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
-                            <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" />
-                            <div className="chat__header__profile-info__text">
+                            <img src={chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} />
+                            <div className="chat__header__profile-info__text" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} >
                                 <p id="username">{chatInfo.activeChat.first_name} {chatInfo.activeChat.last_name}</p>
                                 <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>

@@ -124,7 +124,7 @@ function Profile(){
                     )}
                 </div>
             </section>
-        ) : (
+        ) : isUsersProfile && (
             <section className="profile__right__section">
                 <div className="profile__right__section__header">
                     <p className='profile__right__section__header__title'>{title}</p>
