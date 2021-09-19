@@ -99,7 +99,7 @@ function Profile(){
         )
     }
 
-    const ProfileRightSection = ({ title, value, formValue, setFormValue, editing, setEditing, isUsersProfile }) => {
+    const ProfileRightSection = ({ title, value, formValue, setFormValue, editing, setEditing }) => {
         return (value && value !== "") ? (
             <section className="profile__right__section">
                 <div className="profile__right__section__header">
@@ -114,16 +114,18 @@ function Profile(){
                     )}
                 </div>
             </section>
-        ) : (
-            <section className="profile__right__section">
-                <div className="profile__right__section__header">
-                    <p className='profile__right__section__header__title'>{title}</p>
-                </div>
-                <div className="profile__right__section__items">
-                    <EditForm value={formValue} setValue={setFormValue} setEditing={setEditing} />
-                </div>
-            </section>
-        )
+        ) : <>
+            {isUsersProfile ? (
+                <section className="profile__right__section">
+                    <div className="profile__right__section__header">
+                        <p className='profile__right__section__header__title'>{title}</p>
+                    </div>
+                    <div className="profile__right__section__items">
+                        <EditForm value={formValue} setValue={setFormValue} setEditing={setEditing} />
+                    </div>
+                </section>
+            ) : <></>}
+        </>
     }
 
     if(searchInfo.info){
@@ -143,7 +145,7 @@ function Profile(){
                            
                             <div className="profile__left__top__img-wrapper">
                                 <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
-                                <div className='onlineStatus' id={socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div>
+                                {/* <div className='onlineStatus' id={socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div> */}
                             </div>
                             <div className="profile__left__top__info">
                                 <div>
@@ -212,7 +214,6 @@ function Profile(){
                                     setFormValue={setEditKnowledge}
                                     editing={editingKnowledge}
                                     setEditing={setEditingKnowledge}
-                                    isUsersProfile={isUsersProfile}
                                 />
                                 <ProfileRightSection
                                     title={userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"}
@@ -221,7 +222,6 @@ function Profile(){
                                     setFormValue={setEditLastJob}
                                     editing={editingLastJob}
                                     setEditing={setEditingLastJob}
-                                    isUsersProfile={isUsersProfile}
                                 />
                                 <ProfileRightSection
                                     title="Papildus prasmes"
@@ -230,7 +230,6 @@ function Profile(){
                                     setFormValue={setEditExtraSkills}
                                     editing={editingExtraSkills}
                                     setEditing={setEditingExtraSkills}
-                                    isUsersProfile={isUsersProfile}
                                 />
                             </div>
                         ) : (
