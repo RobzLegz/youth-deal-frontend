@@ -35,11 +35,88 @@ nav{
 
     .header__search {
         display: flex;
+        position: relative;
+
         input {
             max-width: 13em;
         }
         button {
             min-width: fit-content;
+        }
+
+        &__results{
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+
+            &__all{
+                height: 200px;
+                background: #fff;
+                width: 100%;
+                border: 1px solid lightgray;
+                overflow-y: scroll;
+
+                li{
+                    width: 100%;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    cursor: pointer;
+                    border-bottom: 1px solid lightgray;
+                    padding: 0 10px;
+
+                    &:hover{
+                        background: lightgray;
+                    }
+
+                    img{
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                    }
+
+                    h4{
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            &__noResults{
+                height: 90px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                background: #fff;
+                padding: 0 5px;
+                border: 1px solid lightgray;
+            }
+
+            &__all,
+            &__noResults{
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                &__header{
+                    width: 100%;
+                    height: 30px;
+                    margin-bottom: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding:  0 10px;
+                    border-bottom: 1px solid lightgrey;
+
+                    img{
+                        cursor: pointer;
+                        height: 20px;
+                        width: 20px;
+                    }
+                }
+            }
         }
     }
 

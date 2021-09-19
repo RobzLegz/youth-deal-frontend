@@ -10,11 +10,11 @@ import LoadingPopup from '../popups/loading/LoadingPopup'
 import { useDispatch } from 'react-redux'
 import { proffessionData } from '../../slices/proffessions/proffessionSlice'
 import Avatar from '../../assets/svg/avatar.svg';
+import SearchBar from './searchBar/SearchBar';
 
 function AuthorizedHeader() {
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
     const [isHamburgerActive, setIsHamburgerActive] = useState(false)
-    const [search, setSearch] = useState("");
     const [open, setOpen] = useState(false);
 
     const proffessionInfo = useSelector(proffessionData);
@@ -44,17 +44,6 @@ function AuthorizedHeader() {
         window.localStorage.removeItem("accessToken");
         dispatch(logoutUser());
         history.push("/");
-    };
-
-    const SearchBar = () => {
-        return <div className="header__search">
-            <input
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Cilvēki, kompānijas..."
-            />
-            <button type="submit">Meklēt</button>
-        </div>
     };
 
     const TopLinks = () => {

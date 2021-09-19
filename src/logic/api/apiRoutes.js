@@ -16,6 +16,7 @@ export const USER_INFO = `${USER_BASE}/user`;
 export const USER_PROFILE = `${USER_BASE}/jsprofile`;
 export const JOB_OFFERS = `${USER_BASE}/joboffers`;
 export const JOB_OFFER_OPTIONS = `${JOB_OFFERS}/list_create`;
+export const USER_LIST_OPTIONS = `${USER_BASE}/user-list`;
 
 //<company>
 

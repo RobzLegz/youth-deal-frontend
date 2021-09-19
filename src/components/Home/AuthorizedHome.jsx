@@ -168,17 +168,22 @@ function AuthorizedHome() {
                         )   
                     }
                 </div>
-
+                
                 <div className="auth-home__right">
-                    <h2>Čats</h2>
-                    <div className="auth-home__right__chat panel">
-                        {chatInfo.chats && chatInfo.chats.map((contact, i) =>
-                            <Contact 
-                                contact={contact}
-                                key={i}
-                            />
-                        )}
-                    </div>
+                    {chatInfo.chats && chatInfo.chats.length > 0 && (
+                        <>
+                            <h2>Čats</h2>
+                            <div className="auth-home__right__chat panel">
+                                {chatInfo.chats.map((contact, i) =>
+                                    <Contact 
+                                        contact={contact}
+                                        key={i}
+                                    />
+                                )}
+                            </div>
+                        </>
+                    )}
+                    
 
                     {/* <h2>Recomendācijas</h2>
                     <div className="auth-home__right__recomendations panel">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ONE_OCCUPATION, OCCUPATION_CATEGORIES } from "../api/apiRoutes";
+import { ONE_OCCUPATION, OCCUPATION_CATEGORIES, USER_LIST_OPTIONS } from "../api/apiRoutes";
 import { getProffessionCategories, getProffessions } from "../proffessions/getProffesions";
 
 
@@ -122,6 +122,23 @@ export const deleteCategory = (categoryID, accessToken, dispatch) => {
         headers
     ).then((res) => {
         getProffessionCategories(dispatch);
+    }).catch((err) => {
+        console.log(err.message);
+    });
+}
+
+export const getAllUsers = (accessToken, dispatch) => {
+    const headers = {
+        headers: {
+            Authorization: `Token ${accessToken}`
+        }
+    };
+
+    axios.get(
+        USER_LIST_OPTIONS,
+        headers
+    ).then((res) => {
+        console.log(res.data);
     }).catch((err) => {
         console.log(err.message);
     });
