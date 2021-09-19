@@ -15,7 +15,7 @@ function Profile() {
     const [surname, setSurName] = useState(userInfo.info.last_name);
     const [email, setEmail] = useState(userInfo.info.email);
     const [city, setCity] = useState(userInfo.info.profile.city);
-    const [isActiveJobSeeker, setIsActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
+    const [isActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
 
     return (
         <div className='settings-wrapper'>

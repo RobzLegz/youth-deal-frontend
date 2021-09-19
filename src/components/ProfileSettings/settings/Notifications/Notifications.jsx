@@ -26,7 +26,7 @@ function Notifications() {
                         <span>Notestēt skaņu</span>
                         <span>
                             <i className="fa-volume-up"></i>
-                            <a>Atskaņot</a>
+                            <span>Atskaņot</span>
                         </span>
                     </div>
                 </div>

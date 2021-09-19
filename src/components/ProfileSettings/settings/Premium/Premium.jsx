@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { DropdownInput } from '../Inputs';
-import { userData } from '../../../../slices/user/userSlice';
-import { useSelector } from 'react-redux';
 
 import crown from '../../../../assets/svg/crown.svg';
 
