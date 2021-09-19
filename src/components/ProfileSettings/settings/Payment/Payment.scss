@@ -40,21 +40,7 @@
             p {
                 font-size: 35px;
             }
-            &__add {
-                padding-right: 30px;
-                display: flex;
-                align-items: center;
-                color: #3E66FF;
-                img {
-                    object-fit: contain;
-                    width: 28px;
-                }
-                p {
-                    text-decoration: underline;
-                    font-size: 20px !important;
-                    padding-left: 10px;
-                }
-            }
+            
         }
         &__row2 {
             margin-top: 20px;
@@ -66,5 +52,21 @@
                 padding: 10px 0;
             }
         }
+    }
+}
+
+.add-payment-method {
+    padding-right: 30px;
+    display: flex;
+    align-items: center;
+    color: #3E66FF;
+    img {
+        object-fit: contain;
+        height: 20px;
+    }
+    p {
+        text-decoration: underline;
+        font-size: 18px !important;
+        padding-left: 10px;
     }
 }

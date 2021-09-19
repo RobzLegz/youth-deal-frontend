@@ -1,32 +1,33 @@
 import React from 'react';
 
-import dropdown from '../../../../assets/svg/dropdown.svg';
+import { CheckboxInput } from '../Inputs';
 
-import './Notifications.scss';
+import '../Settings.scss';
 
 function Notifications() {
     return (
-        <div className="notifications">
-            <p className="notifications__title">Ziņas</p>
+        <div className="settings">
+            <h2 className="settings__title">Paziņojumi</h2>
 
-            <section className="notifications__web">
-                <div className="notifications__web__title">Web</div>
-                <div className="notifications__web__input-group">
-                    <label htmlFor="notifications">Rādīt paziņojumus par:</label>
-                    <div className="notifications__web__input-group__custom-input">
-                        <p></p>
-                        <img src={dropdown} alt="dropdown" />
-                    </div>
+            <section className="settings__section">
+                <h3 className="settings__section__title">Rādīt paziņojumus par:</h3>
+                <div className="settings__section__grayed">
+                    <CheckboxInput title="E-pasta paziņojumi" />
+                    <CheckboxInput title="Web paziņojumi" />
+                    <CheckboxInput title="Paziņojumi reālajā laikā" />
                 </div>
             </section>
 
-            <section className="notifications__email">
-                <div className="notifications__email__title">Email <span>(tiks sūtīts uz emails@gmail.com</span> </div>
-                <div className="notifications__email__input-group">
-                    <label htmlFor="emailnotify">Nosūtiet e-pasta ziņojumu ar nelasītām darbībām par:</label>
-                    <div className="notifications__email__input-group__custom-input">
-                        <p></p>
-                        <img src={dropdown} alt="dropdown" />
+            <section className="settings__section">
+                <h3 className="settings__section__title">Paziņojumi reālajā laikā skaņa</h3>
+                <div className="settings__section__grayed">
+                    <CheckboxInput title="Ar skaņu" />
+                    <div className="settings__section__test-sound">
+                        <span>Notestēt skaņu</span>
+                        <span>
+                            <i className="fa-volume-up"></i>
+                            <a>Atskaņot</a>
+                        </span>
                     </div>
                 </div>
             </section>
