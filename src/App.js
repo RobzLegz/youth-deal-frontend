@@ -229,6 +229,7 @@ function App() {
             </Route>
   
             <Route path='/settings'>
+              <AuthorizedHeader />
               <ProfileSettings />
               <Footer />
             </Route>

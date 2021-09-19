@@ -1,12 +1,12 @@
 .profileSettings {
-    min-height: calc(100% - 324px);
-    height: fit-content;
+    height: 100%;
     display: flex;
     padding: 20px 30px;
+    background-color: #F7F7F7;
     main {
         display: flex;
-        flex: 0.5;
-        margin: 0 auto;
+        width: 100%;
+        margin: 0 8rem;
     }
 }
 
@@ -21,6 +21,8 @@
                 padding: 5px 0;
                 padding-left: 15px;
                 display: flex;
+                flex-wrap: nowrap;
+                white-space: nowrap;
                 align-items: center;
                 font-size: 15px;
                 color: #7D7D7D;
@@ -49,6 +51,23 @@
                 border-radius: 7px;
                 color: black;
             }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    .profileSettings {
+        main {
+            margin: 0 3rem;
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    .profileSettings {
+        main {
+            margin: 0;
         }
     }
 }

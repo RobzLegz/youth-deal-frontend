@@ -1,44 +1,54 @@
 import React from 'react';
 
-import crown from  '../../../../assets/svg/crown.svg'
-import dropdown from  '../../../../assets/svg/dropdown.svg'
+import { DropdownInput } from '../Inputs';
 
-import './Premium.scss'
+import crown from '../../../../assets/svg/crown.svg';
+
+import '../Settings.scss';
+import './Premium.scss';
 
 function Premium(){
     return (
-        <div className='premium'>
-            <header className="premium__header">
-                <p className="premium__header__title"> <img src={crown} alt="crown" /> Premium </p>
-                <div>
-                    <p>Gribi paskatīties visus plānus?</p>
-                    <a href="#premium">Iet uz "Premium lapu"</a>
-                </div>
-            </header>
-
-            <div className="premium__plan-status">
-
-                <div className="premium__plan-status__input-group">
-                    <p>Premium Statuss</p>
-                    <p className='premium__plan-status__input-group__custom-input'> <img src={crown} alt="crown" /> Zelta Plāns</p>
-                    <p>Nomainīt</p>
+        <div className='settings-wrapper'>
+            <div className="settings">
+                <div className="premium__header">
+                    <h2 className="settings__title"> <img src={crown} alt="crown" /> Premium </h2>
+                    <span>
+                        Gribi paskatīties visus plānus?
+                        <a href="#settings">Iet uz "Premium lapu"</a>
+                    </span>
                 </div>
 
+                <div className="premium__status">
+                    <h4>Premium Statuss</h4>
+                    <div className="premium__status__wrapper">
+                        <img src={crown} alt="crown" />
+                        Iegādāts
+                    </div>
+                </div>
             </div>
 
-            <div className="premium__plans-change">
+            <div className="settings">
+                <h2 className="settings__title red">Premium Statusa Deaktivizācija</h2>
 
-                <p className="premium__plans-change__title">Nomainīšana</p>
+                <section className="settings__section">
+                    <h3 className="settings__section__title">Kas notiks ja deaktivizēšu savu premium statusu?</h3>
+                    <p className="settings__section__desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam, nobis, numquam voluptatibus placeat, nisi nihil iste id esse necessitatibus explicabo est quas at qui? Ea repellat consequuntur consequatur voluptate autem!</p>
+                    <p className="settings__section__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque saepe ipsa quaerat. Unde, laboriosam rem? Delectus ut corrupti quidem corporis vero, mollitia, tempora beatae est totam quia, assumenda ullam quibusdam!</p>
+                    <p className="settings__section__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque saepe ipsa quaerat. Unde, laboriosam rem? Delectus ut corrupti quidem corporis vero, mollitia, tempora beatae est totam quia, assumenda ullam quibusdam!</p>
+                </section>
 
-                <div className="premium__plans-change__input-group">
-                    <label htmlFor="password">Nomainīt Plānu uz:</label>
-                    <p>Standarta Plānu <img src={dropdown} alt="dropdown" /> </p>
-                </div>
-
-            </div>
-
-            <div className="premium__btn-wrapper">
-                <button className='premium__btn-wrapper__change'>Nomainīt</button>
+                <section className="settings__section">
+                    <div className="settings__section__grayed">
+                        <DropdownInput
+                            title="Es gribu deaktivizēt manu premium statusu tāpēc ka..."
+                            currentOption="Izvēlies Cēloni"
+                            options={['a', 'b']} />
+                    </div>
+                    <div className="align-right">
+                        <button className="button-red">Deaktivizēt Premium</button>
+                    </div>
+                </section>
             </div>
         </div>
     )

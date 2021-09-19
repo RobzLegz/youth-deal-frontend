@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 import assign from '../../../../assets/svg/assign.svg';
+import '../Settings.scss';
 import './Payment.scss';
 function Payment(){
 
     const [balance] = useState('10,000.00')
 
     return (
-        <div className='payment'>
+        <div className='settings'>
+            <h2 className="settings__title">Atlikums</h2>
 
-            <p className="payment__title">Atlikums</p>
+            <section className="settings__section">
+                <p className="settings__section__grayed">Jūsu atlikums ir €{balance}</p>
 
-            <p className="payment__balance">Jūsu atlikums ir €{balance}</p>
+                <div className="align-right">
+                    <button className="button-blue">Papildināt</button>
+                </div>
+            </section>
 
-            <div className="payment__supplement">
-                <button className="payment__supplement__btn">Papildināt</button>
-            </div>
-
-            <div className="payment__methods">
-
+            <section className="settings__section">
                 <div className="payment__methods__row1">
-                    <p>Norēķinu metodes</p>
-                    <div className="payment__methods__row1__add">
+                    <h3 className="settings__section__title">Norēķinu metodes</h3>
+                    <div className="add-payment-method">
                         <img src={assign} alt="assign" />
                         <p>Pievienot metodi</p>
                     </div>
                 </div>
-
-                <div className="payment__methods__row2">
-                    <p>Jūs vēl neesat iestatījis nevienu norēķinu metodi.</p>
-                    <p>Iestatiet norēķinu metodes, lai jūs uzreiz varētu pieņemt darbā, kad būsiet gatavs.</p>
-                </div>
-
-            </div>
+                <p className="settings__section__desc">Jūs vēl neesat iestatījis nevienu norēķinu metodi.</p>
+                <p className="settings__section__desc">Iestatiet norēķinu metodes, lai jūs uzreiz varētu pieņemt darbā, kad būsiet gatavs.</p>
+            </section>
 
 
         </div>
