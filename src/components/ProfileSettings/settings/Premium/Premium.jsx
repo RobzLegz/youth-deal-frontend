@@ -15,7 +15,7 @@ function Premium(){
                     <h2 className="settings__title"> <img src={crown} alt="crown" /> Premium </h2>
                     <span>
                         Gribi paskatīties visus plānus?
-                        <a href="#settings">Iet uz "Premium lapu"</a>
+                        <a href="/premium">Iet uz "Premium lapu"</a>
                     </span>
                 </div>
 
