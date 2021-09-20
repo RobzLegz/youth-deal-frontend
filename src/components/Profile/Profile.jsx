@@ -8,8 +8,12 @@ import marker from '../../assets/svg/marker.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 import CompanyAvatar from '../../assets/svg/company.svg';
 import EmailIcon from '../../assets/svg/email.svg';
+import Phone from '../../assets/svg/phone.svg';
+import People from '../../assets/svg/people.svg';
+import Www from '../../assets/svg/www.svg'
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
+import ScrollJobs from '../Home/JobsPanel/ScrollJobs';
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
 import { useHistory, useParams } from 'react-router-dom';
@@ -24,6 +28,7 @@ import { NewChat } from '../../logic/chat/chatOptions';
 import { socketData } from '../../slices/socket/socketSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import { getCompanysPositions } from '../../logic/company/find/findCompanysPositions';
+import { infoData } from '../../slices/info/infoSlice'
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -41,6 +46,7 @@ function Profile(){
     const searchInfo = useSelector(searchData);
     const socketInfo = useSelector(socketData);
     const proffessionInfo = useSelector(proffessionData);
+    const infoInfo = useSelector(infoData);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -136,10 +142,22 @@ function Profile(){
         )
     }
 
+    const ProfileMiddleRow = ({ icon, iconAlt, title, value }) => {
+        return (
+            <div className="profile__left__middle__row">
+                <div>
+                    <img src={icon} alt={iconAlt} />
+                    <p>{title}</p>
+                </div>
+                <p>{value}</p>
+            </div>
+        );
+    }
+
     if(searchInfo.info){
         if(searchInfo.info.is_employer){
             return (
-                <div className="profile">
+                <div className="profile company">
                     <div className="profile__left">
                         <div className="profile__left__top">
                             <div className="profile__left__top__img-wrapper">
@@ -168,41 +186,33 @@ function Profile(){
                         </div>
 
                         <div className="profile__left__middle">
-
-                            <div className="profile__left__middle__row" id='born-date'>
-                                <div>
-                                    <img src={EmailIcon} alt="email" />
-                                    <p>e-pasts</p>
-                                </div>
-                                <p>{searchInfo.info.email}</p>
-                            </div>
-
-                            {searchInfo.info.profile.city && (
-                                <div className="profile__left__middle__row" id='city'>
-                                    <div>
-                                        <img src={marker} alt="location" />
-                                        <p>Atrašanās vieta</p>
-                                    </div>
-                                    <p>{searchInfo.info.profile.city}{searchInfo.info.profile.country && `, ${searchInfo.info.profile.country}`}</p>
-                                </div>
-                            )}  
+                            <ProfileMiddleRow icon={Www} iconAlt="www" title="Mājas lapa" value={searchInfo.info.website_url ? searchInfo.info.website_url : 'Nav'} />
+                            <ProfileMiddleRow icon={People} iconAlt="people" title="darbinieku skaits" value={searchInfo.info.profile.company_size ? searchInfo.info.profile.company_size : 'Nezināms'} />
+                            <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.phone_number ? searchInfo.info.phone_number : 'Nav'} />
+                            <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
+                            <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināms' : <>
+                                    {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                    {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                </>}
+                            />
                         </div>
 
-                        {searchInfo.info.profile.description && (
-                            <div className="profile__left__bottom">
-                                <div className="profile__left__bottom__my-desc">
-                                    <p className='profile__left__bottom__my-desc__title'>Informācija par kompāniju</p>
-                                    <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.description}</p>
-                                </div>
+                        <div className="profile__left__bottom">
+                            <div className="profile__left__bottom__my-desc">
+                                <p className='profile__left__bottom__my-desc__title'>Informācija par kompāniju</p>
+                                <p className='profile__left__bottom__my-desc__desc'>
+                                    {searchInfo.info.profile.description ? searchInfo.info.profile.description : 'šī kompānija vēl nav uzrakstījusi informāciju'}
+                                </p>
+                                {isUsersProfile && <button>Iestatīt / Rediģēt kompānijas informāciju</button>}
                             </div>
-                        )}
+                        </div>
                     </div>
                     <div className="profile__companyRight">
-                        {companyPositions.map((position, i) => {
-                            console.log(position)
-                            return null;
-                            //key={i}
-                        })}
+                        <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
+                        <div className="profile__companyRight__scroll">
+                            <ScrollJobs jobs={infoInfo.jobOffers} />
+                        </div>
                     </div>
                 </div>
             )
