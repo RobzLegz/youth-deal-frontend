@@ -33,9 +33,9 @@ function Premium(){
 
                 <section className="settings__section">
                     <h3 className="settings__section__title">Kas notiks ja deaktivizēšu savu premium statusu?</h3>
-                    <p className="settings__section__desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam, nobis, numquam voluptatibus placeat, nisi nihil iste id esse necessitatibus explicabo est quas at qui? Ea repellat consequuntur consequatur voluptate autem!</p>
-                    <p className="settings__section__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque saepe ipsa quaerat. Unde, laboriosam rem? Delectus ut corrupti quidem corporis vero, mollitia, tempora beatae est totam quia, assumenda ullam quibusdam!</p>
-                    <p className="settings__section__desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque saepe ipsa quaerat. Unde, laboriosam rem? Delectus ut corrupti quidem corporis vero, mollitia, tempora beatae est totam quia, assumenda ullam quibusdam!</p>
+                    <p className="settings__section__desc">Ja neesat izmantojis Premium līdz mēneša beigām, par kuru samaksājāt, tas tiks deaktivizēts no nākamā mēneša sākuma</p>
+                    <p className="settings__section__desc">Vissas Premium funkcijas nebūs Tev pieejamas, un Tu nevarēsi pilnībā izbaudīt mūsu Web-aplikāciju</p>
+                    <p className="settings__section__desc">Mums būs ļoti skumji. Tu taču nevēlējies, lai mums būtu skumji?</p>
                 </section>
 
                 <section className="settings__section">
