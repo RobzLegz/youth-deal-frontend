@@ -3,7 +3,7 @@
 
 #chat-container {
     display: flex;
-    height: calc(100vh - 109px);
+    height: calc(100vh - 70px);
     .chat {
         @include scrollbar;
         width: 100%;
@@ -188,7 +188,6 @@
 
 @media (max-width: 541px) {
     #chat-container {
-        height: calc(100vh - 148px);
         .chat {
             &__input-container {
                 &__options {
@@ -199,11 +198,5 @@
                 }
             }
         }
-    }
-}
-
-@media (max-width: 301px) {
-    #chat-container {
-        height: calc(100vh - 187px);
     }
 }
