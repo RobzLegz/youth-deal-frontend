@@ -259,6 +259,7 @@ function App() {
                     categoryRef={categoryRef}
                     admRef={admRef}
                   />
+                  <Footer />
                 </>
               )}
               <Footer />
