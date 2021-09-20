@@ -198,7 +198,10 @@ function Profile(){
                         )}
                     </div>
                     <div className="profile__companyRight">
-
+                        {companyPositions.map((position, i) => {
+                            console.log(position)
+                            return null;
+                        })}
                     </div>
                 </div>
             )
