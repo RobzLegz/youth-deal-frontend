@@ -81,6 +81,18 @@ function JobTaker(){
         }
     }
 
+    const checkRegisterInfo = (e) => {
+        e.preventDefault();
+        if (name !== "" && surname !== "" && email !== "" && password !== "") {
+            registerUser(
+                email,
+                password,
+                name,
+                surname,
+                dispatch
+            );
+        }
+    }
 
     return (
         <div id='jobTaker' className='main'>
@@ -96,7 +108,7 @@ function JobTaker(){
                         </div>
                 </div>
                 
-                <div className="job__right">
+                <form onSubmit={(e) => checkRegisterInfo(e)} className="job__right">
                     <div className="job__right__input-group">
                         <input className="job__right__input-group__input" value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' placeholder='' required/>
                         <label className="job__right__input-group__label" htmlFor="name">Vārds:</label>
@@ -113,7 +125,7 @@ function JobTaker(){
                     </div>        
                     {(emailDirty && emailError) && <div className="job__right__error"style={{color:"#FA4251"}}>{emailError}</div>}
                     <div className="job__right__input-group">
-                        <input className="job__right__input-group__input" onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"}  id='password' placeholder='' autoComplete="off" required/>
+                        <input className="job__right__input-group__input" onChange={e => passwordHandler(e)} onBlur={(e) => blurHandler(e)} value={password} name="password" type={isRevealPwd ? "text" : "password"} id='password' placeholder='' autoComplete="off" required />
                         <label className="job__right__input-group__label" htmlFor="password">Parole:</label>
                         <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="job__right__input-group__eye"></img>
                     </div>   
@@ -122,18 +134,7 @@ function JobTaker(){
                         <input type="checkbox" id="checkbox" name="" value=""/>
                         <label htmlFor="checkbox">Es piekrītu mūsu <u>Privātuma Politikai</u></label>
                     </div>
-                    <button type='submit' onClick={(e) => {
-                        e.preventDefault();
-                        if (name !== "" && surname !== "" && email !== "" && password !== ""){
-                            registerUser(
-                                email,
-                                password,
-                                name,
-                                surname,
-                                dispatch
-                            );
-                        }
-                    }} className='job__right__submit'>Reģistrēties</button>
+                    <button type='submit' className='job__right__submit'>Reģistrēties</button>
 
                     <div className="job__right__divider">
                         <span className="job__right__divider__line"></span>
@@ -147,7 +148,7 @@ function JobTaker(){
                             <img src={google} href="https://www.google.com" alt="google" ></img>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )

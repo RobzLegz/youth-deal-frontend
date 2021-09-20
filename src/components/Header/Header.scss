@@ -41,6 +41,7 @@
             margin: 0 40px;
             color: $secondaryColor;
             cursor: pointer;
+            white-space: nowrap;
             &:hover{ 
                 color: $buttonBg;
             }
@@ -162,10 +163,15 @@
         &__logo {
             margin: 0;
         }
+        &__links {
+            &__link {
+                margin: 0 20px;
+            }
+        }
     }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .header {
         position: relative;
         &__hamburger {

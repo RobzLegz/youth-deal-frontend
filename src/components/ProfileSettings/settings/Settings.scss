@@ -22,9 +22,15 @@
         &__test-sound {
             display: flex;
             justify-content: space-between;
-            button {
-                padding-left: .3rem;
-                border: none;
+            align-items: center;
+            div {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+            img {
+                height: 20px;
+                padding-right: .3rem;
             }
         }
         &__desc {

@@ -39,15 +39,15 @@
             }
             &__paths {
                 z-index:2;
-                padding-top: 100px;
+                padding-top: 70px;
                 display: flex;
-                flex-direction: column;
+                justify-content: space-around;
                 button {
                     z-index:2;
                     max-width: 300px;
                     width: 100%;
                     height: 100px;
-                    margin: 20px 0;
+                    margin: 20px 10px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -303,6 +303,19 @@
 
 // home responsive styling
 
+@media (max-width: 1100px) {
+    .home {
+        &__introduction {
+            &__left {
+                &__paths {
+                    padding-top: 50px;
+                    flex-direction: column !important;
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: 768px) {
     .home {
         &__introduction {
@@ -317,6 +330,7 @@
                 display: flex;
                 flex-direction: column;
                 &__paths {
+                    flex-direction: row !important;
                     align-items: center;
                 }
             }
@@ -350,6 +364,13 @@
 
 @media (max-width: 600px) {
     .home {
+        &__introduction {
+            &__left {
+                &__paths {
+                    flex-direction: column !important;
+                }
+            }
+        }
         &__find-options {
             height: auto;
             &__right {

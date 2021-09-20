@@ -62,11 +62,12 @@ function Header({categoryRef, admRef, homeTop}){
             </div>
 
             <div className={`header__links ${isHamburgerActive ? 'active' : ''}`}>
+                <p className='header__links__link' href="/">Sākum lapa</p>
                 <p className='header__links__link' href="#" onClick={() => scrollView(categoryRef)}>Kategorijas</p>
                 <p onClick={() => scrollView(admRef)} className='header__links__link' href="#">#ADM</p>
                 <p className='header__links__link' id="premium" onClick={() => {history.push("/premium")}}><img src={CrownIcon} alt="Crown Img" id="crown"></img>Premium</p>
 
-                {innerWidth <= 1024 &&               
+                {innerWidth <= 1200 &&
                     <div id="header__right">
                         <div className="header__auth-options">
                             <button onClick={() => { history.push("/login"); }} className='header__auth-options__login'>Ieiet</button>
@@ -88,7 +89,7 @@ function Header({categoryRef, admRef, homeTop}){
                         </div>
                     </div>}
             </div>
-            {innerWidth > 1024 &&
+            {innerWidth > 1200 &&
             <div id="header__right">
                 <div className="header__auth-options">
                     <button onClick={() => {history.push("/register")}} className='header__auth-options__register'>Reģistrēties</button>

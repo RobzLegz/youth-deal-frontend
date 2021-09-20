@@ -2,6 +2,8 @@ import React from 'react';
 
 import { CheckboxInput } from '../Inputs';
 
+import Speaker from '../../../../assets/svg/speaker.svg';
+
 import '../Settings.scss';
 
 function Notifications() {
@@ -24,10 +26,10 @@ function Notifications() {
                     <CheckboxInput title="Ar skaņu" />
                     <div className="settings__section__test-sound">
                         <span>Notestēt skaņu</span>
-                        <span>
-                            <i className="fa-volume-up"></i>
+                        <div>
+                            <img src={Speaker} alt="speaker" />
                             <span>Atskaņot</span>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </section>

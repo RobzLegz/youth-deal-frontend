@@ -17,7 +17,7 @@ function Security(){
                     placeholder="Ievadi jauno paroli"
                 />
                 <TextInput
-                    title="JApstiprināt jauno paroli"
+                    title="Apstiprināt jauno paroli"
                     inputName="repeat-password"
                     inputType="password"
                     onChange={() => { }}
