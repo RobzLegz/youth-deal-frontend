@@ -15,6 +15,7 @@ import SearchBar from './searchBar/SearchBar';
 function AuthorizedHeader() {
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
     const [isHamburgerActive, setIsHamburgerActive] = useState(false)
+    const [categoriesOpen, setCategoriesOpen] = useState(false);
     const [open, setOpen] = useState(false);
 
     const proffessionInfo = useSelector(proffessionData);
@@ -50,12 +51,16 @@ function AuthorizedHeader() {
         return <ul className="header__top__links">
             <li onClick={() => history.push("/")}>Galvenā</li>
             <li onClick={() => history.push("/chat")}>Čats</li>
-            <li onClick={() => history.push("/contacts")}>Kontakti</li>
-            <li>Paziņojumi</li>
+            <li onClick={() => setCategoriesOpen(!categoriesOpen)}>Kategorijas</li>
+            <div className={`header__top__links__categories ${categoriesOpen ? 'active' : ''}`}>
+                {proffessionInfo.categories.map((category, i) => (
+                    <p key={i}>{category.title}</p>
+                ))}
+            </div>
         </ul>
     };
 
-    const TopRight = ({ mobile }) => {
+    const TopRight = () => {
         return <div className="header__top__right">
             <div className="header__top__right__user-wrapper" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}>
                 <img
@@ -126,18 +131,6 @@ function AuthorizedHeader() {
                     {innerWidth > 1024 && <TopLinks />}
                     {innerWidth > 1024 && <TopRight mobile={false} />}
                     {innerWidth <= 1024 && <Hamburger />}
-                </div>
-                <div className="header__bottom">
-                    <li className="header__bottom__link">#ADM</li>
-                    <li className="header__bottom__link">Darba vakances</li>
-                    <li className="header__bottom__link">Darba piedāvājumi</li>
-                    <li className="header__bottom__link header__bottom__category__link">Kategorijas
-                        <div className="header__bottom__category__link__categories">
-                            {proffessionInfo.categories.map((category, i) => (
-                                <p key={i}>{category.title}</p>
-                            ))}
-                        </div>    
-                    </li>
                 </div>
                 {innerWidth <= 1024 && <Dropdown />}
             </nav>
