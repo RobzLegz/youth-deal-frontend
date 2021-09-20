@@ -201,6 +201,7 @@ function Profile(){
                         {companyPositions.map((position, i) => {
                             console.log(position)
                             return null;
+                            //key={i}
                         })}
                     </div>
                 </div>
