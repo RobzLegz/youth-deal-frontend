@@ -74,8 +74,18 @@ function JobGiver(){
         }
     }
 
+    const checkRegisterInfo = (e) => {
+        e.preventDefault();
+        if (name !== "" && email !== "" && password !== "") {
+            registerCompany(
+                email,
+                password,
+                name,
+                dispatch
+            );
+        }
+    }
 
-   
     return (
         <div id='jobGiver' className='main'>
             <div className='company'>
@@ -90,7 +100,7 @@ function JobGiver(){
                         </div>
                 </div>
                 
-                <div className="company__right">
+                <form onSubmit={(e) => checkRegisterInfo(e)} className="company__right">
                     <div className="company__right__input-group">
                         <input className="company__right__input-group__input"value={name} onChange={(e) => setName(e.target.value)} type="text" id='name' placeholder='' required/>
                         <label className="company__right__input-group__label" htmlFor="name">Uzņēmuma nosaukums:</label>
@@ -110,17 +120,7 @@ function JobGiver(){
                         <input type="checkbox" id="checkbox" name="" value=""/>
                         <label htmlFor="checkbox">Es piekrītu mūsu <u>Privātuma Politikai</u></label>
                     </div>
-                    <button type='submit' onClick={(e) => {
-                        e.preventDefault();
-                        if (name !== "" && email !== "" && password !== ""){
-                            registerCompany(
-                                email,
-                                password,
-                                name,
-                                dispatch
-                            );
-                        }
-                    }} className='company__right__submit'>Reģistrēties</button>
+                    <button type='submit' className='company__right__submit'>Reģistrēties</button>
 
                     <div className="company__right__divider">
                     <span className="company__right__divider__line"></span>
@@ -134,7 +134,7 @@ function JobGiver(){
                             <img src={google} href="https://www.google.com" alt="google" ></img>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
     </div>
     )

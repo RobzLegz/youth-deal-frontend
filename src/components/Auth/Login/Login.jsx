@@ -75,11 +75,11 @@ function Login() {
             break
         }
     }
-    
+
     return (
         <div className='auth' id='login'>
 
-            <div className="auth__form-wrapper">
+            <form onSubmit={(e) => login(e, email, password, dispatch)} className="auth__form-wrapper">
                 <p className="auth__form-wrapper__title">Pieslēgties</p>
 
                 <div className="form" action="POST">
@@ -89,7 +89,7 @@ function Login() {
                 {(emailDirty && emailError) && <div className="auth__form-wrapper__error"style={{color:"#FA4251"}}>{emailError}</div>}
 
                 <div className="form" action="POST">
-                    <input onChange= {e => passwordHandler(e)} onBlur={(e) => blurHandler(e)}value={password} name="password" type={isRevealPwd ? "text" : "password"} id="password" className="form__input" autoComplete="off" placeholder=" " required/>
+                    <input onChange={e => passwordHandler(e)} onBlur={(e) => blurHandler(e)} value={password} name="password" type={isRevealPwd ? "text" : "password"} id="password" className="form__input" autoComplete="off" placeholder=" " required />
                     <label htmlFor="password" className="form__label"> Parole </label>
                     <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="form__eye"></img>
                 </div>
@@ -98,7 +98,7 @@ function Login() {
                 <label className="auth__form-wrapper__forgot-password">
                     <a href="#aizmirsi-paroli">Aizmirsi paroli?</a>
                 </label>
-                    <button onClick={(e) => login(e, email, password, dispatch)} className="auth__form-wrapper__button-login" type="submit">Ieiet</button>
+                <button className="auth__form-wrapper__button-login" type="submit">Ieiet</button>
 
                 <div className="auth__form-wrapper__divider">
                     <span className="auth__form-wrapper__divider__line"></span>
@@ -118,7 +118,7 @@ function Login() {
                     <p>Nav konta?</p> <Link to="/register">Reģistrēties</Link>
                 </div>
 
-            </div>
+            </form>
 
         </div>
     )
