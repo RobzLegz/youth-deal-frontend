@@ -10,9 +10,8 @@
   height: 206px;
   justify-content: space-between;
   position: fixed;
-  top: 80%;
-  left: 85%;
-  transform: translate(-50%,-50%);
+  bottom: 1rem;
+  right: 1rem;
   z-index: 100;
   animation: fade-in 2s ease;
   //animation-fill-mode: forwards;
