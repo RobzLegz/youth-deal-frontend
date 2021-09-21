@@ -4,6 +4,8 @@ import { USER_PROFILE } from "../../api/apiRoutes";
 import { getUserInfo, getUserInfoByID } from "./getUserInfo";
 
 export const updateMainInfo = (
+    name,
+    surname,
     profileID,
     avatar,
     bio,
@@ -24,6 +26,8 @@ export const updateMainInfo = (
     }
     formData.append("bio", bio);
     formData.append("birth_date", birthDate);
+    formData.append("first_name", name);
+    formData.append("last_name", surname);
     formData.append("country", country);
     formData.append("city", city);
     if(proffessionID){
