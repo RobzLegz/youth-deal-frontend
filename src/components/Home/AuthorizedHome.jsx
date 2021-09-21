@@ -18,6 +18,7 @@ import SwipeJobs from './JobsPanel/SwipeJobs';
 import { infoData } from '../../slices/info/infoSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import Contact from './chats/Contact';
+import CreateJob from './CreateJob/CreateJob';
 
 function AuthorizedHome() {
     const pageInfo = useSelector(infoData);
@@ -135,38 +136,44 @@ function AuthorizedHome() {
                 </div>
 
                 <div className="auth-home__middle">
-                    <div className="auth-home__middle__job-options panel">
-                        <div onClick={() => {
-                            if(scrollJobs){
-                                setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
-                            }
-                            setActiveJobOption('longterm');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
-                            <h3>Ilgtermiņa <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                        <div onClick={() => {
-                            setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
-                            setActiveJobOption('shortterm');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
-                            <h3>Īstermiņa <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                        <div onClick={() => {
-                            setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
-                            setActiveJobOption('volunteer');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
-                            <h3>Brīvprātīgie <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                    </div>
-                    {
-                        (scrollJobs && swipeJobs && woluntaryJobs) && (
-                            <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
-                                {activeJobPanel}
+                    {userInfo.info.is_employer ? (
+                        <CreateJob />
+                    ) : (
+                        <>
+                            <div className="auth-home__middle__job-options panel">
+                                <div onClick={() => {
+                                    if (scrollJobs) {
+                                        setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
+                                    }
+                                    setActiveJobOption('longterm');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
+                                    <h3>Ilgtermiņa <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
+                                <div onClick={() => {
+                                    setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
+                                    setActiveJobOption('shortterm');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
+                                    <h3>Īstermiņa <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
+                                <div onClick={() => {
+                                    setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
+                                    setActiveJobOption('volunteer');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
+                                    <h3>Brīvprātīgie <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
                             </div>
-                        )   
-                    }
+                            {
+                                (scrollJobs && swipeJobs && woluntaryJobs) && (
+                                    <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
+                                        {activeJobPanel}
+                                    </div>
+                                )
+                            }
+                        </>
+                    )}
                 </div>
                 
                 <div className="auth-home__right">
