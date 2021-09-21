@@ -1,6 +1,6 @@
 import axios from "axios";
 import { handleLoading, resetLoadingState } from "../../../slices/loading/loadingSlice";
-import { USER_PROFILE } from "../../api/apiRoutes";
+import { USER_INFO, USER_PROFILE } from "../../api/apiRoutes";
 import { getUserInfo, getUserInfoByID } from "./getUserInfo";
 
 export const updateMainInfo = (
@@ -26,8 +26,6 @@ export const updateMainInfo = (
     }
     formData.append("bio", bio);
     formData.append("birth_date", birthDate);
-    formData.append("first_name", name);
-    formData.append("last_name", surname);
     formData.append("country", country);
     formData.append("city", city);
     if(proffessionID){
@@ -47,8 +45,20 @@ export const updateMainInfo = (
         formData,
         headers
     ).then((res) => {
-        getUserInfo(accessToken, dispatch, 2)
-        getUserInfoByID(profileID, dispatch);
+        const profileInfoData = new FormData();
+        profileInfoData.append("first_name", name);
+        profileInfoData.append("last_name", surname);
+
+        axios.put(
+            `${USER_INFO}/${profileID}/`,
+            headers,
+            profileInfoData,
+        ).then((res) => {
+            getUserInfo(accessToken, dispatch, 2)
+            getUserInfoByID(profileID, dispatch);
+        }).catch((err) => {
+            dispatch(resetLoadingState());
+        });
     }).catch((err) => {
         dispatch(resetLoadingState());
     });
