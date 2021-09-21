@@ -49,7 +49,7 @@ function AuthorizedHeader() {
 
     const TopLinks = () => {
         return <ul className="header__top__links">
-            <li onClick={() => history.push("/")}>Galvenā</li>
+            <li onClick={() => history.push("/")}>Sākums</li>
             <li onClick={() => history.push("/chat")}>Čats</li>
             <li onClick={() => setCategoriesOpen(!categoriesOpen)}>Kategorijas</li>
             <div className={`header__top__links__categories ${categoriesOpen ? 'active' : ''}`}>
