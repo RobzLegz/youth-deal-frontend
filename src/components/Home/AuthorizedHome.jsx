@@ -129,7 +129,7 @@ function AuthorizedHome() {
                             <p>Atrodiet savus kontaktus, lai ar viņiem tērzētu</p>
                         </div>
                         <div className="auth-home__left__saved">
-                            <p><img src={Bookmark2} alt="bookmark" /> Saglabātie</p>
+                            <p onClick={() => history.push('/saved')}><img src={Bookmark2} alt="bookmark" /> Saglabātie</p>
                         </div>
                     </div>
                 </div>
