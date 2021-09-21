@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { DropdownInput } from '../../../Inputs/Inputs';
 
@@ -8,6 +8,8 @@ import '../Settings.scss';
 import './Premium.scss';
 
 function Premium(){
+    const [cancelReason, setCancelReason] = useState('Izvēlies Cēloni');
+
     return (
         <div className='settings-wrapper'>
             <div className="settings">
@@ -42,7 +44,8 @@ function Premium(){
                     <div className="settings__section__grayed">
                         <DropdownInput
                             title="Es gribu deaktivizēt manu premium statusu tāpēc ka..."
-                            currentOption="Izvēlies Cēloni"
+                            value={cancelReason}
+                            setValue={setCancelReason}
                             options={['a', 'b']} />
                     </div>
                     <div className="align-right">

@@ -11,6 +11,10 @@
             max-width: 213px;
             width: 100%;
             font-size: 16px;
+            &__required {
+                color: red;
+                padding-left: .2rem;
+            }
         }
         &__input-group {
             position: relative;
@@ -31,6 +35,9 @@
                 color: #7D7D7D;
                 &:focus {
                     color: black;
+                }
+                &[type="number"] {
+                    -moz-appearance: initial;
                 }
             }
             p {

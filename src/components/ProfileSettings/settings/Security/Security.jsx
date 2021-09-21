@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Settings.scss';
 import { TextInput } from '../../../Inputs/Inputs';
 
 function Security(){
+    const [password, setPassword] = useState('');
+    const [repeatPassword, setRepeatPassword] = useState('');
+
     return (
         <div className='settings'>
             <h2 className="settings__title">Drošība</h2>
@@ -13,14 +16,16 @@ function Security(){
                     title="Jauna Parole"
                     inputName="password"
                     inputType="password"
-                    onChange={() => { }}
+                    value={password}
+                    setValue={setPassword}
                     placeholder="Ievadi jauno paroli"
                 />
                 <TextInput
                     title="Apstiprināt jauno paroli"
                     inputName="repeat-password"
                     inputType="password"
-                    onChange={() => { }}
+                    value={repeatPassword}
+                    setValue={setRepeatPassword}
                     placeholder="Ievadi paroli atkārtoti"
                 />
                 <p className="settings__section__desc align-left">
