@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CheckboxInput } from '../../../Inputs/Inputs';
+import { CheckboxInput } from '../Inputs';
 
 import Speaker from '../../../../assets/svg/speaker.svg';
 
