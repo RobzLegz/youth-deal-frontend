@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Inactive from '../../../../assets/svg/plans/inactive.svg';
-import Bookmark1 from '../../../../assets/svg/bookmark1.svg';
-import Bookmark2 from '../../../../assets/svg/bookmark2.svg';
+import Back from '../../../../assets/svg/back.svg';
 import Active from '../../../../assets/svg/plans/active.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 
@@ -43,7 +42,7 @@ function SvipeJob({job}) {
                         <img src={Inactive} alt="reject" onClick={() => setSwiped("left")} />
                     </button>
                     <button id="save" onClick={() => setSaved(!saved)}>
-                        <img src={saved ? Bookmark2 : Bookmark1} alt={saved ? 'unsave' : 'save'} />
+                        <img src={Back} alt="back" />
                     </button>
                     <button id="accept">
                         <img src={Active} alt="accept" onClick={() => setSwiped("right")} />
