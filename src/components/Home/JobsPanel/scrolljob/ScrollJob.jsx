@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Bookmark1 from '../../../../assets/svg/bookmark1.svg';
+import Bookmark2 from '../../../../assets/svg/bookmark2.svg';
 import OptionsIcon from '../../../../assets/svg/options-icon-no-background.svg';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
+    const [saved, setSaved] = useState(false);
 
     let companyInfo = {
         logo: "https://tse4.mm.bing.net/th?id=OIP.v-Kd-ya8T4msyd4Gk2VpzgHaHa&pid=Api",
@@ -29,7 +31,7 @@ function ScrollJob({jobOffer}) {
             </div>
             <p>{jobOffer.position_info}</p>
             <div className="job-panel__bottom">
-                <img src={Bookmark1} alt="bookmark" />
+                <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} />
                 <div className="job-panel__bottom__price-wrapper">
                     <small>SĀKOT NO</small>
                     <h2>€ {jobOffer.price_range}/mēnesī</h2>
