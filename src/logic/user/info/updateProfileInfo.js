@@ -51,13 +51,13 @@ export const updateMainInfo = (
 
         axios.put(
             `${USER_INFO}/${profileID}/`,
+            profileInfoData,
             {
                 headers: {
                     Authorization: `Token ${accessToken}`,
                     "Content-Type": "multipart/form-data"
                 }
             },
-            profileInfoData,
         ).then((res) => {
             getUserInfo(accessToken, dispatch, 2)
             getUserInfoByID(profileID, dispatch);
