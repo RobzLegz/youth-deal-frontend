@@ -62,7 +62,7 @@ function Header({categoryRef, admRef, homeTop}){
             </div>
 
             <div className={`header__links ${isHamburgerActive ? 'active' : ''}`}>
-                <p className='header__links__link' href="/">Sākum lapa</p>
+                <p className='header__links__link' onClick={() => history.push("/home")}>Sākums</p>
                 <p className='header__links__link' href="#" onClick={() => scrollView(categoryRef)}>Kategorijas</p>
                 <p onClick={() => scrollView(admRef)} className='header__links__link' href="#">#ADM</p>
                 <p className='header__links__link' id="premium" onClick={() => {history.push("/premium")}}><img src={CrownIcon} alt="Crown Img" id="crown"></img>Premium</p>
