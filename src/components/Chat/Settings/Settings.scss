@@ -73,7 +73,6 @@
         &__main {
             padding: 25px 0;
             padding: 20px;
-            @include scrollbar;
             &__stage {
                 max-height: 400px;
                 overflow-y: auto;
