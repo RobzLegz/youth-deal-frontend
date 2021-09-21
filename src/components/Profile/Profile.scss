@@ -2,14 +2,12 @@
 
 .profile {
     padding: 80px 50px;
-    min-height: calc(100% - 324px);
-    height: fit-content;
+    min-height: calc(100% - 70px);
+    height: 100%;
     display: flex;
     justify-content: center;
     &.company {
-        // max-height: calc(100vh - 70px);
         padding-bottom: 0;
-        overflow-y: auto;
     }
     .panel {
         width: 100%;
@@ -256,7 +254,7 @@
         }
     }
     &__companyRight {
-        max-height: calc(100vh - 70px);
+        max-height: calc(100vh - 150px);
         &__title {
             padding: 0rem 1rem;
             margin-bottom: .6rem;

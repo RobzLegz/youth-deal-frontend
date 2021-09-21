@@ -5,6 +5,7 @@
     display: flex;
     justify-content: space-around;
     padding: 2rem 5rem 0 5rem;
+    height: calc(100vh - 70px);
     .panel {
         width: 100%;
         min-width: 20vw;
@@ -117,7 +118,6 @@
             }
         }
         &__jobs {
-            @include scrollbar;
             height: auto;
             padding: 2%;
             display: flex;
@@ -131,10 +131,9 @@
             margin: .5rem 0 3rem 0
         }
         &__chat {
-            @include scrollbar;
             max-height: 200px;
             overflow-x: hidden;
-            overflow-y: scroll;
+            overflow-y: auto;
             &__contact {
                 display: flex;
                 cursor: pointer;
@@ -236,7 +235,6 @@
 
 @media (max-width: 670px) {
     .auth-home {
-        padding: 1rem;
         &__middle {
             width: 90vw;
             &__job-options {
