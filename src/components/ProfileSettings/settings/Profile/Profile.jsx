@@ -4,7 +4,7 @@ import '../Settings.scss'
 import { useSelector } from 'react-redux';
 import { userData } from '../../../../slices/user/userSlice';
 
-import { TextInput, DropdownInput, CheckboxInput } from '../../../Inputs/Inputs';
+import { TextInput, DropdownInput, CheckboxInput } from '../Inputs';
 
 import crown from '../../../../assets/svg/crown.svg'
 
@@ -15,8 +15,7 @@ function Profile() {
     const [surname, setSurName] = useState(userInfo.info.last_name);
     const [email, setEmail] = useState(userInfo.info.email);
     const [city, setCity] = useState(userInfo.info.profile.city);
-    const [isActiveJobSeeker, setIsActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
-    const [closeReason, setCloseReason] = useState('Izvēlies Cēloni');
+    const [isActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
 
     return (
         <div className='settings-wrapper'>
@@ -24,24 +23,23 @@ function Profile() {
                 <h2 className="settings__title">PROFILS</h2>
 
                 <section className="settings__section">
-                    <TextInput title="Vārds" inputName="first_name" value={name} setValue={setName} required={false} />
-                    <TextInput title="Uzvārds" inputName="last_name" value={surname} setValue={setSurName} required={false} />
-                    <TextInput title="E-pasts" inputName="email" value={email} setValue={setEmail} required={false} />
-                    <TextInput title="Pilsēta" inputName="city" value={city} setValue={setCity} required={false} />
+                    <TextInput title="Vārds" inputName="first_name" value={name} onChange={setName} />
+                    <TextInput title="Uzvārds" inputName="last_name" value={surname} onchange={setSurName} />
+                    <TextInput title="E-pasts" inputName="email" value={email} onchange={setEmail} />
+                    <TextInput title="Pilsēta" inputName="city" value={city} onchange={setCity} />
                     <DropdownInput
                         title="Online Statuss"
                         inputStyle={userInfo.loggedIn ? { color: '#1DBF73' } : { color: 'rgb(216, 57, 17)' }}
-                        value={userInfo.loggedIn ? 'online' : 'offline'}
+                        currentOption={userInfo.loggedIn ? 'online' : 'offline'}
                         options={['online', 'offline', 'do not bother', 'invisible']} />
                     <DropdownInput
                         title="Darba Statuss"
-                        value={isActiveJobSeeker ? '#ADM' : 'Nodarbināts'}
-                        setValue={setIsActiveJobSeeker}
+                        currentOption={isActiveJobSeeker ? '#ADM' : 'Nodarbināts'}
                         options={['Aktīvs Darba meklētāys', 'Nodarbināts']} />
                     <DropdownInput
                         title="Premium Statuss"
                         inputStyle={userInfo.info.has_premium ? { color: '#FFD700' } : { color: 'gray' }}
-                        value={userInfo.has_premium ? <><img src={crown} alt='crown' /> Zelta Plāns</> : 'Standarta Plāns'}
+                        currentOption={userInfo.has_premium ? <><img src={crown} alt='crown' /> Zelta Plāns</> : 'Standarta Plāns'}
                         options={[<><img src={crown} alt='crown' /> Zelta Plāns</>, 'Standarta Plāns']} />
                 </section>
 
@@ -73,8 +71,7 @@ function Profile() {
                     <div className="settings__section__grayed">
                         <DropdownInput
                             title="Izvēlies cēloni"
-                            value={closeReason}
-                            setValue={setCloseReason}
+                            currentOption="Izvēlies Cēloni"
                             options={['a', 'b']} />
                     </div>
                     <div className="align-right">
