@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { getUserJobNoSearch } from '../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
 import { proffessionData } from '../../slices/proffessions/proffessionSlice';
+import { NewChat } from '../../logic/chat/chatOptions';
 
 import LoadingPopup from '../popups/loading/LoadingPopup';
 import ScrollJobs from './JobsPanel/ScrollJobs';
@@ -104,6 +105,21 @@ function AuthorizedHome() {
         }
     }, [userInfo.info, dispatch, proffessionInfo.proffessions]);
 
+    const fakeUsers = Array(4).fill({
+        info: {
+            id: 58,
+            first_name: 'Fake',
+            last_name: 'User',
+            profile: {
+                user: 58,
+                photo: 'https://res.cloudinary.com/mareks/image/upload/v1/media/user_photos/Super-drawing-ideas-animals-student-44-ideas_zhy2oe',
+                user_proffession: 'Full-stack programmētājs',
+                user_proffession_category: 'IT'
+            }
+        }
+    })
+    const [hasChat] = useState(null);
+
     if (userInfo.info) {
         return (
             <div className="auth-home">
@@ -140,37 +156,63 @@ function AuthorizedHome() {
                 </div>
 
                 <div className="auth-home__middle">
-                    <div className="auth-home__middle__job-options panel">
-                        <div onClick={() => {
-                            if(scrollJobs){
-                                setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
-                            }
-                            setActiveJobOption('longterm');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
-                            <h3>Ilgtermiņa <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                        <div onClick={() => {
-                            setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
-                            setActiveJobOption('shortterm');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
-                            <h3>Īstermiņa <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                        <div onClick={() => {
-                            setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
-                            setActiveJobOption('volunteer');
-                        }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
-                            <h3>Brīvprātīgie <span>darbi</span></h3>
-                            <div className="active-line"></div>
-                        </div>
-                    </div>
-                    {
-                        (scrollJobs && swipeJobs && woluntaryJobs) && (
-                            <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
-                                {activeJobPanel}
+                    {userInfo.info.is_employer ?
+                        <div className="auth-home__middle__users panel">
+                            {fakeUsers.map((user, i) =>
+                                <div className="auth-home__middle__users__user" onClick={() => history.push(`/profile/${user.info.profile.user}`)} key={i}>
+                                    <img src={user.info.profile.photo ? user.info.profile.photo : Avatar} alt="avatar" />
+                                    <div className="auth-home__middle__users__user__info">
+                                        <p>{user.info.first_name} {user.info.last_name}</p>
+                                        {user.info.profile.user_proffession_category && user.info.profile.user_proffession ? (
+                                            <small>{`${user.info.profile.user_proffession_category} | ${user.info.profile.user_proffession}`}</small>
+                                        ) : user.info.profile.user_proffession && (
+                                            <small>{user.info.profile.user_proffession}</small>
+                                        )}
+                                    </div>
+                                    <button onClick={() => {
+                                        if(hasChat){
+                                            history.push("/chat")
+                                        }else{
+                                            NewChat(userInfo.info.id, user.info.id, history, dispatch);
+                                        }
+                                    }}>{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
+                                </div>
+                            )}
+                        </div> :
+                        <>
+                            <div className="auth-home__middle__job-options panel">
+                                <div onClick={() => {
+                                    if(scrollJobs){
+                                        setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
+                                    }
+                                    setActiveJobOption('longterm');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
+                                    <h3>Ilgtermiņa <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
+                                <div onClick={() => {
+                                    setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
+                                    setActiveJobOption('shortterm');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
+                                    <h3>Īstermiņa <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
+                                <div onClick={() => {
+                                    setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
+                                    setActiveJobOption('volunteer');
+                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
+                                    <h3>Brīvprātīgie <span>darbi</span></h3>
+                                    <div className="active-line"></div>
+                                </div>
                             </div>
-                        )   
+                            {
+                                (scrollJobs && swipeJobs && woluntaryJobs) && (
+                                    <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
+                                        {activeJobPanel}
+                                    </div>
+                                )
+                            }
+                        </>
                     }
                 </div>
                 
