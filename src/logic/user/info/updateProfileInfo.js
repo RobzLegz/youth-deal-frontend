@@ -49,9 +49,16 @@ export const updateMainInfo = (
         profileInfoData.append("first_name", name);
         profileInfoData.append("last_name", surname);
 
+        const newHeaders = {
+            headers: {
+                Authorization: `Token ${accessToken}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }
+
         axios.put(
             `${USER_INFO}/${profileID}/`,
-            headers,
+            newHeaders,
             profileInfoData,
         ).then((res) => {
             getUserInfo(accessToken, dispatch, 2)
