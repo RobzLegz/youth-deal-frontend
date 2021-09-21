@@ -69,6 +69,7 @@ function ProfileModal({handleProfileModal}){
             avatar !== userInfo.info.profile.photo
         ){
             updateMainInfo(
+                userInfo.info.email,
                 name,
                 surname,
                 userInfo.info.id,

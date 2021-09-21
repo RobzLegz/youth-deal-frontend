@@ -4,6 +4,7 @@ import { USER_INFO, USER_PROFILE } from "../../api/apiRoutes";
 import { getUserInfo, getUserInfoByID } from "./getUserInfo";
 
 export const updateMainInfo = (
+    email,
     name,
     surname,
     profileID,
