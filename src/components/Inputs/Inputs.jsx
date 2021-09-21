@@ -1,6 +1,6 @@
 import './Inputs.scss'
 import { useState } from 'react';
-import dropdown from '../../../assets/svg/dropdown.svg'
+import dropdown from '../../assets/svg/dropdown.svg'
 
 const TextInput = ({ title, inputName, value="", placeholder="", onChange, inputType="text" }) => {
     return <div className="inputs__text-input">

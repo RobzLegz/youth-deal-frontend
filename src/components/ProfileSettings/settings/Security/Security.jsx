@@ -1,6 +1,6 @@
 import React from 'react';
 import '../Settings.scss';
-import { TextInput } from '../Inputs';
+import { TextInput } from '../../../Inputs/Inputs';
 
 function Security(){
     return (

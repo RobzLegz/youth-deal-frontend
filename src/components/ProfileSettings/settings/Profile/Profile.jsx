@@ -4,7 +4,7 @@ import '../Settings.scss'
 import { useSelector } from 'react-redux';
 import { userData } from '../../../../slices/user/userSlice';
 
-import { TextInput, DropdownInput, CheckboxInput } from '../Inputs';
+import { TextInput, DropdownInput, CheckboxInput } from '../../../Inputs/Inputs';
 
 import crown from '../../../../assets/svg/crown.svg'
 

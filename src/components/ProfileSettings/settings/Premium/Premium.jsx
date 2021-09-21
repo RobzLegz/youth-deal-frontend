@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DropdownInput } from '../Inputs';
+import { DropdownInput } from '../../../Inputs/Inputs';
 
 import crown from '../../../../assets/svg/crown.svg';
 
