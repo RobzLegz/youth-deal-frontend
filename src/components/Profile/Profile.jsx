@@ -288,7 +288,8 @@ function Profile(){
                     {
                         searchInfo.info.profile.knowledge || 
                         searchInfo.info.profile.experience || 
-                        searchInfo.info.profile.extra ? (
+                        searchInfo.info.profile.extra || 
+                        isUsersProfile ? (
                             <div className="profile__right">
                                 <ProfileRightSection
                                     title="Izglītība"
