@@ -64,7 +64,8 @@ export const updateMainInfo = (
             getUserInfo(accessToken, dispatch, 2)
             getUserInfoByID(profileID, dispatch);
         }).catch((err) => {
-            dispatch(resetLoadingState());
+            getUserInfo(accessToken, dispatch, 2)
+            getUserInfoByID(profileID, dispatch);
         });
     }).catch((err) => {
         dispatch(resetLoadingState());
