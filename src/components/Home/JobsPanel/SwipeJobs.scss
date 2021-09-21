@@ -56,10 +56,10 @@
 
 .swipedCard{
     &__right{
-        animation: yay 0.7s ease-out;
+        animation: yay 0.5s ease-out;
     }
     &__left{
-        animation: nope 0.7s ease-out;
+        animation: nope 0.5s ease-out;
     }
 
     @keyframes yay {
