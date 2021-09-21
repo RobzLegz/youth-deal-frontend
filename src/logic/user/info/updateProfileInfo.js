@@ -47,6 +47,7 @@ export const updateMainInfo = (
         headers
     ).then((res) => {
         const profileInfoData = new FormData();
+        profileInfoData.append("email", email);
         profileInfoData.append("first_name", name);
         profileInfoData.append("last_name", surname);
 
