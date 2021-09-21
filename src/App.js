@@ -15,6 +15,7 @@ import ProfileSettings from './components/ProfileSettings/ProfileSettings'
 import Profile from './components/Profile/Profile'
 import Cookie from "./components/Cookie/Cookie";
 import Chat from './components/Chat/Chat'
+import Saved from './components/Saved/Saved';
 import { getUserInfo } from './logic/user/info/getUserInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAccessToken, userData } from './slices/user/userSlice';
@@ -238,6 +239,13 @@ function App() {
               <Route path="/new/jobOffer">
                 <AuthorizedHeader />
                 <NewJobOffer />
+              </Route>
+            )}
+
+            {userInfo.loggedIn && (
+              <Route path="/saved">
+                <AuthorizedHeader />
+                <Saved />
               </Route>
             )}
   
