@@ -26,6 +26,7 @@ function Chat() {
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [isOptionsPopup, setIsOptionsPopup] = useState(false);
+    const [messageSent, setMessageSent] = useState(false);
 
     const scrollRef = useRef();
     const dispatch = useDispatch();
@@ -50,8 +51,19 @@ function Chat() {
     }, [socketInfo.socket]);
 
     useEffect(() => {
-        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && (chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender)){
-            dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender){
+            if(chatInfo.messages.length === 0){
+                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }else if(chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender){
+                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }
+            
         }
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
 
@@ -64,6 +76,18 @@ function Chat() {
             });
         }
     }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch, chatInfo.messages]);
+
+    useEffect(() => {
+        if(messageSent){
+            console.log("sdsadhi")
+            setMessageText("");
+
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",
+            });
+            setMessageSent(false);
+        }
+    }, [messageSent]);
 
 
     function handleContactsToggle() {
@@ -90,7 +114,7 @@ function Chat() {
                 text: messageText,
             });
       
-            newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageText);
+            newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageSent);
         }
     };
 
@@ -153,7 +177,7 @@ function Chat() {
                         </svg>
                         </div>
                         <div className="chat__input-container__input">
-                            <input type="text" placeholder="Raksti šeit" onChange={(e) => setMessageText(e.target.value)} />
+                            <input type="text" placeholder="Raksti šeit" value={messageText} onChange={(e) => setMessageText(e.target.value)} />
                         </div>
                         <div className="chat__input-container__send">
                             <img src={sendIcon} alt="send icon" onClick={(e) => sendMessage(e)} />
