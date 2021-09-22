@@ -11,6 +11,7 @@ import EmailIcon from '../../assets/svg/email.svg';
 import Phone from '../../assets/svg/phone.svg';
 import People from '../../assets/svg/people.svg';
 import Www from '../../assets/svg/www.svg'
+import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.svg'
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
 import ScrollJobs from '../Home/JobsPanel/ScrollJobs';
@@ -189,9 +190,13 @@ function Profile(){
                             <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.phone_number ? searchInfo.info.phone_number : 'Nav'} />
                             <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
                             <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
-                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināms' : <>
-                                    {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
-                                    {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                                <>
+                                    {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
+                                    <>
+                                        {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                        {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                    </>}
                                 </>}
                             />
                         </div>
@@ -202,7 +207,6 @@ function Profile(){
                                 <p className='profile__left__bottom__my-desc__desc'>
                                     {searchInfo.info.profile.description ? searchInfo.info.profile.description : 'šī kompānija vēl nav uzrakstījusi informāciju'}
                                 </p>
-                                {isUsersProfile && <button>Iestatīt / Rediģēt kompānijas informāciju</button>}
                             </div>
                         </div>
                     </div>
@@ -257,29 +261,23 @@ function Profile(){
                         </div>
         
                         <div className="profile__left__middle">
-        
-                            <div className="profile__left__middle__row" id='born-date'>
-                                <div>
-                                    <img src={calendar} alt="calendar" />
-                                    <p>Dzimšanas datums</p>
-                                </div>
-                                <p>{searchInfo.info.profile.birth_date}</p>
-                            </div>
-        
-                            <div className="profile__left__middle__row" id='city'>
-                                <div>
-                                    <img src={marker} alt="location" />
-                                    <p>Pilsēta</p>
-                                </div>
-                                <p>{searchInfo.info.profile.city}, {searchInfo.info.profile.country}</p>
-                            </div>
-        
+                            <ProfileMiddleRow icon={calendar} iconAlt="calendar" title="dzimšanas datums" value={searchInfo.info.profile.birth_date ? searchInfo.info.profile.birth_date : 'Nezināms'} />
+                            <ProfileMiddleRow icon={marker} iconAlt="location" title="atrašanās vieta"
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                                <>
+                                    {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
+                                    <>
+                                        {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                        {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                    </>}
+                                </>}
+                            />
                         </div>
         
                         <div className="profile__left__bottom">
                             <div className="profile__left__bottom__my-desc">
                                 <p className='profile__left__bottom__my-desc__title'>Apraksts par sevi:</p>
-                                <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.bio}</p>
+                                <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.bio ? searchInfo.info.profile.bio : 'Nav'}</p>
                             </div>
                         </div>
         
@@ -321,7 +319,10 @@ function Profile(){
                             </div>
                         ) : (
                             <div className="profile__right">
-                                <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
+                                <div className="profile__right__no-details">
+                                    <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
+                                    <img src={ProfileNotComplete} alt="profile" />
+                                </div>
                             </div>
                         )
                     }                   
