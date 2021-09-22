@@ -137,9 +137,7 @@
                 border-radius: 10px;
                 align-items: center;
                 img {
-                    padding-right: 5px;
-                    border-radius: 50%;
-                    height: 40px;
+                    @include avatar;
                 }
                 &__info {
                     width: 100%;
@@ -186,9 +184,7 @@
                 margin: .3rem .5rem;
                 border-radius: 10px;
                 img {
-                    padding-right: 5px;
-                    border-radius: 50%;
-                    height: 40px;
+                    @include avatar;
                 }
                 &__info {
                     width: 100%;

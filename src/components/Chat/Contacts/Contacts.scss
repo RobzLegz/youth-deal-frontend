@@ -108,10 +108,7 @@
                 cursor: pointer;
                 align-items: center;
                 &__avatar {
-                    padding-right: 5px;
-                    border-radius: 50%;
-                    object-fit: contain;
-                    height: 39px;
+                    @include avatar;
                 }
                 
                 &__options {
