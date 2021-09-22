@@ -157,28 +157,34 @@ function AuthorizedHome() {
 
                 <div className="auth-home__middle">
                     {userInfo.info.is_employer ?
-                        <div className="auth-home__middle__users panel">
-                            {fakeUsers.map((user, i) =>
-                                <div className="auth-home__middle__users__user" onClick={() => history.push(`/profile/${user.info.profile.user}`)} key={i}>
-                                    <img src={user.info.profile.photo ? user.info.profile.photo : Avatar} alt="avatar" />
-                                    <div className="auth-home__middle__users__user__info">
-                                        <p>{user.info.first_name} {user.info.last_name}</p>
-                                        {user.info.profile.user_proffession_category && user.info.profile.user_proffession ? (
-                                            <small>{`${user.info.profile.user_proffession_category} | ${user.info.profile.user_proffession}`}</small>
-                                        ) : user.info.profile.user_proffession && (
-                                            <small>{user.info.profile.user_proffession}</small>
-                                        )}
+                        <>
+                            <div className="auth-home__middle__create-job-button">
+                                <button onClick={() => history.push('/new/jobOffer')}>Izveidot jaunu darba vakanci</button>
+                            </div>
+                            <h2>Lietotāji</h2>
+                            <div className="auth-home__middle__users panel">
+                                {fakeUsers.map((user, i) =>
+                                    <div className="auth-home__middle__users__user" onClick={() => history.push(`/profile/${user.info.profile.user}`)} key={i}>
+                                        <img src={user.info.profile.photo ? user.info.profile.photo : Avatar} alt="avatar" />
+                                        <div className="auth-home__middle__users__user__info">
+                                            <p>{user.info.first_name} {user.info.last_name}</p>
+                                            {user.info.profile.user_proffession_category && user.info.profile.user_proffession ? (
+                                                <small>{`${user.info.profile.user_proffession_category} | ${user.info.profile.user_proffession}`}</small>
+                                            ) : user.info.profile.user_proffession && (
+                                                <small>{user.info.profile.user_proffession}</small>
+                                            )}
+                                        </div>
+                                        <button onClick={() => {
+                                            if(hasChat){
+                                                history.push("/chat")
+                                            }else{
+                                                NewChat(userInfo.info.id, user.info.id, history, dispatch);
+                                            }
+                                        }}>{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
                                     </div>
-                                    <button onClick={() => {
-                                        if(hasChat){
-                                            history.push("/chat")
-                                        }else{
-                                            NewChat(userInfo.info.id, user.info.id, history, dispatch);
-                                        }
-                                    }}>{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
-                                </div>
-                            )}
-                        </div> :
+                                )}
+                            </div>
+                        </> :
                         <>
                             <div className="auth-home__middle__job-options panel">
                                 <div onClick={() => {
