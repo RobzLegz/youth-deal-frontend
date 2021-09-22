@@ -228,7 +228,7 @@ function Profile(){
                            
                             <div className="profile__left__top__img-wrapper">
                                 <img src={searchInfo.info.profile.photo ? searchInfo.info.profile.photo : Avatar} alt="avatar" />
-                                <div className='onlineStatus' id={socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div>
+                                <div className='onlineStatus' id={socketInfo.onlineUsers && socketInfo.onlineUsers.some(s => s.userId === searchInfo.info.id) ? 'online' : 'offline'}></div>
                             </div>
                             <div className="profile__left__top__info">
                                 <div>
