@@ -126,9 +126,9 @@ function Chat() {
             />
             {chatInfo.activeChat ? (
                 <form className="chat">
+                    <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__contacts-toggle" />
                     <div className="chat__header">
                         <div className="chat__header__profile-info">
-                            <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__header__contacts-toggle" />
                             <img src={chatInfo.activeChat.is_employer ? chatInfo.activeChat.profile.logo ? chatInfo.activeChat.profile.logo : AvatarIcon : chatInfo.activeChat.profile.photo ? chatInfo.activeChat.profile.photo : AvatarIcon} alt="renault" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} />
                             <div className="chat__header__profile-info__text" onClick={() => history.push(`/profile/${chatInfo.activeChat.id}`)} >
                                 <p id="username">{chatInfo.activeChat.is_employer ? `${chatInfo.activeChat.profile.company_name}` : `${chatInfo.activeChat.first_name} ${chatInfo.activeChat.last_name}`}</p>
@@ -187,8 +187,9 @@ function Chat() {
                 </form>    
             ) : (
                 <div className="noChatSelected">
+                    <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__contacts-toggle" />
                     <p>Izvēlieties kontaktu ar kuru sarakstīties</p>
-                    <img src={NoChatIcon} alt="no chat" />
+                    <img src={NoChatIcon} alt="no chat" className="noChatSelected__no-chat-img" />
                 </div>
             )}
         </div>
