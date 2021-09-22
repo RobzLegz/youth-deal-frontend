@@ -118,12 +118,15 @@
             }
         }
         &__jobs {
-            height: auto;
+            height: 100%;
             padding: 2%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-y: auto;
+            overflow: visible;
+            .scroll {
+                overflow-y: auto;
+            }
         }
         &__users {
             &__user {

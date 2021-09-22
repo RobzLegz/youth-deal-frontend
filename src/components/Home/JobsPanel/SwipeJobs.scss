@@ -1,6 +1,7 @@
 .swipe-card {
     width: 360px;
-    height: 450px;
+    height: 100%;
+    max-height: 450px;
     position: absolute;
     top: 0;
     left: 0;
@@ -31,8 +32,9 @@
     }
 
     &__body{
-        height: 330px;
+        height: calc(100% - 120px);
         width: 100%;
+        max-height: 330px;
     }
 
     &__bottom {
@@ -89,8 +91,15 @@
 
 .swipeJobsCountainer{
     width: 360px;
-    height: 450px;
+    height: 100%;
+    max-height: 450px;
     position: relative;
+    > * {
+        opacity: 0;
+    }
+    :last-child {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 425px) {
