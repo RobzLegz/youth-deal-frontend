@@ -51,11 +51,19 @@ function Chat() {
     }, [socketInfo.socket]);
 
     useEffect(() => {
-        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender && (chatInfo.messages.length === 0 || chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender)){
-            dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
-            scrollRef.current.scrollIntoView({
-                behavior: "smooth",
-            });
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender){
+            if(chatInfo.messages.length === 0){
+                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }else if(chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender){
+                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }
+            
         }
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
 
