@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import Bookmark1 from '../../../../assets/svg/bookmark1.svg';
 import Bookmark2 from '../../../../assets/svg/bookmark2.svg';
 import OptionsIcon from '../../../../assets/svg/options-icon-no-background.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
+import { userData } from '../../../../slices/user/userSlice';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
     const [saved, setSaved] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
+
+    const userInfo = useSelector(userData);
 
     useEffect(() => {
         if(!companyInfo){
@@ -25,7 +29,9 @@ function ScrollJob({jobOffer}) {
                         <small>{jobOffer.post_time}</small>
                     </div>
                     <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
-                    <img src={OptionsIcon} alt="options" className="options" />
+                    {userInfo.info.id === companyInfo.id && (
+                        <img src={OptionsIcon} alt="options" className="options" />
+                    )}
                 </div>
                 <div className="job-panel__location">
                     <p>{jobOffer.position_city}, {jobOffer.position_country}</p>
