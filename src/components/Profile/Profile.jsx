@@ -257,23 +257,14 @@ function Profile(){
                         </div>
         
                         <div className="profile__left__middle">
-        
-                            <div className="profile__left__middle__row" id='born-date'>
-                                <div>
-                                    <img src={calendar} alt="calendar" />
-                                    <p>Dzimšanas datums</p>
-                                </div>
-                                <p>{searchInfo.info.profile.birth_date}</p>
-                            </div>
-        
-                            <div className="profile__left__middle__row" id='city'>
-                                <div>
-                                    <img src={marker} alt="location" />
-                                    <p>Pilsēta</p>
-                                </div>
-                                <p>{searchInfo.info.profile.city}, {searchInfo.info.profile.country}</p>
-                            </div>
-        
+                            <ProfileMiddleRow icon={calendar} iconAlt="calendar" title="dzimšanas datums" value={searchInfo.info.profile.birth_date ? searchInfo.info.profile.birth_date : 'Nezināms'} />
+                            <ProfileMiddleRow icon={marker} iconAlt="location" title="atrašanās vieta"
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                                <>
+                                    {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                    {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                </>}
+                            />
                         </div>
         
                         <div className="profile__left__bottom">
