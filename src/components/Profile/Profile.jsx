@@ -11,6 +11,7 @@ import EmailIcon from '../../assets/svg/email.svg';
 import Phone from '../../assets/svg/phone.svg';
 import People from '../../assets/svg/people.svg';
 import Www from '../../assets/svg/www.svg'
+import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.svg'
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
 import ScrollJobs from '../Home/JobsPanel/ScrollJobs';
@@ -321,7 +322,10 @@ function Profile(){
                             </div>
                         ) : (
                             <div className="profile__right">
-                                <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
+                                <div className="profile__right__no-details">
+                                    <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
+                                    <img src={ProfileNotComplete} alt="profile" />
+                                </div>
                             </div>
                         )
                     }
