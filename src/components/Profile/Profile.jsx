@@ -191,9 +191,13 @@ function Profile(){
                             <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.phone_number ? searchInfo.info.phone_number : 'Nav'} />
                             <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
                             <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
-                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināms' : <>
-                                    {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
-                                    {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                                <>
+                                    {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
+                                    <>
+                                        {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                        {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                    </>}
                                 </>}
                             />
                         </div>
@@ -261,8 +265,11 @@ function Profile(){
                             <ProfileMiddleRow icon={marker} iconAlt="location" title="atrašanās vieta"
                                 value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
                                 <>
-                                    {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
-                                    {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                    {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
+                                    <>
+                                        {searchInfo.info.profile.country ? searchInfo.info.profile.country : ''}
+                                        {searchInfo.info.profile.city ? searchInfo.info.profile.city : ''}
+                                    </>}
                                 </>}
                             />
                         </div>
