@@ -64,7 +64,7 @@ export const getChatByID = (id, userID, dispatch, history) => {
     }
 };
 
-export const newMessage = (senderID, receiverID, chatID, text, dispatch, setMessageText) => {
+export const newMessage = (senderID, receiverID, chatID, text, dispatch, setMessageSent) => {
     if(senderID && receiverID && chatID && text){
         const data = {
             senderAccesstoken: senderID, 
@@ -74,11 +74,12 @@ export const newMessage = (senderID, receiverID, chatID, text, dispatch, setMess
         };
 
         axios.post(MESSAGE_OPTIONS, data).then((res) => {
-            setMessageText("");
             getChatMessages(chatID, dispatch);
             dispatch(setActiveChatMessages(res.data));
+            setMessageSent(true);
         }).catch((err) => {
             console.log(err);
+            setMessageSent(true);
         });
     }
 };
