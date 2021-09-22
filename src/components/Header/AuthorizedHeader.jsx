@@ -81,7 +81,6 @@ function AuthorizedHeader() {
                                 <div className="dropdown__with__icon" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}><img src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar} alt="profile" id="profile" /><li>Mans Konts</li></div>
                                 <li onClick={() => history.push(`/${isCompany ? "new/jobOffer" : ""}`)}>{isCompany ? "Jauna darba vakance" : "Profila reklāma"}</li>
                                 <div className="dropdown__with__icon" onClick={() => history.push("/premium")}><img src={Crown} alt="premium" id="profile_icon" /><li>Premium</li></div>
-                                <li>Darbības</li>
                                 <li onClick={() => history.push('/saved')}>Saglābātie</li>
                                 <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
                                 <li>€ EUR</li>

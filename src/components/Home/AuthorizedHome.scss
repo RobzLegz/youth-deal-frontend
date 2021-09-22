@@ -128,6 +128,16 @@
                 overflow-y: auto;
             }
         }
+        &__create-job-button {
+            margin-bottom: 2rem;
+            button {
+                background-color: #3E66FF;
+                color: white;
+                border: none;
+                padding: .4rem;
+                font-size: 16px;
+            }
+        }
         &__users {
             &__user {
                 display: flex;
