@@ -208,7 +208,6 @@ function Profile(){
                                 <p className='profile__left__bottom__my-desc__desc'>
                                     {searchInfo.info.profile.description ? searchInfo.info.profile.description : 'šī kompānija vēl nav uzrakstījusi informāciju'}
                                 </p>
-                                {isUsersProfile && <button>Iestatīt / Rediģēt kompānijas informāciju</button>}
                             </div>
                         </div>
                     </div>
