@@ -35,6 +35,7 @@ function Contacts({ active, handleToggle }) {
                             key={i}
                             search={search}
                             setSearch={setSearch}
+                            handleToggle={handleToggle}
                         />
                     ))}
                 </div>

@@ -8,7 +8,7 @@ import Option from '../../../../assets/svg/options-icon-no-background.svg'
 import {useHistory} from "react-router-dom"
 import { deleteChat } from '../../../../logic/chat/chatOptions';
 
-function Contact({chat, search, setSearch}) {
+function Contact({chat, search, setSearch, handleToggle=()=>{}}) {
     const [chatMemberInfo, setChatMemberInfo] = useState(null);
     const [contactOptionsActive, setContactOptionsActive] = useState(false);
     const [name, setName] = useState(null);
@@ -40,8 +40,9 @@ function Contact({chat, search, setSearch}) {
     if(chatMemberInfo && (search === "" || name.substr(0, search.length).toLowerCase() === search.toLowerCase())){
         return(
             <div className="contacts-container__contacts__contacts-list__contact" onClick={() => {history.push(`/chats/${chat._id}`);setSearch("")}}>
-                <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar" />
-                <div className="contacts-container__contacts__contacts-list__contact__info">
+                <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar"
+                    onClick={handleToggle} />
+                <div className="contacts-container__contacts__contacts-list__contact__info" onClick={handleToggle}>
                     <p id="username">{name}</p>
                 </div>
                 <img src={Option} alt="options" className="contacts-container__contacts__contacts-list__contact__options" onClick={() => setContactOptionsActive(true)} />

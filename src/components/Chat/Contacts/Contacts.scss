@@ -118,6 +118,7 @@
                     display: none;
                     align-self: center;
                     height: 20px;
+                    width: 20px;
                 }
                 &:hover {
                     background-color: #F0F0F0;
@@ -126,7 +127,10 @@
                     display: unset;
                 }
                 &__info {
+                    height: 100%;
                     width: 100%;
+                    display: flex;
+                    align-items: center;
                     #last-msg {
                         color: #B4B4B4;
                         font-size: 11px;
@@ -174,6 +178,13 @@
                         border-radius: 0;
                         border-top: 0 !important;
                         border-right: 0 !important;
+                    }
+                }
+            }
+            &__contacts-list {
+                &__contact {
+                    &__options {
+                        display: unset;
                     }
                 }
             }
