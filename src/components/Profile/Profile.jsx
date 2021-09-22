@@ -276,7 +276,7 @@ function Profile(){
                         <div className="profile__left__bottom">
                             <div className="profile__left__bottom__my-desc">
                                 <p className='profile__left__bottom__my-desc__title'>Apraksts par sevi:</p>
-                                <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.bio}</p>
+                                <p className='profile__left__bottom__my-desc__desc'>{searchInfo.info.profile.bio ? searchInfo.info.profile.bio : 'Nav'}</p>
                             </div>
                         </div>
         
