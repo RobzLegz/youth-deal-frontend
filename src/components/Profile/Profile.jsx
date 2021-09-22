@@ -28,7 +28,6 @@ import { NewChat } from '../../logic/chat/chatOptions';
 import { socketData } from '../../slices/socket/socketSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import { getCompanysPositions } from '../../logic/company/find/findCompanysPositions';
-import { infoData } from '../../slices/info/infoSlice'
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -46,7 +45,6 @@ function Profile(){
     const searchInfo = useSelector(searchData);
     const socketInfo = useSelector(socketData);
     const proffessionInfo = useSelector(proffessionData);
-    const infoInfo = useSelector(infoData);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -208,12 +206,14 @@ function Profile(){
                             </div>
                         </div>
                     </div>
-                    <div className="profile__companyRight">
-                        <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
-                        <div className="profile__companyRight__scroll">
-                            <ScrollJobs jobs={infoInfo.jobOffers} />
+                    {companyPositions && (
+                        <div className="profile__companyRight">
+                            <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
+                            <div className="profile__companyRight__scroll">
+                                <ScrollJobs jobs={companyPositions} />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             )
         }else{
@@ -324,10 +324,7 @@ function Profile(){
                                 <h3>Šis lietotājs nav pabeidzis veidot savu profilu</h3>
                             </div>
                         )
-                    }
-                    
-                    
-        
+                    }                   
                 </div>
             )
         }
