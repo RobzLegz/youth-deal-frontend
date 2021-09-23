@@ -127,7 +127,7 @@ function JobTaker(){
                     <div className="job__right__input-group">
                         <input className="job__right__input-group__input" onChange={e => passwordHandler(e)} onBlur={(e) => blurHandler(e)} value={password} name="password" type={isRevealPwd ? "text" : "password"} id='password' placeholder='' autoComplete="off" required />
                         <label className="job__right__input-group__label" htmlFor="password">Parole:</label>
-                        <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)} className="job__right__input-group__eye"></img>
+                        <img title={isRevealPwd ? "Slēpt paroli" : "Parādīt paroli"} alt="eye" className="company__right__input-group__eye" src={isRevealPwd ? hidePwdImg : showPwdImg} onClick={() => setIsRevealPwd(prevState => !prevState)}></img>
                     </div>   
                     {(passwordDirty && passwordError) && <div className="job__right__error"style={{color:"#FA4251"}}>{passwordError}</div>}
                     <div className="job__right__checkbox">

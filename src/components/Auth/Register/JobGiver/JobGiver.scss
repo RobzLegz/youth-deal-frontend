@@ -82,7 +82,7 @@
                 &__eye{
                     position: absolute;
                     top: 45%;
-                    right: 3%;
+                    right: 5%;
                     cursor: pointer; 
                 }
                 &__input{
@@ -161,16 +161,12 @@
                     }
                     &:checked{
                         background-color:$buttonBg;
-
+                        content: url("../../../../assets/svg/checking.svg");
+                        width: 20px;
+                        height: 20px;
                         &::after{
                             display: block;
                         }
-                    }
-                    &::after{
-                        content:url("../../../../assets/svg/check_mark.png");
-                        object-fit: contain;
-                        color: white;
-                        display:none;
                     }
                     u{
                         cursor: pointer;
