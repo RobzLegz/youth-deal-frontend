@@ -1,13 +1,17 @@
-import React from 'react';
-
-import { DropdownInput } from '../Inputs';
+import React, { useState } from 'react';
 
 import crown from '../../../../assets/svg/crown.svg';
+import dropdown from '../../../../assets/svg/dropdown.svg';
 
 import '../Settings.scss';
 import './Premium.scss';
+import '../Inputs.scss';
 
 function Premium(){
+    const [premiumCancelReason, setPremiumCancelReason] = useState('Izvēlies Cēloni');
+
+    const [showPremiumCancelReason, setShowPremiumCancelReason] = useState(false);
+
     return (
         <div className='settings-wrapper'>
             <div className="settings">
@@ -40,10 +44,17 @@ function Premium(){
 
                 <section className="settings__section">
                     <div className="settings__section__grayed">
-                        <DropdownInput
-                            title="Es gribu deaktivizēt manu premium statusu tāpēc ka..."
-                            currentOption="Izvēlies Cēloni"
-                            options={['a', 'b']} />
+                        <div className="inputs__dropdown-input">
+                            <label className="inputs__dropdown-input__name">Es gribu deaktivizēt manu premium statusu tāpēc ka...</label>
+                            <div className="inputs__dropdown-input__input-group" onClick={() => setShowPremiumCancelReason(!showPremiumCancelReason)}>
+                                <p>{premiumCancelReason}</p>
+                                <img src={dropdown} alt="dropdown" />
+                                <div className={`inputs__dropdown-input__input-group__dropdown ${showPremiumCancelReason ? 'active' : ''}`}>
+                                    <p onClick={() => {setPremiumCancelReason('a');setShowPremiumCancelReason(false)}}>a</p>
+                                    <p onClick={() => {setPremiumCancelReason('b');setShowPremiumCancelReason(false)}}>b</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="align-right">
                         <button className="button-red">Deaktivizēt Premium</button>

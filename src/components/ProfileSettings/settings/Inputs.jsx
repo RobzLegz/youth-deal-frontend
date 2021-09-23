@@ -11,7 +11,7 @@ const TextInput = ({ title, inputName, value="", placeholder="", onChange, input
     </div>;
 }
 
-const DropdownInput = ({ title, inputStyle={}, currentOption, options }) => {
+const DropdownInput = ({ title, inputStyle={}, currentOption, options, setIsActiveJobSeeker }) => {
     const [selected, setSelected] = useState(currentOption);
     const [dropdownActive, setDropdownActive] = useState(false)
 
@@ -24,6 +24,7 @@ const DropdownInput = ({ title, inputStyle={}, currentOption, options }) => {
                 {options.map((option, i) =>
                 <p key={i} onClick={() => {
                     setSelected(option);
+                    setIsActiveJobSeeker(currentOption === "#ADM" ? true : false);
                     setDropdownActive(false);
                 }}>{option}</p>)}
             </div>
