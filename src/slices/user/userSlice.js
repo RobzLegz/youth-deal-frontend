@@ -6,6 +6,7 @@ export const userSlice = createSlice({
         loggedIn: false,
         info: null,
         accessToken: "",
+        allUsers: null,
     },
     reducers: {
         login: (state) => {
@@ -28,6 +29,9 @@ export const userSlice = createSlice({
             state.info = null;
             state.accessToken = "";
         },
+        setAllUsers: (state, action) => {
+            state.allUsers = action.payload;
+        },
     },
 });
 
@@ -37,7 +41,8 @@ export const {
     setAccessToken,
     logoutUser,
     setUserProffession,
-    setUserProffessionCategory
+    setUserProffessionCategory,
+    setAllUsers
 } = userSlice.actions;
 
 export const userData = (state) => state.user;

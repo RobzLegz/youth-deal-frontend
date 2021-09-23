@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAllUsers } from "../../slices/user/userSlice";
 import { ONE_OCCUPATION, OCCUPATION_CATEGORIES, USER_LIST_OPTIONS } from "../api/apiRoutes";
 import { getProffessionCategories, getProffessions } from "../proffessions/getProffesions";
 
@@ -138,7 +139,7 @@ export const getAllUsers = (accessToken, dispatch) => {
         USER_LIST_OPTIONS,
         headers
     ).then((res) => {
-        console.log(res.data);
+        dispatch(setAllUsers(res.data))
     }).catch((err) => {
         console.log(err.message);
     });
