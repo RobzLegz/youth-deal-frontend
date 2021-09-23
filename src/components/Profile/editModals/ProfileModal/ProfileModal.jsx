@@ -21,6 +21,11 @@ function ProfileModal({handleProfileModal}){
 
     const [name, setName] = useState(userInfo.info.first_name);
     const [surname, setSurName] = useState(userInfo.info.last_name);
+    const [companyName, setCompanyName] = useState(userInfo.info.profile.company_name);
+    const [website, setWebsite] = useState(userInfo.info.profile.website_url);
+    const [companySize, setCompanySize] = useState(userInfo.info.profile.company_size);
+    const [phoneNumber, setPhoneNumber] = useState(userInfo.info.profile.phone_number);
+    const [email, setEmail] = useState(userInfo.info.email);
     const [birthDate, setBirthDate] = useState(userInfo.info.profile.birth_date);
     const [country, setCountry] = useState(userInfo.info.profile.country);
     const [city, setCity] = useState(userInfo.info.profile.city);
@@ -88,7 +93,7 @@ function ProfileModal({handleProfileModal}){
             handleProfileModal();
         }
     }
-    
+
     return (
         <div className="profileModal">
             <form className="profileModal__inner" autoComplete="off">
@@ -108,56 +113,116 @@ function ProfileModal({handleProfileModal}){
 
                 <div className="profileModal__inner__personal-information">
 
-                    <div className="profileModal__inner__personal-information__input-group">
-                        <label htmlFor="name">Vārds:</label>
-                        <input
-                            type="text"
-                            name='name' 
-                            id='name' 
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
+                    {userInfo.info.is_employer ?
+                        <>
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="company_name">Kompānijas nosaukums:</label>
+                                <input
+                                    type="text"
+                                    name='company_name'
+                                    id='company_name'
+                                    value={companyName}
+                                    onChange={(e) => setCompanyName(e.target.value)}
+                                />
+                            </div>
 
-                    <div className="profileModal__inner__personal-information__input-group">
-                        <label htmlFor="surname">Uzvārds:</label>
-                        <input
-                            type="text"
-                            name='surname' 
-                            id='surname' 
-                            value={surname}
-                            onChange={(e) => setSurName(e.target.value)}
-                        />
-                    </div>
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="website">Mājas lapa:</label>
+                                <input
+                                    type="url"
+                                    name='website'
+                                    id='website'
+                                    value={website}
+                                    onChange={(e) => setWebsite(e.target.value)}
+                                />
+                            </div>
 
-                    <div className="profileModal__inner__personal-information__input-group">
-                        <label>Profesija{userInfo.info.profile.user_proffession && `: ${userInfo.info.profile.user_proffession}`}</label>
-                        <button 
-                            className="profileModal__inner__personal-information__input-group__jobselection"
-                            onClick={(e) => {e.preventDefault();setProffessionListOpen(true)}}
-                        >{userInfo.info.profile.user_proffession ? "Mainīt" : "Izvēlēties"}</button>
-                        
-                        {proffessionListOpen && (
-                            <ProffessionPopup 
-                                proffessionID={proffessionID}
-                                setProffessionID={setProffessionID}
-                                setProffessionListOpen={setProffessionListOpen}
-                            />
-                        )}
-                    </div>
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="company_size">Darbinieku skaits:</label>
+                                <input
+                                    type="number"
+                                    name='company_size'
+                                    id='company_size'
+                                    value={companySize}
+                                    onChange={(e) => setCompanySize(e.target.value)}
+                                />
+                            </div>
 
-                    <div className="profileModal__inner__personal-information__input-group">
-                        <label htmlFor="bornDate">Dzimšanas datums:</label>
-                        <div className="profileModal__inner__personal-information__input-group__custom-input">
-                            <input 
-                                type="date" 
-                                name='bornDate' 
-                                id='bornDate' 
-                                value={birthDate} 
-                                onChange={(e) => setBirthDate(e.target.value)}
-                            />
-                        </div>
-                    </div>
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="phone_number">Telefona nummurs:</label>
+                                <input
+                                    type="tel"
+                                    name='phone_number'
+                                    id='phone_number'
+                                    value={phoneNumber}
+                                    onChange={(e) => setPhoneNumber(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="email">E-pasts:</label>
+                                <input
+                                    type="email"
+                                    name='email'
+                                    id='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                        </> :
+                        <>
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="name">Vārds:</label>
+                                <input
+                                    type="text"
+                                    name='name' 
+                                    id='name' 
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="surname">Uzvārds:</label>
+                                <input
+                                    type="text"
+                                    name='surname' 
+                                    id='surname' 
+                                    value={surname}
+                                    onChange={(e) => setSurName(e.target.value)}
+                                />
+                            </div>
+
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label>Profesija{userInfo.info.profile.user_proffession && `: ${userInfo.info.profile.user_proffession}`}</label>
+                                <button 
+                                    className="profileModal__inner__personal-information__input-group__jobselection"
+                                    onClick={(e) => {e.preventDefault();setProffessionListOpen(true)}}
+                                >{userInfo.info.profile.user_proffession ? "Mainīt" : "Izvēlēties"}</button>
+
+                                {proffessionListOpen && (
+                                    <ProffessionPopup 
+                                        proffessionID={proffessionID}
+                                        setProffessionID={setProffessionID}
+                                        setProffessionListOpen={setProffessionListOpen}
+                                    />
+                                )}
+                            </div>
+
+                            <div className="profileModal__inner__personal-information__input-group">
+                                <label htmlFor="bornDate">Dzimšanas datums:</label>
+                                <div className="profileModal__inner__personal-information__input-group__custom-input">
+                                    <input 
+                                        type="date" 
+                                        name='bornDate' 
+                                        id='bornDate' 
+                                        value={birthDate} 
+                                        onChange={(e) => setBirthDate(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    }
 
                     <div className="profileModal__inner__personal-information__input-group">
                         <label htmlFor="country">Valsts:</label>
@@ -213,23 +278,25 @@ function ProfileModal({handleProfileModal}){
                         </div>
                     </div>
 
-                    <div className="profileModal__inner__personal-information__input-group">
-                        <label>Vai esat aktīvā darba meklēšanā?</label>
-                        <div className="profileModal__inner__personal-information__input-group__admbuttons">
-                            <button 
-                                className={isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
-                                onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(true)}}
-                            >Jā</button>
-                            <button 
-                                className={!isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
-                                onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(false)}}
-                            >Nē</button>
+                    {!userInfo.info.is_employer &&
+                        <div className="profileModal__inner__personal-information__input-group">
+                            <label>Vai esat aktīvā darba meklēšanā?</label>
+                            <div className="profileModal__inner__personal-information__input-group__admbuttons">
+                                <button 
+                                    className={isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
+                                    onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(true)}}
+                                >Jā</button>
+                                <button 
+                                    className={!isActiveJobSeeker ? "profileModal__inner__personal-information__input-group__admbuttons__active" : "profileModal__inner__personal-information__input-group__admbuttons__notactive"}
+                                    onClick={(e) => {e.preventDefault();setIsActiveJobSeeker(false)}}
+                                >Nē</button>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
 
                 <div className="profileModal__inner__desc">
-                    <label htmlFor="aboutme">Apraksts par sevi:</label>
+                    <label htmlFor="aboutme">{userInfo.info.is_employer ?  'Kompānijas apraksts:' : 'Apraksts par sevi:'}</label>
                     <textarea 
                         name="aboutme" 
                         id="aboutme" 
