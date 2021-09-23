@@ -47,7 +47,7 @@ function ScrollJob({jobOffer}) {
             second: 1000
         }
         for (const unit in  units) {
-            if (Math.abs(diff) > units[unit] || unit == 'seconds') {
+            if (Math.abs(diff) > units[unit] || unit === 'seconds') {
                 return rtf.format(Math.round(diff/units[unit]), unit)
             }
         }
