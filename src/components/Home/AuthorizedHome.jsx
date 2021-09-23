@@ -131,7 +131,9 @@ function AuthorizedHome() {
     if (userInfo.info) {
         return (
             <div className="auth-home">
-
+                {!userInfo.info.is_employer && (
+                    <div className="auth-home__invisible"></div>
+                )}
                 <div className="auth-home__left">
                     <div className="panel">
                         <div className="auth-home__left__user">
