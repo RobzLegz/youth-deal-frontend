@@ -1,22 +1,48 @@
 import React, { useState } from 'react';
 import '../Settings.scss'
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userData } from '../../../../slices/user/userSlice';
 
-import { TextInput, DropdownInput, CheckboxInput } from '../Inputs';
+import { TextInput, DropdownInput } from '../Inputs';
 
-import crown from '../../../../assets/svg/crown.svg'
+// import crown from '../../../../assets/svg/crown.svg'
+import { updateSettingsInfo } from '../../../../logic/user/info/updateProfileInfo';
 
 function Profile() {
     const userInfo = useSelector(userData);
+    const dispatch = useDispatch();
 
     const [name, setName] = useState(userInfo.info.first_name);
     const [surname, setSurName] = useState(userInfo.info.last_name);
     const [email, setEmail] = useState(userInfo.info.email);
     const [city, setCity] = useState(userInfo.info.profile.city);
-    const [isActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
+    const [isActiveJobSeeker, setIsActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
     const [companyName, setCompanyName] = useState(userInfo.info.profile.company_name)
+
+    const saveProfileData = () => {
+        if(!userInfo.info.is_employer){
+            if(
+                name !== userInfo.info.first_name ||
+                surname !== userInfo.info.last_name || 
+                email !== userInfo.info.email ||
+                city !== userInfo.info.profile.city ||
+                isActiveJobSeeker !== userInfo.info.profile.is_active_jobseeker
+            ){
+                updateSettingsInfo(
+                    name,
+                    surname,
+                    email,
+                    "Latvia",
+                    city,
+                    isActiveJobSeeker,
+                    dispatch,
+                    userInfo.accessToken,
+                    userInfo.info.id,
+                );
+            }
+        }
+    }
 
     return (
         <div className='settings-wrapper'>
@@ -33,25 +59,29 @@ function Profile() {
                     }
                     <TextInput title="E-pasts" inputName="email" value={email} onchange={setEmail} />
                     <TextInput title="Pilsēta" inputName="city" value={city} onchange={setCity} />
-                    <DropdownInput
+                    {/* <DropdownInput
                         title="Online Statuss"
                         inputStyle={userInfo.loggedIn ? { color: '#1DBF73' } : { color: 'rgb(216, 57, 17)' }}
                         currentOption={userInfo.loggedIn ? 'online' : 'offline'}
-                        options={['online', 'offline', 'do not bother', 'invisible']} />
+                        options={['online', 'offline', 'do not bother', 'invisible']} 
+                    /> */}
                     {!userInfo.info.is_employer &&
                         <DropdownInput
                             title="Darba Statuss"
                             currentOption={isActiveJobSeeker ? '#ADM' : 'Nodarbināts'}
-                            options={['Aktīvs Darba meklētāys', 'Nodarbināts']} />
+                            options={['#ADM', 'Nodarbināts']} 
+                            setIsActiveJobSeeker={setIsActiveJobSeeker}
+                        />
                     }
-                    <DropdownInput
+                    {/* <DropdownInput
                         title="Premium Statuss"
                         inputStyle={userInfo.info.has_premium ? { color: '#FFD700' } : { color: 'gray' }}
                         currentOption={userInfo.has_premium ? <><img src={crown} alt='crown' /> Zelta Plāns</> : 'Standarta Plāns'}
-                        options={[<><img src={crown} alt='crown' /> Zelta Plāns</>, 'Standarta Plāns']} />
+                        options={[<><img src={crown} alt='crown' /> Zelta Plāns</>, 'Standarta Plāns']} 
+                    /> */}
                 </section>
 
-                <section className="settings__section">
+                {/* <section className="settings__section">
                     <h3 className="settings__section__title">Ko Tu gribi, lai citi lietotāji redzētu tavā profilā?</h3>
                     <div className="settings__section__grayed">
                         <CheckboxInput title="E-pasts" inputName="isEmailVisible" value={true} />
@@ -60,10 +90,10 @@ function Profile() {
                             <CheckboxInput title="Izglītība" inputName="isKnowlageVisible" value={true} />
                         </>}
                     </div>
-                </section>
+                </section> */}
 
                 <div className="align-right">
-                    <button className="button-blue">Saglabāt</button>
+                    <button className="button-blue" onClick={() => saveProfileData()}>Saglabāt</button>
                 </div>
             </div>
 
