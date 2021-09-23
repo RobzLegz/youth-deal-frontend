@@ -12,7 +12,7 @@ function AdminUserScreen() {
         if(!userInfo.allUsers){
             getAllUsers(userInfo.accessToken, dispatch);
         }
-    }, [userInfo.accessToken, dispatch]);
+    }, [userInfo.accessToken, dispatch, userInfo.allUsers]);
 
     return (
         <div>
