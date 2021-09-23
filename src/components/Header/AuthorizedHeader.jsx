@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { proffessionData } from '../../slices/proffessions/proffessionSlice'
 import Avatar from '../../assets/svg/avatar.svg';
 import SearchBar from './searchBar/SearchBar';
+import { infoData, setFilterTags } from '../../slices/info/infoSlice';
 
 function AuthorizedHeader() {
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
@@ -20,6 +21,7 @@ function AuthorizedHeader() {
 
     const proffessionInfo = useSelector(proffessionData);
     const userInfo = useSelector(userData);
+    const pageInfo = useSelector(infoData);
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -47,14 +49,27 @@ function AuthorizedHeader() {
         history.push("/");
     };
 
+    const setFilterCategory = (category) => {
+        if(pageInfo.filterTags && pageInfo.filterTags !== null && pageInfo.filterTags.length > 0){
+            if(pageInfo.filterTags && !pageInfo.filterTags.some(t => t.title === category.title)){
+                dispatch(setFilterTags([...pageInfo.filterTags, category]));
+            }
+        }else{
+            dispatch(setFilterTags([category]));
+        }
+        if(history.location.pathname !== "/"){
+            history.push("/");
+        }
+    }
+
     const TopLinks = () => {
         return <ul className="header__top__links">
             <li onClick={() => history.push("/")}>Sākums</li>
             <li onClick={() => history.push("/chat")}>Čats</li>
             <li onClick={() => setCategoriesOpen(!categoriesOpen)}>Kategorijas</li>
             <div className={`header__top__links__categories ${categoriesOpen ? 'active' : ''}`}>
-                {proffessionInfo.categories.map((category, i) => (
-                    <p key={i}>{category.title}</p>
+                {proffessionInfo.proffessions.map((proffession, i) => (
+                    <p key={i} onClick={() => setFilterCategory({type: "category", title: proffession.title, id: proffession.id, occupations: proffession.occupations})}>{proffession.title}</p>
                 ))}
             </div>
         </ul>

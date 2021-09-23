@@ -5,6 +5,7 @@ export const infoSlice = createSlice({
     initialState: {
         jobOffers: null,
         profileAds: null,
+        filterTags: null,
     },
     reducers: {
         setJobOffers: (state, action) => {
@@ -13,12 +14,16 @@ export const infoSlice = createSlice({
         setProfileAds: (state, action) => {
             state.profileAds = action.payload;
         },
+        setFilterTags: (state, action) => {
+            state.filterTags = action.payload;
+        },
     },
 });
 
 export const { 
     setJobOffers,
-    setProfileAds
+    setProfileAds,
+    setFilterTags
 } = infoSlice.actions;
 
 export const infoData = (state) => state.info;

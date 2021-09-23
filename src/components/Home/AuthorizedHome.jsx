@@ -4,6 +4,7 @@ import './AuthorizedHome.scss';
 import CrownIcon from '../../assets/svg/crown.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 import Bookmark2 from '../../assets/svg/bookmark2.svg';
+import CloseBlack from '../../assets/svg/close-black.svg';
 
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
@@ -26,26 +27,23 @@ function AuthorizedHome() {
     const [swipeJobs, setSwipeJobs] = useState(null);
     const [woluntaryJobs, setWoluntaryJobs] = useState(null);
 
-    const checkForUniqueJobs = (array, object) => {
-        return array.some((job) => {
-            if(
-                job.contract_type === object.contract_type &&
-                job.position_info === object.position_info &&
-                job.position_tools === object.position_tools &&
-                job.position_city === object.position_city &&
-                job.position_country === object.position_country &&
-                job.position_requirements === object.position_requirements &&
-                job.price_range === object.price_range &&
-                job.position_occupation === object.position_occupation &&
-                job.company === object.company
-            ){
-                return true
-            }
-            return false
-        })
-    }
-
     useEffect(() => {
+        const checkFilter = (job) => {
+            if(pageInfo.filterTags){
+                if(pageInfo.filterTags.some(t => t.type === "category")){
+                    pageInfo.filterTags.forEach((t) => {
+                        if(t.occupations.some(o => o.id === job.position_occupation)){
+                            return true;
+                        }
+                        return false
+                    })
+                    return false;
+                }
+                return false;
+            }
+            return true;
+        };
+
         if(pageInfo.jobOffers){
             if(!scrollJobs || !swipeJobs || !woluntaryJobs){
                 setScrollJobs([]);
@@ -53,29 +51,24 @@ function AuthorizedHome() {
                 setWoluntaryJobs([]);
             }else{
                 pageInfo.jobOffers.forEach((job) => {
-                    let mappedJob = {
-                        contract_type: job.contract_type,
-                        position_info: job.position_info,
-                        position_tools: job.position_tools,
-                        position_city: job.position_city,
-                        position_country: job.position_country,
-                        position_requirements: job.position_requirements,
-                        price_range : job.price_range,
-                        position_occupation : job.position_occupation,
-                        company : job.company,
-                    }
-
-                    if(mappedJob.contract_type === "long term" && !checkForUniqueJobs(scrollJobs, mappedJob)){
-                        scrollJobs.push(mappedJob);
-                    }else if(job.contract_type === "short term" && !checkForUniqueJobs(swipeJobs, mappedJob)){
-                        swipeJobs.push(mappedJob);
-                    }else if(job.contract_type === "woluntary job" && !checkForUniqueJobs(woluntaryJobs, mappedJob)){
-                        woluntaryJobs.push(mappedJob);
+                    console.log(checkFilter(job))
+                    if(checkFilter(job)){
+                        if(job.contract_type === "long term"){
+                            scrollJobs.push(job);
+                        }else if(job.contract_type === "short term"){
+                            swipeJobs.push(job);
+                        }else if(job.contract_type === "woluntary job"){
+                            woluntaryJobs.push(job);
+                        }
                     }
                 });
             }
         }
-    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs]);
+    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs, pageInfo.filterTags]);
+
+    const removeTag = (tag) => {
+        console.log(tag)
+    }
 
     useEffect(() => {
         if(scrollJobs){
@@ -211,6 +204,16 @@ function AuthorizedHome() {
                                     <div className="active-line"></div>
                                 </div>
                             </div>
+                            {pageInfo.filterTags && (
+                                <div className="auth-home__middle__tags panel">
+                                    {pageInfo.filterTags.map((tag, i) =>
+                                        <div key={i} className="auth-home__middle__tags__tag">
+                                            <img src={CloseBlack} alt="close" onClick={() => removeTag(tag)} />
+                                            <span>{tag.title}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             {
                                 (scrollJobs && swipeJobs && woluntaryJobs) && (
                                     <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>

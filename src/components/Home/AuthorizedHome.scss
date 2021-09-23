@@ -93,10 +93,11 @@
     &__middle {
         display: flex;
         flex-direction: column;
+        margin: 0 3rem;
         &__job-options {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             &__job-option {
                 padding: 1rem 1rem 0 1rem !important;
                 h3 {
@@ -117,6 +118,34 @@
                 }
             }
         }
+        &__tags {
+            padding: .2rem;
+            display: flex;
+            flex-wrap: wrap;
+            &__tag {
+                padding: .4rem !important;
+                margin: .3rem;
+                transition: .3s all;
+                max-width: fit-content;
+                cursor: pointer;
+                border-radius: 10px;
+                border: 1px solid #ffffff00;
+                img {
+                    height: 12px;
+                    width: 12px;
+                    margin-right: .5rem;
+                    opacity: 0;
+                    transition: .3s all;
+                }
+                &:hover {
+                    background-color: #d7e2ef;
+                    border: 1px solid #3E66FF;
+                    img {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
         &__jobs {
             height: 100%;
             padding: 2%;
@@ -124,6 +153,7 @@
             flex-direction: column;
             align-items: center;
             overflow: visible;
+            margin-top: 3rem;
             .scroll {
                 overflow-y: auto;
             }
