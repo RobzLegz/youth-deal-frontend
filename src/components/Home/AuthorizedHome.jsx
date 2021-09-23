@@ -4,6 +4,7 @@ import './AuthorizedHome.scss';
 import CrownIcon from '../../assets/svg/crown.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 import Bookmark2 from '../../assets/svg/bookmark2.svg';
+import CloseBlack from '../../assets/svg/close-black.svg';
 
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
@@ -16,66 +17,73 @@ import { NewChat } from '../../logic/chat/chatOptions';
 import LoadingPopup from '../popups/loading/LoadingPopup';
 import ScrollJobs from './JobsPanel/ScrollJobs';
 import SwipeJobs from './JobsPanel/SwipeJobs';
-import { infoData } from '../../slices/info/infoSlice';
+import { infoData, setFilterTags } from '../../slices/info/infoSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import Contact from './chats/Contact';
 
 function AuthorizedHome() {
     const pageInfo = useSelector(infoData);
-    const [scrollJobs, setScrollJobs] = useState(null);
-    const [swipeJobs, setSwipeJobs] = useState(null);
-    const [woluntaryJobs, setWoluntaryJobs] = useState(null);
-
-    const checkForUniqueJobs = (array, object) => {
-        return array.some((job) => {
-            if(
-                job.contract_type === object.contract_type &&
-                job.position_info === object.position_info &&
-                job.position_tools === object.position_tools &&
-                job.position_city === object.position_city &&
-                job.position_country === object.position_country &&
-                job.position_requirements === object.position_requirements &&
-                job.price_range === object.price_range &&
-                job.position_occupation === object.position_occupation &&
-                job.company === object.company
-            ){
-                return true
-            }
-            return false
-        })
-    }
+    const [scrollJobs, setScrollJobs] = useState([]);
+    const [swipeJobs, setSwipeJobs] = useState([]);
+    const [woluntaryJobs, setWoluntaryJobs] = useState([]);
+    const [filterJobs, setFilterJobs] = useState([]);
 
     useEffect(() => {
         if(pageInfo.jobOffers){
-            if(!scrollJobs || !swipeJobs || !woluntaryJobs){
+            if(scrollJobs.length > 0 || swipeJobs.length > 0 || woluntaryJobs.length > 0){
                 setScrollJobs([]);
                 setSwipeJobs([]);
                 setWoluntaryJobs([]);
-            }else{
-                pageInfo.jobOffers.forEach((job) => {
-                    let mappedJob = {
-                        contract_type: job.contract_type,
-                        position_info: job.position_info,
-                        position_tools: job.position_tools,
-                        position_city: job.position_city,
-                        position_country: job.position_country,
-                        position_requirements: job.position_requirements,
-                        price_range : job.price_range,
-                        position_occupation : job.position_occupation,
-                        company : job.company,
+            }
+            pageInfo.jobOffers.forEach((job) => {
+                let contractType = job.contract_type;
+                let occupation = job.position_occupation;
+
+                if(pageInfo.filterTags){
+                    if(filterJobs.length > 0){
+                        setFilterJobs([]);
                     }
 
-                    if(mappedJob.contract_type === "long term" && !checkForUniqueJobs(scrollJobs, mappedJob)){
-                        scrollJobs.push(mappedJob);
-                    }else if(job.contract_type === "short term" && !checkForUniqueJobs(swipeJobs, mappedJob)){
-                        swipeJobs.push(mappedJob);
-                    }else if(job.contract_type === "woluntary job" && !checkForUniqueJobs(woluntaryJobs, mappedJob)){
-                        woluntaryJobs.push(mappedJob);
+                    pageInfo.filterTags.forEach((tag) => {
+                        const category = tag.type;
+                        
+                        if(category === "category"){
+                            const tagOccupations = tag.occupations;
+                
+                            if(tagOccupations.some(o => o.id === occupation)){
+
+                                if(filterJobs && scrollJobs && swipeJobs && woluntaryJobs && !scrollJobs.includes(job) && !swipeJobs.includes(job) && !woluntaryJobs.includes(job)){
+                                    if(contractType === "long term"){
+                                        scrollJobs.push(job);
+                                    }else if(contractType === "short term"){
+                                        swipeJobs.push(job);
+                                    }else if(contractType === "woluntary job"){
+                                        woluntaryJobs.push(job);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else{
+                    if(contractType === "long term"){
+                        scrollJobs.push(job);
+                    }else if(contractType === "short term"){
+                        swipeJobs.push(job);
+                    }else if(contractType === "woluntary job"){
+                        woluntaryJobs.push(job);
                     }
-                });
-            }
+                }
+            });
         }
-    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs]);
+    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs, pageInfo.filterTags, filterJobs]);
+
+    const removeTag = (tag) => {
+        if(pageInfo.filterTags.length > 1){
+            dispatch(setFilterTags(pageInfo.filterTags.filter(t => t !== tag)));
+        }else{
+            dispatch(setFilterTags(null));
+        }
+    };
 
     useEffect(() => {
         if(scrollJobs){
@@ -123,7 +131,9 @@ function AuthorizedHome() {
     if (userInfo.info) {
         return (
             <div className="auth-home">
-
+                {!userInfo.info.is_employer && (
+                    <div className={`auth-home__invisible ${pageInfo.filterTags && 'extra-height'}`}></div>
+                )}
                 <div className="auth-home__left">
                     <div className="panel">
                         <div className="auth-home__left__user">
@@ -186,34 +196,46 @@ function AuthorizedHome() {
                             </div>
                         </> :
                         <>
-                            <div className="auth-home__middle__job-options panel">
-                                <div onClick={() => {
-                                    if(scrollJobs){
-                                        setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
-                                    }
-                                    setActiveJobOption('longterm');
-                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
-                                    <h3>Ilgtermiņa <span>darbi</span></h3>
-                                    <div className="active-line"></div>
+                            <div className="auth-home__middle__fixed">
+                                <div className="auth-home__middle__job-options panel">
+                                    <div onClick={() => {
+                                        if(scrollJobs){
+                                            setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
+                                        }
+                                        setActiveJobOption('longterm');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
+                                        <h3>Ilgtermiņa <span>darbi</span></h3>
+                                        <div className="active-line"></div>
+                                    </div>
+                                    <div onClick={() => {
+                                        setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
+                                        setActiveJobOption('shortterm');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
+                                        <h3>Īstermiņa <span>darbi</span></h3>
+                                        <div className="active-line"></div>
+                                    </div>
+                                    <div onClick={() => {
+                                        setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
+                                        setActiveJobOption('volunteer');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
+                                        <h3>Brīvprātīgie <span>darbi</span></h3>
+                                        <div className="active-line"></div>
+                                    </div>
                                 </div>
-                                <div onClick={() => {
-                                    setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
-                                    setActiveJobOption('shortterm');
-                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
-                                    <h3>Īstermiņa <span>darbi</span></h3>
-                                    <div className="active-line"></div>
-                                </div>
-                                <div onClick={() => {
-                                    setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
-                                    setActiveJobOption('volunteer');
-                                }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
-                                    <h3>Brīvprātīgie <span>darbi</span></h3>
-                                    <div className="active-line"></div>
-                                </div>
+                                {pageInfo.filterTags && (
+                                    <div className="auth-home__middle__tags panel">
+                                        {pageInfo.filterTags.map((tag, i) =>
+                                            <div key={i} className="auth-home__middle__tags__tag">
+                                                <img src={CloseBlack} alt="close" onClick={() => removeTag(tag)} />
+                                                <span>{tag.title}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                             {
                                 (scrollJobs && swipeJobs && woluntaryJobs) && (
-                                    <div className={`auth-home__middle__jobs ${activeJobOption === 'shortterm' ? '' : 'scroll'}`}>
+                                    <div className={`auth-home__middle__jobs ${pageInfo.filterTags && 'extra-top-margin'}`}>
                                         {activeJobPanel}
                                     </div>
                                 )

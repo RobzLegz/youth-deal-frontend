@@ -4,19 +4,27 @@
 .auth-home {
     display: flex;
     justify-content: space-around;
-    padding: 2rem 5rem 0 5rem;
+    overflow-y: auto;
     height: calc(100vh - 70px);
+    position: relative;
+
     .panel {
         width: 100%;
-        min-width: 20vw;
+        min-width: 20%;
         box-shadow: 2px 3px 10px 2px #b1b1b1;
         border: 1px solid lightgray;
+        background-color: white;
         border-radius: .7rem;
         > * {
             padding: 1.2rem;
         }
     }
     &__left {
+        position: fixed;
+        width: 350px;
+        top: calc(70px + 3rem);
+        left: 5rem;
+        z-index: 2;
         &__user {
             display: flex;
             border-bottom: 1px solid lightgray;
@@ -93,12 +101,28 @@
     &__middle {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        margin: 0 calc(8rem + 350px);
+        margin-top: 0;
+        max-width: 600px;
+        position: relative;
+
+        &__fixed {
+            position: fixed;
+            width: calc(100% - 16rem - 700px);
+            top: 70px;
+            max-width: 600px;
+            z-index: 2;
+        }
         &__job-options {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 3rem;
+            margin: 1rem 0;
+            height: 62px;
             &__job-option {
+                height: 100%;
                 padding: 1rem 1rem 0 1rem !important;
+                white-space: nowrap;
                 h3 {
                     color: #5a5a5a;
                     cursor: pointer;
@@ -117,15 +141,48 @@
                 }
             }
         }
+        &__tags {
+            padding: .2rem;
+            height: 60px;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            &__tag {
+                display: flex;
+                flex-wrap: nowrap;
+                padding: .4rem !important;
+                margin: .3rem;
+                height: fit-content;
+                transition: .3s all;
+                max-width: fit-content;
+                cursor: pointer;
+                border-radius: 10px;
+                border: 1px solid #ffffff00;
+                img {
+                    height: 12px;
+                    width: 12px;
+                    margin-right: .5rem;
+                    opacity: 0;
+                    transition: .3s all;
+                }
+                &:hover {
+                    background-color: #d7e2ef;
+                    border: 1px solid #3E66FF;
+                    img {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
         &__jobs {
             height: 100%;
-            padding: 2%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: visible;
-            .scroll {
-                overflow-y: auto;
+            margin-top: calc(70px + 2rem);
+            
+            &.extra-top-margin {
+                margin-top: calc(120px + 4rem);
             }
         }
         &__create-job-button {
@@ -180,6 +237,11 @@
         }
     }
     &__right {
+        position: fixed;
+        top: calc(70px + 3rem);
+        right: 5rem;
+        width: 350px;
+        z-index: 2;
         .panel {
             margin: .5rem 0 3rem 0
         }
@@ -245,20 +307,40 @@
             }
         }
     }
+
+    &__invisible{
+        width: 98%;
+        height: 100px;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        background: #fff;
+        z-index: 1;
+        &.extra-height {
+            height: 170px;
+        }
+    }
 }
 .footer {
     display: none;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1470px) {
     .auth-home {
-        padding: 2rem 1rem;
-        padding-bottom: 0;
+        &__middle {
+            &__job-options {
+                height: 60px;
+                &__job-option {
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
 
-@media (max-width: 1290px) {
+@media (max-width: 1400px) {
     .auth-home {
+        justify-content: flex-start;
         .panel {
             min-width: 30vw;
         }
@@ -266,6 +348,16 @@
             display: none;
         }
         &__middle {
+            margin-left: 5rem;
+            &__fixed {
+                width: calc(100vw - 8rem - 350px);
+            }
+            &__job-options {
+                height: 62px;
+                &__job-option {
+                    font-size: initial;
+                }
+            }
             &__jobs {
                 width: 100%;
             }
@@ -273,10 +365,15 @@
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1170px) {
     .auth-home {
+        justify-content: center;
         &__middle {
+            margin: 0 3rem;
             width: 80vw;
+            &__fixed {
+                width: calc(100vw - 6rem);
+            }
         }
         &__right {
             display: none;
@@ -288,6 +385,10 @@
     .auth-home {
         &__middle {
             width: 90vw;
+            margin: 0 1rem;
+            &__fixed {
+                width: calc(100vw - 2rem);
+            }
             &__job-options {
                 &__job-option {
                     text-align: center;
@@ -298,9 +399,6 @@
                     }
                 }
             }
-        }
-        &__right {
-            display: none;
         }
     }
 }
