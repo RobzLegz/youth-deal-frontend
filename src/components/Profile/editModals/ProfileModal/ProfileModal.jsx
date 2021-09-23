@@ -37,6 +37,7 @@ function ProfileModal({handleProfileModal}){
 
     const [countryListOpen, setCountryListOpen] = useState(false);
     const [cityListOpen, setCityListOpen] = useState(false);
+    const [companySizeListOpen, setCompanySizeListOpen] = useState(false);
 
     const [proffessionListOpen, setProffessionListOpen] = useState(false);
 
@@ -139,13 +140,25 @@ function ProfileModal({handleProfileModal}){
 
                             <div className="profileModal__inner__personal-information__input-group">
                                 <label htmlFor="company_size">Darbinieku skaits:</label>
-                                <input
-                                    type="number"
-                                    name='company_size'
-                                    id='company_size'
-                                    value={companySize}
-                                    onChange={(e) => setCompanySize(e.target.value)}
-                                />
+                                <div className="profileModal__inner__personal-information__input-group__custom-input">
+                                    <div onClick={() => setCompanySizeListOpen(true)}>
+                                        <input
+                                            type="text"
+                                            name='company_size'
+                                            id='company_size'
+                                            autoComplete="off"
+                                            readOnly
+                                            value={companySize}
+                                            onChange={(e) => setCompanySize(e.target.value)}
+                                        />
+                                    </div>
+                                    <img src={dropdown} alt="dropdown" onClick={() => setCompanySizeListOpen(!countryListOpen)} />
+                                    <ul className={companySizeListOpen ? "profileModal__inner__personal-information__input-group__custom-input__listopened" : "profileModal__inner__personal-information__input-group__custom-input__listclosed"}>
+                                        {['1-10', '10-50', '50-100', '100-250', '250-500', '500+'].map((ammount, i) => 
+                                            <li key={i} onClick={() => {setCompanySize(ammount);setCompanySizeListOpen(false)}}>{ammount}</li>
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
 
                             <div className="profileModal__inner__personal-information__input-group">
