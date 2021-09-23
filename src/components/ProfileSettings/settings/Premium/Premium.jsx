@@ -11,7 +11,7 @@ function Premium(){
     return (
         <div className='settings-wrapper'>
             <div className="settings">
-                <div className="premium__header">
+                <div className="settings__premium__header">
                     <h2 className="settings__title"> <img src={crown} alt="crown" /> Premium </h2>
                     <span>
                         Gribi paskatīties visus plānus?
@@ -19,9 +19,9 @@ function Premium(){
                     </span>
                 </div>
 
-                <div className="premium__status">
+                <div className="settings__premium__status">
                     <h4>Premium Statuss</h4>
-                    <div className="premium__status__wrapper">
+                    <div className="settings__premium__status__wrapper">
                         <img src={crown} alt="crown" />
                         Iegādāts
                     </div>
