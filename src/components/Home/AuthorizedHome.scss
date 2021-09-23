@@ -4,19 +4,24 @@
 .auth-home {
     display: flex;
     justify-content: space-around;
-    padding: 2rem 5rem 0 5rem;
+    overflow-y: auto;
     height: calc(100vh - 70px);
     .panel {
         width: 100%;
-        min-width: 20vw;
+        min-width: 20%;
         box-shadow: 2px 3px 10px 2px #b1b1b1;
         border: 1px solid lightgray;
+        background-color: white;
         border-radius: .7rem;
         > * {
             padding: 1.2rem;
         }
     }
     &__left {
+        position: fixed;
+        width: 350px;
+        top: calc(70px + 1rem);
+        left: 5rem;
         &__user {
             display: flex;
             border-bottom: 1px solid lightgray;
@@ -93,12 +98,22 @@
     &__middle {
         display: flex;
         flex-direction: column;
-        margin: 0 3rem;
+        width: 100%;
+        margin: 0 calc(8rem + 350px);
+        margin-top: 0;
+        &__fixed {
+            position: fixed;
+            width: calc(100vw - 12rem - 700px);
+            left: calc(3rem + 350px);
+            top: 70px;
+        }
         &__job-options {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
+            height: 64px;
             &__job-option {
+                height: 100%;
                 padding: 1rem 1rem 0 1rem !important;
                 h3 {
                     color: #5a5a5a;
@@ -120,9 +135,13 @@
         }
         &__tags {
             padding: .2rem;
+            height: 60px;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
             &__tag {
+                display: flex;
+                flex-wrap: nowrap;
                 padding: .4rem !important;
                 margin: .3rem;
                 transition: .3s all;
@@ -148,14 +167,12 @@
         }
         &__jobs {
             height: 100%;
-            padding: 2%;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow: visible;
-            margin-top: 3rem;
-            .scroll {
-                overflow-y: auto;
+            margin-top: calc(70px + 2rem);
+            &.extra-top-margin {
+                margin-top: calc(120px + 4rem);
             }
         }
         &__create-job-button {
@@ -210,6 +227,10 @@
         }
     }
     &__right {
+        position: fixed;
+        top: calc(70px + 1rem);
+        right: 5rem;
+        width: 350px;
         .panel {
             margin: .5rem 0 3rem 0
         }
@@ -282,13 +303,7 @@
 
 @media (max-width: 1400px) {
     .auth-home {
-        padding: 2rem 1rem;
-        padding-bottom: 0;
-    }
-}
-
-@media (max-width: 1290px) {
-    .auth-home {
+        justify-content: flex-start;
         .panel {
             min-width: 30vw;
         }
@@ -296,6 +311,7 @@
             display: none;
         }
         &__middle {
+            margin-left: 5rem;
             &__jobs {
                 width: 100%;
             }
@@ -303,15 +319,21 @@
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
     .auth-home {
+        justify-content: center;
         &__middle {
+            margin: 0 5rem;
             width: 80vw;
         }
         &__right {
             display: none;
         }
     }
+}
+
+@media (max-width: 860px) {
+
 }
 
 @media (max-width: 670px) {
