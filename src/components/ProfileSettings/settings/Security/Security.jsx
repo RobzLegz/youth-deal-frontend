@@ -1,6 +1,5 @@
 import React from 'react';
 import '../Settings.scss';
-import { TextInput } from '../Inputs';
 
 function Security(){
     return (
@@ -9,20 +8,18 @@ function Security(){
 
             <section className="settings__section">
                 <h3 className="settings__section__title">Parole</h3>
-                <TextInput
-                    title="Jauna Parole"
-                    inputName="password"
-                    inputType="password"
-                    onChange={() => { }}
-                    placeholder="Ievadi jauno paroli"
-                />
-                <TextInput
-                    title="Apstiprināt jauno paroli"
-                    inputName="repeat-password"
-                    inputType="password"
-                    onChange={() => { }}
-                    placeholder="Ievadi paroli atkārtoti"
-                />
+                <div className="inputs__text-input">
+                    <label htmlFor="new_password" className="inputs__text-input__name">Jauna Parole</label>
+                    <div className="inputs__text-input__input-group">
+                        <input type="password" id="new_password" name="new_password" placeholder="Ievadi jauno paroli" />
+                    </div>
+                </div>
+                <div className="inputs__text-input">
+                    <label htmlFor="repeat_password" className="inputs__text-input__name">Apstiprināt jauno paroli</label>
+                    <div className="inputs__text-input__input-group">
+                        <input type="password" id="repeat_password" name="repeat_password" placeholder="Ievadi paroli atkārtoti" />
+                    </div>
+                </div>
                 <p className="settings__section__desc align-left">
                     8 vai vairāk simbolus. Apvienojiet lielos un mazos burtus un ciparus.
                 </p>
