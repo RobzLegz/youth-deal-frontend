@@ -3,6 +3,7 @@ import React from 'react';
 import Speaker from '../../../../assets/svg/speaker.svg';
 
 import '../Settings.scss';
+import '../Inputs.scss';
 
 function Notifications() {
     return (

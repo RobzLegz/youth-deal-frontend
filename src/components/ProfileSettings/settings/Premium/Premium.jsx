@@ -5,6 +5,7 @@ import dropdown from '../../../../assets/svg/dropdown.svg';
 
 import '../Settings.scss';
 import './Premium.scss';
+import '../Inputs.scss';
 
 function Premium(){
     const [premiumCancelReason, setPremiumCancelReason] = useState('Izvēlies Cēloni');

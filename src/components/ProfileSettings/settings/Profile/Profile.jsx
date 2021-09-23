@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../Settings.scss'
+import '../Inputs.scss';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { userData } from '../../../../slices/user/userSlice';

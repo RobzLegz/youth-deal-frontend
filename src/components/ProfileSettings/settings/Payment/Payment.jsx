@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import assign from '../../../../assets/svg/assign.svg';
 import '../Settings.scss';
 import './Payment.scss';
+import '../Inputs.scss';
+
 function Payment(){
 
     const [balance] = useState('10,000.00')

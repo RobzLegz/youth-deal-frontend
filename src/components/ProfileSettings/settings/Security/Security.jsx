@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Settings.scss';
+import '../Inputs.scss';
 
 function Security(){
     return (
