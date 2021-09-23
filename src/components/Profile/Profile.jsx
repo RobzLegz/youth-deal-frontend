@@ -157,6 +157,7 @@ function Profile(){
         if(searchInfo.info.is_employer){
             return (
                 <div className="profile company">
+                    {editProfile && <ProfileModal handleProfileModal={handleProfileModal} /> }
                     <div className="profile__left">
                         <div className="profile__left__top">
                             <div className="profile__left__top__img-wrapper">
