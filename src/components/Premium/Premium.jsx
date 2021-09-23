@@ -88,6 +88,10 @@ function Premium() {
                                 <img src={MoreIcon} alt="secure" />
                                 <h4>Palīdzība ar CV sastādīšanu</h4>
                             </li>
+                            <li>
+                                <img src={MoreIcon} alt="secure" />
+                                <h4>Iespējams vienlaicīgi pieteikties vairākiem darba piedāvājumiem</h4>
+                            </li>
                             <button>3.99/Mēnesī. ABONĒT</button>
                         </ul>
                     )}
