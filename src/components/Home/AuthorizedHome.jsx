@@ -132,7 +132,7 @@ function AuthorizedHome() {
         return (
             <div className="auth-home">
                 {!userInfo.info.is_employer && (
-                    <div className="auth-home__invisible"></div>
+                    <div className={`auth-home__invisible ${pageInfo.filterTags && 'extra-height'}`}></div>
                 )}
                 <div className="auth-home__left">
                     <div className="panel">
