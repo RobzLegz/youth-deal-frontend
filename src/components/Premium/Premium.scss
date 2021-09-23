@@ -7,13 +7,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 100px 500px;
+    padding: 100px 0;
     
     &__header{
-        width: 100%;
+        width: 90%;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        max-width: 700px;
 
         &__option,
         &__optionActive{
@@ -46,7 +47,8 @@
 
     &__body{
         margin-top: 50px;
-        width: 100%;
+        width: 90%;
+        max-width: 700px;
         display: flex;
         align-items: center;
         justify-content: flex-start;

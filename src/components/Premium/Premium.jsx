@@ -38,29 +38,60 @@ function Premium() {
                     <p>Esiet augšpusē ar Premium!</p>
                 </div>
                 <div className="premium__body__bottom">
-                    <ul className="premium__body__bottom__reasons">
-                        <li>
-                            <img src={SecureIcon} alt="secure" />
-                            <h4>Divpakāpju autentifikācija</h4>
-                        </li>
-                        <li>
-                            <img src={BlockedIcon} alt="secure" />
-                            <h4>Bez reklāmām</h4>
-                        </li>
-                        <li>
-                            <img src={FolderIcon} alt="secure" />
-                            <h4>Datu glabāšana</h4>
-                        </li>
-                        <li>
-                            <img src={CoordinationIcon} alt="secure" />
-                            <h4>Komunicēšana</h4>
-                        </li>
-                        <li>
-                            <img src={MoreIcon} alt="secure" />
-                            <h4>Un daudz vairāk</h4>
-                        </li>
-                        <button>3.99/Mēnesī. ABONĒT</button>
-                    </ul>
+                    {premiumShocase === "jobGiver" ? (
+                        <ul className="premium__body__bottom__reasons">
+                            <li>
+                                <img src={SecureIcon} alt="secure" />
+                                <h4>Divpakāpju autentifikācija</h4>
+                            </li>
+                            <li>
+                                <img src={BlockedIcon} alt="secure" />
+                                <h4>Bez reklāmām</h4>
+                            </li>
+                            <li>
+                                <img src={FolderIcon} alt="secure" />
+                                <h4>Datu glabāšana</h4>
+                            </li>
+                            <li>
+                                <img src={CoordinationIcon} alt="secure" />
+                                <h4>Komunicēšana</h4>
+                            </li>
+                            <li>
+                                <img src={MoreIcon} alt="secure" />
+                                <h4>Un daudz vairāk</h4>
+                            </li>
+                            <button>3.99/Mēnesī. ABONĒT</button>
+                        </ul>
+                    ) : (
+                        <ul className="premium__body__bottom__reasons">
+                            <li>
+                                <img src={SecureIcon} alt="secure" />
+                                <h4>Paziņojumi par jauniem darba sludinājumiem</h4>
+                            </li>
+                            <li>
+                                <img src={BlockedIcon} alt="secure" />
+                                <h4>Pieejama statistika, kā darba devēji mijiedarbojas ar taviem sludinājumiem</h4>
+                            </li>
+                            <li>
+                                <img src={FolderIcon} alt="secure" />
+                                <h4>Advancēta meklēšana</h4>
+                            </li>
+                            <li>
+                                <img src={CoordinationIcon} alt="secure" />
+                                <h4>Sīkāks algas pārskats</h4>
+                            </li>
+                            <li>
+                                <img src={MoreIcon} alt="secure" />
+                                <h4>Pieeja video materiālu bāzei</h4>
+                            </li>
+                            <li>
+                                <img src={MoreIcon} alt="secure" />
+                                <h4>Palīdzība ar CV sastādīšanu</h4>
+                            </li>
+                            <button>3.99/Mēnesī. ABONĒT</button>
+                        </ul>
+                    )}
+                    
                     <div className="premium__body__bottom__imageContainer">
                         <img src={PremiumSuccessIcon} alt="premium" />
                     </div>
