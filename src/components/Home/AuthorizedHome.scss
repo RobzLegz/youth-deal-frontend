@@ -372,7 +372,7 @@
             margin: 0 3rem;
             width: 80vw;
             &__fixed {
-                width: calc(100vw - 6rem);
+                width: 80vw;
             }
         }
         &__right {
@@ -387,7 +387,7 @@
             width: 90vw;
             margin: 0 1rem;
             &__fixed {
-                width: calc(100vw - 2rem);
+                width: 90vw;
             }
             &__job-options {
                 &__job-option {
