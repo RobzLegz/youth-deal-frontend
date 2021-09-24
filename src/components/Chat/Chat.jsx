@@ -118,6 +118,28 @@ function Chat() {
         }
     };
 
+    const relativeTime = (postTime) => {
+        const rtf = new Intl.RelativeTimeFormat('lv', {
+            localeMatcher: 'best fit',
+            numeric: 'auto',
+            style: 'long'
+        });
+        const diff = new Date(postTime) - new Date();
+        const units = {
+            year  : 24 * 60 * 60 * 1000 * 365,
+            month : 24 * 60 * 60 * 1000 * 365/12,
+            day   : 24 * 60 * 60 * 1000,
+            hour  : 60 * 60 * 1000,
+            minute: 60 * 1000,
+            second: 1000
+        }
+        for (const unit in  units) {
+            if (Math.abs(diff) > units[unit] || unit === 'seconds') {
+                return rtf.format(Math.round(diff/units[unit]), unit)
+            }
+        }
+    }
+
     return (
         <div id={'chat-container'}>
             <Contacts 
@@ -145,13 +167,11 @@ function Chat() {
                     <div className="chat__messages">
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
-                                let postTime = new Date(msg.createdAt).toUTCString().split(new Date().getFullYear())[1].split("GMT")[0];
-
                                 return(
                                     <div key={i} className={`chat__messages__message ${msg.sender === userInfo.info.id.toString() ? 'my-msg' : 'target-msg'}`}>
                                         <div className="chat__messages__message__text-box">
                                             <p id='msg'>{msg.text}</p>
-                                            <small id='time'>{postTime}</small>
+                                            <small id='time'>{relativeTime(msg.createdAt)}</small>
                                         </div>
                                     </div>
                                 )
