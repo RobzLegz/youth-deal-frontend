@@ -10,7 +10,6 @@ import { getCountryCities } from '../../../../logic/locations/getLoactionData';
 import dropdown from '../../../../assets/svg/dropdown.svg';
 import { updateSettingsInfo } from '../../../../logic/user/info/updateProfileInfo';
 import { deleteUser } from '../../../../logic/user/profile';
-import { useHistory } from 'react-router';
 
 function Profile() {
     const userInfo = useSelector(userData);
@@ -31,8 +30,6 @@ function Profile() {
     const [showCities, setShowCities] = useState(false);
     const [showASJ, setShowAJS] = useState(false)
     const [showAccountCloseReason, setShowAccountCloseReason] = useState(false);
-
-    const history = useHistory();
 
     const getCitys = () => {
         if(country && country !== lastSearchCountry && locationInfo.countries.some(c => c.country_name === country)){
