@@ -15,7 +15,7 @@ function AdminUserScreen() {
     }, [userInfo.accessToken, dispatch, userInfo.allUsers]);
 
     return (
-        <div>
+        <div className="admin__screen__users">
             {userInfo.allUsers && userInfo.allUsers.map((user, i) => (
                 <AdminUserScreenUser 
                     key={i}
