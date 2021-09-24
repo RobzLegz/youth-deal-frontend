@@ -7,9 +7,9 @@ import { userData } from '../../../../slices/user/userSlice';
 import { locationData } from '../../../../slices/locations/locationSlice';
 import { getCountryCities } from '../../../../logic/locations/getLoactionData';
 
-// import crown from '../../../../assets/svg/crown.svg'
 import dropdown from '../../../../assets/svg/dropdown.svg';
 import { updateSettingsInfo } from '../../../../logic/user/info/updateProfileInfo';
+import { deleteUser } from '../../../../logic/user/profile';
 
 function Profile() {
     const userInfo = useSelector(userData);
@@ -216,7 +216,7 @@ function Profile() {
                         </div>
                     </div>
                     <div className="align-right">
-                        <button className="button-red">Deaktivizēt kontu</button>
+                        <button className="button-red" onClick={() => deleteUser(userInfo.info.id, userInfo.accessToken, dispatch, userInfo.info.id)}>Deaktivizēt kontu</button>
                     </div>
                 </section>
             </div>

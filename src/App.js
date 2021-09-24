@@ -229,11 +229,13 @@ function App() {
               <Footer />
             </Route>
   
-            <Route path='/settings'>
-              <AuthorizedHeader />
-              <ProfileSettings />
-              <Footer />
-            </Route>
+            {userInfo.loggedIn && (
+              <Route path='/settings'>
+                <AuthorizedHeader />
+                <ProfileSettings />
+                <Footer />
+              </Route>
+            )}
   
             {userInfo.loggedIn && (
               <Route path="/new/jobOffer">
