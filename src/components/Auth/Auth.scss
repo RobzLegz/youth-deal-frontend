@@ -3,6 +3,7 @@
     height:fit-content;
     overflow: hidden;
     width: 100%;
+    height: calc(100vh - 70px);
     background-color: #F7F7F7;
     &__form-wrapper {
         background-color:#fff;
@@ -203,4 +204,34 @@
         }
     }
 
+}
+
+@media (max-height: 900px) {
+    .auth {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__form-wrapper {
+            margin: 0;
+        }
+    }
+}
+
+@media (max-height: 660px) {
+    .auth {
+        height: fit-content;
+        &__form-wrapper {
+            border-radius: 0;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .auth {
+        &__form-wrapper {
+            .form {
+                width: 90%;
+            }
+        }
+    }
 }
