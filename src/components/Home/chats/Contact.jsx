@@ -37,7 +37,9 @@ function Contact({contact}) {
     if(chatMemberInfo){
         return (
             <div className="auth-home__right__chat__contact" onClick={() => history.push(`/chats/${contact._id}`)}>
-                <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" />
+                {chatMemberInfo.profile && (
+                    <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" />
+                )}
                 <div className="auth-home__right__chat__contact__info">
                     <p id="username">{name}</p>
                     {socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatMemberInfo.id) ? "online" : "offline"}

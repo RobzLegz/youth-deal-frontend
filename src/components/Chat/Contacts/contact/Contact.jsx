@@ -40,8 +40,10 @@ function Contact({chat, search, setSearch, handleToggle=()=>{}}) {
     if(chatMemberInfo && (search === "" || name.substr(0, search.length).toLowerCase() === search.toLowerCase())){
         return(
             <div className="contacts-container__contacts__contacts-list__contact" onClick={() => {history.push(`/chats/${chat._id}`);setSearch("")}}>
-                <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar"
-                    onClick={handleToggle} />
+                {chatMemberInfo.profile && (
+                    <img src={chatMemberInfo.profile.photo ? chatMemberInfo.profile.photo : Avatar} alt="profile" className="contacts-container__contacts__contacts-list__contact__avatar" onClick={handleToggle} />
+                )}  
+                
                 <div className="contacts-container__contacts__contacts-list__contact__info" onClick={handleToggle}>
                     <p id="username">{name}</p>
                 </div>
