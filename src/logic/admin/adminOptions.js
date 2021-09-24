@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleLoading } from "../../slices/loading/loadingSlice";
 import { setAllUsers } from "../../slices/user/userSlice";
 import { ONE_OCCUPATION, OCCUPATION_CATEGORIES, USER_LIST_OPTIONS } from "../api/apiRoutes";
 import { getProffessionCategories, getProffessions } from "../proffessions/getProffesions";
@@ -129,6 +130,7 @@ export const deleteCategory = (categoryID, accessToken, dispatch) => {
 }
 
 export const getAllUsers = (accessToken, dispatch) => {
+    dispatch(handleLoading(true));
     const headers = {
         headers: {
             Authorization: `Token ${accessToken}`
@@ -140,6 +142,7 @@ export const getAllUsers = (accessToken, dispatch) => {
         headers
     ).then((res) => {
         dispatch(setAllUsers(res.data))
+        dispatch(handleLoading(false));
     }).catch((err) => {
         console.log(err.message);
     });

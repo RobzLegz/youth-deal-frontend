@@ -1,5 +1,6 @@
 import axios from "axios";
 import { logoutUser } from "../../slices/user/userSlice";
+import { getAllUsers } from "../admin/adminOptions";
 import { USER_INFO } from "../api/apiRoutes";
 
 export const deleteUser = (userID, token, dispatch, deleterID) => {
@@ -17,6 +18,8 @@ export const deleteUser = (userID, token, dispatch, deleterID) => {
             dispatch(logoutUser());
             window.localStorage.removeItem("accessToken");
             window.location.href = "/";
+        }else{
+            getAllUsers(token, dispatch);
         }
     }).catch((err) => {
         console.log(err);
