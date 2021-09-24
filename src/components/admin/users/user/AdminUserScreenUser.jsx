@@ -32,7 +32,7 @@ function AdminUserScreenUser({user}) {
                 </div>
             )}
             {user.isAdmin && (<h3>Admin</h3>)}
-            <button onClick={() => deleteUser(user.id, userInfo.token, dispatch, userInfo.info.if)}>Delete user</button>
+            <button onClick={() => deleteUser(user.id, userInfo.accessToken, dispatch, userInfo.info.id)}>Delete user</button>
         </div>
     )
 }
