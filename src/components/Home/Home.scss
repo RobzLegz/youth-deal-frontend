@@ -197,6 +197,7 @@
         flex-direction: column;
         align-items: center;
         padding: 20px 0 20px 0;
+        height: 100vh;
         &__title {
             font-family: 'Hammersmith One', sans-serif;
             font-size: 1.5rem;
@@ -225,8 +226,8 @@
             margin-top: 30px;
             object-fit: contain;
             width: 700px;
+            height: 100%;
             filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
-         
         }
     }
 }
