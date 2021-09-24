@@ -24,7 +24,7 @@ export const registerUser = (
 
     axios.post(REGISTER, registerData).then((res) => {
         if(res.data.token && res.data.token !== ""){
-            window.localStorage.setItem("accessToken", res.data.accessToken);
+            window.localStorage.setItem("accessToken", res.data.token);
             dispatch(setAccessToken(res.data.token));
             dispatch(resetLoadingState());
         }

@@ -47,6 +47,7 @@ function AuthorizedHeader() {
         window.localStorage.removeItem("accessToken");
         dispatch(logoutUser());
         history.push("/");
+        window.location.reload();
     };
 
     const setFilterCategory = (category) => {
