@@ -28,6 +28,7 @@ export const userSlice = createSlice({
             state.loggedIn = false;
             state.info = null;
             state.accessToken = "";
+            state.allUsers = null;
         },
         setAllUsers: (state, action) => {
             state.allUsers = action.payload;
