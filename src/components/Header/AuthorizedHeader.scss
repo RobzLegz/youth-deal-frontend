@@ -170,7 +170,7 @@ nav{
                 transform: scaleY(0);
                 transform-origin: top;
                 transition: .2s transform;
-                z-index: 3;
+                z-index: 10;
                 right: 25%;
                 top: 70px;
 
@@ -248,7 +248,7 @@ nav{
     border-radius:5px;
     color:$grayColor;
     animation: fadeIn 0.20s linear;
-    z-index: 2;
+    z-index: 10;
 
     @keyframes fadeIn {
         0% {
@@ -391,7 +391,7 @@ nav{
             position: absolute;
             top: 70px;
             width: 100%;
-            z-index: 2;
+            z-index: 10;
             background-color: white;
             box-shadow: 0px 5px 20px 0.1px rgba(132, 145, 163, 0.5);
             height: fit-content;
