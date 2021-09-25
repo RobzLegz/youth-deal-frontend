@@ -12,10 +12,7 @@ import {useHistory} from "react-router-dom";
 
 function Login() {
     
-    //Paroles redzamības triggeris
-    //const [pwd, setPwd] = useState('');
     const [isRevealPwd, setIsRevealPwd] = useState(false);
-   
 
     //Form validation  
     const [email, setEmail] = useState('');
