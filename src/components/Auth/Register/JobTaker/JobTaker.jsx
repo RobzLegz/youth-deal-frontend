@@ -13,6 +13,7 @@ import { userData } from '../../../../slices/user/userSlice';
 import { Link } from 'react-router-dom';
 
 function JobTaker(){
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -27,6 +28,12 @@ function JobTaker(){
     const history = useHistory();
     const dispatch = useDispatch();
     const userInfo = useSelector(userData);
+
+    useEffect(() => {
+        window.addEventListener('resize', function(e){
+            setInnerWidth(e.target.innerWidth)
+        })
+    }, [])
 
     useEffect(() => {
         if(userInfo.loggedIn){
@@ -135,7 +142,11 @@ function JobTaker(){
                         <label htmlFor="checkbox">Es piekrītu mūsu <u>Privātuma Politikai</u></label>
                     </div>
                     <button type='submit' className='job__right__submit'>Reģistrēties</button>
-
+                    {innerWidth < 1024 &&
+                        <div className="login">
+                        <p>Jau esi reģistrēts?</p> <Link to="/login">Ieiet</Link>
+                    </div>
+                    }
                     <div className="job__right__divider">
                         <span className="job__right__divider__line"></span>
                     </div>

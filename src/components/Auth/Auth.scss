@@ -90,28 +90,27 @@
             height: 3rem;
             margin-bottom:30px;
             &__input {
-              position: absolute;
-              margin: 0 auto;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              border: 2px solid #98999F;
-              border-radius: 7px;
-              font-family:'Roboto',sans-serif;
-              font-weight:500;
-              font-size:16px;
-              color: $secondaryColor;
-              outline: none;
-              background-color: inherit;
-              padding: 1.9rem 2.3rem 1.5rem 1.5rem;
-              &:hover {
-                border-color: $buttonBg;
-              }
-              &:focus {
-                border-color: $buttonBg;
-              }
-
+                margin: 0 auto;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                height: 45px;
+                border-radius: 5px;
+                border:1px solid #E5E5E5;
+                outline:none;
+                font-family:'Roboto',sans-serif;
+                font-weight:500;
+                color:$secondaryColor;
+                background-color:#FAFAFA !important;
+                font-size:16px;
+                padding: 1.9rem 2.3rem 1.5rem 1.5rem;
+                &:hover {
+                    border-color: $buttonBg;
+                }
+                &:focus {
+                    border-color: $buttonBg;
+                }
             }  
             &__eye{
                 position: absolute;
