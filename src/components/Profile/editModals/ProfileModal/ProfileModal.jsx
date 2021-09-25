@@ -26,7 +26,6 @@ function ProfileModal({handleProfileModal}){
     const [website, setWebsite] = useState(userInfo.info.profile.website_url);
     const [companySize, setCompanySize] = useState(userInfo.info.profile.company_size);
     const [phoneNumber, setPhoneNumber] = useState(userInfo.info.profile.phone_number);
-    const [email, setEmail] = useState(userInfo.info.email);
     const [birthDate, setBirthDate] = useState(userInfo.info.profile.birth_date);
     const [country, setCountry] = useState(userInfo.info.profile.country);
     const [city, setCity] = useState(userInfo.info.profile.city);
@@ -212,17 +211,6 @@ function ProfileModal({handleProfileModal}){
                                     id='phone_number'
                                     value={phoneNumber}
                                     onChange={(e) => setPhoneNumber(e.target.value)}
-                                />
-                            </div>
-
-                            <div className="profileModal__inner__personal-information__input-group">
-                                <label htmlFor="email">E-pasts:</label>
-                                <input
-                                    type="email"
-                                    name='email'
-                                    id='email'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                             </div>
                         </> :
