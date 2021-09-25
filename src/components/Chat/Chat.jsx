@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './Chat.scss'
-// import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
 import smileEmoji from '../../../src/assets/svg/emoji/smile.svg'
 import Contacts from './Contacts/Contacts';
@@ -26,7 +25,6 @@ function Chat() {
     const [contactsToggled, setContactsToggled] = useState(false)
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    // const [isOptionsPopup, setIsOptionsPopup] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
     const [emojisOpen, setEmojisOpen] = useState(false);
 
@@ -37,6 +35,7 @@ function Chat() {
     useEffect(() => {
         if(id && userInfo.info){
             getChatByID(id, userInfo.info.id, dispatch, history);
+            dispatch(setActiveChatMessages([]));
         }
     }, [id, dispatch, userInfo.info, history]);
 
@@ -70,18 +69,25 @@ function Chat() {
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
 
     useEffect(() => {
-        if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.messages){
-            getChatMessages(chatInfo.activeChatID, dispatch);
+        if(chatInfo.activeChatID && chatInfo.activeChat){
+            if(!chatInfo.messages){
+                getChatMessages(chatInfo.activeChatID, dispatch);
             
-            scrollRef.current.scrollIntoView({
-                behavior: "smooth",
-            });
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }else if(chatInfo.messages.length === 0){
+                getChatMessages(chatInfo.activeChatID, dispatch);
+            
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+            }
         }
     }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch, chatInfo.messages]);
 
     useEffect(() => {
         if(messageSent){
-            console.log("sdsadhi")
             setMessageText("");
 
             scrollRef.current.scrollIntoView({
@@ -95,16 +101,6 @@ function Chat() {
     function handleContactsToggle() {
         setContactsToggled(!contactsToggled);
     }
-
-    // function handleOptionsPopup() {
-    //     setIsOptionsPopup(() => {
-    //         if (isOptionsPopup) {
-    //             return false
-    //         } else {
-    //             return true;
-    //         }
-    //     })
-    // }
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -165,12 +161,6 @@ function Chat() {
                                 <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>
-                        {/* <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
-                        <div className={`chat__header__profile-options-popup ${isOptionsPopup ? 'active' : ''}`}>
-                            <a href='#profils'>Profils</a>
-                            <p>Bez skaņas</p>
-                            <p>Bloķēt</p>
-                        </div> */}
                     </div>
                     <div className="chat__messages">
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
