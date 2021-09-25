@@ -1,7 +1,7 @@
 @mixin avatar {
   margin-right: 5px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
   height: 40px;
   width: 40px;
 }
