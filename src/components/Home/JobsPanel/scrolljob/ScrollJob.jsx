@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import Bookmark1 from '../../../../assets/svg/bookmark1.svg';
-import Bookmark2 from '../../../../assets/svg/bookmark2.svg';
 import OptionsIcon from '../../../../assets/svg/options-icon-no-background.svg';
 import Marker from '../../../../assets/svg/marker.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
@@ -10,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
 
     const userInfo = useSelector(userData);
@@ -98,7 +95,8 @@ function ScrollJob({jobOffer}) {
                     <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__bottom">
-                    <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} />
+                    {/* <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} /> */}
+                    <button className="job-panel__bottom__sign-up">Pieteikties</button>
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {jobOffer.price_range}/mēnesī</h2>
