@@ -30,15 +30,12 @@ export const getUserInfo = (accessToken, dispatch, totalStages) => {
 
 export const getUserInfoByID = (userID, dispatch) => {
     dispatch(handleLoading(true));
-    dispatch(updateLoadingStage(1));
-    dispatch(updateTotalStages(1));
-    dispatch(updateLoadingMessage("Getting info"));
 
     axios.get(`${USER_INFO}/${userID}/`).then((res) => {
         dispatch(setSearchInfo(res.data));
-        dispatch(resetLoadingState());
+        dispatch(handleLoading(false));
     }).catch((err) => {
-        dispatch(resetLoadingState());
+        dispatch(handleLoading(false));
     });
 };
 

@@ -13,6 +13,7 @@ import { updateMainInfo } from '../../../../logic/user/info/updateProfileInfo';
 import ProffessionPopup from '../../../popups/proffessions/ProffessionPopup';
 import { getUserJobNoSearch } from '../../../../logic/user/proffessions/proffessions';
 import { proffessionData } from '../../../../slices/proffessions/proffessionSlice';
+import { updateCompanyInfo } from '../../../../logic/company/info/companyInfo';
 
 function ProfileModal({handleProfileModal}){
     const userInfo = useSelector(userData);
@@ -31,8 +32,11 @@ function ProfileModal({handleProfileModal}){
     const [city, setCity] = useState(userInfo.info.profile.city);
     const [isActiveJobSeeker, setIsActiveJobSeeker] = useState(userInfo.info.profile.is_active_jobseeker);
     const [bio, setBio] = useState(userInfo.info.profile.bio);
+    const [description, setDescription] = useState(userInfo.info.profile.description);
     const [avatar, setAvatar] = useState(userInfo.info.profile.photo);
     const [sendAvatar, setSendAvatar] = useState(userInfo.info.profile.photo);
+    const [logo, setLogo] = useState(userInfo.info.profile.logo);
+    const [sendlogo, setSendLogo] = useState(userInfo.info.profile.logo);
     const [proffessionID, setProffessionID] = useState(userInfo.info.profile.profession_aka_activity);
 
     const [countryListOpen, setCountryListOpen] = useState(false);
@@ -45,8 +49,13 @@ function ProfileModal({handleProfileModal}){
 
     const selectAvatar = (e) => {
         if(e.target.files && e.target.files[0]){
-            setAvatar(URL.createObjectURL(e.target.files[0]))
-            setSendAvatar(e.target.files[0]);
+            if(userInfo.info.is_employer){
+                setLogo(URL.createObjectURL(e.target.files[0]));
+                setSendLogo(e.target.files[0]);
+            }else{
+                setAvatar(URL.createObjectURL(e.target.files[0]))
+                setSendAvatar(e.target.files[0]);
+            }
         }
     }
 
@@ -64,34 +73,64 @@ function ProfileModal({handleProfileModal}){
 
     const sendData = (e) => {
         e.preventDefault();
-        if(
-            country !== userInfo.info.profile.country || 
-            city !== userInfo.info.profile.city || 
-            name !== userInfo.info.name || 
-            surname !== userInfo.info.surname || 
-            birthDate !== userInfo.info.profile.birth_date || 
-            isActiveJobSeeker !== userInfo.info.profile.is_active_jobseeker || 
-            bio !== userInfo.info.profile.bio ||
-            avatar !== userInfo.info.profile.photo
-        ){
-            updateMainInfo(
-                userInfo.info.email,
-                name,
-                surname,
-                userInfo.info.id,
-                sendAvatar,
-                bio,
-                birthDate,
-                country,
-                city,
-                proffessionID,
-                isActiveJobSeeker,
-                dispatch,
-                userInfo.accessToken
-            );
-            handleProfileModal();
+        if(userInfo.info.is_employer){
+            if(
+                country !== userInfo.info.profile.country || 
+                city !== userInfo.info.profile.city || 
+                companyName !== userInfo.info.profile.company_name || 
+                description !== userInfo.info.profile.description ||
+                sendlogo !== userInfo.info.profile.logo ||
+                phoneNumber !== userInfo.info.profile.phone_number ||
+                companySize !== userInfo.info.profile.company_size || 
+                website !== userInfo.info.profile.website_url 
+            ){
+                updateCompanyInfo(
+                    userInfo.info.id, 
+                    userInfo.accessToken, 
+                    companyName, 
+                    logo, 
+                    country, 
+                    city, 
+                    phoneNumber, 
+                    companySize, 
+                    description,
+                    website, 
+                    dispatch
+                );
+                handleProfileModal();
+            }else{
+                handleProfileModal();
+            }
         }else{
-            handleProfileModal();
+            if(
+                country !== userInfo.info.profile.country || 
+                city !== userInfo.info.profile.city || 
+                name !== userInfo.info.first_name || 
+                surname !== userInfo.info.last_name || 
+                birthDate !== userInfo.info.profile.birth_date || 
+                isActiveJobSeeker !== userInfo.info.profile.is_active_jobseeker || 
+                bio !== userInfo.info.profile.bio ||
+                avatar !== userInfo.info.profile.photo
+            ){
+                updateMainInfo(
+                    userInfo.info.email,
+                    name,
+                    surname,
+                    userInfo.info.id,
+                    sendAvatar,
+                    bio,
+                    birthDate,
+                    country,
+                    city,
+                    proffessionID,
+                    isActiveJobSeeker,
+                    dispatch,
+                    userInfo.accessToken
+                );
+                handleProfileModal();
+            }else{
+                handleProfileModal();
+            }
         }
     }
 
@@ -107,7 +146,11 @@ function ProfileModal({handleProfileModal}){
                 </header>
 
                 <div className="profileModal__inner__avatar-wrapper">
-                    <img src={avatar ? avatar : Avatar} alt="avatar" />
+                    {userInfo.info.is_employer ? (
+                        <img src={logo ? logo : Avatar} alt="avatar" />
+                    ) : (
+                        <img src={avatar ? avatar : Avatar} alt="avatar" />
+                    )}
                     <label htmlFor="avatar">Izmainīt</label>
                     <input type="file" name="avatar" id="avatar" onChange={(e) => selectAvatar(e)} />
                 </div>
@@ -147,8 +190,8 @@ function ProfileModal({handleProfileModal}){
                                             name='company_size'
                                             id='company_size'
                                             autoComplete="off"
-                                            readOnly
                                             value={companySize}
+                                            readOnly
                                             onChange={(e) => setCompanySize(e.target.value)}
                                         />
                                     </div>
@@ -308,17 +351,32 @@ function ProfileModal({handleProfileModal}){
                     }
                 </div>
 
-                <div className="profileModal__inner__desc">
-                    <label htmlFor="aboutme">{userInfo.info.is_employer ?  'Kompānijas apraksts:' : 'Apraksts par sevi:'}</label>
-                    <textarea 
-                        name="aboutme" 
-                        id="aboutme" 
-                        cols="10" 
-                        rows="10" 
-                        value={bio}
-                        onChange={(e) => setBio(e.target.value)}
-                    ></textarea>
-                </div>
+                {userInfo.info.is_employer ? (
+                    <div className="profileModal__inner__desc">
+                        <label htmlFor="aboutme">Kompānijas apraksts:</label>
+                        <textarea 
+                            name="aboutme" 
+                            id="aboutme" 
+                            cols="10" 
+                            rows="10" 
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        ></textarea>
+                    </div>
+                ) : (
+                    <div className="profileModal__inner__desc">
+                        <label htmlFor="aboutme">Apraksts par sevi:</label>
+                        <textarea 
+                            name="aboutme" 
+                            id="aboutme" 
+                            cols="10" 
+                            rows="10" 
+                            value={bio}
+                            onChange={(e) => setBio(e.target.value)}
+                        ></textarea>
+                    </div>
+                )}
+                
 
                 <div className="profileModal__inner__edit-options">
                     <button onClick={(e) => {e.preventDefault();handleProfileModal()}}>Atpakaļ</button>

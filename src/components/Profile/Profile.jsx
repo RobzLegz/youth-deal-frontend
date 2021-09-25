@@ -186,9 +186,9 @@ function Profile(){
                         </div>
 
                         <div className="profile__left__middle">
-                            <ProfileMiddleRow icon={Www} iconAlt="www" title="Mājas lapa" value={searchInfo.info.website_url ? searchInfo.info.website_url : 'Nav'} />
+                            <ProfileMiddleRow icon={Www} iconAlt="www" title="Mājas lapa" value={searchInfo.info.profile.website_url ? searchInfo.info.profile.website_url : 'Nav'} />
                             <ProfileMiddleRow icon={People} iconAlt="people" title="darbinieku skaits" value={searchInfo.info.profile.company_size ? searchInfo.info.profile.company_size : 'Nezināms'} />
-                            <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.phone_number ? searchInfo.info.phone_number : 'Nav'} />
+                            <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.profile.phone_number ? searchInfo.info.profile.phone_number : 'Nav'} />
                             <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
                             <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
                                 value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
@@ -300,7 +300,7 @@ function Profile(){
                                     isUsersProfile={isUsersProfile}
                                 />
                                 <ProfileRightSection
-                                    title={userInfo.info.profile.is_active_jobseeker ? "Pēdējais" : "Esošais"}
+                                    title={userInfo.info.profile.is_active_jobseeker ? "Pēdējais amats" : "Esošais amats"}
                                     value={searchInfo.info.profile.experience}
                                     formValue={editLastJob}
                                     setFormValue={setEditLastJob}
