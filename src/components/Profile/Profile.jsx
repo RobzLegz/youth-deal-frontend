@@ -10,8 +10,9 @@ import CompanyAvatar from '../../assets/svg/company.svg';
 import EmailIcon from '../../assets/svg/email.svg';
 import Phone from '../../assets/svg/phone.svg';
 import People from '../../assets/svg/people.svg';
-import Www from '../../assets/svg/www.svg'
-import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.svg'
+import Www from '../../assets/svg/www.svg';
+import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.svg';
+import NoJobOffers from '../../assets/svg/Profile/no-job-offers.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
 import ScrollJobs from '../Home/JobsPanel/ScrollJobs';
@@ -213,10 +214,18 @@ function Profile(){
                     </div>
                     {companyPositions && (
                         <div className="profile__companyRight">
-                            <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
-                            <div className="profile__companyRight__scroll">
-                                <ScrollJobs jobs={companyPositions} />
-                            </div>
+                            {companyPositions.length ?
+                                <>
+                                    <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
+                                    <div className="profile__companyRight__scroll">
+                                        <ScrollJobs jobs={companyPositions} />
+                                    </div>
+                                </> :
+                                <div className="profile__right__no-details">
+                                    <h3>Šai kompānijai vēl nav darba piedāvājumi</h3>
+                                    <img src={NoJobOffers} alt="profile" />
+                                </div>
+                            }
                         </div>
                     )}
                 </div>
