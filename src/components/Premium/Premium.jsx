@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Premium.scss";
 import CrownIcon from "../../assets/svg/crown.svg";
 // import AdIcon from "../../assets/svg/premium/ad.svg";
@@ -10,9 +10,23 @@ import SecureIcon from "../../assets/svg/premium/secure.svg";
 import BlockedIcon from "../../assets/svg/premium/blocked.svg";
 import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
 import MoreIcon from "../../assets/svg/premium/more.svg";
+import { useSelector } from 'react-redux';
+import { userData } from '../../slices/user/userSlice';
 
 function Premium() {
     const [premiumShocase, setPremiumShocase] = useState("jobGiver");
+
+    const userInfo = useSelector(userData);
+
+    useEffect(() => {
+        if(userInfo.info){
+            if(userInfo.info.is_employer){
+                setPremiumShocase("jobGiver")
+            }else{
+                setPremiumShocase("jobSeeker")
+            }
+        }
+    }, [userInfo.info]);
 
     return (
         <div className="premium">
@@ -92,7 +106,11 @@ function Premium() {
                                 <img src={MoreIcon} alt="secure" />
                                 <h4>Iespējams vienlaicīgi pieteikties vairākiem darba piedāvājumiem</h4>
                             </li>
-                            <button>3.99/Mēnesī. ABONĒT</button>
+                            {userInfo.info && !userInfo.info.has_premium ? (
+                                <button>3.99/Mēnesī. ABONĒT</button>
+                            ) : !userInfo.info && (
+                                <button>3.99/Mēnesī. ABONĒT</button>
+                            )}
                         </ul>
                     )}
                     
