@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './Chat.scss'
-import optionsIcon from '../../../src/assets/svg/options-icon.svg'
+// import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
 import smileEmoji from '../../../src/assets/svg/emoji/smile.svg'
 import Contacts from './Contacts/Contacts';
@@ -15,6 +15,7 @@ import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
 import { socketData } from '../../slices/socket/socketSlice';
 import NoChatIcon from "../../assets/svg/chat/nochat.svg";
+import CloseIcon from "../../assets/svg/close-black.svg";
 
 function Chat() {
     const {id} = useParams();
@@ -25,8 +26,9 @@ function Chat() {
     const [contactsToggled, setContactsToggled] = useState(false)
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [isOptionsPopup, setIsOptionsPopup] = useState(false);
+    // const [isOptionsPopup, setIsOptionsPopup] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
+    const [emojisOpen, setEmojisOpen] = useState(false);
 
     const scrollRef = useRef();
     const dispatch = useDispatch();
@@ -94,15 +96,15 @@ function Chat() {
         setContactsToggled(!contactsToggled);
     }
 
-    function handleOptionsPopup() {
-        setIsOptionsPopup(() => {
-            if (isOptionsPopup) {
-                return false
-            } else {
-                return true;
-            }
-        })
-    }
+    // function handleOptionsPopup() {
+    //     setIsOptionsPopup(() => {
+    //         if (isOptionsPopup) {
+    //             return false
+    //         } else {
+    //             return true;
+    //         }
+    //     })
+    // }
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -117,6 +119,10 @@ function Chat() {
             newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageSent);
         }
     };
+
+    const addEmoji = (emoji) => {
+        setMessageText(`${messageText}${emoji}`);
+    }
 
     const relativeTime = (postTime) => {
         const rtf = new Intl.RelativeTimeFormat('lv', {
@@ -159,12 +165,12 @@ function Chat() {
                                 <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>
-                        <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
+                        {/* <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
                         <div className={`chat__header__profile-options-popup ${isOptionsPopup ? 'active' : ''}`}>
                             <a href='#profils'>Profils</a>
                             <p>Bez skaņas</p>
                             <p>Bloķēt</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="chat__messages">
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
@@ -184,19 +190,49 @@ function Chat() {
                     </div>
                     <div className="chat__input-container">
                         <div className="chat__input-container__options">
-                            <img src={smileEmoji} alt="smile" />
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26.89" height="26.89" viewBox="0 0 26.89 26.89">
-                            <g id="link" transform="translate(-0.007 0)" opacity="0.8">
-                                <g id="Group_33" data-name="Group 33" transform="translate(0.007 0)">
-                                    <g id="Group_32" data-name="Group 32">
-                                        <g id="Group_31" data-name="Group 31">
-                                            <path id="Path_361" data-name="Path 361" d="M10.154,188.134,6.986,191.3a3.361,3.361,0,0,1-4.754-4.753l6.338-6.338a3.36,3.36,0,0,1,4.753,0,1.12,1.12,0,0,0,1.585-1.585,5.6,5.6,0,0,0-7.922,0L.647,184.965a5.6,5.6,0,1,0,7.923,7.922l3.169-3.169a1.12,1.12,0,1,0-1.585-1.584Z" transform="translate(0.994 -167.639)" fill="#6d6d6d"/>
-                                            <path id="Path_362" data-name="Path 362" d="M205.157.64a5.6,5.6,0,0,0-7.923,0l-3.8,3.8a1.12,1.12,0,0,0,1.585,1.585l3.8-3.8a3.361,3.361,0,1,1,4.754,4.753L196.6,13.949a3.36,3.36,0,0,1-4.753,0,1.12,1.12,0,0,0-1.585,1.585,5.6,5.6,0,0,0,7.922,0l6.971-6.971A5.6,5.6,0,0,0,205.157.64Z" transform="translate(-179.908 1)" fill="#6d6d6d"/>
+                            <img src={smileEmoji} alt="smile" onClick={() => setEmojisOpen(!emojisOpen)} />
+                            {emojisOpen && (
+                                <div className="chat__input-container__options__emojiOptions">
+                                    <div className="chat__input-container__options__emojiOptions__header">
+                                        <img src={CloseIcon} alt="close" onClick={() => setEmojisOpen(false)} />
+                                    </div>
+                                    <ul>
+                                        <li onClick={() => addEmoji("😃")}>😃</li>
+                                        <li onClick={() => addEmoji("😄")}>😄</li>
+                                        <li onClick={() => addEmoji("😅")}>😅</li>
+                                        <li onClick={() => addEmoji("😂")}>😂</li>
+                                        <li onClick={() => addEmoji("😇")}>😇</li>
+                                        <li onClick={() => addEmoji("😱")}>😱</li>
+                                        <li onClick={() => addEmoji("🤨")}>🤨</li>
+                                    </ul>
+                                    <ul>
+                                        <li onClick={() => addEmoji("👋")}>👋</li>
+                                        <li onClick={() => addEmoji("👌")}>👌</li>
+                                        <li onClick={() => addEmoji("👍")}>👍</li>
+                                        <li onClick={() => addEmoji("👎")}>👎</li>
+                                        <li onClick={() => addEmoji("🙏")}>🙏</li>
+                                        <li onClick={() => addEmoji("✌️")}>✌️</li>
+                                        <li onClick={() => addEmoji("🤞")}>🤞</li>
+                                        <li onClick={() => addEmoji("🤟")}>🤟</li>
+                                        <li onClick={() => addEmoji("🤘")}>🤘</li>
+                                    </ul>
+                                </div>
+                            )}
+                            <label htmlFor="fileMessage">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26.89" height="26.89" viewBox="0 0 26.89 26.89">
+                                    <g id="link" transform="translate(-0.007 0)" opacity="0.8">
+                                        <g id="Group_33" data-name="Group 33" transform="translate(0.007 0)">
+                                            <g id="Group_32" data-name="Group 32">
+                                                <g id="Group_31" data-name="Group 31">
+                                                    <path id="Path_361" data-name="Path 361" d="M10.154,188.134,6.986,191.3a3.361,3.361,0,0,1-4.754-4.753l6.338-6.338a3.36,3.36,0,0,1,4.753,0,1.12,1.12,0,0,0,1.585-1.585,5.6,5.6,0,0,0-7.922,0L.647,184.965a5.6,5.6,0,1,0,7.923,7.922l3.169-3.169a1.12,1.12,0,1,0-1.585-1.584Z" transform="translate(0.994 -167.639)" fill="#6d6d6d"/>
+                                                    <path id="Path_362" data-name="Path 362" d="M205.157.64a5.6,5.6,0,0,0-7.923,0l-3.8,3.8a1.12,1.12,0,0,0,1.585,1.585l3.8-3.8a3.361,3.361,0,1,1,4.754,4.753L196.6,13.949a3.36,3.36,0,0,1-4.753,0,1.12,1.12,0,0,0-1.585,1.585,5.6,5.6,0,0,0,7.922,0l6.971-6.971A5.6,5.6,0,0,0,205.157.64Z" transform="translate(-179.908 1)" fill="#6d6d6d"/>
+                                                </g>
+                                            </g>
                                         </g>
                                     </g>
-                                </g>
-                            </g>
-                        </svg>
+                                </svg>
+                            </label>
+                            <input type="file" name="fileMessage" id="fileMessage" />
                         </div>
                         <div className="chat__input-container__input">
                             <input type="text" placeholder="Raksti šeit" value={messageText} onChange={(e) => setMessageText(e.target.value)} />
