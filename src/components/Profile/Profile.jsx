@@ -214,6 +214,9 @@ function Profile(){
                     </div>
                     {companyPositions && (
                         <div className="profile__companyRight">
+                            <div className="profile__companyRight__create-job-button">
+                                <button onClick={() => history.push('/new/jobOffer')}>Izveidot jaunu darba vakanci</button>
+                            </div>
                             {companyPositions.length ?
                                 <>
                                     <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
