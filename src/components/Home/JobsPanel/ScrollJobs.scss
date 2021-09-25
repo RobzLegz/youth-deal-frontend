@@ -73,11 +73,20 @@
     &__bottom {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         border-top: 1px solid lightgray;
         img {
             padding-top: .5rem;
             height: 40px;
             cursor: pointer;
+        }
+        &__sign-up {
+            border-radius: 5px;
+            padding: .5rem;
+            height: fit-content;
+            background: #3E66FF;
+            color: white;
+            border: 1px solid #707070;
         }
         &__price-wrapper {
             small {

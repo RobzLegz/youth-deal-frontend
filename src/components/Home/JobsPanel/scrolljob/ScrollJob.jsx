@@ -98,7 +98,8 @@ function ScrollJob({jobOffer}) {
                     <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__bottom">
-                    <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} />
+                    {/* <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} /> */}
+                    <button className="job-panel__bottom__sign-up">Pieteikties</button>
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {jobOffer.price_range}/mēnesī</h2>
