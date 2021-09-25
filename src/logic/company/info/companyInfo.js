@@ -1,7 +1,7 @@
 import axios from "axios";
 import { handleLoading } from "../../../slices/loading/loadingSlice";
 import { COMPANY_PROFILE } from "../../api/apiRoutes";
-import { getUserInfo, getUserInfoByID } from "../../user/info/getUserInfo";
+import { getUserInfo } from "../../user/info/getUserInfo";
 
 export const getCompanyInfoById = (id, setCompanyInfo) => {
     axios.get(`${COMPANY_PROFILE}/${id}/`).then((res) => {
