@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import Bookmark1 from '../../../../assets/svg/bookmark1.svg';
-import Bookmark2 from '../../../../assets/svg/bookmark2.svg';
 import OptionsIcon from '../../../../assets/svg/options-icon-no-background.svg';
 import Marker from '../../../../assets/svg/marker.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
@@ -10,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
-    const [saved, setSaved] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
 
     const userInfo = useSelector(userData);
