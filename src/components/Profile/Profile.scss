@@ -272,6 +272,17 @@
     }
     &__companyRight {
         max-height: calc(100vh - 150px);
+        &__create-job-button {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+            button {
+                background-color: #3E66FF;
+                color: white;
+                border: none;
+                padding: .4rem;
+                font-size: 16px;
+            }
+        }
         &__title {
             padding: 0rem 1rem;
             margin-bottom: .6rem;
