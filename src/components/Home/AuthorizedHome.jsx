@@ -152,9 +152,11 @@ function AuthorizedHome() {
                                 )}
                             </div>
                         </div>
-                        <div className="auth-home__left__premium">
-                            <p><img src={CrownIcon} alt="crown"></img>Premium (aktīvs)</p>
-                        </div>
+                        {userInfo.info.has_premium && (
+                            <div className="auth-home__left__premium">
+                                <p><img src={CrownIcon} alt="crown"></img>Premium (aktīvs)</p>
+                            </div>
+                        )}
                         <div className="auth-home__left__contacts">
                             <h3>Kontakti</h3>
                             <p>Atrodiet savus kontaktus, lai ar viņiem tērzētu</p>
