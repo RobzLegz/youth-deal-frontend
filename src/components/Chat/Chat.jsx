@@ -194,17 +194,26 @@ function Chat() {
                             {emojisOpen && (
                                 <div className="chat__input-container__options__emojiOptions">
                                     <div className="chat__input-container__options__emojiOptions__header">
+                                        Emoji
                                         <img src={CloseIcon} alt="close" onClick={() => setEmojisOpen(false)} />
                                     </div>
+                                    <small>Sejas</small>
                                     <ul>
                                         <li onClick={() => addEmoji("😃")}>😃</li>
                                         <li onClick={() => addEmoji("😄")}>😄</li>
                                         <li onClick={() => addEmoji("😅")}>😅</li>
                                         <li onClick={() => addEmoji("😂")}>😂</li>
                                         <li onClick={() => addEmoji("😇")}>😇</li>
+                                        <li onClick={() => addEmoji("😊")}>😊</li>
                                         <li onClick={() => addEmoji("😱")}>😱</li>
+                                        <li onClick={() => addEmoji("😯")}>😯</li>
                                         <li onClick={() => addEmoji("🤨")}>🤨</li>
+                                        <li onClick={() => addEmoji("😳")}>😳</li>
+                                        <li onClick={() => addEmoji("😟")}>😟</li>
+                                        <li onClick={() => addEmoji("😔")}>😔</li>
+                                        <li onClick={() => addEmoji("🙁")}>🙁</li>
                                     </ul>
+                                    <small>Žesti</small>
                                     <ul>
                                         <li onClick={() => addEmoji("👋")}>👋</li>
                                         <li onClick={() => addEmoji("👌")}>👌</li>
@@ -215,6 +224,22 @@ function Chat() {
                                         <li onClick={() => addEmoji("🤞")}>🤞</li>
                                         <li onClick={() => addEmoji("🤟")}>🤟</li>
                                         <li onClick={() => addEmoji("🤘")}>🤘</li>
+                                        <li onClick={() => addEmoji("🤝")}>🤝</li>
+                                    </ul>
+                                    <small>Simboli</small>
+                                    <ul>
+                                        <li onClick={() => addEmoji("❤️")}>❤️</li>
+                                        <li onClick={() => addEmoji("💚")}>💚</li>
+                                        <li onClick={() => addEmoji("❌")}>❌</li>
+                                        <li onClick={() => addEmoji("✅")}>✅</li>
+                                        <li onClick={() => addEmoji("⛔️")}>⛔️</li>
+                                        <li onClick={() => addEmoji("💯")}>💯</li>
+                                        <li onClick={() => addEmoji("💢")}>💢</li>
+                                        <li onClick={() => addEmoji("❗️")}>❗️</li>
+                                        <li onClick={() => addEmoji("❓")}>❓</li>
+                                        <li onClick={() => addEmoji("⁉️")}>⁉️</li>
+                                        <li onClick={() => addEmoji("🆗")}>🆗</li>
+                                        <li onClick={() => addEmoji("🆓")}>🆓</li>
                                     </ul>
                                 </div>
                             )}
