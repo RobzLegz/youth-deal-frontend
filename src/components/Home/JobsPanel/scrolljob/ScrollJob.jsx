@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import OptionsIcon from '../../../../assets/svg/options-icon-no-background.svg';
 import Marker from '../../../../assets/svg/marker.svg';
+import Pen from '../../../../assets/svg/pen.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import EditJobsModal from '../../EditJobsModal/EditJobsModal';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
+    const [editing, setEditing] = useState(false);
 
     const userInfo = useSelector(userData);
 
@@ -65,6 +67,9 @@ function ScrollJob({jobOffer}) {
     if(companyInfo){
         return (
             <div className="job-panel panel">
+
+                {userInfo.info.id === companyInfo.user && editing && <EditJobsModal job={jobOffer} setEditing={setEditing} />}
+
                 <div className="job-panel__top">
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
                     <div className="info">
@@ -72,8 +77,8 @@ function ScrollJob({jobOffer}) {
                         <small>{relativeTime(jobOffer.post_time)}</small>
                     </div>
                     <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
-                    {userInfo.info.id === companyInfo.id && (
-                        <img src={OptionsIcon} alt="options" className="options" />
+                    {userInfo.info.id === companyInfo.user && (
+                        <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
                     )}
                 </div>
                 <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
