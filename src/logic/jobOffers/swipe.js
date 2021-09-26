@@ -1,5 +1,5 @@
 import axios from "axios";
-import { COMPANY_SWIPING } from "../api/apiRoutes";
+import { COMPANY_SWIPING, COMPANY_SWIPING_LIST_VIEW } from "../api/apiRoutes";
 
 export const jobSeekerAcceptJobOffer = (positionId, accepted, token) => {
     const data = new FormData()
@@ -54,8 +54,8 @@ export const getUserAcceptedJobOffers = (token) => {
         }
     };
 
-    axios.post(
-        `${COMPANY_SWIPING}?jobseeker_accepted=True`,
+    axios.get(
+        `${COMPANY_SWIPING_LIST_VIEW}?jobseeker_accepted=True`,
         headers
     ).then((res) => {
         console.log(res.data);

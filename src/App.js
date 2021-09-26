@@ -34,6 +34,7 @@ import { infoData } from './slices/info/infoSlice';
 import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
 import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
+import { getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
 
 
 function App() {
@@ -76,8 +77,10 @@ function App() {
   }, [proffessionInfo.proffessions, dispatch, proffessionInfo.categories]);
 
   useEffect(() => {
-    
-  }, []);
+    if(userInfo.accessToken && userInfo.accessToken !== "" && userInfo.info && !userInfo.info.is_employer){
+      getUserAcceptedJobOffers(userInfo.accessToken);
+    }
+  }, [userInfo.accessToken, userInfo.info]);
 
   useEffect(() => {
     if(userInfo){
@@ -117,7 +120,7 @@ function App() {
   }, [dispatch, locationInfo.token, locationInfo.countries]);
 
   useEffect(() => {
-    if(userInfo.info && !userInfo.info.is_employer && !pageInfo.jobOffers){
+    if(!pageInfo.jobOffers){
       getPossitions(dispatch);
     }
   }, [dispatch, pageInfo.jobOffers]);
