@@ -5,7 +5,6 @@ import welcome from '../../assets/svg/home/welcome.svg';
 import team from '../../assets/svg/home/team.svg';
 import rightArrow from '../../assets/svg/home/rightArrow.svg';
 import Whitearrow from '../../assets/svg/home/next.svg';
-import Footer from '../../components/Footer/Footer';
 import './Home.scss';
 import { useHistory } from 'react-router-dom';
 
