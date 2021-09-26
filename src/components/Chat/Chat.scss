@@ -18,9 +18,10 @@
             display: flex;
             height: 60px;
             align-items: center;
-            position: fixed;
-            width: calc(100vw - 350px);
+            position: sticky;
+            width: inherit;
             background-color: white;
+            top: 0;
             z-index: 2;
             &__profile-info {
                 @include profile;
@@ -60,10 +61,10 @@
         }
         &__messages {
             padding: 40px 50px;
+            padding-bottom: 100px;
             display: flex;
             flex-direction: column;
             height: fit-content;
-            margin: 60px 0 53px 0;
             &__message {
                 margin: 5px 0;
                 &.my-msg {
@@ -108,13 +109,13 @@
             }
         }
         &__input-container {
-            height: 53px;
+            min-height: 44px;
             display: flex;
             align-items: center;
             border-top: 1px solid #3e65ff91;
             background: #E3E3E3;
-            position: fixed;
-            width: calc(100vw - 350px);
+            position: sticky;
+            width: inherit;
             bottom: 0;
             &__options {
                 display: flex;
@@ -247,15 +248,9 @@
 @media (max-width: 768px) {
     #chat-container {
         .chat {
-            &__header {
-                width: 100vw;
-            }
             &__contacts-toggle {
                 z-index: 6;
                 display: flex;
-            }
-            &__input-container {
-                width: 100vw;
             }
         }
     }
