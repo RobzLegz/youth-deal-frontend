@@ -247,8 +247,15 @@
 @media (max-width: 768px) {
     #chat-container {
         .chat {
+            &__header {
+                width: 100vw;
+            }
             &__contacts-toggle {
+                z-index: 6;
                 display: flex;
+            }
+            &__input-container {
+                width: 100vw;
             }
         }
     }
