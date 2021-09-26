@@ -7,6 +7,7 @@ export const userSlice = createSlice({
         info: null,
         accessToken: "",
         allUsers: null,
+        swipedPossitions: null,
     },
     reducers: {
         login: (state) => {
@@ -33,6 +34,9 @@ export const userSlice = createSlice({
         setAllUsers: (state, action) => {
             state.allUsers = action.payload;
         },
+        setSwipedPossitions: (state, action) => {
+            state.swipedPossitions = action.payload;
+        },
     },
 });
 
@@ -43,7 +47,8 @@ export const {
     logoutUser,
     setUserProffession,
     setUserProffessionCategory,
-    setAllUsers
+    setAllUsers,
+    setSwipedPossitions
 } = userSlice.actions;
 
 export const userData = (state) => state.user;
