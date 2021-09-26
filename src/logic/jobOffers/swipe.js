@@ -2,13 +2,10 @@ import axios from "axios";
 import { COMPANY_SWIPING } from "../api/apiRoutes";
 
 export const jobSeekerAcceptJobOffer = (positionId, accepted, token) => {
-    const data = {
-        position_id: positionId,
-        accepted: accepted
-    };
-
-    console.log(data)
-
+    const data = new FormData()
+    
+    data.append("position_id", positionId);
+    data.append("accepted", accepted);
 
     const headers = {
         headers: {
@@ -28,11 +25,10 @@ export const jobSeekerAcceptJobOffer = (positionId, accepted, token) => {
 };
 
 export const companyChooseJobSeekerRequest = (positionId, accepted, userID, token) => {
-    const data = {
-        position_id: positionId,
-        accepted: accepted,
-        jobseeker_profile: userID,
-    };
+    const data = new FormData()
+    data.append("position_id", positionId);
+    data.append("accepted", accepted);
+    data.append("jobseeker_profile", userID);
 
     const headers = {
         headers: {
