@@ -33,8 +33,7 @@ import { getPossitions } from './logic/company/positions/positions';
 import { infoData } from './slices/info/infoSlice';
 import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
-import {io} from "socket.io-client";
-import { connect, getOnlineUsers, socketData } from './slices/socket/socketSlice';
+import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
 
 
 function App() {
@@ -57,10 +56,11 @@ function App() {
     const socketURL = process.env.REACT_APP_SOCKET_URL;
 
     if(userInfo.info && !socketInfo.socket && socketURL){
-      dispatch(connect(io(socketURL)));
+      dispatch(connect(socketURL));
     }else if(socketInfo.socket && userInfo.info){
-      socketInfo.socket.emit("addUser", userInfo.info.id);
-      socketInfo.socket.on("getUsers", users => {
+      const socket = getSocket();
+      socket.emit("addUser", userInfo.info.id);
+      socket.on("getUsers", users => {
         dispatch(getOnlineUsers(users));
       });
     }

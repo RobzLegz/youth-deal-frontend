@@ -1,4 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {io} from "socket.io-client";
+
+let socket = null;
+
+export function getSocket() {
+    return socket;
+}
 
 export const socketSlice = createSlice({
     name: "socket",
@@ -8,7 +15,8 @@ export const socketSlice = createSlice({
     },
     reducers: {
         connect: (state, action) => {
-            state.socket = action.payload;
+            socket = io(action.payload);
+            state.socket = true;
         },
         getOnlineUsers: (state, action) => {
             state.onlineUsers = action.payload;

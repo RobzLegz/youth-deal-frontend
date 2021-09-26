@@ -8,11 +8,11 @@ import {userData} from "../../slices/user/userSlice"
 import ContactBook from '../../assets/svg/chat/contact-book.svg'
 import { useParams } from 'react-router-dom';
 import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
-import { chatData, setActiveChatMessages } from '../../slices/chat/chatSlice';
+import { addMessage, chatData, recieveMessage, setActiveChatMessages } from '../../slices/chat/chatSlice';
 import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
-import { socketData } from '../../slices/socket/socketSlice';
+import { getSocket, socketData } from '../../slices/socket/socketSlice';
 import NoChatIcon from "../../assets/svg/chat/nochat.svg";
 import CloseIcon from "../../assets/svg/close-black.svg";
 
@@ -27,6 +27,7 @@ function Chat() {
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [messageSent, setMessageSent] = useState(false);
     const [emojisOpen, setEmojisOpen] = useState(false);
+    const [delivered, setDelivered] = useState(true);
 
     const scrollRef = useRef();
     const dispatch = useDispatch();
@@ -41,47 +42,39 @@ function Chat() {
 
     useEffect(() => {
         if(socketInfo.socket){
-            socketInfo.socket.on("getMessage", (data) => {
+            const socket = getSocket();
+            socket.on("getMessage", (data) => {
                 setArrivalMessage({
-                    sender: data.senderId,
+                    senderId: data.senderId,
                     text: data.text,
                     createdAt: Date.now(),
                 });
             });
+
         }
     }, [socketInfo.socket]);
 
     useEffect(() => {
-        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender){
-            if(chatInfo.messages.length === 0){
-                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
-                scrollRef.current.scrollIntoView({
-                    behavior: "smooth",
-                });
-            }else if(chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender){
-                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
-                scrollRef.current.scrollIntoView({
-                    behavior: "smooth",
-                });
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat && chatInfo.activeChat.id === arrivalMessage.senderId){
+            dispatch(recieveMessage(arrivalMessage));
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",
+            });
+            if(arrivalMessage.text !== ""){
+                setArrivalMessage(null);
             }
-            
         }
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
 
     useEffect(() => {
         if(chatInfo.activeChatID && chatInfo.activeChat){
-            if(!chatInfo.messages){
+            if(!chatInfo.messages || chatInfo.messages.length === 0){
                 getChatMessages(chatInfo.activeChatID, dispatch);
             
                 scrollRef.current.scrollIntoView({
                     behavior: "smooth",
                 });
-            }else if(chatInfo.messages.length === 0){
-                getChatMessages(chatInfo.activeChatID, dispatch);
-            
-                scrollRef.current.scrollIntoView({
-                    behavior: "smooth",
-                });
+
             }
         }
     }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch, chatInfo.messages]);
@@ -94,8 +87,28 @@ function Chat() {
                 behavior: "smooth",
             });
             setMessageSent(false);
+
         }
     }, [messageSent]);
+
+    useEffect(() => {
+        if(chatInfo.messages && chatInfo.activeChat && userInfo.info){
+            let lastMesage = chatInfo.messages[chatInfo.messages.length - 1];
+
+            if(lastMesage && lastMesage.senderId === userInfo.info.id && !delivered){
+                const socket = getSocket();
+
+                socket.emit("sendMessage", {
+                    senderId: userInfo.info.id,
+                    receiverId: chatInfo.activeChat.id,
+                    text: messageText,
+                });
+
+                setDelivered(true);
+                setMessageText("");
+            }
+        }
+    }, [chatInfo.messages, userInfo.info, messageText, chatInfo.activeChat, delivered]);
 
 
     function handleContactsToggle() {
@@ -106,12 +119,13 @@ function Chat() {
         e.preventDefault();
 
         if(socketInfo.socket && messageText !== ""){
-            socketInfo.socket.emit("sendMessage", {
+            dispatch(addMessage({
                 senderId: userInfo.info.id,
                 receiverId: chatInfo.activeChat.id,
                 text: messageText,
-            });
-      
+            }));
+
+            setDelivered(false);    
             newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageSent);
         }
     };
@@ -166,7 +180,7 @@ function Chat() {
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
                                 return(
-                                    <div key={i} className={`chat__messages__message ${msg.sender === userInfo.info.id.toString() ? 'my-msg' : 'target-msg'}`}>
+                                    <div key={i} className={`chat__messages__message ${msg.senderId === userInfo.info.id ? 'my-msg' : 'target-msg'}`}>
                                         <div className="chat__messages__message__text-box">
                                             <p id='msg'>{msg.text}</p>
                                             <small id='time'>{relativeTime(msg.createdAt)}</small>
