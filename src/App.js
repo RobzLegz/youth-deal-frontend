@@ -76,6 +76,10 @@ function App() {
   }, [proffessionInfo.proffessions, dispatch, proffessionInfo.categories]);
 
   useEffect(() => {
+    
+  }, []);
+
+  useEffect(() => {
     if(userInfo){
       const localAccessToken = window.localStorage.getItem("accessToken");
       let accessToken = null;
@@ -113,7 +117,7 @@ function App() {
   }, [dispatch, locationInfo.token, locationInfo.countries]);
 
   useEffect(() => {
-    if(!pageInfo.jobOffers){
+    if(userInfo.info && !userInfo.info.is_employer && !pageInfo.jobOffers){
       getPossitions(dispatch);
     }
   }, [dispatch, pageInfo.jobOffers]);
@@ -125,6 +129,9 @@ function App() {
       setLoaded(true);
       return
     }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers && socketInfo.socket){
+      setLoaded(true);
+      return
+    }else if(accessToken && userInfo.info && !userInfo.info.is_employer && proffessionInfo.categories && locationInfo.countries && socketInfo.socket){
       setLoaded(true);
       return
     }
