@@ -5,9 +5,8 @@
     align-items: center;
 }
 
-
 .header {
-    position: sticky;
+    position: fixed;
     top:0;
     background-color: #FBFBFB;
     display: flex;
@@ -18,6 +17,7 @@
     padding: 0 35px;
     box-shadow: 0px 0px 1px 1px #B8B8B8;
     z-index:10;
+    
     
     &__logo {
         display: flex;
@@ -160,6 +160,8 @@
 
 @media (max-width: 1400px) {
     .header {
+        position: fixed;
+        top:0;
         &__logo {
             margin: 0;
         }
@@ -173,27 +175,30 @@
 
 @media (max-width: 1200px) {
     .header {
-        position: relative;
+        position: fixed;
+        top:0;
+
         &__hamburger {
             display: inline-block;
             cursor: pointer;
 
               .bar1, .bar2, .bar3 {
-                width: 35px;
-                height: 5px;
+                width: 30px;
+                height: 4px;
                 background-color: #333;
                 margin: 6px 0;
                 transition: 0.4s;
+                border-radius:200px;
               }
-            &.active {
+              &.active {
                 .bar1 {
-                    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-                    transform: rotate(-45deg) translate(-9px, 6px);
+                    -webkit-transform: rotate(-45deg) translate(-7px, 6px);
+                    transform: rotate(-45deg) translate(-7px, 6px);
                 }
                 .bar2 {opacity: 0;}
                 .bar3 {
-                    -webkit-transform: rotate(45deg) translate(-8px, -8px);
-                    transform: rotate(45deg) translate(-8px, -8px);
+                    -webkit-transform: rotate(45deg) translate(-8px, -7px);
+                    transform: rotate(45deg) translate(-8px, -7px);
                 }
             }
         }
@@ -207,7 +212,9 @@
             transform-origin: top;
             overflow: hidden;
             flex-direction: column;
-            box-shadow: 0px 5px 20px 0.1px rgba(132, 145, 163, 0.5);
+            border-radius: 0 0 15px 15px;
+            border-top:2px solid #B8B8B8;
+            box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -5px;
             background: white;
             transition: all .4s;
             > * {
@@ -219,7 +226,7 @@
             &__link {
                 display: flex;
                 justify-content: center;
-                margin: 0 !important;
+                margin: 0 ;
                 transition: all .25s;
                 &:hover {
                     background: rgba(209, 209, 209, 1);

@@ -5,6 +5,7 @@
     width: 100%;
     height: calc(100vh - 70px);
     background-color: #F7F7F7;
+    margin-top: 70px;
     &__form-wrapper {
         background-color:#fff;
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -203,6 +204,11 @@
         }
     }
 
+}
+@media (max-width: 1024px){
+    .auth{
+        margin-top: 0 ;
+    }
 }
 
 @media (max-height: 900px) {

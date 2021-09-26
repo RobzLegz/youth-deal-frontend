@@ -5,6 +5,7 @@
     scroll-behavior: smooth;
     width: 100%;
     height: fit-content;
+    margin-top: 110px;
     &__introduction {
         z-index:2;
         font-family: 'Hammersmith One', sans-serif;
@@ -15,33 +16,30 @@
         &__left {
             z-index:2;
             color: $mainColor;
-            max-width: 750px;
+            max-width: 900px;
             width: 100%;
 
             &__title {
                 z-index:2;
-                font-size: 3rem;
+                font-size: 2.3rem;
                 font-weight: 400;
-            }
-            &__under-title {
-                z-index:2;
-                padding: 20px 0px 30px 0px;
-                font-size: 2rem;
-                display: inline-block;
                 span{
                     z-index:2;
                     color:$buttonBg;
                 }
             }
-            &__desc {
+            &__under-title {
                 z-index:2;
-                font-size: 1.2rem;
+                padding: 20px 0px 30px 0px;
+                font-size: 1.3rem;
+                display: inline-block;
             }
             &__paths {
                 z-index:2;
                 padding-top: 70px;
                 display: flex;
                 justify-content: space-around;
+                //margin-left: 110px;
                 button {
                     z-index:2;
                     max-width: 300px;
@@ -95,10 +93,11 @@
             img {
                 z-index:2;
                 object-fit: contain;
-                max-width: 750px;
+                min-width: 100%;
+                max-width: 850px;
                 margin-left:100px;
                 width: 100%;
-                filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
+                
             }
         }
 
@@ -197,7 +196,7 @@
         flex-direction: column;
         align-items: center;
         padding: 20px 0 20px 0;
-        height: 100vh;
+        height: 90vh;
         &__title {
             font-family: 'Hammersmith One', sans-serif;
             font-size: 1.5rem;
@@ -227,7 +226,6 @@
             object-fit: contain;
             width: 700px;
             height: 100%;
-            filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
         }
     }
 }
@@ -273,7 +271,6 @@
             img {
                 width: 60%;
                 margin-bottom: 25px;
-                filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
             }
             button {
                 margin-top: 20px;
@@ -288,6 +285,9 @@
                     background: $buttonBorder;
                 }
             }
+            #start{
+                padding: 15px 81px;
+            }
         }
         &__adm {
             background: rgba(62,178,255, .10);
@@ -301,9 +301,31 @@
         }
     }
 }
-
+.home{
+    &__footer{
+        text-align:center;
+        padding-top: 50px;
+        border-top: 2px solid #707070;
+    }
+}
 // home responsive styling
-
+@media(min-width:1400px){
+    .home{
+        &__introduction{
+            &__left{
+                &__title{
+                    padding-left:140px;
+                }
+                &__under-title{
+                    padding-left: 140px;
+                }
+                &__paths{
+                    padding-left: 90px;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 1100px) {
     .home {
         &__introduction {
@@ -316,7 +338,11 @@
         }
     }
 }
-
+@media (max-width: 1024px){
+    .home{
+        margin-top: 0px;
+    }
+}
 @media (max-width: 768px) {
     .home {
         &__introduction {
@@ -435,10 +461,4 @@
             }
         }
     }
-}
-
-#homeRef{
-    position: absolute;
-    top: 0;
-    left: 0;
 }
