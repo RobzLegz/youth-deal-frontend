@@ -77,10 +77,10 @@ function App() {
   }, [proffessionInfo.proffessions, dispatch, proffessionInfo.categories]);
 
   useEffect(() => {
-    if(userInfo.accessToken && userInfo.accessToken !== "" && userInfo.info && !userInfo.info.is_employer){
-      getUserAcceptedJobOffers(userInfo.accessToken);
+    if(userInfo.accessToken && userInfo.accessToken !== "" && userInfo.info && !userInfo.info.is_employer && !userInfo.swipedPossitions){
+      getUserAcceptedJobOffers(userInfo.accessToken, dispatch);
     }
-  }, [userInfo.accessToken, userInfo.info]);
+  }, [userInfo.accessToken, userInfo.info, dispatch, userInfo.swipedPossitions]);
 
   useEffect(() => {
     if(userInfo){

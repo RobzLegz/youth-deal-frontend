@@ -1,5 +1,6 @@
 import axios from "axios";
 import { COMPANY_SWIPING, COMPANY_SWIPING_LIST_VIEW } from "../api/apiRoutes";
+import {setSwipedPossitions} from "../../slices/user/userSlice"
 
 export const jobSeekerAcceptJobOffer = (positionId, accepted, token) => {
     const data = new FormData()
@@ -47,7 +48,7 @@ export const companyChooseJobSeekerRequest = (positionId, accepted, userID, toke
     });
 };
 
-export const getUserAcceptedJobOffers = (token) => {
+export const getUserAcceptedJobOffers = (token, dispatch) => {
     const headers = {
         headers: {
             Authorization: `Token ${token}`
@@ -58,7 +59,7 @@ export const getUserAcceptedJobOffers = (token) => {
         `${COMPANY_SWIPING_LIST_VIEW}?jobseeker_accepted=True`,
         headers
     ).then((res) => {
-        console.log(res.data);
+        dispatch(setSwipedPossitions(res.data));
     }).catch((err) => {
         console.log(err);
     });
