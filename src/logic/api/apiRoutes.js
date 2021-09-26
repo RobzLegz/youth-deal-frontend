@@ -23,6 +23,8 @@ export const USER_LIST_OPTIONS = `${USER_BASE}/user-list`;
 export const COMPANY_PROFILE = `${COMPANY_BASE}/company_profile`;
 export const COMPANY_POSITIONS = `${COMPANY_BASE}/positions`;
 export const COMPANY_POSITION_OPTIONS = `${COMPANY_POSITIONS}/list_create/`;
+export const COMPANY_SWIPING = `${COMPANY_POSITIONS}/match/`;
+export const COMPANY_SWIPING_LIST_VIEW = `${COMPANY_SWIPING}list_view/`;
 
 //<core>
 

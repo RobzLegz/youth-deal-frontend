@@ -5,6 +5,7 @@ import Marker from '../../../../assets/svg/marker.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
@@ -95,8 +96,7 @@ function ScrollJob({jobOffer}) {
                     <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__bottom">
-                    {/* <img src={saved ? Bookmark2 : Bookmark1} alt="bookmark" onClick={() => setSaved(!saved)} /> */}
-                    <button className="job-panel__bottom__sign-up">Pieteikties</button>
+                    <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(jobOffer.id, 1, userInfo.accessToken)}>Pieteikties</button>
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {jobOffer.price_range}/mēnesī</h2>
