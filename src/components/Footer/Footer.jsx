@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import './Footer.scss'
 
 function Footer(){
     const [year] = useState(new Date().getFullYear())
-    
+    const history = useHistory();
+
     return (
         <div className='footer'>
             <div id="footer__row-first">
@@ -12,7 +14,7 @@ function Footer(){
                         <p className={'footer__links__block__title'}>YOUTH DEAL</p>
                         <a href="#Contacts" className="footer__links__block__link">Kontakti</a>
                         <a href="#parmums" className="footer__links__block__link">Par Mums</a>
-                        <a href="#start" className="footer__links__block__link">Sākt</a>
+                        <a href="#start" className="footer__links__block__link" onClick={() => history.push("/register")}>Sākt</a>
                     </div>
                     <div className="footer__links__block">
                         <p className={'footer__links__block__title'}>ATBALSTS</p>
@@ -50,10 +52,7 @@ function Footer(){
                     <small>Copyright © {year} Youth Deal</small>
                 </div>
             </div>
-
-
         </div>
     )
 }
-
-export default Footer
+export default Footer;

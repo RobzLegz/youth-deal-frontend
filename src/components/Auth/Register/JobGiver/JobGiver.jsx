@@ -130,7 +130,7 @@ function JobGiver(){
                     <button type='submit' className='company__right__submit'>Reģistrēties</button>
                     {innerWidth < 1024 &&
                         <div className="login">
-                        <p>Jau esi reģistrēts?</p> <Link to="/login">Ieiet</Link>
+                        <p>Jau esiet reģistrēts?</p> <Link to="/login">Ieiet</Link>
                     </div>
                     }
                     <div className="company__right__divider">
