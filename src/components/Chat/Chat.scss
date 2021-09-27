@@ -18,10 +18,9 @@
             display: flex;
             height: 60px;
             align-items: center;
-            position: sticky;
-            width: inherit;
+            position: fixed;
+            width: calc(100% - 350px);
             background-color: white;
-            top: 0;
             z-index: 2;
             &__profile-info {
                 @include profile;
@@ -61,21 +60,19 @@
         }
         &__messages {
             padding: 40px 50px;
-            padding-bottom: 100px;
             display: flex;
             flex-direction: column;
             height: fit-content;
+            margin: 60px 0 53px 0;
             &.empty {
                 height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
             .lds-ring {
                 display: inline-block;
                 position: relative;
                 width: 80px;
                 height: 80px;
+                margin: auto;
                 div {
                     box-sizing: border-box;
                     display: block;
@@ -150,13 +147,13 @@
             }
         }
         &__input-container {
-            min-height: 44px;
+            min-height: 53px;
             display: flex;
             align-items: center;
             border-top: 1px solid #3e65ff91;
             background: #E3E3E3;
-            position: sticky;
-            width: inherit;
+            position: fixed;
+            width: calc(100% - 350px);
             bottom: 0;
             &__options {
                 display: flex;
@@ -257,7 +254,7 @@
         &__contacts-toggle {
             height: 30px;
             position: fixed;
-            top: 70;
+            top: 70px;
             left: 0;
             margin: .6rem;
             cursor: pointer;
@@ -286,9 +283,15 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     #chat-container {
         .chat {
+            &__header {
+                width: 100%;
+            }
+            &__input-container {
+                width: 100%;
+            }
             &__contacts-toggle {
                 z-index: 6;
                 display: flex;
