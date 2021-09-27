@@ -5,6 +5,7 @@ import { handleLoading } from "../../slices/loading/loadingSlice";
 
 export const jobSeekerAcceptJobOffer = (positionId, token, dispatch) => {
     const data = new FormData()
+    dispatch(handleLoading(true));
     
     data.append("position_id", positionId);
     data.append("accepted", 1);
@@ -20,9 +21,10 @@ export const jobSeekerAcceptJobOffer = (positionId, token, dispatch) => {
         data,
         headers,
     ).then((res) => {
-
+        getUserAcceptedJobOffers(token, dispatch);
+        dispatch(handleLoading(false));
     }).catch((err) => {
-        console.log(err);
+        dispatch(handleLoading(false));
     });
 };
 
@@ -85,8 +87,8 @@ export const removeFromSaved = (swiped, token, dispatch) => {
         headers,
     ).then((res) => {
         dispatch(removeSwipedPossition(swiped));
-        dispatch(handleLoading(true));
+        dispatch(handleLoading(false));
     }).catch((err) => {
-        console.log(err);
+        dispatch(handleLoading(false));
     });
 };

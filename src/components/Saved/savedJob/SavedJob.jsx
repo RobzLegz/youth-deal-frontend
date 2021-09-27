@@ -67,7 +67,7 @@ function SavedJob({info, filter}) {
         );
     }
 
-    if (userInfo.info && companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter) {
+    if (userInfo.info && companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter && info.jobseeker_accepted) {
         return (<div className="saved-job panel">
                 <div className="saved-job__top">
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />

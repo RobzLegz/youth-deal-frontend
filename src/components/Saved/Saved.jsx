@@ -29,13 +29,16 @@ const Saved = () => {
                 <div className="saved__right__scroll">
                     {
                         userInfo.swipedPossitions.map((possition, i) => {
-                            return (
-                                <SavedJob 
-                                    key={i}
-                                    info={possition}
-                                    filter={activeJobOption}
-                                />
-                            )
+                            if(possition.jobseeker_accepted){
+                                return (
+                                    <SavedJob 
+                                        key={i}
+                                        info={possition}
+                                        filter={activeJobOption}
+                                    />
+                                )
+                            }
+                            return null;
                         })
                     }
                 </div>
