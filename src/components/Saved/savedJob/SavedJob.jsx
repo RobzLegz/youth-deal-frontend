@@ -60,41 +60,43 @@ function SavedJob({info}) {
         );
     }
 
-    return (<div className="saved-job panel">
-            <div className="saved-job__top">
-                <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
-                <div className="info">
-                    <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
-                    <small>{relativeTime(jobOfferInfo.post_time)}</small>
+    if (companyInfo && jobOfferInfo) {
+        return (<div className="saved-job panel">
+                <div className="saved-job__top">
+                    <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
+                    <div className="info">
+                        <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
+                        <small>{relativeTime(jobOfferInfo.post_time)}</small>
+                    </div>
+                    <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
                 </div>
-                <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
-            </div>
-            <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
-                value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? 'Nezināma' : 
-                <>
-                    {(jobOfferInfo.position_country && jobOfferInfo.position_city) ? `${jobOfferInfo.position_country}, ${jobOfferInfo.position_city}` :
+                <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
+                    value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? 'Nezināma' : 
                     <>
-                        {jobOfferInfo.position_country ? jobOfferInfo.position_country : ''}
-                        {jobOfferInfo.position_city ? jobOfferInfo.position_city : ''}
+                        {(jobOfferInfo.position_country && jobOfferInfo.position_city) ? `${jobOfferInfo.position_country}, ${jobOfferInfo.position_city}` :
+                        <>
+                            {jobOfferInfo.position_country ? jobOfferInfo.position_country : ''}
+                            {jobOfferInfo.position_city ? jobOfferInfo.position_city : ''}
+                        </>}
                     </>}
-                </>}
-            />
-            <div className="saved-job__info">
-                <p className="saved-job__info__title">Darba Apraksts</p>
-                <p>{jobOfferInfo.position_info}</p>
-            </div>
-            <div className="saved-job__requirements">
-                <p className="saved-job__requirements__title">Darba Pienmākumi</p>
-                <p>{jobOfferInfo.position_requirements}</p>
-            </div>
-            <div className="saved-job__bottom">
-                <button className="job-panel__bottom__sign-up">Atteikties</button>
-                <div className="saved-job__bottom__price-wrapper">
-                    <small>SĀKOT NO</small>
-                    <h2>€ {jobOfferInfo.price_range}/mēnesī</h2>
+                />
+                <div className="saved-job__info">
+                    <p className="saved-job__info__title">Darba Apraksts</p>
+                    <p>{jobOfferInfo.position_info}</p>
                 </div>
-            </div>
-    </div>)
+                <div className="saved-job__requirements">
+                    <p className="saved-job__requirements__title">Darba Pienmākumi</p>
+                    <p>{jobOfferInfo.position_requirements}</p>
+                </div>
+                <div className="saved-job__bottom">
+                    <button className="job-panel__bottom__sign-up">Atteikties</button>
+                    <div className="saved-job__bottom__price-wrapper">
+                        <small>SĀKOT NO</small>
+                        <h2>€ {jobOfferInfo.price_range}/mēnesī</h2>
+                    </div>
+                </div>
+        </div>)
+    } else return null;
 }
 
 export default SavedJob
