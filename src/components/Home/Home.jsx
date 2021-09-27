@@ -5,7 +5,6 @@ import welcome from '../../assets/svg/home/welcome.svg';
 import team from '../../assets/svg/home/team.svg';
 import rightArrow from '../../assets/svg/home/rightArrow.svg';
 import Whitearrow from '../../assets/svg/home/next.svg';
-import Footer from '../../components/Footer/Footer';
 import './Home.scss';
 import { useHistory } from 'react-router-dom';
 
@@ -31,11 +30,10 @@ function Home({categoryRef, admRef, homeTop}){
             <section className="home__introduction" id="top">
 
                 <div data-aos="fade-right" className="home__introduction__left">
-                    <p className="home__introduction__left__title">Veido savu veiksmīgo karjeru ar Youth <span>Deal</span></p>
-                    <p className="home__introduction__left__under-title">
-                    Youth Deal apmierina gan darba devēja, gan arī darba ņēmēja intereses. Katram darbiniekam atrodam vispiemērotāko amatu!
-                    </p>
-
+                    <p className="home__introduction__left__title">Sveicināts Youth <span>Deal</span> !</p>
+                    <p className="home__introduction__left__under-title" id="title">Katram darbiniekam vispiemērotākais amats</p>
+                    <p className="home__introduction__left__under-title"> Katram darba devējam vispiemērotākais darbinieks</p>
+                    
                     <div className="home__introduction__left__paths">
 
                         <button className="home__introduction__left__paths__job-giver" onClick={() => history.push("/register/jobGiver")}>
@@ -61,7 +59,7 @@ function Home({categoryRef, admRef, homeTop}){
             <section className="home__find-options" id="categories" ref={categoryRef}>
              
                 <div className="home__find-options__left">
-                    <h3>Šeit var atrast darbu un darbiniekus visās jomās:</h3>
+                    <h3>Atrodi darbu vai darbinieku ikvienā jomā:</h3>
                 </div>
                 
                 <div data-aos="fade-up" className="home__find-options__right">
@@ -82,12 +80,11 @@ function Home({categoryRef, admRef, homeTop}){
             <section className="home__find-talents" id="find">
 
                 <p className="home__find-talents__title">
-                    Atrodiet talantus Jūsu projektam-komandai
+                    Atrodi labākos komandas biedrus savam projektam
                 </p>
                 
                 <p className="home__find-talents__desc">
-                    Vai vēlaties atrast labākos talantus savai komandai? 
-                    Pievienojiet savus darba piedāvājumus, lai atrastu jaunus apbrīnojamus komandas dalībniekus!
+                    Vai vēlies atrast komandas biedrus savam projektam? Pievieno piedāvājumu, saņem pieteikumus un atlasi labākos!
                 </p>
 
                 <button className='home__find-talents__find-together' onClick={() => history.push("/register")}>Atrast kopā ar Youth Deal</button>
@@ -99,7 +96,7 @@ function Home({categoryRef, admRef, homeTop}){
 
                 <div className="home__info__contacts">
                     <p className="home__info__contacts__title">Kontakti</p>
-                    <p className="home__info__adm__desc">Sazinieties ar cilvēkiem ar kontaktu palīdzību</p>
+                    <p className="home__info__adm__desc">Sazinies ar potenciālo daba devēju, ņēmēju vai arī komandas biedru</p>
                     <img src={contacts} alt="contact" id="contact_image" data-aos="zoom-in" data-aos-easing="ease-out-cubic" />
                     <button onClick={() => history.push("/register")}>Atrast Kontaktus</button>
                 </div>
@@ -107,9 +104,7 @@ function Home({categoryRef, admRef, homeTop}){
                 <div className="home__info__adm">
                     <p className="home__info__adm__title">#ADM</p>
                     <p className="home__info__adm__desc">
-                        Ja Tu esi aktīvā darba meklējšanā (#ADM), tad šī loma ir domāta Tev. 
-                        Atlasi to reģistrējoties vai iestaj iestatījumos. 
-                        Tad darba devēji varēs redzēt, ka Tu patiešām vēlies strādāt, un Tevi ātrāk atradīs. 
+                        Ja Tu pašlaik esi aktīvā darba meklēšanā (#ADM), tad šī loma ir piemērota tieši Tev! Atzīmē to reģistrācijas laikā vai arī jebkurā brīdī profila iestatījumos, un 
                     </p>
                     <img src={adm} alt="ADM" data-aos="zoom-out" data-aos-easing="ease-out-cubic"/>
                     <button onClick={() => history.push("/register")} id="start">Sākt</button>
@@ -120,15 +115,15 @@ function Home({categoryRef, admRef, homeTop}){
                     <div className="footer__links">
                         <div className="footer__links__block">
                             <p className={'footer__links__block__title'}>YOUTH DEAL</p>
-                            <a href="#Contacts" className="footer__links__block__link">Kontakti</a>
-                            <a href="#parmums" className="footer__links__block__link">Par Mums</a>
                             <a href="#start" className="footer__links__block__link" onClick={() => history.push("/register")}>Sākt</a>
+                            <a href="#parmums" className="footer__links__block__link">Par Mums</a>
+                            <a href="#Contacts" className="footer__links__block__link">Kontakti</a>
                         </div>
                         <div className="footer__links__block">
                             <p className={'footer__links__block__title'}>ATBALSTS</p>
-                            <a href="#conf" className="footer__links__block__link">Privātuma politika</a>
-                            <a href="#help" className="footer__links__block__link">Vajag palīdzību?</a>
+                            <a href="#conf" className="footer__links__block__link">Nepieciešama palīdzība?</a>
                             <a href="#userules" className="footer__links__block__link">Lietošanas noteikumi</a>
+                            <a href="#help" className="footer__links__block__link">Privātuma politika</a>
                         </div>
                         <div className="footer__links__block">
                             <p className={'footer__links__block__title'}>SOCIĀLIE TĪKLI</p>
@@ -147,8 +142,8 @@ function Home({categoryRef, admRef, homeTop}){
                         </g>
                     </svg>
                     <div className="footer__info__texts">
-                        <p id="first">Youth Deal ir kaut kas jauns dara meklēšanas tirgū. Mēs dodam iespēju visiem jauniešiem atrast sev darbu, un izveidot veiksmīgu karjeru ar mūsu atbalstu.</p>
-                        <p>Meklē darbu, meklē darba ņēmējus. Šeit būs ērti kā darba ņēmējiem, kā arī darba devējiem. Daudzfunkcionalitāte , aktīvs, sapņu darbs. Visu šo Tu varēsi atrasts mūsu vietnē -Youth Deal.</p>
+                        <p id="first">Youth Deal ir ērtāka un inovatīvāka vide darba tirgum. Mēs sniedzam iespēju ikvienam jaunietim atrast sev piemērotu darbu un sākt veidot savu karjeru. Kā arī palīdzam ikvienam darba devējam atrast vispiemērotāko darbinieku.
+                        -Atrodi vispiemērotāko kopā ar Youth Deal.</p>
                     </div>
                 </div>
                 </div>
