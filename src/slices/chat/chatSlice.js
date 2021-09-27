@@ -14,7 +14,25 @@ export const chatSlice = createSlice({
             state.chats = action.payload;
         },
         setMessages: (state, action) => {
-            state.messages = action.payload;
+            console.log(action.payload)
+
+            state.messages = action.payload.map(m => {
+                if(m.sender){
+                    return {
+                        ...m,
+                        senderId: parseInt(m.sender, 10),
+                    }
+                }
+
+                if(m.senderID){
+                    return {
+                        ...m,
+                        senderId: parseInt(m.senderID, 10),
+                    }
+                }
+
+                return m;
+            });
         },
         setOnlineUsers: (state, action) => {
             state.onlineUsers = action.payload;
@@ -23,7 +41,23 @@ export const chatSlice = createSlice({
             state.activeChat = action.payload;
         },
         setActiveChatMessages: (state, action) => {
-            state.messages = action.payload;
+            state.messages = action.payload.filter(m => m.text !== "").map(m => {
+                if(m.sender){
+                    return {
+                        ...m,
+                        senderId: parseInt(m.sender, 10),
+                    }
+                }
+
+                if(m.senderID){
+                    return {
+                        ...m,
+                        senderId: parseInt(m.senderID, 10),
+                    }
+                }
+
+                return m;
+            });
         },
         setActiveChatID: (state, action) => {
             state.activeChatID = action.payload;
@@ -31,6 +65,42 @@ export const chatSlice = createSlice({
         deleteActiveChat: (state) => {
             state.activeChat = null;
         },
+        addMessage: (state, action) => {
+            const message = {
+                senderId: action.payload.senderId,
+                receiverId: action.payload.receiverId,
+                text: action.payload.text,
+            }
+
+            if(state.messages){
+                state.messages = [...state.messages, message];
+            }else{
+                state.messages = [message];
+            }
+        },
+        recieveMessage: (state, action) => {
+            if(state.messages && action.payload.text !== ""){
+                const message = {
+                    senderId: action.payload.senderId,
+                    text: action.payload.text,
+                    createdAt: action.payload.createdAt
+                }
+
+                if(state.messages[state.messages.length - 1].text !== action.payload.text && state.messages[state.messages.length - 1].senderId !== action.payload.senderId){
+                    
+                    state.messages = [...state.messages, message];
+                }
+            }else{
+                const message = {
+                    senderId: action.payload.senderId,
+                    text: action.payload.text,
+                    createdAt: action.payload.createdAt
+                }
+                
+                state.messages = [message];
+            }
+            
+        }
     },
 });
 
@@ -41,7 +111,9 @@ export const {
     setActiveChat,
     setActiveChatMessages,
     setActiveChatID,
-    deleteActiveChat
+    deleteActiveChat,
+    addMessage,
+    recieveMessage
 } = chatSlice.actions;
 
 export const chatData = (state) => state.chat;

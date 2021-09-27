@@ -33,8 +33,8 @@ import { getPossitions } from './logic/company/positions/positions';
 import { infoData } from './slices/info/infoSlice';
 import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
-import {io} from "socket.io-client";
-import { connect, getOnlineUsers, socketData } from './slices/socket/socketSlice';
+import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
+import { getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
 
 
 function App() {
@@ -57,10 +57,11 @@ function App() {
     const socketURL = process.env.REACT_APP_SOCKET_URL;
 
     if(userInfo.info && !socketInfo.socket && socketURL){
-      dispatch(connect(io(socketURL)));
+      dispatch(connect(socketURL));
     }else if(socketInfo.socket && userInfo.info){
-      socketInfo.socket.emit("addUser", userInfo.info.id);
-      socketInfo.socket.on("getUsers", users => {
+      const socket = getSocket();
+      socket.emit("addUser", userInfo.info.id);
+      socket.on("getUsers", users => {
         dispatch(getOnlineUsers(users));
       });
     }
@@ -74,6 +75,12 @@ function App() {
       getProffessionCategories(dispatch);
     }
   }, [proffessionInfo.proffessions, dispatch, proffessionInfo.categories]);
+
+  useEffect(() => {
+    if(userInfo.accessToken && userInfo.accessToken !== "" && userInfo.info && !userInfo.info.is_employer && !userInfo.swipedPossitions){
+      getUserAcceptedJobOffers(userInfo.accessToken, dispatch);
+    }
+  }, [userInfo.accessToken, userInfo.info, dispatch, userInfo.swipedPossitions]);
 
   useEffect(() => {
     if(userInfo){
@@ -125,6 +132,9 @@ function App() {
       setLoaded(true);
       return
     }else if(accessToken && userInfo.info && proffessionInfo.proffessions && proffessionInfo.categories && locationInfo.countries && pageInfo.jobOffers && socketInfo.socket){
+      setLoaded(true);
+      return
+    }else if(accessToken && userInfo.info && !userInfo.info.is_employer && proffessionInfo.categories && locationInfo.countries && socketInfo.socket){
       setLoaded(true);
       return
     }

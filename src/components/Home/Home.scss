@@ -5,6 +5,7 @@
     scroll-behavior: smooth;
     width: 100%;
     height: fit-content;
+    margin-top: 110px;
     &__introduction {
         z-index:2;
         font-family: 'Hammersmith One', sans-serif;
@@ -15,27 +16,25 @@
         &__left {
             z-index:2;
             color: $mainColor;
-            max-width: 750px;
+            max-width: 900px;
             width: 100%;
 
             &__title {
                 z-index:2;
-                font-size: 3rem;
+                font-size: 2.7rem;
                 font-weight: 400;
-            }
-            &__under-title {
-                z-index:2;
-                padding: 20px 0px 30px 0px;
-                font-size: 2rem;
-                display: inline-block;
                 span{
                     z-index:2;
                     color:$buttonBg;
                 }
             }
-            &__desc {
+            &__under-title {
                 z-index:2;
-                font-size: 1.2rem;
+                font-size: 1.5rem;
+                display: inline-block;
+            }
+            #title{
+                padding: 50px 0px 20px 0px;
             }
             &__paths {
                 z-index:2;
@@ -53,6 +52,10 @@
                     justify-content: center;
                     font-size:18px;
                     font-weight: 550;
+                    &:hover img{
+                        transition: transform 0.5s ease-in-out;
+                        transform: translateX(15px);
+                    }
                     img {
                         z-index:2;
                         margin-left: 15px;
@@ -95,10 +98,11 @@
             img {
                 z-index:2;
                 object-fit: contain;
-                max-width: 750px;
+                min-width: 100%;
+                max-width: 850px;
                 margin-left:100px;
                 width: 100%;
-                filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
+                
             }
         }
 
@@ -197,7 +201,7 @@
         flex-direction: column;
         align-items: center;
         padding: 20px 0 20px 0;
-        height: 100vh;
+        height: 80vh;
         &__title {
             font-family: 'Hammersmith One', sans-serif;
             font-size: 1.5rem;
@@ -225,9 +229,8 @@
         img {
             margin-top: 30px;
             object-fit: contain;
-            width: 700px;
+            width: 900px;
             height: 100%;
-            filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
         }
     }
 }
@@ -273,7 +276,6 @@
             img {
                 width: 60%;
                 margin-bottom: 25px;
-                filter: drop-shadow(0.4rem 0.4rem 0.6rem rgba(50, 50, 93, 0.25));
             }
             button {
                 margin-top: 20px;
@@ -288,11 +290,14 @@
                     background: $buttonBorder;
                 }
             }
+            #start{
+                padding: 15px 81px;
+            }
         }
         &__adm {
             background: rgba(62,178,255, .10);
             &__title{
-                color:#3EB2FF;
+                color:$buttonBg;
             }
             &__desc {
                 font-family: 'Manrope', sans-serif;
@@ -301,9 +306,42 @@
         }
     }
 }
-
+.home{
+    &__footer{
+        text-align:center;
+        padding-left: 150px;
+        border-top: 1px solid #707070;
+    }
+}
+@media(max-width:1024px){
+    .home{
+        &__footer{
+            padding-left: 0px;
+            padding-top: 50px;
+        }
+    }
+}
 // home responsive styling
-
+@media(min-width:1400px){
+    .home{
+        &__introduction{
+            &__left{
+                &__title{
+                    padding-left:140px;
+                }
+                &__under-title{
+                    padding-left: 140px;
+                }
+                #title{
+                    padding-left: 140px;
+                }
+                &__paths{
+                    padding-left: 90px;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 1100px) {
     .home {
         &__introduction {
@@ -316,7 +354,11 @@
         }
     }
 }
-
+@media (max-width: 1024px){
+    .home{
+        margin-top: 0px;
+    }
+}
 @media (max-width: 768px) {
     .home {
         &__introduction {
@@ -394,9 +436,6 @@
                 &__under-title {
                     font-size: 5vw;
                 }
-                &__desc {
-                    font-size: 4vw;
-                }
                 &__paths {
                     &__job-giver, &__job-taker {
                         height: 25vw !important;
@@ -435,10 +474,4 @@
             }
         }
     }
-}
-
-#homeRef{
-    position: absolute;
-    top: 0;
-    left: 0;
 }

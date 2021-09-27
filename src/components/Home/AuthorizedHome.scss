@@ -186,17 +186,14 @@
                 margin-top: calc(120px + 4rem);
             }
         }
-        &__create-job-button {
-            margin-bottom: 2rem;
-            button {
-                background-color: #3E66FF;
-                color: white;
-                border: none;
-                padding: .4rem;
-                font-size: 16px;
-            }
+        > h2 {
+            margin-top: 3rem;
+            margin-bottom: .5rem;
         }
         &__users {
+            height: fit-content;
+            max-height: 340px;
+            overflow-y: auto;
             &__user {
                 display: flex;
                 cursor: pointer;

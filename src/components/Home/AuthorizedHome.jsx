@@ -113,7 +113,7 @@ function AuthorizedHome() {
         }
     }, [userInfo.info, dispatch, proffessionInfo.proffessions]);
 
-    const fakeUsers = Array(4).fill({
+    const fakeUsers = Array(20).fill({
         info: {
             id: 58,
             first_name: 'Fake',
@@ -170,9 +170,6 @@ function AuthorizedHome() {
                 <div className="auth-home__middle">
                     {userInfo.info.is_employer ?
                         <>
-                            <div className="auth-home__middle__create-job-button">
-                                <button onClick={() => history.push('/new/jobOffer')}>Izveidot jaunu darba vakanci</button>
-                            </div>
                             <h2>Lietotāji</h2>
                             <div className="auth-home__middle__users panel">
                                 {fakeUsers.map((user, i) =>

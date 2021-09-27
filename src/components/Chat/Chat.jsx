@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
 import './Chat.scss'
-// import optionsIcon from '../../../src/assets/svg/options-icon.svg'
 import sendIcon from '../../../src/assets/svg/send.svg'
 import smileEmoji from '../../../src/assets/svg/emoji/smile.svg'
 import Contacts from './Contacts/Contacts';
@@ -9,11 +8,11 @@ import {userData} from "../../slices/user/userSlice"
 import ContactBook from '../../assets/svg/chat/contact-book.svg'
 import { useParams } from 'react-router-dom';
 import { getChatByID, newMessage } from '../../logic/chat/chatOptions';
-import { chatData, setActiveChatMessages } from '../../slices/chat/chatSlice';
+import { addMessage, chatData, recieveMessage, setActiveChatMessages } from '../../slices/chat/chatSlice';
 import AvatarIcon from "../../assets/svg/avatar.svg"
 import { getChatMessages } from '../../logic/chat/chatOptions';
 import {useHistory} from "react-router-dom"
-import { socketData } from '../../slices/socket/socketSlice';
+import { getSocket, socketData } from '../../slices/socket/socketSlice';
 import NoChatIcon from "../../assets/svg/chat/nochat.svg";
 import CloseIcon from "../../assets/svg/close-black.svg";
 
@@ -26,9 +25,9 @@ function Chat() {
     const [contactsToggled, setContactsToggled] = useState(false)
     const [messageText, setMessageText] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    // const [isOptionsPopup, setIsOptionsPopup] = useState(false);
     const [messageSent, setMessageSent] = useState(false);
     const [emojisOpen, setEmojisOpen] = useState(false);
+    const [delivered, setDelivered] = useState(true);
 
     const scrollRef = useRef();
     const dispatch = useDispatch();
@@ -37,85 +36,96 @@ function Chat() {
     useEffect(() => {
         if(id && userInfo.info){
             getChatByID(id, userInfo.info.id, dispatch, history);
+            dispatch(setActiveChatMessages([]));
         }
     }, [id, dispatch, userInfo.info, history]);
 
     useEffect(() => {
         if(socketInfo.socket){
-            socketInfo.socket.on("getMessage", (data) => {
+            const socket = getSocket();
+            socket.on("getMessage", (data) => {
                 setArrivalMessage({
-                    sender: data.senderId,
+                    senderId: data.senderId,
                     text: data.text,
                     createdAt: Date.now(),
                 });
             });
+
         }
     }, [socketInfo.socket]);
 
     useEffect(() => {
-        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat.id === arrivalMessage.sender){
-            if(chatInfo.messages.length === 0){
-                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
-                scrollRef.current.scrollIntoView({
-                    behavior: "smooth",
-                });
-            }else if(chatInfo.messages[chatInfo.messages.length - 1].text !== arrivalMessage.text && chatInfo.messages[chatInfo.messages.length - 1].sender !== arrivalMessage.sender){
-                dispatch(setActiveChatMessages([...chatInfo.messages, arrivalMessage]));
-                scrollRef.current.scrollIntoView({
-                    behavior: "smooth",
-                });
+        if(arrivalMessage && chatInfo.messages && chatInfo.activeChat && chatInfo.activeChat.id === arrivalMessage.senderId){
+            dispatch(recieveMessage(arrivalMessage));
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",
+            });
+            if(arrivalMessage.text !== ""){
+                setArrivalMessage(null);
             }
-            
         }
     }, [arrivalMessage, chatInfo.messages, chatInfo.activeChat, dispatch]);
 
     useEffect(() => {
-        if(chatInfo.activeChatID && chatInfo.activeChat && !chatInfo.messages){
-            getChatMessages(chatInfo.activeChatID, dispatch);
+        if(chatInfo.activeChatID && chatInfo.activeChat){
+            if(!chatInfo.messages || chatInfo.messages.length === 0){
+                getChatMessages(chatInfo.activeChatID, dispatch);
             
-            scrollRef.current.scrollIntoView({
-                behavior: "smooth",
-            });
+                scrollRef.current.scrollIntoView({
+                    behavior: "smooth",
+                });
+
+            }
         }
     }, [chatInfo.activeChatID, chatInfo.activeChat, dispatch, chatInfo.messages]);
 
     useEffect(() => {
         if(messageSent){
-            console.log("sdsadhi")
             setMessageText("");
 
             scrollRef.current.scrollIntoView({
                 behavior: "smooth",
             });
             setMessageSent(false);
+
         }
     }, [messageSent]);
+
+    useEffect(() => {
+        if(chatInfo.messages && chatInfo.activeChat && userInfo.info){
+            let lastMesage = chatInfo.messages[chatInfo.messages.length - 1];
+
+            if(lastMesage && lastMesage.senderId === userInfo.info.id && !delivered){
+                const socket = getSocket();
+
+                socket.emit("sendMessage", {
+                    senderId: userInfo.info.id,
+                    receiverId: chatInfo.activeChat.id,
+                    text: messageText,
+                });
+
+                setDelivered(true);
+                setMessageText("");
+            }
+        }
+    }, [chatInfo.messages, userInfo.info, messageText, chatInfo.activeChat, delivered]);
 
 
     function handleContactsToggle() {
         setContactsToggled(!contactsToggled);
     }
 
-    // function handleOptionsPopup() {
-    //     setIsOptionsPopup(() => {
-    //         if (isOptionsPopup) {
-    //             return false
-    //         } else {
-    //             return true;
-    //         }
-    //     })
-    // }
-
     const sendMessage = (e) => {
         e.preventDefault();
 
         if(socketInfo.socket && messageText !== ""){
-            socketInfo.socket.emit("sendMessage", {
+            dispatch(addMessage({
                 senderId: userInfo.info.id,
                 receiverId: chatInfo.activeChat.id,
                 text: messageText,
-            });
-      
+            }));
+
+            setDelivered(false);    
             newMessage(userInfo.info.id, chatInfo.activeChat.id, chatInfo.activeChatID, messageText, dispatch, setMessageSent);
         }
     };
@@ -165,18 +175,15 @@ function Chat() {
                                 <small id="activity-status">{socketInfo.onlineUsers && socketInfo.onlineUsers.some(u => u.userId === chatInfo.activeChat.id) ? "online" : "offline"}</small>
                             </div>
                         </div>
-                        {/* <img onClick={handleOptionsPopup} className="chat__header__profile-option-img" src={optionsIcon} alt="optionsIcon" />
-                        <div className={`chat__header__profile-options-popup ${isOptionsPopup ? 'active' : ''}`}>
-                            <a href='#profils'>Profils</a>
-                            <p>Bez skaņas</p>
-                            <p>Bloķēt</p>
-                        </div> */}
                     </div>
-                    <div className="chat__messages">
+                    <div className={`chat__messages ${chatInfo.messages.length < 1 ? 'empty' : ''}`}>
+                        {chatInfo.messages.length < 1 &&
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        }
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
                                 return(
-                                    <div key={i} className={`chat__messages__message ${msg.sender === userInfo.info.id.toString() ? 'my-msg' : 'target-msg'}`}>
+                                    <div key={i} className={`chat__messages__message ${msg.senderId === userInfo.info.id ? 'my-msg' : 'target-msg'}`}>
                                         <div className="chat__messages__message__text-box">
                                             <p id='msg'>{msg.text}</p>
                                             <small id='time'>{relativeTime(msg.createdAt)}</small>
@@ -194,17 +201,26 @@ function Chat() {
                             {emojisOpen && (
                                 <div className="chat__input-container__options__emojiOptions">
                                     <div className="chat__input-container__options__emojiOptions__header">
+                                        Emoji
                                         <img src={CloseIcon} alt="close" onClick={() => setEmojisOpen(false)} />
                                     </div>
+                                    <small>Sejas</small>
                                     <ul>
                                         <li onClick={() => addEmoji("😃")}>😃</li>
                                         <li onClick={() => addEmoji("😄")}>😄</li>
                                         <li onClick={() => addEmoji("😅")}>😅</li>
                                         <li onClick={() => addEmoji("😂")}>😂</li>
                                         <li onClick={() => addEmoji("😇")}>😇</li>
+                                        <li onClick={() => addEmoji("😊")}>😊</li>
                                         <li onClick={() => addEmoji("😱")}>😱</li>
+                                        <li onClick={() => addEmoji("😯")}>😯</li>
                                         <li onClick={() => addEmoji("🤨")}>🤨</li>
+                                        <li onClick={() => addEmoji("😳")}>😳</li>
+                                        <li onClick={() => addEmoji("😟")}>😟</li>
+                                        <li onClick={() => addEmoji("😔")}>😔</li>
+                                        <li onClick={() => addEmoji("🙁")}>🙁</li>
                                     </ul>
+                                    <small>Žesti</small>
                                     <ul>
                                         <li onClick={() => addEmoji("👋")}>👋</li>
                                         <li onClick={() => addEmoji("👌")}>👌</li>
@@ -215,6 +231,22 @@ function Chat() {
                                         <li onClick={() => addEmoji("🤞")}>🤞</li>
                                         <li onClick={() => addEmoji("🤟")}>🤟</li>
                                         <li onClick={() => addEmoji("🤘")}>🤘</li>
+                                        <li onClick={() => addEmoji("🤝")}>🤝</li>
+                                    </ul>
+                                    <small>Simboli</small>
+                                    <ul>
+                                        <li onClick={() => addEmoji("❤️")}>❤️</li>
+                                        <li onClick={() => addEmoji("💚")}>💚</li>
+                                        <li onClick={() => addEmoji("❌")}>❌</li>
+                                        <li onClick={() => addEmoji("✅")}>✅</li>
+                                        <li onClick={() => addEmoji("⛔️")}>⛔️</li>
+                                        <li onClick={() => addEmoji("💯")}>💯</li>
+                                        <li onClick={() => addEmoji("💢")}>💢</li>
+                                        <li onClick={() => addEmoji("❗️")}>❗️</li>
+                                        <li onClick={() => addEmoji("❓")}>❓</li>
+                                        <li onClick={() => addEmoji("⁉️")}>⁉️</li>
+                                        <li onClick={() => addEmoji("🆗")}>🆗</li>
+                                        <li onClick={() => addEmoji("🆓")}>🆓</li>
                                     </ul>
                                 </div>
                             )}

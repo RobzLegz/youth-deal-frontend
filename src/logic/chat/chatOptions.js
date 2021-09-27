@@ -75,7 +75,6 @@ export const newMessage = (senderID, receiverID, chatID, text, dispatch, setMess
 
         axios.post(MESSAGE_OPTIONS, data).then((res) => {
             getChatMessages(chatID, dispatch);
-            dispatch(setActiveChatMessages(res.data));
             setMessageSent(true);
         }).catch((err) => {
             console.log(err);

@@ -28,10 +28,10 @@ function AuthorizedHeader() {
     const [isCompany, setIsCompany] = useState(false);
 
     useEffect(() => {
-        if (userInfo.info.is_employer) {
+        if (userInfo.info && userInfo.info.is_employer) {
             setIsCompany(true);
         }
-    }, [userInfo.info.is_employer]);
+    }, [userInfo.info]);
 
     useEffect(() => {
         window.addEventListener('resize', function (e) {
