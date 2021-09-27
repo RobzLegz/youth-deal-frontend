@@ -5,7 +5,6 @@ import Marker from '../../../../assets/svg/marker.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
-import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
@@ -72,7 +71,9 @@ function ScrollJob({jobOffer}) {
                         <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
                         <small>{relativeTime(jobOffer.post_time)}</small>
                     </div>
-                    <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
+                    {!userInfo.info.is_employer &&
+                        <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
+                    }
                     {userInfo.info.id === companyInfo.id && (
                         <img src={OptionsIcon} alt="options" className="options" />
                     )}
@@ -96,7 +97,9 @@ function ScrollJob({jobOffer}) {
                     <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__bottom">
-                    <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(jobOffer.id, 1, userInfo.accessToken)}>Pieteikties</button>
+                    {!userInfo.info.is_employer &&
+                        <button className="job-panel__bottom__sign-up">Pieteikties</button>
+                    }
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {jobOffer.price_range}/mēnesī</h2>
