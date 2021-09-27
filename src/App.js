@@ -26,7 +26,6 @@ import LoadingPopup from './components/popups/loading/LoadingPopup';
 import { getProffessionCategories, getProffessions } from './logic/proffessions/getProffesions';
 import { proffessionData } from './slices/proffessions/proffessionSlice';
 import AdminPage from './components/admin/AdminPage';
-import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 import { locationData } from './slices/locations/locationSlice';
 import NewJobOffer from './components/new/jobOffer/NewJobOffer';
 import { getPossitions } from './logic/company/positions/positions';
@@ -35,6 +34,7 @@ import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
 import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
 import { getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
+import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 
 
 function App() {
