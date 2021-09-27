@@ -68,7 +68,7 @@ export const getUserAcceptedJobOffers = (token, dispatch) => {
     });
 };
 
-export const removeFromSaved = (swiped, token, dispatch) => {
+export const removeFromSaved = (swiped, token, dispatch, all) => {
     dispatch(handleLoading(true));
     const data = new FormData()
     
@@ -81,12 +81,15 @@ export const removeFromSaved = (swiped, token, dispatch) => {
         }
     }
 
+    let filtered = all.filter(s => s !== swiped);
+    console.log(filtered)
+
     axios.post(
         COMPANY_SWIPING,
         data,
         headers,
     ).then((res) => {
-        dispatch(removeSwipedPossition(swiped));
+        dispatch(setSwipedPossitions(filtered));
         dispatch(handleLoading(false));
     }).catch((err) => {
         dispatch(handleLoading(false));

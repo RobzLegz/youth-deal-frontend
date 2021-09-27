@@ -38,7 +38,7 @@ export const userSlice = createSlice({
             state.swipedPossitions = action.payload.filter(p => p.jobseeker_accepted === true);
         },
         removeSwipedPossition: (state, action) => {
-            state.swipedPossitions = state.swipedPossitions.filter(p => p !== action.payload);
+            state.swipedPossitions.filter(p => p !== action.payload);
         },
         addSwipedPossition: (state, action) => {
             if(action.payload.jobseeker_accepted === true){
