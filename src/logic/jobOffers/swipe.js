@@ -1,6 +1,6 @@
 import axios from "axios";
 import { COMPANY_SWIPING, COMPANY_SWIPING_LIST_VIEW } from "../api/apiRoutes";
-import {removeSwipedPossition, setSwipedPossitions} from "../../slices/user/userSlice"
+import {setSwipedPossitions} from "../../slices/user/userSlice"
 import { handleLoading } from "../../slices/loading/loadingSlice";
 
 export const jobSeekerAcceptJobOffer = (positionId, token, dispatch) => {
