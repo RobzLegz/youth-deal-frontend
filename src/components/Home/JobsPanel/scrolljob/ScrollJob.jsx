@@ -6,6 +6,8 @@ import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
 import EditJobsModal from '../../EditJobsModal/EditJobsModal';
+import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
+import { useDispatch } from 'react-redux';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);
@@ -15,6 +17,7 @@ function ScrollJob({jobOffer}) {
     const userInfo = useSelector(userData);
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if(!companyInfo){
@@ -60,7 +63,7 @@ function ScrollJob({jobOffer}) {
         );
     }
 
-    if(companyInfo){
+    if(companyInfo && userInfo.accessToken !== ""){
         return (
             <div className="job-panel panel">
 
@@ -99,7 +102,7 @@ function ScrollJob({jobOffer}) {
                 </div>
                 <div className="job-panel__bottom">
                     {!userInfo.info.is_employer &&
-                        <button className="job-panel__bottom__sign-up">Pieteikties</button>
+                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(jobOffer.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
                     }
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>

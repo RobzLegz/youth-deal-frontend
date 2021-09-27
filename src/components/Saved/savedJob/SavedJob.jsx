@@ -6,13 +6,20 @@ import { getCompanyInfoById } from '../../../logic/company/info/companyInfo';
 import { getPossitionByID } from '../../../logic/company/positions/positions';
 
 import Marker from '../../../assets/svg/marker.svg';
+import { useSelector } from 'react-redux';
+import { userData } from '../../../slices/user/userSlice';
+import { removeFromSaved } from '../../../logic/jobOffers/swipe';
+import { useDispatch } from 'react-redux';
 
 function SavedJob({info, filter}) {
+    const userInfo = useSelector(userData);
+
     const [following, setFollowing] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
     const [jobOfferInfo, setJobOfferInfo] = useState(null);
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if(!companyInfo){
@@ -60,7 +67,7 @@ function SavedJob({info, filter}) {
         );
     }
 
-    if (companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter) {
+    if (userInfo.info && companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter && info.jobseeker_accepted) {
         return (<div className="saved-job panel">
                 <div className="saved-job__top">
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
@@ -89,7 +96,7 @@ function SavedJob({info, filter}) {
                     <p>{jobOfferInfo.position_requirements}</p>
                 </div>
                 <div className="saved-job__bottom">
-                    <button className="job-panel__bottom__sign-up">Atteikties</button>
+                    <button className="job-panel__bottom__sign-up" onClick={() => removeFromSaved(info, userInfo.accessToken, dispatch)}>Atteikties</button>
                     <div className="saved-job__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {jobOfferInfo.price_range}/mēnesī</h2>

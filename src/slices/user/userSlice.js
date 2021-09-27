@@ -35,7 +35,15 @@ export const userSlice = createSlice({
             state.allUsers = action.payload;
         },
         setSwipedPossitions: (state, action) => {
-            state.swipedPossitions = action.payload;
+            state.swipedPossitions = action.payload.filter(p => p.jobseeker_accepted === true);
+        },
+        removeSwipedPossition: (state, action) => {
+            state.swipedPossitions = state.swipedPossitions.filter(p => p !== action.payload);
+        },
+        addSwipedPossition: (state, action) => {
+            if(action.payload.jobseeker_accepted === true){
+                state.swipedPossitions = [...state.swipedPossitions, action.payload]
+            }
         },
     },
 });
@@ -48,7 +56,9 @@ export const {
     setUserProffession,
     setUserProffessionCategory,
     setAllUsers,
-    setSwipedPossitions
+    setSwipedPossitions,
+    removeSwipedPossition,
+    addSwipedPossition
 } = userSlice.actions;
 
 export const userData = (state) => state.user;
