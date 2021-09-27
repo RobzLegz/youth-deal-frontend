@@ -5,6 +5,7 @@ import Marker from '../../../../assets/svg/marker.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
+import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 
 function ScrollJob({jobOffer}) {
     const [following, setFollowing] = useState(false);

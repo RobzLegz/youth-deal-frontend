@@ -176,7 +176,10 @@ function Chat() {
                             </div>
                         </div>
                     </div>
-                    <div className="chat__messages">
+                    <div className={`chat__messages ${chatInfo.messages.length < 1 ? 'empty' : ''}`}>
+                        {chatInfo.messages.length < 1 &&
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        }
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
                                 return(
