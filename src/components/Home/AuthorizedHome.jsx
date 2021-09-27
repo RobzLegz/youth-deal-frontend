@@ -23,13 +23,15 @@ import Contact from './chats/Contact';
 
 function AuthorizedHome() {
     const pageInfo = useSelector(infoData);
+    const userInfo = useSelector(userData);
+
     const [scrollJobs, setScrollJobs] = useState([]);
     const [swipeJobs, setSwipeJobs] = useState([]);
     const [woluntaryJobs, setWoluntaryJobs] = useState([]);
     const [filterJobs, setFilterJobs] = useState([]);
 
     useEffect(() => {
-        if(pageInfo.jobOffers){
+        if(pageInfo.jobOffers && userInfo.swipedPossitions){
             if(scrollJobs.length > 0 || swipeJobs.length > 0 || woluntaryJobs.length > 0){
                 setScrollJobs([]);
                 setSwipeJobs([]);
@@ -38,44 +40,47 @@ function AuthorizedHome() {
             pageInfo.jobOffers.forEach((job) => {
                 let contractType = job.contract_type;
                 let occupation = job.position_occupation;
+                let jobID = job.id;
 
-                if(pageInfo.filterTags){
-                    if(filterJobs.length > 0){
-                        setFilterJobs([]);
-                    }
-
-                    pageInfo.filterTags.forEach((tag) => {
-                        const category = tag.type;
-                        
-                        if(category === "category"){
-                            const tagOccupations = tag.occupations;
-                
-                            if(tagOccupations.some(o => o.id === occupation)){
-
-                                if(filterJobs && scrollJobs && swipeJobs && woluntaryJobs && !scrollJobs.includes(job) && !swipeJobs.includes(job) && !woluntaryJobs.includes(job)){
-                                    if(contractType === "long term"){
-                                        scrollJobs.push(job);
-                                    }else if(contractType === "short term"){
-                                        swipeJobs.push(job);
-                                    }else if(contractType === "woluntary job"){
-                                        woluntaryJobs.push(job);
+                if(!userInfo.swipedPossitions.some(sp => sp.position === jobID)){
+                    if(pageInfo.filterTags){
+                        if(filterJobs.length > 0){
+                            setFilterJobs([]);
+                        }
+    
+                        pageInfo.filterTags.forEach((tag) => {
+                            const category = tag.type;
+                            
+                            if(category === "category"){
+                                const tagOccupations = tag.occupations;
+                    
+                                if(tagOccupations.some(o => o.id === occupation)){
+    
+                                    if(filterJobs && scrollJobs && swipeJobs && woluntaryJobs && !scrollJobs.includes(job) && !swipeJobs.includes(job) && !woluntaryJobs.includes(job)){
+                                        if(contractType === "long term"){
+                                            scrollJobs.push(job);
+                                        }else if(contractType === "short term"){
+                                            swipeJobs.push(job);
+                                        }else if(contractType === "woluntary job"){
+                                            woluntaryJobs.push(job);
+                                        }
                                     }
                                 }
                             }
+                        });
+                    }else{
+                        if(contractType === "long term"){
+                            scrollJobs.push(job);
+                        }else if(contractType === "short term"){
+                            swipeJobs.push(job);
+                        }else if(contractType === "woluntary job"){
+                            woluntaryJobs.push(job);
                         }
-                    });
-                }else{
-                    if(contractType === "long term"){
-                        scrollJobs.push(job);
-                    }else if(contractType === "short term"){
-                        swipeJobs.push(job);
-                    }else if(contractType === "woluntary job"){
-                        woluntaryJobs.push(job);
                     }
                 }
             });
         }
-    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs, pageInfo.filterTags, filterJobs]);
+    }, [pageInfo.jobOffers, scrollJobs, swipeJobs, woluntaryJobs, pageInfo.filterTags, filterJobs, userInfo.swipedPossitions]);
 
     const removeTag = (tag) => {
         if(pageInfo.filterTags.length > 1){
@@ -95,7 +100,6 @@ function AuthorizedHome() {
     const [activeJobPanel, setActiveJobPanel] = useState(null);
     const [activeJobOption, setActiveJobOption] = useState('longterm');
 
-    const userInfo = useSelector(userData);
     const chatInfo = useSelector(chatData);
     const proffessionInfo = useSelector(proffessionData);
     const history = useHistory();
