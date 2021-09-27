@@ -7,7 +7,7 @@ import { getPossitionByID } from '../../../logic/company/positions/positions';
 
 import Marker from '../../../assets/svg/marker.svg';
 
-function SavedJob({info}) {
+function SavedJob({info, filter}) {
     const [following, setFollowing] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
     const [jobOfferInfo, setJobOfferInfo] = useState(null);
@@ -60,7 +60,7 @@ function SavedJob({info}) {
         );
     }
 
-    if (companyInfo && jobOfferInfo) {
+    if (companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter) {
         return (<div className="saved-job panel">
                 <div className="saved-job__top">
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />

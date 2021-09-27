@@ -8,7 +8,7 @@ import SavedJob from "./savedJob/SavedJob";
 
 const Saved = () => {
     const userInfo = useSelector(userData);
-    const [activeJobOption, setActiveJobOption] = useState('longterm');
+    const [activeJobOption, setActiveJobOption] = useState('long term');
 
     return (
         <div className="saved">
@@ -33,6 +33,7 @@ const Saved = () => {
                                 <SavedJob 
                                     key={i}
                                     info={possition}
+                                    filter={activeJobOption}
                                 />
                             )
                         })
