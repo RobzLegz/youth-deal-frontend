@@ -16,8 +16,6 @@ function SavedJob({info}) {
         if(!jobOfferInfo && info){
             getPossitionByID(info.position, setJobOfferInfo);
         }
-        console.log(jobOfferInfo)
-        console.log(companyInfo)
     }, [jobOfferInfo, info]);
 
     return (
