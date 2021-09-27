@@ -89,3 +89,12 @@ export const getPossitions = (dispatch) => {
         console.log(err)
     });
 };
+
+
+export const getPossitionByID = (id, setInfo) => {
+    axios.get(`${COMPANY_POSITION_OPTIONS}?id=${id}`).then((res) => {
+        setInfo(res.data[0]);
+    }).catch((err) => {
+        console.log(err)
+    });
+};

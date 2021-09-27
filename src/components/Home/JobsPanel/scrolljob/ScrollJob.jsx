@@ -16,10 +16,6 @@ function ScrollJob({jobOffer}) {
 
     const history = useHistory();
 
-    if(!companyInfo){
-        getCompanyInfoById(jobOffer.company, setCompanyInfo)
-    }
-
     useEffect(() => {
         if(!companyInfo){
             getCompanyInfoById(jobOffer.company, setCompanyInfo)
