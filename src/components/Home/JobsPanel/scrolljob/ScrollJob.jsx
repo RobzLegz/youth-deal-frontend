@@ -9,8 +9,7 @@ import EditJobsModal from '../../EditJobsModal/EditJobsModal';
 import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 import { useDispatch } from 'react-redux';
 
-function ScrollJob({jobOffer}) {
-    const [following, setFollowing] = useState(false);
+function ScrollJob({ jobOffer }) {
     const [companyInfo, setCompanyInfo] = useState(null);
     const [editing, setEditing] = useState(false);
 
@@ -75,9 +74,6 @@ function ScrollJob({jobOffer}) {
                         <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
                         <small>{relativeTime(jobOffer.post_time)}</small>
                     </div>
-                    {!userInfo.info.is_employer &&
-                        <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
-                    }
                     {userInfo.info.id === companyInfo.user && (
                         <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
                     )}
