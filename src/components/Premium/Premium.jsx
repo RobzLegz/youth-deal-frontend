@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import "./Premium.scss";
 import CrownIcon from "../../assets/svg/crown.svg";
-// import AdIcon from "../../assets/svg/premium/ad.svg";
-// import CommunicationIcon from "../../assets/svg/premium/communication.svg";
-import FolderIcon from "../../assets/svg/premium/folder.svg";
-// import ArrowRightCircleIcon from "../../assets/svg/premium/arrow-right-circle.svg";
 import PremiumSuccessIcon from "../../assets/svg/premium/premium.svg";
-import SecureIcon from "../../assets/svg/premium/secure.svg";
-import BlockedIcon from "../../assets/svg/premium/blocked.svg";
-import CoordinationIcon from "../../assets/svg/premium/coordination.svg";
-import MoreIcon from "../../assets/svg/premium/more.svg";
+
+import Notifications from "../../assets/svg/premium/notifications.svg";
+import Statistics from "../../assets/svg/premium/statistics.svg";
+import Search from "../../assets/svg/premium/filter.svg";
+import Salary from "../../assets/svg/premium/salary.svg";
+import Video from "../../assets/svg/premium/video.svg";
+import CV from "../../assets/svg/premium/CV.svg";
+import Offers from "../../assets/svg/premium/offers.svg";
+import Online from "../../assets/svg/premium/online.svg";
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
 
@@ -55,55 +56,47 @@ function Premium() {
                     {premiumShocase === "jobGiver" ? (
                         <ul className="premium__body__bottom__reasons">
                             <li>
-                                <img src={SecureIcon} alt="secure" />
-                                <h4>Divpakāpju autentifikācija</h4>
+                                <img src={Statistics} alt="secure" />
+                                <h4>Pieejama statistika, kā darba devēji mijiedarbojas ar taviem sludinājumiem</h4>
                             </li>
                             <li>
-                                <img src={BlockedIcon} alt="secure" />
-                                <h4>Bez reklāmām</h4>
+                                <img src={Search} alt="secure" />
+                                <h4>Advancēta meklēšana</h4>
                             </li>
                             <li>
-                                <img src={FolderIcon} alt="secure" />
-                                <h4>Datu glabāšana</h4>
-                            </li>
-                            <li>
-                                <img src={CoordinationIcon} alt="secure" />
-                                <h4>Komunicēšana</h4>
-                            </li>
-                            <li>
-                                <img src={MoreIcon} alt="secure" />
-                                <h4>Un daudz vairāk</h4>
+                                <img src={Online} alt="secure" />
+                                <h4>Tiešsaites videosarunas iespēja</h4>
                             </li>
                             <button>3.99/Mēnesī. ABONĒT</button>
                         </ul>
                     ) : (
                         <ul className="premium__body__bottom__reasons">
                             <li>
-                                <img src={SecureIcon} alt="secure" />
+                                <img src={Notifications} alt="secure" />
                                 <h4>Paziņojumi par jauniem darba sludinājumiem</h4>
                             </li>
                             <li>
-                                <img src={BlockedIcon} alt="secure" />
+                                <img src={Statistics} alt="secure" />
                                 <h4>Pieejama statistika, kā darba devēji mijiedarbojas ar taviem sludinājumiem</h4>
                             </li>
                             <li>
-                                <img src={FolderIcon} alt="secure" />
+                                <img src={Search} alt="secure" />
                                 <h4>Advancēta meklēšana</h4>
                             </li>
                             <li>
-                                <img src={CoordinationIcon} alt="secure" />
+                                <img src={Salary} alt="secure" />
                                 <h4>Sīkāks algas pārskats</h4>
                             </li>
                             <li>
-                                <img src={MoreIcon} alt="secure" />
+                                <img src={Video} alt="secure" />
                                 <h4>Pieeja video materiālu bāzei</h4>
                             </li>
                             <li>
-                                <img src={MoreIcon} alt="secure" />
+                                <img src={CV} alt="secure" />
                                 <h4>Palīdzība ar CV sastādīšanu</h4>
                             </li>
                             <li>
-                                <img src={MoreIcon} alt="secure" />
+                                <img src={Offers} alt="secure" />
                                 <h4>Iespējams vienlaicīgi pieteikties vairākiem darba piedāvājumiem</h4>
                             </li>
                             {userInfo.info && !userInfo.info.has_premium ? (
