@@ -190,49 +190,6 @@
             margin-top: 3rem;
             margin-bottom: .5rem;
         }
-        &__users {
-            height: fit-content;
-            max-height: 340px;
-            overflow-y: auto;
-            &__user {
-                display: flex;
-                cursor: pointer;
-                padding: .6rem 1.2rem !important;
-                margin: .3rem .5rem;
-                border-radius: 10px;
-                align-items: center;
-                img {
-                    @include avatar;
-                }
-                &__info {
-                    width: 100%;
-                    padding-right: 1rem;
-                    #username {
-                        font-size: 16px;
-                    }
-                    #last-msg {
-                        color: #8b8b8b;
-                        font-size: 14px;
-                    }
-                    small {
-                        font-size: 14px;
-                        font-family: 'Manrope';
-                        color: gray;
-                    }
-                }
-                &:hover {
-                    background-color: #e7e7e7;
-                }
-                button {
-                    background-color: #3E66FF;
-                    color: white;
-                    border: none;
-                    padding: .4rem;
-                    height: fit-content;
-                    white-space: nowrap;
-                }
-            }
-        }
     }
     &__right {
         position: fixed;
