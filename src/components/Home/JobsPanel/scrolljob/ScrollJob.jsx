@@ -98,7 +98,7 @@ function ScrollJob({ jobOffer }) {
                 </div>
                 <div className="job-panel__bottom">
                     {!userInfo.info.is_employer &&
-                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(jobOffer.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
+                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(1, jobOffer.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
                     }
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>

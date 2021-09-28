@@ -90,15 +90,8 @@ function AuthorizedHome() {
         }
     };
 
-    useEffect(() => {
-        if(scrollJobs){
-            setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
-        }
-    }, [scrollJobs]);
-
-
-    const [activeJobPanel, setActiveJobPanel] = useState(null);
-    const [activeJobOption, setActiveJobOption] = useState('longterm');
+    const [activeJobPanel, setActiveJobPanel] = useState(<ScrollJobs jobs={scrollJobs} />);
+    const [activeJobOption, setActiveJobOption] = useState('long term');
 
     const chatInfo = useSelector(chatData);
     const proffessionInfo = useSelector(proffessionData);
@@ -187,22 +180,22 @@ function AuthorizedHome() {
                                         if(scrollJobs){
                                             setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
                                         }
-                                        setActiveJobOption('longterm');
-                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'longterm' ? 'active' : ''}`}>
+                                        setActiveJobOption('long term');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'long term' ? 'active' : ''}`}>
                                         <h3>Ilgtermiņa <span>darbi</span></h3>
                                         <div className="active-line"></div>
                                     </div>
                                     <div onClick={() => {
                                         setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
-                                        setActiveJobOption('shortterm');
-                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'shortterm' ? 'active' : ''}`}>
+                                        setActiveJobOption('short term');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'short term' ? 'active' : ''}`}>
                                         <h3>Īstermiņa <span>darbi</span></h3>
                                         <div className="active-line"></div>
                                     </div>
                                     <div onClick={() => {
                                         setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
-                                        setActiveJobOption('volunteer');
-                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'volunteer' ? 'active' : ''}`}>
+                                        setActiveJobOption('woluntary job');
+                                    }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'woluntary job' ? 'active' : ''}`}>
                                         <h3>Brīvprātīgie <span>darbi</span></h3>
                                         <div className="active-line"></div>
                                     </div>
@@ -219,7 +212,7 @@ function AuthorizedHome() {
                                 )}
                             </div>
                             {
-                                (scrollJobs && swipeJobs && woluntaryJobs) && (
+                                (scrollJobs && swipeJobs && woluntaryJobs && activeJobPanel) && (
                                     <div className={`auth-home__middle__jobs ${pageInfo.filterTags && 'extra-top-margin'}`}>
                                         {activeJobPanel}
                                     </div>
@@ -243,22 +236,6 @@ function AuthorizedHome() {
                             </div>
                         </>
                     )}
-                    
-
-                    {/* <h2>Recomendācijas</h2>
-                    <div className="auth-home__right__recomendations panel">
-                        {chatInfo.chats.map((recomendation, i) =>
-                            <div className="auth-home__right__recomendations__recomendation" key={i}>
-                                <img src={recomendation.avatar} alt="avatar" />
-                                <div className="info">
-                                    <p id="name">{recomendation.name}</p>
-                                    <small id="info">{recomendation.positionInfo}</small>
-                                </div>
-                                <button>+ Sekot</button>
-                            </div>
-                        )}
-                    </div> */}
-
                 </div>
             </div>
         );

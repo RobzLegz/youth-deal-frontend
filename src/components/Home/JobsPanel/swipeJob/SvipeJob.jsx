@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Inactive from '../../../../assets/svg/plans/inactive.svg';
-import Back from '../../../../assets/svg/back.svg';
 import Active from '../../../../assets/svg/plans/active.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
+import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { userData } from '../../../../slices/user/userSlice';
 
 function SvipeJob({job}) {
-    const [saved, setSaved] = useState(false);
     const [swiped, setSwiped] = useState("");
     const [companyInfo, setCompanyInfo] = useState(null);
     const [shown, setShown] = useState(true);
+
+    const dispatch = useDispatch();
+    const userInfo = useSelector(userData);
 
     useEffect(() => {
         if(swiped !== ""){
@@ -39,21 +44,16 @@ function SvipeJob({job}) {
                 </div>
                 <div className="swipe-card__bottom">
                     <button id="reject">
-                        <img src={Inactive} alt="reject" onClick={() => setSwiped("left")} />
-                    </button>
-                    <button id="save" onClick={() => setSaved(!saved)}>
-                        <img src={Back} alt="back" />
+                        <img src={Inactive} alt="reject" onClick={() => {jobSeekerAcceptJobOffer(0, job.id, userInfo.accessToken, dispatch);setSwiped("left")}} />
                     </button>
                     <button id="accept">
-                        <img src={Active} alt="accept" onClick={() => setSwiped("right")} />
+                        <img src={Active} alt="accept" onClick={() => {jobSeekerAcceptJobOffer(1, job.id, userInfo.accessToken, dispatch);setSwiped("right")}} />
                     </button>
                 </div>
             </div>
         )
-    }else{
-        return null;
     }
-    
+    return null;
 }
 
 export default SvipeJob
