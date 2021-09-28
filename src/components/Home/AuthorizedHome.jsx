@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 import { getUserJobNoSearch } from '../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
 import { proffessionData } from '../../slices/proffessions/proffessionSlice';
-import { NewChat } from '../../logic/chat/chatOptions';
 
 import LoadingPopup from '../popups/loading/LoadingPopup';
 import ScrollJobs from './JobsPanel/ScrollJobs';
@@ -20,6 +19,7 @@ import SwipeJobs from './JobsPanel/SwipeJobs';
 import { infoData, setFilterTags } from '../../slices/info/infoSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import Contact from './chats/Contact';
+import SwipedUser from './swipedUser/SwipedUser';
 
 function AuthorizedHome() {
     const pageInfo = useSelector(infoData);
@@ -117,21 +117,6 @@ function AuthorizedHome() {
         }
     }, [userInfo.info, dispatch, proffessionInfo.proffessions]);
 
-    const fakeUsers = Array(20).fill({
-        info: {
-            id: 58,
-            first_name: 'Fake',
-            last_name: 'User',
-            profile: {
-                user: 58,
-                photo: 'https://res.cloudinary.com/mareks/image/upload/v1/media/user_photos/Super-drawing-ideas-animals-student-44-ideas_zhy2oe',
-                user_proffession: 'Full-stack programmētājs',
-                user_proffession_category: 'IT'
-            }
-        }
-    })
-    const [hasChat] = useState(null);
-
     if (userInfo.info) {
         return (
             <div className="auth-home">
@@ -172,33 +157,28 @@ function AuthorizedHome() {
                         }
                     </div>
                 </div>
-
+                
                 <div className="auth-home__middle">
                     {userInfo.info.is_employer ?
                         <>
-                            <h2>Lietotāji</h2>
-                            <div className="auth-home__middle__users panel">
-                                {fakeUsers.map((user, i) =>
-                                    <div className="auth-home__middle__users__user" onClick={() => history.push(`/profile/${user.info.profile.user}`)} key={i}>
-                                        <img src={user.info.profile.photo ? user.info.profile.photo : Avatar} alt="avatar" />
-                                        <div className="auth-home__middle__users__user__info">
-                                            <p>{user.info.first_name} {user.info.last_name}</p>
-                                            {user.info.profile.user_proffession_category && user.info.profile.user_proffession ? (
-                                                <small>{`${user.info.profile.user_proffession_category} | ${user.info.profile.user_proffession}`}</small>
-                                            ) : user.info.profile.user_proffession && (
-                                                <small>{user.info.profile.user_proffession}</small>
-                                            )}
-                                        </div>
-                                        <button onClick={() => {
-                                            if(hasChat){
-                                                history.push("/chat")
-                                            }else{
-                                                NewChat(userInfo.info.id, user.info.id, history, dispatch);
-                                            }
-                                        }}>{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
+                            {userInfo.swipedPossitions && userInfo.swipedPossitions.length > 0 ? (
+                                <>
+                                    <h2>Lietotāji</h2>
+                                    <div className="auth-home__middle__users panel">
+                                        {userInfo.swipedPossitions.map((possition, i) => {
+                                            return(
+                                                <SwipedUser 
+                                                    key={i}
+                                                    info={possition}
+                                                />
+                                            )
+                                        })}
                                     </div>
-                                )}
-                            </div>
+                                </>
+                            ) : (
+                                <p>Neviens lietotājs nav akceptējis Jūsu darba pidāvājumu</p>
+                            )}
+                            
                         </> :
                         <>
                             <div className="auth-home__middle__fixed">
