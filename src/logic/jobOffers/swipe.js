@@ -1,14 +1,12 @@
 import axios from "axios";
 import { COMPANY_SWIPING, COMPANY_SWIPING_LIST_VIEW } from "../api/apiRoutes";
 import {setSwipedPossitions} from "../../slices/user/userSlice"
-import { handleLoading } from "../../slices/loading/loadingSlice";
 
-export const jobSeekerAcceptJobOffer = (positionId, token, dispatch) => {
+export const jobSeekerAcceptJobOffer = (accepted, positionId, token, dispatch) => {
     const data = new FormData()
-    dispatch(handleLoading(true));
     
     data.append("position_id", positionId);
-    data.append("accepted", 1);
+    data.append("accepted", accepted);
 
     const headers = {
         headers: {
@@ -22,9 +20,8 @@ export const jobSeekerAcceptJobOffer = (positionId, token, dispatch) => {
         headers,
     ).then((res) => {
         getUserAcceptedJobOffers(token, dispatch);
-        dispatch(handleLoading(false));
     }).catch((err) => {
-        dispatch(handleLoading(false));
+        console.log(err)
     });
 };
 
@@ -69,7 +66,6 @@ export const getUserAcceptedJobOffers = (token, dispatch) => {
 };
 
 export const removeFromSaved = (swiped, token, dispatch, all) => {
-    dispatch(handleLoading(true));
     const data = new FormData()
     
     data.append("position_id", swiped.position);
@@ -90,9 +86,8 @@ export const removeFromSaved = (swiped, token, dispatch, all) => {
         headers,
     ).then((res) => {
         dispatch(setSwipedPossitions(filtered));
-        dispatch(handleLoading(false));
     }).catch((err) => {
-        dispatch(handleLoading(false));
+        console.log(err)
     });
 };
 
