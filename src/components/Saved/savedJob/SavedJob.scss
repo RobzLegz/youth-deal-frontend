@@ -86,13 +86,16 @@
             height: 40px;
             cursor: pointer;
         }
-        &__sign-up {
+        &__retract-submission {
             border-radius: 5px;
             padding: .5rem;
             height: fit-content;
-            background: #3E66FF;
-            color: white;
-            border: 1px solid #707070;
+            color: #EB0D0D;
+            border: 1px solid #EB0D0D;
+            &:hover {
+                background: #EB0D0D;
+                color: white;
+            }
         }
         &__price-wrapper {
             small {
