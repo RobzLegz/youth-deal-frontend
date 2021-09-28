@@ -15,7 +15,6 @@ import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.sv
 import NoJobOffers from '../../assets/svg/Profile/no-job-offers.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
-import ScrollJobs from '../Home/JobsPanel/ScrollJobs';
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
 import { useHistory, useParams } from 'react-router-dom';
@@ -30,6 +29,7 @@ import { NewChat } from '../../logic/chat/chatOptions';
 import { socketData } from '../../slices/socket/socketSlice';
 import { chatData } from '../../slices/chat/chatSlice';
 import { getCompanysPositions } from '../../logic/company/find/findCompanysPositions';
+import CompanyJob from './companyJobs/CompanyJob';
 
 function Profile(){
     const [editProfile, setEditProfile] = useState(false);
@@ -179,11 +179,18 @@ function Profile(){
                                     <button onClick={() => history.push('/new/jobOffer')}>Izveidot jaunu darba vakanci</button>
                                 </div>
                             }
-                            {companyPositions.length ?
+                            {companyPositions.length > 0 ?
                                 <>
                                     <h2 className="profile__companyRight__title">Darba Piedāvājumi</h2>
                                     <div className="profile__companyRight__scroll">
-                                        <ScrollJobs jobs={companyPositions} />
+                                        {companyPositions.map((possition, i) => {
+                                            return (
+                                                <CompanyJob 
+                                                    key={i}
+                                                    info={possition}
+                                                />
+                                            )
+                                        })}
                                     </div>
                                 </> :
                                 <div className="profile__right__no-details">
