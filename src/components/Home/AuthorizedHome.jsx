@@ -94,7 +94,7 @@ function AuthorizedHome() {
     const [activeJobOption, setActiveJobOption] = useState('long term');
 
     useEffect(() => {
-        if(!activeJobPanel){
+        if(!activeJobPanel && scrollJobs){
             setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />)
         }
     }, [activeJobPanel, scrollJobs]);
