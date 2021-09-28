@@ -95,3 +95,20 @@ export const removeFromSaved = (swiped, token, dispatch, all) => {
         dispatch(handleLoading(false));
     });
 };
+
+export const companyGetUsersSwiped = (token, dispatch) => {
+    const headers = {
+        headers: {
+            Authorization: `Token ${token}`
+        }
+    }
+
+    axios.get(
+        `${COMPANY_SWIPING_LIST_VIEW}?jobseeker_accepted=True`,
+        headers,
+    ).then((res) => {
+        dispatch(setSwipedPossitions(res.data));
+    }).catch((err) => {
+
+    });
+}

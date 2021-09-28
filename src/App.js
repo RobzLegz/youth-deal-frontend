@@ -33,7 +33,7 @@ import { infoData } from './slices/info/infoSlice';
 import { getUserChats } from './logic/chat/chatOptions';
 import { chatData } from './slices/chat/chatSlice';
 import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
-import { getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
+import { companyGetUsersSwiped, getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
 import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 
 
@@ -75,6 +75,12 @@ function App() {
       getProffessionCategories(dispatch);
     }
   }, [proffessionInfo.proffessions, dispatch, proffessionInfo.categories]);
+
+  useEffect(() => {
+    if(userInfo.info && userInfo.info.is_employer && userInfo.accessToken !== "" && !userInfo.swipedPossitions){
+      companyGetUsersSwiped(userInfo.accessToken, dispatch);
+    }
+  }, [userInfo.info, userInfo.accessToken, dispatch, userInfo.swipedPossitions]);
 
   useEffect(() => {
     if(userInfo.accessToken && userInfo.accessToken !== "" && userInfo.info && !userInfo.info.is_employer && !userInfo.swipedPossitions){

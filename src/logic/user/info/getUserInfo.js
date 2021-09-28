@@ -3,7 +3,7 @@ import { setActiveChat } from "../../../slices/chat/chatSlice";
 import { handleLoading, resetLoadingState, updateLoadingMessage, updateLoadingStage, updateTotalStages } from "../../../slices/loading/loadingSlice";
 import { setSearchInfo } from "../../../slices/searchresults/searchResultSlice";
 import { login, setUserInfo } from "../../../slices/user/userSlice";
-import { USER_INFO } from "../../api/apiRoutes";
+import { USER_INFO, USER_PROFILE } from "../../api/apiRoutes";
 
 
 export const getUserInfo = (accessToken, dispatch, totalStages) => {
@@ -53,5 +53,22 @@ export const getUserChatHeaderInfo = (user, dispatch) => {
         dispatch(setActiveChat(res.data));
     }).catch((err) => {
         console.log(err)
+    });
+};
+
+export const getJobseekerInfo = (id, setInfo) => {
+    axios.get(`${USER_PROFILE}/${id}`).then((res) => {
+        setInfo(res.data);
+    }).catch((err) => {
+        console.log(err)
+    });
+};
+
+
+export const getJobOfferUserinfo = (userID, setInfo) => {
+    axios.get(`${USER_INFO}/${userID}/`).then((res) => {
+        setInfo(res.data);
+    }).catch((err) => {
+        console.log(err);
     });
 };
