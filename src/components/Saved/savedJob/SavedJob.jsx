@@ -14,7 +14,6 @@ import { useDispatch } from 'react-redux';
 function SavedJob({info, filter}) {
     const userInfo = useSelector(userData);
 
-    const [following, setFollowing] = useState(false);
     const [companyInfo, setCompanyInfo] = useState(null);
     const [jobOfferInfo, setJobOfferInfo] = useState(null);
 
@@ -74,8 +73,7 @@ function SavedJob({info, filter}) {
                     <div className="info">
                         <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
                         <small>{relativeTime(jobOfferInfo.post_time)}</small>
-                    </div>
-                    <button onClick={() => setFollowing(!following)} className={following ? "job-panel__top__following" : "job-panel__top__notFollowing"}>{following ? "- Atsekot" : "+ Sekot"}</button>
+                </div>
                 </div>
                 <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
                     value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? 'Nezināma' : 
