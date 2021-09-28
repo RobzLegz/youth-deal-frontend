@@ -84,7 +84,10 @@ function Home({categoryRef, admRef, homeTop}){
                 </p>
                 
                 <p className="home__find-talents__desc">
-                    Vai vēlies atrast komandas biedrus savam projektam? Pievieno piedāvājumu, saņem pieteikumus un atlasi labākos!
+                    Vai vēlies atrast komandas biedrus savam projektam? 
+                </p>
+                <p className="home__find-talents__desc" id="second">
+                    Pievieno piedāvājumu, saņem pieteikumus un atlasi labākos!  
                 </p>
 
                 <button className='home__find-talents__find-together' onClick={() => history.push("/register")}>Atrast kopā ar Youth Deal</button>
@@ -104,7 +107,7 @@ function Home({categoryRef, admRef, homeTop}){
                 <div className="home__info__adm">
                     <p className="home__info__adm__title">#ADM</p>
                     <p className="home__info__adm__desc">
-                        Ja Tu pašlaik esi aktīvā darba meklēšanā (#ADM), tad šī loma ir piemērota tieši Tev! Atzīmē to reģistrācijas laikā vai arī jebkurā brīdī profila iestatījumos, un 
+                        Ja Tu pašlaik esi aktīvā darba meklēšanā (#ADM), tad šī loma ir piemērota tieši Tev! Atzīmē to reģistrācijas laikā vai arī jebkurā brīdī profila iestatījumos
                     </p>
                     <img src={adm} alt="ADM" data-aos="zoom-out" data-aos-easing="ease-out-cubic"/>
                     <button onClick={() => history.push("/register")} id="start">Sākt</button>
@@ -132,20 +135,20 @@ function Home({categoryRef, admRef, homeTop}){
                             <a href="#youtube" className="footer__links__block__link">YouTube</a>
                         </div>
                     </div>
-                <div className="footer__info">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="282.734" height="121.223" viewBox="0 0 282.734 121.223">
-                        <g id="Logo" transform="translate(4.725 3.5)">
-                            <g id="Group_2" data-name="Group 2" transform="translate(0 13.723)">
-                            <text id="Youth_Deal" data-name="Youth Deal" transform="translate(0 67)" fill="#7D7D7D" fontSize="41" fontFamily="Bungee-Regular, Bungee"><tspan x="0" y="0" fill="#7D7D7D">Youth </tspan><tspan y="0" fill="#7D7D7D">Deal</tspan></text>
+                    <div className="footer__info">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="282.734" height="121.223" viewBox="0 0 282.734 121.223">
+                            <g id="Logo" transform="translate(4.725 3.5)">
+                                <g id="Group_2" data-name="Group 2" transform="translate(0 13.723)">
+                                <text id="Youth_Deal" data-name="Youth Deal" transform="translate(0 67)" fill="#7D7D7D" fontSize="41" fontFamily="Bungee-Regular, Bungee"><tspan x="0" y="0" fill="#7D7D7D">Youth </tspan><tspan y="0" fill="#7D7D7D">Deal</tspan></text>
+                                </g>
+                                <path id="Path_4" data-name="Path 4" d="M0,4.593S52.391-22.854,120.791-22.854,273.6,4.593,273.6,4.593" transform="translate(0 22.854)" fill="none" stroke="#7D7D7D" strokeLinecap="round" strokeWidth="7" strokeDasharray="25"/>
                             </g>
-                            <path id="Path_4" data-name="Path 4" d="M0,4.593S52.391-22.854,120.791-22.854,273.6,4.593,273.6,4.593" transform="translate(0 22.854)" fill="none" stroke="#7D7D7D" strokeLinecap="round" strokeWidth="7" strokeDasharray="25"/>
-                        </g>
-                    </svg>
-                    <div className="footer__info__texts">
-                        <p id="first">Youth Deal ir ērtāka un inovatīvāka vide darba tirgum. Mēs sniedzam iespēju ikvienam jaunietim atrast sev piemērotu darbu un sākt veidot savu karjeru. Kā arī palīdzam ikvienam darba devējam atrast vispiemērotāko darbinieku.
-                        -Atrodi vispiemērotāko kopā ar Youth Deal.</p>
+                        </svg>
+                        <div className="footer__info__texts">
+                            <p id="first">Youth Deal ir ērtāka un inovatīvāka vide darba tirgum. Mēs sniedzam iespēju ikvienam jaunietim atrast sev piemērotu darbu un sākt veidot savu karjeru. Kā arī palīdzam ikvienam darba devējam atrast vispiemērotāko darbinieku.
+                            -Atrodi vispiemērotāko kopā ar Youth Deal.</p>
+                        </div>
                     </div>
-                </div>
                 </div>
                 <div id="footer__row-second">
                     <div className="footer__copyright">

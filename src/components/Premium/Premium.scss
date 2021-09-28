@@ -31,6 +31,8 @@
             }
 
             h3{
+                font-size: 26px;
+                font-family: 'Hammersmith One', sans-serif;
                 margin-left: 10px;
             }
         }
@@ -63,8 +65,12 @@
             text-align: center;
 
             p{
-                font-size: 20px;
-                color: #505050;
+                font-family: 'Manrope',sans-serif;
+                font-size: 18px;
+                color: #000;
+                &:last-child{
+                    margin-bottom:10px;
+                }
             }
         }
 
@@ -82,10 +88,13 @@
                     align-items: center;
                     justify-content: flex-start;
                     margin-bottom: 15px;
+                    //font-family: 'Hammersmith One', sans-serif;
+                    font-size: 20px;
+                    font-weight: 100;
 
                     img{
-                        width: 30px;
-                        height: 30px;
+                        width: 40px;
+                        height: 40px;
                     }
 
                     h4{
@@ -143,6 +152,14 @@
 
 @media (max-width: 500px) {
     .premium {
+        &__header{
+            &__option,
+            &__optionActive{
+                h3{
+                    font-size: 20px;
+                }
+            }
+        }
         &__body {
             &__bottom {
                 &__reasons {
@@ -152,3 +169,16 @@
         }
     }
 }
+@media (max-width: 415px) {
+    .premium {
+        &__header{
+            &__option,
+            &__optionActive{
+                h3{
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}
+
