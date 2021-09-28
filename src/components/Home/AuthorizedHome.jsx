@@ -90,8 +90,24 @@ function AuthorizedHome() {
         }
     };
 
-    const [activeJobPanel, setActiveJobPanel] = useState(<ScrollJobs jobs={scrollJobs} />);
+    const [activeJobPanel, setActiveJobPanel] = useState(null);
     const [activeJobOption, setActiveJobOption] = useState('long term');
+
+    useEffect(() => {
+        if(!activeJobPanel){
+            setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />)
+        }
+    }, [activeJobPanel, scrollJobs]);
+
+    useEffect(() => {
+        if(activeJobOption === "long term"){
+            setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />)
+        }else if(activeJobOption === "short term"){
+            setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />)
+        }else if(activeJobOption === "woluntary job"){
+            setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />)
+        }
+    }, [activeJobOption, scrollJobs, swipeJobs, woluntaryJobs]);
 
     const chatInfo = useSelector(chatData);
     const proffessionInfo = useSelector(proffessionData);
@@ -177,23 +193,18 @@ function AuthorizedHome() {
                             <div className="auth-home__middle__fixed">
                                 <div className="auth-home__middle__job-options panel">
                                     <div onClick={() => {
-                                        if(scrollJobs){
-                                            setActiveJobPanel(<ScrollJobs jobs={scrollJobs} />);
-                                        }
                                         setActiveJobOption('long term');
                                     }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'long term' ? 'active' : ''}`}>
                                         <h3>Ilgtermiņa <span>darbi</span></h3>
                                         <div className="active-line"></div>
                                     </div>
                                     <div onClick={() => {
-                                        setActiveJobPanel(<SwipeJobs jobs={swipeJobs} />);
                                         setActiveJobOption('short term');
                                     }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'short term' ? 'active' : ''}`}>
                                         <h3>Īstermiņa <span>darbi</span></h3>
                                         <div className="active-line"></div>
                                     </div>
                                     <div onClick={() => {
-                                        setActiveJobPanel(<ScrollJobs jobs={woluntaryJobs} />);
                                         setActiveJobOption('woluntary job');
                                     }} className={`auth-home__middle__job-options__job-option ${activeJobOption === 'woluntary job' ? 'active' : ''}`}>
                                         <h3>Brīvprātīgie <span>darbi</span></h3>
@@ -212,7 +223,7 @@ function AuthorizedHome() {
                                 )}
                             </div>
                             {
-                                (scrollJobs && swipeJobs && woluntaryJobs && activeJobPanel) && (
+                                (scrollJobs && swipeJobs && woluntaryJobs) && (
                                     <div className={`auth-home__middle__jobs ${pageInfo.filterTags && 'extra-top-margin'}`}>
                                         {activeJobPanel}
                                     </div>
