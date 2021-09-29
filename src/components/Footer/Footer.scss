@@ -30,6 +30,7 @@
     &__links {
     display: flex;
     align-items: flex-start;
+    padding-left: 150px;
         &__block {
             color: #7D7D7D;
             margin-right: 30px;
@@ -55,11 +56,11 @@
 // Footer info
 .footer {
     &__info {
-        max-width: 700px;
+        max-width: 760px;
         width: 100%;
         display: flex;
         align-items: center;
-        
+        padding-right:0px;
         svg {
             min-width:150px;
             margin-right: 6%;
@@ -104,11 +105,13 @@
         &__links {
             width: 100%;
             justify-content: space-evenly;
+            padding-left:0px;
             &__block {
                 margin: 0 6px;
             }
         }
         &__info {
+            padding-right: 0px;
             margin: 30px 0;
             flex-direction: column;
             svg {

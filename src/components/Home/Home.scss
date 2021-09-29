@@ -214,6 +214,10 @@
             font-family: 'Manrope', sans-serif;
             font-weight:400;
         }
+        #second{
+            margin-top: -10px;
+            margin-bottom: 30px;
+        }
         &__find-together {
             color: white;
             background: $buttonBg;
@@ -309,15 +313,14 @@
 .home{
     &__footer{
         text-align:center;
-        padding-left: 150px;
         border-top: 1px solid #707070;
     }
 }
 @media(max-width:1024px){
     .home{
         &__footer{
-            padding-left: 0px;
             padding-top: 50px;
+            
         }
     }
 }
@@ -441,35 +444,6 @@
                         height: 25vw !important;
                         font-size: 4vw;
                     }
-                }
-            }
-        }
-        &__find-options {
-            &__left {
-                text-align: center;
-                h3 {
-                    font-size: 5vw;
-                }
-            }
-        }
-        &__find-talents {
-            padding: 0 20px;
-            &__title {
-                font-size: 5.5vw;
-            }
-            &__desc {
-                font-size: 3.5vw;
-            }
-            &__find-together {
-                font-size: 3vw;
-                padding: 4vw 10vw !important;
-            }
-        }
-        &__info {
-            &__contacts, &__adm {
-                height: 300px;
-                &__desc {
-                    max-width: 90%;
                 }
             }
         }
