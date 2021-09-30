@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './Profile.scss'
 
-import pen from '../../assets/svg/pen.svg';
+import pen from '../../assets/svg/editing.svg';
 import CloseIcon from '../../assets/svg/close.svg';
 import calendar from '../../assets/svg/calendar.svg';
-import marker from '../../assets/svg/marker.svg';
+import marker from '../../assets/svg/location.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 import CompanyAvatar from '../../assets/svg/company.svg';
 import EmailIcon from '../../assets/svg/email.svg';
@@ -148,11 +148,11 @@ function Profile(){
 
                         <div className="profile__left__middle">
                             <ProfileMiddleRow icon={Www} iconAlt="www" title="Mājas lapa" value={searchInfo.info.profile.website_url ? searchInfo.info.profile.website_url : 'Nav'} />
-                            <ProfileMiddleRow icon={People} iconAlt="people" title="darbinieku skaits" value={searchInfo.info.profile.company_size ? searchInfo.info.profile.company_size : 'Nezināms'} />
+                            <ProfileMiddleRow icon={People} iconAlt="people" title="darbinieku skaits" value={searchInfo.info.profile.company_size ? searchInfo.info.profile.company_size : 'Nav ievadīts'} />
                             <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.profile.phone_number ? searchInfo.info.profile.phone_number : 'Nav'} />
                             <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
                             <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
-                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nav ievadīta' : 
                                 <>
                                     {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
                                     <>
@@ -243,9 +243,9 @@ function Profile(){
                         </div>
         
                         <div className="profile__left__middle">
-                            <ProfileMiddleRow icon={calendar} iconAlt="calendar" title="dzimšanas datums" value={searchInfo.info.profile.birth_date ? searchInfo.info.profile.birth_date : 'Nezināms'} />
-                            <ProfileMiddleRow icon={marker} iconAlt="location" title="atrašanās vieta"
-                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nezināma' : 
+                            <ProfileMiddleRow icon={calendar} iconAlt="calendar" title="Dzimšanas datums" value={searchInfo.info.profile.birth_date ? searchInfo.info.profile.birth_date : 'Nav ievadīts'} />
+                            <ProfileMiddleRow icon={marker} iconAlt="location" title="Atrašanās vieta"
+                                value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nav ievadīta' : 
                                 <>
                                     {(searchInfo.info.profile.country && searchInfo.info.profile.city) ? `${searchInfo.info.profile.country}, ${searchInfo.info.profile.city}` :
                                     <>
@@ -275,7 +275,7 @@ function Profile(){
                                     <div className="profile__right__section__header">
                                         <p className="profile__right__section__header__title">Izglītība</p>
                                         {isUsersProfile && searchInfo.info.profile.knowledge && searchInfo.info.profile.knowledge !== '' &&
-                                            <img src={editingKnowledge ? CloseIcon : pen} alt="edit" onClick={() => setEditingKnowledge(!editingKnowledge)} />
+                                            <img className='profile__right__section__header__edit' src={editingKnowledge ? CloseIcon : pen} alt="edit" onClick={() => setEditingKnowledge(!editingKnowledge)} />
                                         }
                                     </div>
                                     <div className="profile__right__section__items">
@@ -297,7 +297,7 @@ function Profile(){
                                     <div className="profile__right__section__header">
                                         <p className="profile__right__section__header__title">{userInfo.info.profile.is_active_jobseeker ? "Pēdējais amats" : "Esošais amats"}</p>
                                         {isUsersProfile && searchInfo.info.profile.experience && searchInfo.info.profile.experience !== '' &&
-                                            <img src={editingLastJob ? CloseIcon : pen} alt="edit" onClick={() => setEditingLastJob(!editingLastJob)} />
+                                            <img className='profile__right__section__header__edit' src={editingLastJob ? CloseIcon : pen} alt="edit" onClick={() => setEditingLastJob(!editingLastJob)} />
                                         }
                                     </div>
                                     <div className="profile__right__section__items">
@@ -319,7 +319,7 @@ function Profile(){
                                     <div className="profile__right__section__header">
                                         <p className="profile__right__section__header__title">Papildus prasmes</p>
                                         {isUsersProfile && searchInfo.info.profile.extra && searchInfo.info.profile.extra !== '' &&
-                                            <img src={editingExtraSkills ? CloseIcon : pen} alt="edit" onClick={() => setEditingExtraSkills(!editingExtraSkills)} />
+                                            <img className='profile__right__section__header__edit' src={editingExtraSkills ? CloseIcon : pen} alt="edit" onClick={() => setEditingExtraSkills(!editingExtraSkills)} />
                                         }
                                     </div>
                                     <div className="profile__right__section__items">

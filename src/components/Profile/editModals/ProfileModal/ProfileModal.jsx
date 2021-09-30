@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dropdown from '../../../../assets/svg/dropdown.svg'
 import close from '../../../../assets/svg/close.svg'
-import marker from '../../../../assets/svg/marker.svg'
 import Avatar from '../../../../assets/svg/avatar.svg'
 
 import './ProfileModal.scss';
@@ -272,7 +271,6 @@ function ProfileModal({handleProfileModal}){
                         <label htmlFor="country">Valsts:</label>
                         <div className="profileModal__inner__personal-information__input-group__custom-input">
                             <div onClick={() => setCountryListOpen(true)}>
-                                <img src={marker} alt="dropdown" />
                                 <input
                                     type="text"
                                     name='country' 
@@ -299,7 +297,6 @@ function ProfileModal({handleProfileModal}){
                         <label htmlFor="city">Pilsēta:</label>
                         <div className="profileModal__inner__personal-information__input-group__custom-input">
                             <div onClick={() => setCityListOpen(true)}>
-                                <img src={marker} alt="dropdown" />
                                 <input
                                     type="text"
                                     name='city' 
