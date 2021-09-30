@@ -80,7 +80,7 @@ function CompanyJob({info}) {
                         <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
                     )}
                 </div>
-                <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
+                <Location icon={Marker} iconAlt="marker" title="Atrašanās vieta"
                     value={(!info.position_city && !info.position_country) ? 'Nezināma' :
                         <>
                             {(info.position_country && info.position_city) ? `${info.position_country}, ${info.position_city}` :
@@ -91,11 +91,11 @@ function CompanyJob({info}) {
                         </>}
                 />
                 <div className="job-panel__requirements">
-                    <p className="job-panel__requirements__title">Prasmes un Pienmākumi</p>
+                    <p className="job-panel__requirements__title">Prasmes un pienākumi</p>
                     <p>{info.position_requirements}</p>
                 </div>
                 <div className="job-panel__info">
-                    <p className="job-panel__info__title">Darba Apraksts</p>
+                    <p className="job-panel__info__title">Darba apraksts</p>
                     <p>{info.position_info}</p>
                 </div>
                 <div className="job-panel__bottom">

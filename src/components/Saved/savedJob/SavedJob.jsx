@@ -75,7 +75,7 @@ function SavedJob({info, filter}) {
                         <small>{relativeTime(jobOfferInfo.post_time)}</small>
                 </div>
                 </div>
-                <Location icon={Marker} iconAlt="marker" title="atrašanās vieta"
+                <Location icon={Marker} iconAlt="marker" title="Atrašanās vieta"
                     value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? 'Nezināma' : 
                     <>
                         {(jobOfferInfo.position_country && jobOfferInfo.position_city) ? `${jobOfferInfo.position_country}, ${jobOfferInfo.position_city}` :
@@ -86,11 +86,11 @@ function SavedJob({info, filter}) {
                     </>}
                 />
                 <div className="saved-job__info">
-                    <p className="saved-job__info__title">Darba Apraksts</p>
+                    <p className="saved-job__info__title">Darba apraksts</p>
                     <p>{jobOfferInfo.position_info}</p>
                 </div>
                 <div className="saved-job__requirements">
-                    <p className="saved-job__requirements__title">Darba Pienmākumi</p>
+                    <p className="saved-job__requirements__title">Darba pienākumi</p>
                     <p>{jobOfferInfo.position_requirements}</p>
                 </div>
                 <div className="saved-job__bottom">
