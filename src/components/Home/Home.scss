@@ -235,6 +235,7 @@
             position: relative;
             width: 900px;
             height: 100%;
+            max-height: calc(100% - 180px);
         }
     }
 }
