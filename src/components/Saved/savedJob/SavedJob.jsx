@@ -24,10 +24,10 @@ function SavedJob({info, filter}) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!possitionProffession){
-            getPossitionProffession(info.position_occupation, setPossitionProffession)
+        if(!possitionProffession && jobOfferInfo && jobOfferInfo.position_occupation){
+            getPossitionProffession(jobOfferInfo.position_occupation, setPossitionProffession)
         }
-    }, [info.position_occupation, possitionProffession]);
+    }, [jobOfferInfo, possitionProffession]);
 
     useEffect(() => {
         if(!companyInfo){
@@ -95,9 +95,9 @@ function SavedJob({info, filter}) {
                     </>}
                 />
                 <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
-                {info.photo && (
+                {jobOfferInfo.photo && (
                     <div>
-                        <img src={info.photo} alt="jobOffer" className="job-panel__photo" />
+                        <img src={jobOfferInfo.photo} alt="jobOffer" className="job-panel__photo" />
                     </div>
                 )}
                 <div className="saved-job__info">
