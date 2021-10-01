@@ -56,7 +56,7 @@ export const getUserAcceptedJobOffers = (token, dispatch) => {
     };
 
     axios.get(
-        `${COMPANY_SWIPING_LIST_VIEW}?jobseeker_accepted=True`,
+        `${COMPANY_SWIPING_LIST_VIEW}`,
         headers
     ).then((res) => {
         dispatch(setSwipedPossitions(res.data));
