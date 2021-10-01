@@ -58,7 +58,7 @@ function Premium() {
                         <ul className="premium__body__bottom__reasons">
                             <li>
                                 <img src={Statistics} alt="secure" />
-                                <h4>Pieejama statistika, kā darba devēji mijiedarbojas ar taviem sludinājumiem</h4>
+                                <h4>Pieejama statistika, kā darba ņēmēji mijiedarbojas ar taviem sludinājumiem</h4>
                             </li>
                             <li>
                                 <img src={Search} alt="secure" />
@@ -72,7 +72,7 @@ function Premium() {
                                 <img src={Offers} alt="secure" />
                                 <h4>Vienlaikus var ievietot 4 vai vairāk sludinājumu</h4>
                             </li>
-                            <button>3.99/Mēnesī. ABONĒT</button>
+                            <button>20€/Mēnesī. ABONĒT</button>
                         </ul>
                     ) : (
                         <ul className="premium__body__bottom__reasons">
@@ -81,20 +81,12 @@ function Premium() {
                                 <h4>Paziņojumi par jauniem darba sludinājumiem</h4>
                             </li>
                             <li>
-                                <img src={Statistics} alt="secure" />
-                                <h4>Pieejama statistika, kā darba devēji mijiedarbojas ar taviem sludinājumiem</h4>
-                            </li>
-                            <li>
-                                <img src={Search} alt="secure" />
-                                <h4>Advancēta meklēšana</h4>
-                            </li>
-                            <li>
                                 <img src={Salary} alt="secure" />
                                 <h4>Sīkāks algas pārskats</h4>
                             </li>
                             <li>
                                 <img src={Video} alt="secure" />
-                                <h4>Pieeja video materiālu bāzei</h4>
+                                <h4>Pieeja video pamācību materiālu bāzei</h4>
                             </li>
                             <li>
                                 <img src={CV} alt="secure" />
@@ -105,9 +97,9 @@ function Premium() {
                                 <h4>Iespējams vienlaicīgi pieteikties vairākiem darba piedāvājumiem</h4>
                             </li>
                             {userInfo.info && !userInfo.info.has_premium ? (
-                                <button>3.99/Mēnesī. ABONĒT</button>
+                                <button>3.99€/Mēnesī. ABONĒT</button>
                             ) : !userInfo.info && (
-                                <button>3.99/Mēnesī. ABONĒT</button>
+                                <button>3.99€/Mēnesī. ABONĒT</button>
                             )}
                         </ul>
                     )}
