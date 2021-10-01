@@ -13,6 +13,7 @@ import People from '../../assets/svg/people.svg';
 import Www from '../../assets/svg/www.svg';
 import ProfileNotComplete from '../../assets/svg/Profile/profile-not-complete.svg';
 import NoJobOffers from '../../assets/svg/Profile/no-job-offers.svg';
+import Star from '../../assets/svg/Profile/star.svg';
 
 import ProfileModal from './editModals/ProfileModal/ProfileModal';
 import { useSelector } from 'react-redux';
@@ -254,6 +255,7 @@ function Profile(){
                                     </>}
                                 </>}
                             />
+                            <ProfileMiddleRow icon={Star} iconAlt="star" title="Sakrātās zvaigznītes" value="13" />
                         </div>
         
                         <div className="profile__left__bottom">
