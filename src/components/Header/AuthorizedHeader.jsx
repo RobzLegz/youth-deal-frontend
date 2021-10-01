@@ -78,19 +78,18 @@ function AuthorizedHeader() {
 
     const TopRight = () => {
         return <div className="header__top__right">
-            <div className="header__top__right__user-wrapper" onClick={() => { history.push(`/profile/${userInfo.info.id}`); setOpen(false); }}>
+            <div className="header__top__right__user-wrapper">
                 <img
                     className="header__top__right__user-wrapper__profile__image"
                     src={userInfo.info.profile.photo ? userInfo.info.profile.photo : Avatar}
+                    onClick={() =>  history.push(`/profile/${userInfo.info.id}`)}
                     alt="profile"
                 />
                 <p>{isCompany ? `${userInfo.info.profile.company_name}` : `${userInfo.info.first_name} ${userInfo.info.last_name}`}</p>
+                <img onClick={() => setOpen(!open)} src={dropdown} alt="dropdown" id="image"/>
             </div>
-            <div onClick={() => setOpen(!open)} id="dropdown">
-                <span>
-                    {innerWidth < 1024 && <p>Extra Options</p>}
-                    <img src={dropdown} alt="dropdown" />
-                </span>
+            
+            <div  id="dropdown">
                     {open && (
                         <div className="dropdown">
                             <ul>
