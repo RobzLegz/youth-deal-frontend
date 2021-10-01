@@ -147,9 +147,11 @@
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
+            overflow-y: hidden;
             &__tag {
                 display: flex;
                 flex-wrap: nowrap;
+                white-space: nowrap;
                 align-items: center;
                 padding: .4rem !important;
                 margin: .3rem;
