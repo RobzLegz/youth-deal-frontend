@@ -85,7 +85,7 @@ function AuthorizedHeader() {
                     onClick={() =>  history.push(`/profile/${userInfo.info.id}`)}
                     alt="profile"
                 />
-                <p>{isCompany ? `${userInfo.info.profile.company_name}` : `${userInfo.info.first_name} ${userInfo.info.last_name}`}</p>
+                <p onClick={() =>  history.push(`/profile/${userInfo.info.id}`)}>{isCompany ? `${userInfo.info.profile.company_name}` : `${userInfo.info.first_name} ${userInfo.info.last_name}`}</p>
                 <img onClick={() => setOpen(!open)} src={dropdown} alt="dropdown" id="image"/>
             </div>
             
