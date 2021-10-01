@@ -149,7 +149,7 @@ function Profile(){
                         <div className="profile__left__middle">
                             <ProfileMiddleRow icon={Www} iconAlt="www" title="Mājas lapa" value={searchInfo.info.profile.website_url ? searchInfo.info.profile.website_url : 'Nav'} />
                             <ProfileMiddleRow icon={People} iconAlt="people" title="darbinieku skaits" value={searchInfo.info.profile.company_size ? searchInfo.info.profile.company_size : 'Nav ievadīts'} />
-                            <ProfileMiddleRow icon={Phone} iconAlt="phone" title="nummurs" value={searchInfo.info.profile.phone_number ? searchInfo.info.profile.phone_number : 'Nav'} />
+                            <ProfileMiddleRow icon={Phone} iconAlt="phone" title="numurs" value={searchInfo.info.profile.phone_number ? searchInfo.info.profile.phone_number : 'Nav'} />
                             <ProfileMiddleRow icon={EmailIcon} iconAlt="email" title="e-pasts" value={searchInfo.info.email ? searchInfo.info.email : 'Nav'} />
                             <ProfileMiddleRow icon={marker} iconAlt="marker" title="atrašanās vieta"
                                 value={(!searchInfo.info.profile.city && !searchInfo.info.profile.country) ? 'Nav ievadīta' : 

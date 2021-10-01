@@ -29,6 +29,8 @@ function NewJobOffer() {
     const [showCountries, setShowCountries] = useState(false);
     const [lastSearchCountry, setLastSearchCountry] = useState(null);
     const [firstLoad, setFirstLoad] = useState(true);
+    const [photo, setPhoto] = useState(null);
+    const [previewPhoto, setPreviewPhoto] = useState(null);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -55,6 +57,12 @@ function NewJobOffer() {
         setShowCountries(false);
     }
 
+    const uploadPhoto = (e) => {
+        setPreviewPhoto(URL.createObjectURL(e.target.files[0]));
+        setPhoto(e.target.files[0]);
+        console.log(URL.createObjectURL(e.target.files[0]))
+    }
+
     const submitData = (e) => {
         e.preventDefault();
         if(contractType === "woluntary job"){
@@ -71,6 +79,7 @@ function NewJobOffer() {
                         requirements,
                         price,
                         contractType,
+                        photo,
                         userInfo.accessToken,
                         dispatch,
                         history
@@ -115,7 +124,7 @@ function NewJobOffer() {
                             type="text" 
                             name="offers" 
                             id="offers" 
-                            placeholder="Darbinieka prasmes"
+                            placeholder="Uzņēmums piedāvā"
                             autoComplete="off"
                             value={requirements}
                             onChange={(e) => setRequirements(e.target.value)}
@@ -249,6 +258,19 @@ function NewJobOffer() {
                             />
                         </div>
                     )}
+                    <div className="newJobOffer__inner__form__labelInpContainer">
+                        {previewPhoto && (
+                            <img src={previewPhoto} alt="preview" />
+                        )}
+                        <label htmlFor="photo">{previewPhoto ? "Mainīt" : "Pievienot"} foto</label>
+                        <input 
+                            type="file" 
+                            name="photo" 
+                            id="photo" 
+                            accept="image/*"
+                            onChange={(e) => uploadPhoto(e)}
+                        />
+                    </div>
                     <button className="newJobOffer__inner__form__button" onClick={(e) => submitData(e)}>Iesniegt</button>
                 </form>
             </div>

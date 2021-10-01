@@ -3,11 +3,11 @@ import '../../Home/JobsPanel/ScrollJobs.scss';
 import EditJobsModal from '../../Home/EditJobsModal/EditJobsModal';
 import Pen from '../../../assets/svg/pen.svg';
 import Marker from '../../../assets/svg/marker.svg';
+import Suitcase from '../../../assets/svg/suitcase.svg';
 import { useSelector } from 'react-redux'
 import { userData } from '../../../slices/user/userSlice'
-import { useDispatch } from 'react-redux';
 import { getCompanyInfoById } from '../../../logic/company/info/companyInfo';
-import { jobSeekerAcceptJobOffer } from '../../../logic/jobOffers/swipe';
+import {getPossitionProffession} from "../../../logic/user/proffessions/proffessions"
 
 function CompanyJob({info}) {
     const userInfo = useSelector(userData);
@@ -15,8 +15,13 @@ function CompanyJob({info}) {
 
     const [companyInfo, setCompanyInfo] = useState(null);
     const [editing, setEditing] = useState(false);
+    const [possitionProffession, setPossitionProffession] = useState(null);
 
-    const dispatch = useDispatch();
+    useEffect(() => {
+        if(!possitionProffession){
+            getPossitionProffession(info.position_occupation, setPossitionProffession)
+        }
+    }, [info.position_occupation, possitionProffession]);
 
     useEffect(() => {
         if (!companyInfo) {
@@ -64,7 +69,7 @@ function CompanyJob({info}) {
         );
     };
 
-    if (userSwiped !== null && companyInfo) {
+    if(companyInfo && possitionProffession) {
         return (
             <div className="job-panel panel">
 
@@ -90,18 +95,21 @@ function CompanyJob({info}) {
                                 </>}
                         </>}
                 />
+                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                {info.photo && (
+                    <div>
+                        <img src={info.photo} alt="info" className="job-panel__photo" />
+                    </div>
+                )}
                 <div className="job-panel__requirements">
                     <p className="job-panel__requirements__title">Prasmes un pienākumi</p>
-                    <p>{info.position_requirements}</p>
-                </div>
-                <div className="job-panel__info">
-                    <p className="job-panel__info__title">Darba apraksts</p>
                     <p>{info.position_info}</p>
                 </div>
+                <div className="job-panel__info">
+                    <p className="job-panel__info__title">Kompānija piedāvā</p>
+                    <p>{info.position_requirements}</p>
+                </div>
                 <div className="job-panel__bottom">
-                    {!userInfo.info.is_employer &&
-                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(info.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
-                    }
                     <div className="job-panel__bottom__price-wrapper">
                         <small>SĀKOT NO</small>
                         <h2>€ {info.price_range}/mēnesī</h2>

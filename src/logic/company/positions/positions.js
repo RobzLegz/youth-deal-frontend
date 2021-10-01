@@ -3,17 +3,22 @@ import { setJobOffers } from "../../../slices/info/infoSlice";
 import { handleLoading } from "../../../slices/loading/loadingSlice";
 import { COMPANY_POSITIONS, COMPANY_POSITION_OPTIONS } from "../../api/apiRoutes";
 
-export const newPossition = (occupation, info, city, country, requirements, priceRange, contractType, accessToken, dispatch, history) => {
+export const newPossition = (occupation, info, city, country, requirements, priceRange, contractType, photo, accessToken, dispatch, history) => {
     dispatch(handleLoading(true));
-    const data = {
-        position_occupation: occupation,
-        position_info: info,
-        position_city: city,
-        position_country: country,
-        position_requirements: requirements,
-        price_range: priceRange,
-        contract_type: contractType,
-    };
+
+    const data = new FormData();
+
+    if(photo){
+        data.append("photo", photo)
+    }
+    
+    data.append("position_occupation", occupation)
+    data.append("position_info", info)
+    data.append("position_city", city)
+    data.append("position_country", country)
+    data.append("position_requirements", requirements)
+    data.append("price_range", priceRange)
+    data.append("contract_type", contractType)
 
     const headers = {
         headers: {

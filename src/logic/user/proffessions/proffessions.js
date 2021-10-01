@@ -34,3 +34,13 @@ export const getUserJobNoSearch = (id, dispatch, allOccupations) => {
         });
     }
 }
+
+export const getPossitionProffession = (id, setData) => {
+    if(id){
+        axios.get(`${ONE_OCCUPATION}/${id}/`).then((res) => {
+            setData(res.data.title);
+        }).catch((err) => {
+            console.log(err.message);
+        });
+    }
+}

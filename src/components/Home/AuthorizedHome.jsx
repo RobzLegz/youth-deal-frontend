@@ -185,7 +185,7 @@ function AuthorizedHome() {
                                     </div>
                                 </>
                             ) : (
-                                <p>Neviens lietotājs nav akceptējis Jūsu darba pidāvājumu</p>
+                                <p className="auth-home__middle__no-users">Neviens lietotājs nav akceptējis Jūsu darba pidāvājumu</p>
                             )}
                             
                         </> :

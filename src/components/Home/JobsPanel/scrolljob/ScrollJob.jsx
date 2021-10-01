@@ -2,21 +2,30 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import Marker from '../../../../assets/svg/marker.svg';
 import Pen from '../../../../assets/svg/pen.svg';
+import Suitcase from '../../../../assets/svg/suitcase.svg';
 import { getCompanyInfoById } from '../../../../logic/company/info/companyInfo';
 import { userData } from '../../../../slices/user/userSlice';
 import { useHistory } from 'react-router-dom';
 import EditJobsModal from '../../EditJobsModal/EditJobsModal';
 import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 import { useDispatch } from 'react-redux';
+import {getPossitionProffession} from "../../../../logic/user/proffessions/proffessions"
 
 function ScrollJob({ jobOffer }) {
     const [companyInfo, setCompanyInfo] = useState(null);
     const [editing, setEditing] = useState(false);
+    const [possitionProffession, setPossitionProffession] = useState(null);
 
     const userInfo = useSelector(userData);
 
     const history = useHistory();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(!possitionProffession){
+            getPossitionProffession(jobOffer.position_occupation, setPossitionProffession)
+        }
+    }, [jobOffer.position_occupation, possitionProffession]);
 
     useEffect(() => {
         if(!companyInfo){
@@ -62,7 +71,7 @@ function ScrollJob({ jobOffer }) {
         );
     }
 
-    if(companyInfo && userInfo.accessToken !== ""){
+    if(companyInfo && userInfo.accessToken !== "" && possitionProffession){
         return (
             <div className="job-panel panel">
 
@@ -88,13 +97,19 @@ function ScrollJob({ jobOffer }) {
                         </>}
                     </>}
                 />
+                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                {jobOffer.photo && (
+                    <div>
+                        <img src={jobOffer.photo} alt="jobOffer" className="job-panel__photo" />
+                    </div>
+                )}
                 <div className="job-panel__requirements">
                     <p className="job-panel__requirements__title">Prasmes un pienākumi</p>
-                    <p>{jobOffer.position_requirements}</p>
+                    <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__info">
-                    <p className="job-panel__info__title">Darba apraksts</p>
-                    <p>{jobOffer.position_info}</p>
+                    <p className="job-panel__info__title">Kompānija piedāvā</p>
+                    <p>{jobOffer.position_requirements}</p>
                 </div>
                 <div className="job-panel__bottom">
                     {!userInfo.info.is_employer &&
