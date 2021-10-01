@@ -255,7 +255,7 @@ function Profile(){
                                     </>}
                                 </>}
                             />
-                            <ProfileMiddleRow icon={Star} iconAlt="star" title="Sakrātās zvaigznītes" value="13" />
+                            <ProfileMiddleRow icon={Star} iconAlt="star" title="Sakrātās zvaigznītes" value="0" />
                         </div>
         
                         <div className="profile__left__bottom">
