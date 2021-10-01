@@ -72,7 +72,7 @@ function Premium() {
                                 <img src={Offers} alt="secure" />
                                 <h4>Vienlaikus var ievietot 4 vai vairāk sludinājumu</h4>
                             </li>
-                            <button>20€/Mēnesī. ABONĒT</button>
+                            <button>19.99€/Mēnesī. ABONĒT</button>
                         </ul>
                     ) : (
                         <ul className="premium__body__bottom__reasons">
