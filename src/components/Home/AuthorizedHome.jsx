@@ -5,6 +5,7 @@ import CrownIcon from '../../assets/svg/crown.svg';
 import Avatar from '../../assets/svg/avatar.svg';
 import Bookmark2 from '../../assets/svg/bookmark2.svg';
 import CloseBlack from '../../assets/svg/close-black.svg';
+import NoUsers from '../../assets/svg/home/no-users.svg';
 
 import { useSelector } from 'react-redux';
 import { userData } from '../../slices/user/userSlice';
@@ -185,7 +186,10 @@ function AuthorizedHome() {
                                     </div>
                                 </>
                             ) : (
-                                <p className="auth-home__middle__no-users">Neviens lietotājs nav akceptējis Jūsu darba pidāvājumu</p>
+                                <div className="auth-home__middle__no-users">
+                                    <h3>Neviens lietotājs nav akceptējis Jūsu darba pidāvājumu</h3>
+                                    <img src={NoUsers} alt="users" />
+                                </div>
                             )}
                             
                         </> :

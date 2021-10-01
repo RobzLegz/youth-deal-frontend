@@ -193,7 +193,20 @@
             margin-bottom: .5rem;
         }
         &__no-users {
-
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            img {
+                width: 100%;
+                max-width: 390px;
+            }
+            h3 {
+                color: $grayColor;
+                font-size: 18px;
+                margin-bottom: 20px;
+                margin: 2rem 0;
+            }
         }
     }
     &__right {
