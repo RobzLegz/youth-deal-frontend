@@ -115,10 +115,12 @@ function ScrollJob({ jobOffer }) {
                     {!userInfo.info.is_employer &&
                         <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(1, jobOffer.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
                     }
-                    <div className="job-panel__bottom__price-wrapper">
-                        <small>SĀKOT NO</small>
-                        <h2>€ {jobOffer.price_range}/mēnesī</h2>
-                    </div>
+                    {jobOffer.price_range !== "00.00" && (
+                        <div className="job-panel__bottom__price-wrapper">
+                            <small>SĀKOT NO</small>
+                            <h2>€ {jobOffer.price_range}/mēnesī</h2>
+                        </div>
+                    )}
                 </div>
             </div>
         )
