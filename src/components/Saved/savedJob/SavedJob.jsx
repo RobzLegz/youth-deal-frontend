@@ -6,9 +6,11 @@ import { getCompanyInfoById } from '../../../logic/company/info/companyInfo';
 import { getPossitionByID } from '../../../logic/company/positions/positions';
 
 import Marker from '../../../assets/svg/marker.svg';
+import Suitcase from '../../../assets/svg/suitcase.svg';
 import { useSelector } from 'react-redux';
 import { userData } from '../../../slices/user/userSlice';
 import { removeFromSaved } from '../../../logic/jobOffers/swipe';
+import {getPossitionProffession} from '../../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
 
 function SavedJob({info, filter}) {
@@ -16,9 +18,16 @@ function SavedJob({info, filter}) {
 
     const [companyInfo, setCompanyInfo] = useState(null);
     const [jobOfferInfo, setJobOfferInfo] = useState(null);
+    const [possitionProffession, setPossitionProffession] = useState(null);
 
     const history = useHistory();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(!possitionProffession){
+            getPossitionProffession(info.position_occupation, setPossitionProffession)
+        }
+    }, [info.position_occupation, possitionProffession]);
 
     useEffect(() => {
         if(!companyInfo){
@@ -66,7 +75,7 @@ function SavedJob({info, filter}) {
         );
     }
 
-    if (userInfo.info && companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter && info.jobseeker_accepted) {
+    if (userInfo.info && companyInfo && jobOfferInfo && jobOfferInfo.contract_type === filter && info.jobseeker_accepted && possitionProffession) {
         return (<div className="saved-job panel">
                 <div className="saved-job__top">
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
@@ -85,12 +94,18 @@ function SavedJob({info, filter}) {
                         </>}
                     </>}
                 />
+                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                {info.photo && (
+                    <div>
+                        <img src={info.photo} alt="jobOffer" className="job-panel__photo" />
+                    </div>
+                )}
                 <div className="saved-job__info">
                     <p className="saved-job__info__title">Darba apraksts</p>
                     <p>{jobOfferInfo.position_info}</p>
                 </div>
                 <div className="saved-job__requirements">
-                    <p className="saved-job__requirements__title">Darba pienākumi</p>
+                    <p className="saved-job__requirements__title">Kompānija piedāvā</p>
                     <p>{jobOfferInfo.position_requirements}</p>
                 </div>
                 <div className="saved-job__bottom">
