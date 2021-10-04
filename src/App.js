@@ -35,6 +35,8 @@ import { chatData } from './slices/chat/chatSlice';
 import { connect, getOnlineUsers, getSocket, socketData } from './slices/socket/socketSlice';
 import { companyGetUsersSwiped, getUserAcceptedJobOffers } from './logic/jobOffers/swipe';
 import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
+import { getTranslatedText } from './logic/languages/languageOptions';
+import { languageData } from './slices/languages/languageSlice';
 
 
 function App() {
@@ -52,6 +54,13 @@ function App() {
   const pageInfo = useSelector(infoData);
   const chatInfo = useSelector(chatData);
   const socketInfo = useSelector(socketData);
+  const languageInfo = useSelector(languageData);
+
+  useEffect(() => {
+    if(!languageInfo.text){
+      getTranslatedText(dispatch, null);
+    }
+  }, [languageInfo.text, dispatch]);
 
   useEffect(() => {
     const socketURL = process.env.REACT_APP_SOCKET_URL;
