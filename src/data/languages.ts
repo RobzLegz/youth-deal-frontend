@@ -731,7 +731,7 @@ export const languages = {
         header: {
             homeLink: "Начало",
             categoryLink: "Категории",
-            admLink: "#ADM",
+            admLink: "#АПР",
             premiumLink: "Премиум",
             registerLink: "Регестрироваться",
             loginLink: "Войти",
@@ -838,7 +838,7 @@ export const languages = {
                 button1: "Пополнить баланс",
                 heading2: "Способы оплаты",
                 button2: "Добавить метод оплаты",
-                info1: "Jūs vēl neesat iestatījis nevienu norēķinu metodi.", // uztaisisu pull request atri
+                info1: "Jūs vēl neesat iestatījis nevienu norēķinu metodi.", 
                 info2: "Iestatiet norēķinu metodes, lai jūs uzreiz varētu pieņemt darbā, kad būsiet gatavs."
             },
             notifications: {
