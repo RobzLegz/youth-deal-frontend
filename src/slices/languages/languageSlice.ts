@@ -18,6 +18,8 @@ export const languageSlice = createSlice({
                 state.text = languages.latvian;
             }else if(action.payload === "English"){
                 state.text = languages.english;
+            }else if(action.payload === "Russian"){
+                state.text = languages.russian;
             }
         }
     },
