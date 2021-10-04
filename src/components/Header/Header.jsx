@@ -85,8 +85,8 @@ function Header({categoryRef, admRef, homeTop}){
                             <div className={`header__languages__options ${isLanguagesExpanded ? 'active' : ''}`}>
                                 {supportedLanguages.map((lang, i) => (
                                     <ul className="header__languages__options__option" key={i}>
-                                        <li onClick={() => getTranslatedText(dispatch, lang.lng)}>{lang.short}</li>
-                                        {/* <li onClick={() => getTranslatedText(dispatch, lang.lng)}><img src={lang.flag} alt={`${lang.lng} flag`} /> {lang.short}</li> */}
+                                        {/* <li onClick={() => getTranslatedText(dispatch, lang.lng)}>{lang.short}</li> */}
+                                        <li onClick={() => getTranslatedText(dispatch, lang.lng)}><img src={lang.flag} alt={`${lang.lng} flag`} /> {lang.short}</li>
                                     </ul>
                                 ))}
                             </div>
@@ -104,8 +104,8 @@ function Header({categoryRef, admRef, homeTop}){
                     <div className={`header__languages__options ${isLanguagesExpanded ? 'active' : ''}`}>
                         {supportedLanguages.map((lang, i) => (
                             <ul className="header__languages__options__option" key={i}>
-                                <li onClick={() => getTranslatedText(dispatch, lang.lng)}>{lang.short}</li>
-                                {/* <li onClick={() => getTranslatedText(dispatch, lang.lng)}><img src={lang.flag} alt={`${lang.lng} flag`} /> {lang.short}</li> */}
+                                {/* <li onClick={() => getTranslatedText(dispatch, lang.lng)}>{lang.short}</li> */}
+                                <li onClick={() => getTranslatedText(dispatch, lang.lng)}><img src={lang.flag} alt={`${lang.lng} flag`} /> {lang.short}</li>
                             </ul>
                         ))}
                     </div>
