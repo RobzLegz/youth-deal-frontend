@@ -15,12 +15,14 @@ import {useHistory} from "react-router-dom"
 import { getSocket, socketData } from '../../slices/socket/socketSlice';
 import NoChatIcon from "../../assets/svg/chat/nochat.svg";
 import CloseIcon from "../../assets/svg/close-black.svg";
+import { languageData } from '../../slices/languages/languageSlice';
 
 function Chat() {
     const {id} = useParams();
     const userInfo = useSelector(userData);
     const chatInfo = useSelector(chatData);
     const socketInfo = useSelector(socketData);
+    const languageInfo = useSelector(languageData);
 
     const [contactsToggled, setContactsToggled] = useState(false)
     const [messageText, setMessageText] = useState("");
@@ -267,7 +269,7 @@ function Chat() {
                             <input type="file" name="fileMessage" id="fileMessage" />
                         </div>
                         <div className="chat__input-container__input">
-                            <input type="text" placeholder="Raksti šeit" value={messageText} onChange={(e) => setMessageText(e.target.value)} />
+                            <input type="text" placeholder={languageInfo.text.chat.typeHere} value={messageText} onChange={(e) => setMessageText(e.target.value)} />
                         </div>
                         <div className="chat__input-container__send">
                             <img src={sendIcon} alt="send icon" onClick={(e) => sendMessage(e)} />
@@ -278,7 +280,7 @@ function Chat() {
             ) : (
                 <div className="noChatSelected">
                     <img src={ContactBook} alt="contacts" onClick={handleContactsToggle} className="chat__contacts-toggle" />
-                    <p>Izvēlieties kontaktu ar kuru sarakstīties</p>
+                    <p>{languageInfo.text.chat.noChat}</p>
                     <img src={NoChatIcon} alt="no chat" className="noChatSelected__no-chat-img" />
                 </div>
             )}

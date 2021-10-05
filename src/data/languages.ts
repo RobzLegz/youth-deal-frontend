@@ -1,10 +1,5 @@
 export const supportedLanguages = [
     {
-        lng: "Latvian",
-        short: "LV",
-        flag: "https://flagpedia.net/data/flags/h80/lv.png"
-    },
-    {
         lng: "English",
         short: "EN",
         flag: "https://flagpedia.net/data/flags/h80/us.png"
@@ -14,6 +9,11 @@ export const supportedLanguages = [
         short: "RU",
         flag: "https://flagpedia.net/data/flags/h80/ru.png"
     },
+    {
+        lng: "Latvian",
+        short: "LV",
+        flag: "https://flagpedia.net/data/flags/h80/lv.png"
+    },
 ]
 
 export const languages = {
@@ -21,7 +21,7 @@ export const languages = {
         header: {
             homeLink: "Sākums",
             categoryLink: "Kategorijas",
-            admLink: "#ADM",
+            admLink: "#AJS",
             premiumLink: "Premium",
             registerLink: "Reģistrēties",
             loginLink: "Ieiet",
@@ -70,7 +70,8 @@ export const languages = {
             jobType2: "Īstermiņa",
             jobType3: "Brīvprātigs",
             salary: "Kāda būs mēneša alga?",
-            addPhoto: "Pievienot foto",
+            add: "Pievienot",
+            photo: "foto",
             submit: "Iesniegt"
         },
         settings: {
@@ -81,7 +82,7 @@ export const languages = {
                 companyName: "Kompānijas nosaukums",
                 email: "E-pasts",
                 jobStatus: "Darba Statuss",
-                adm: "#ADM",
+                adm: "#AJS",
                 employed: "Nodarbināts",
                 country: "Valsts",
                 city: "Pilsēta",
@@ -105,10 +106,12 @@ export const languages = {
                 passwordGuide: "8 vai vairāk simbolus. Apvienojiet lielos un mazos burtus un ciparus.",
                 subHeading2: "Tālruņa Verifikācija",
                 recomended: "Ieteicams",
-                phoneInfo: "Jūsu tālrunis nav verificēts Youth Deal. Noklikšķiniet uz \"Verificēt tagad\", lai pabeigtu tālruņa verifikāciju"
+                phoneInfo: "Jūsu tālrunis nav verificēts Youth Deal. Noklikšķiniet uz \"Verificēt tagad\", lai pabeigtu tālruņa verifikāciju",
+                button: "Verificēt tagad"
             },
             premium: {
                 heading: "Premium",
+                link: "Premium plāni",
                 status: "Premium Statuss",
                 active: "Aktīvs",
                 notActive: "Neaktīvs",
@@ -119,6 +122,7 @@ export const languages = {
                     answer2: "Vissas Premium funkcijas nebūs Tev pieejamas, un Tu nevarēsi pilnībā izbaudīt mūsu Web-aplikāciju",
                     answer3: "Mums būs ļoti skumji. Tu taču nevēlējies, lai mums būtu skumji?",
                     reason: "Es gribu deaktivizēt manu premium statusu tāpēc ka...",
+                    chooseReason: "Izvēlies cēloni",
                     buton: "Deaktivizēt Premium"
                 }
             },
@@ -167,8 +171,8 @@ export const languages = {
                 button: "Atrast Kontaktus"
             },
             adm: {
-                heading: "#ADM",
-                subHeading: "Ja Tu pašlaik esi aktīvā darba meklēšanā (#ADM), tad šī loma ir piemērota tieši Tev! Atzīmē to reģistrācijas laikā vai arī jebkurā brīdī profila iestatījumos",
+                heading: "#AJS",
+                subHeading: "Ja Tu pašlaik esi aktīvā darba meklēšanā (#AJS), tad šī loma ir piemērota tieši Tev! Atzīmē to reģistrācijas laikā vai arī jebkurā brīdī profila iestatījumos",
                 button: "Sākt"
             }
         },
@@ -178,6 +182,9 @@ export const languages = {
             voluntaryJobs: "Brīvprātīgie",
             job: "darbi",
             users: "Lietotāji",
+            chat1: "Sarakste",
+            chat2: "Sākt saraksti",
+            adm: "#AJS",
             leftPanel: {
                 premium: "Premium (aktīvs)",
                 contacts: "Kontakti",
@@ -190,7 +197,7 @@ export const languages = {
         },
         profile: {
             jobSeeker: {
-                activeJobSeeker: "#ADM",
+                activeJobSeeker: "#AJS",
                 birthDate: "Dzimšanas datums",
                 stars: "Sakrātās zvaigznītes",
                 description: "Apraksts par sevi:",
@@ -223,6 +230,7 @@ export const languages = {
                 phoneNum: "Telefona nummurs:",
                 profession: "Profesija",
                 change: "Mainīt",
+                choose: "Izvēlēties",
                 birthDate: "Dzimšanas datums:",
                 country: "Valsts:",
                 city: "Pilsēta:",
@@ -234,6 +242,8 @@ export const languages = {
                 cancel: "Atpakaļ",
                 save: "Saglabāt"
             },
+            chat1: "Sarakste",
+            chat2: "Sākt saraksti",
             none: "Nav",
             unknown1: "Nav ievadīts",
             unknown2: "Nav ievadīta",
@@ -241,6 +251,7 @@ export const languages = {
         },
         jobOffer: {
             location: "Atrašanās vieta",
+            locationUnknown: "Nezināma",
             proffession: "Profesija",
             responsabilities: "Prasmes un pienākumi",
             companyOffers: "Kompānija piedāvā",
@@ -251,7 +262,6 @@ export const languages = {
             editModal: {
                 heading: "Rediģēt darba piedāvājumu",
                 responsibilities: "Darbinieku prasmes un pienākumi",
-                requirements: "Darbinieku prasmes un pienākumi",
                 jobDescription: "Uzņēmums darbiniekiem piedāvā:",
                 chooseCategory: "Izvēlies darba kategoriju",
                 changeCategory: "Mainīt darba kategoriju",
@@ -312,6 +322,7 @@ export const languages = {
             incorrectEmail: "Nav pareizs E-pasts!",
             password: "Parole",
             passwordLenght: "Parolei ir jābūt ne mazāk nekā 5 simboli!",
+            passwordEmpty: "Parole nevar būt tukša!",
             forgotPassword: "Aizmirsi paroli?",
             login: "Ieiet",
             otherOptions: "Vai ieej ar",
@@ -370,6 +381,11 @@ export const languages = {
             infoLink: "Privātuma Politikai",
             button1: "Piekrītu",
             button2: "Nepiekrītu"
+        },
+        saved: {
+            jobType1: "Ilgtermiņa darbi",
+            jobType2: "Īstermiņa darbi",
+            jobType3: "Brīvprātīgie darbi"
         }
     },
     english: {
@@ -425,7 +441,8 @@ export const languages = {
             jobType2: "Short-term",
             jobType3: "Voluntary",
             salary: "How much will be salary",
-            addPhoto: "Add photo",
+            add: "Add",
+            photo: "photo",
             submit: "Submit"
         },
         settings: {
@@ -460,11 +477,13 @@ export const languages = {
                 passwordGuide: "A password should be at least eight characters long and include a combination of lowercase un uppercase letters and numbers.",
                 subHeading2: "Phone number verification",
                 recomended: "Recommended",
-                phoneInfo: 'Your phone is not a verified by Youth Deal. Click "Verify Now" to complete your phone verification.'
+                phoneInfo: 'Your phone is not a verified by Youth Deal. Click "Verify Now" to complete your phone verification.',
+                button: "Verify"
             },
             premium: {
                 heading: "Premium",
                 status: "Premium status",
+                link: "Premium plans",
                 active: "Active",
                 notActive: "Inactive",
                 deactivate: {
@@ -473,6 +492,7 @@ export const languages = {
                     answer1: "If you have not used Premium by the end of the month for which you paid, it will be deactivated from the beginning of the following month.",
                     answer2: "Only limited Premium features will be available to you, and you will not be able to fully enjoy our Web-application ",
                     answer3: "We will be unhappy.  But you don't want us to be sad, do you?",
+                    chooseReason: "Choose reason",
                     reason: "I want to deactivate my Premium status because...",
                     buton: "Deactivate Premium"
                 }
@@ -532,7 +552,10 @@ export const languages = {
             shorttermJobs: "Short-term",
             voluntaryJobs: "Voluntary",
             job: "Jobs",
+            chat1: "Chat",
+            chat2: "Start chatting",
             users: "Users",
+            adm: "#AJS",
             leftPanel: {
                 premium: "Premium (active)",
                 contacts: "Contacts",
@@ -578,6 +601,7 @@ export const languages = {
                 phoneNum: "Phone number:",
                 profession: "Profession",
                 change: "Change",
+                choose: "Choose",
                 birthDate: "Birth date:",
                 country: "Contry:",
                 city: "City:",
@@ -589,6 +613,8 @@ export const languages = {
                 cancel: "Back",
                 save: "Save"
             },
+            chat1: "Chat",
+            chat2: "Start chatting",
             none: "None",
             unknown1: "Not entered",
             unknown2: "Not entered",
@@ -596,18 +622,18 @@ export const languages = {
         },
         jobOffer: {
             location: "Location",
+            locationUnknown: "Unknown",
             proffession: "Profession",
             responsabilities: "Skills and duties",
-            companyOffers: "Companu offers",
+            companyOffers: "Company offers",
             signUp: "Apply",
             signOff: "Refuse",
             salaryBeginningFrom: "BEGINNING FROM",
-            salaryPerMonth: "monthly",
+            salaryPerMonth: "month",
             editModal: {
-                heading: "Rediģēt darba piedāvājumu",
+                heading: "Edit the job offer",
                 responsibilities: "Employee skills and duties",
-                requirements: "Employee skills and duties",
-                jobDescription: "Companu offers:",
+                jobDescription: "Company offers:",
                 chooseCategory: "Choose job category",
                 changeCategory: "Change category",
                 chooseProffession: "Choose professions",
@@ -623,7 +649,7 @@ export const languages = {
                 jobType1: "Long-term",
                 jobType2: "Short-term",
                 jobType3: "Voluntary",
-                salary: "How much will be salary?",
+                salary: "How much will the salary be?",
                 cancel: "Cancel",
                 submit: "Submit",
                 delete: {
@@ -650,11 +676,11 @@ export const languages = {
                     option4: "You can post 4 or more job offers at the same time",
                 },
                 jobSeeker: {
-                    option1: "Paziņojumi par jauniem darba sludinājumiem",
-                    option2: "Sīkāks algas pārskats",
-                    option3: "Pieeja video pamācību materiālu bāzei",
-                    option4: "Palīdzība ar CV sastādīšanu",
-                    option5: "Iespējams vienlaicīgi pieteikties vairākiem darba piedāvājumiem",
+                    option1: "Notifications about new job offers",
+                    option2: "Detailed salary description",
+                    option3: "Access to educational video achive",
+                    option4: "Help with writing your CV",
+                    option5: "You can sign up for multiple job offers at the same time",
                 },
                 buttons: {
                     text: "€/a month. Subscribe",
@@ -662,49 +688,50 @@ export const languages = {
             }
         },
         loginPage: {
-            heading: "Pieslēgties",
+            heading: "Login",
             email: "E-mail",
             incorrectEmail: "Wrong e-mail!",
             password: "Password",
             passwordLenght: "Password must be at least 5 characters long!",
-            forgotPassword: "Aizmirsi paroli?",
-            login: "Log in",
-            otherOptions: "Log in wit",
-            noAccount: "Nav konta?",
-            register: "Reģistrēties"
+            passwordEmpty: "Password can't be empty!",
+            forgotPassword: "Forgot password?",
+            login: "Login",
+            otherOptions: "Log in with",
+            noAccount: "Don't have an accout?",
+            register: "Register"
         },
         registerChoose: {
-            heading: "Reģistrācija",
-            subHeading: "Norādi savu lomu:",
-            button1: "Es esmu darba devējs ",
-            button2: "Es esmu darba ņēmējs "
+            heading: "Register",
+            subHeading: "Choose Your role",
+            button1: "I am job giver ",
+            button2: "I am jobseeker "
         },
         registerJobgiverPage: {
-            header: "Uzņēmuma Reģistrācija",
-            subHeader: "Tas neaizņems daudz laika",
-            alreadyRegistered: "Jau esiet reģistrēts?",
-            login: "Ieiet",
-            companyName: "Uzņēmuma nosaukums:",
-            companyEmail: "Uzņēmuma e-pasts:",
-            password: "Parole:",
-            privacyPolicy1: "Es piekrītu mūsu ",
-            privacyPolicy2: "Privātuma Politikai",
-            button: "Reģistrēties",
-            otherRegisterOptions: "Vai reģistrējies ar"
+            header: "Company Registration",
+            subHeader: "It won't take too long",
+            alreadyRegistered: "Already registered?",
+            login: "Login",
+            companyName: "Company name:",
+            companyEmail: "Company email:",
+            password: "Password:",
+            privacyPolicy1: "I agree to ",
+            privacyPolicy2: "Privacy policy",
+            button: "Register",
+            otherRegisterOptions: "Or register with"
         },
         registerJobseekerPage: {
-            header: "Reģistrācija",
-            subHeader: "Tas neaizņems daudz laika",
-            alreadyRegistered: "Jau es reģistrēts?",
-            login: "Ieiet",
-            firstName: "Vārds:",
-            lastName: "Uzvārds:",
-            email: "E-pasts:",
-            password: "Parole:",
-            privacyPolicy1: "Es piekrītu mūsu ",
-            privacyPolicy2: "Privātuma Politikai",
-            button: "Reģistrēties",
-            otherRegisterOptions: "Vai reģistrējies ar"
+            header: "Registration",
+            subHeader: "It won't take too long",
+            alreadyRegistered: "Already registered?",
+            login: "Login",
+            firstName: "Name:",
+            lastName: "Surname:",
+            email: "Email:",
+            password: "Password:",
+            privacyPolicy1: "I agree to ",
+            privacyPolicy2: "Privacy policy",
+            button: "Register",
+            otherRegisterOptions: "Or register with"
         },
         footer: {
             links: {
@@ -725,13 +752,18 @@ export const languages = {
             infoLink: "Privacy policy",
             button1: "Accept",
             button2: "Reject"
+        },
+        saved: {
+            jobType1: "Long-term jobs",
+            jobType2: "Short-term jobs",
+            jobType3: "Voluntary jobs"
         }
     },
     russian: {
         header: {
             homeLink: "Начало",
             categoryLink: "Категории",
-            admLink: "#АПР",
+            admLink: "#AJS",
             premiumLink: "Премиум",
             registerLink: "Регестрироваться",
             loginLink: "Войти",
@@ -780,7 +812,8 @@ export const languages = {
             jobType2: "Короткое",
             jobType3: "Волонтёрство",
             salary: "Зарплата в месяц",
-            addPhoto: "Добавить фотографию",
+            add: "Добавить",
+            photo: "фотографию",
             submit: "Выложить"
         },
         settings: {
@@ -791,7 +824,7 @@ export const languages = {
                 companyName: "Название компании",
                 email: "Почта",
                 jobStatus: "Статус",
-                adm: "#ADM",
+                adm: "#AJS",
                 employed: "Занят",
                 country: "Страна",
                 city: "Город",
@@ -816,10 +849,12 @@ export const languages = {
                 passwordGuide: "8 и больше символов. Включая большие и маленькие букву и цифры",
                 subHeading2: "Верификация телефона",
                 recomended: "Рекомендовано",
-                phoneInfo: "Ваш телефон ещё не верифицирован. Нажмите на \"Верифицировать\", чтобы закончить верификайию телефона."
+                phoneInfo: "Ваш телефон ещё не верифицирован. Нажмите на \"Верифицировать\", чтобы закончить верификайию телефона.",
+                button: "Verificēt tagad"
             },
             premium: {
                 heading: "Премиум",
+                link: "Premium plāni",
                 status: "Премиум Статус",
                 link: "Премиум планы",
                 active: "Активный",
@@ -830,6 +865,7 @@ export const languages = {
                     answer1: "Если вы не использовалиПремиум до конца месяца за который заплатили, то он деактивизируется с начала следующего месяца.",
                     answer2: "Все Премиум функции не будут тебе доступны и ты не сможешь ощутить нашу Веб-приложение.",
                     answer3: "Нам будет очень грустно. Ты же не хочешь, чтобы нам было грустно?",
+                    chooseReason: "Выбери причину:",
                     reason: "Я хочу деактивизировать Премиум статусс, потому что...",
                     buton: "Деактивизировать Премиум статус"
                 }
@@ -893,6 +929,7 @@ export const languages = {
             voluntaryJobs: "Волонтёрство",
             job: "работы",
             users: "Пользователи",
+            adm: "#AJS",
             leftPanel: {
                 premium: "Премиум (активный)",
                 contacts: "Контакты",
@@ -931,7 +968,7 @@ export const languages = {
                 noJobOffers: "У этой компании ещё нету вакансий о работе"
             },
             editModal: {
-                heading: "Редактирование профиля",
+heading: "Редактирование профиля",
                 name: "Имя:",
                 surname: "Фамилия:",
                 companyName: "Название компании:",

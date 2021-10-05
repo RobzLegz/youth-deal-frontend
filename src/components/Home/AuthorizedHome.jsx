@@ -143,7 +143,7 @@ function AuthorizedHome() {
                                 <h2>
                                     {userInfo.info.is_employer ?
                                         userInfo.info.profile.company_name :
-                                        <>{userInfo.info.first_name} {userInfo.info.last_name} {userInfo.info.profile.is_active_jobseeker && <span>#ADM</span>}</>
+                                        <>{userInfo.info.first_name} {userInfo.info.last_name} {userInfo.info.profile.is_active_jobseeker && <span>{languageInfo.text.authorizedHomePage.adm}</span>}</>
                                     }
                                 </h2>
                                 {userInfo.info.profile.user_proffession_category && userInfo.info.profile.user_proffession ? (
