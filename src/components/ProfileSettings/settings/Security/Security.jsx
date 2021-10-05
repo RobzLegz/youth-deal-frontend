@@ -42,7 +42,7 @@ function Security(){
                     {languageInfo.text.settings.security.phoneInfo}
                 </p>
                 <div className="align-right">
-                    <button className='button-blue'>Verificēt tagad</button>
+                    <button className='button-blue'>{languageInfo.text.settings.security.button}</button>
                 </div>
             </section>
         </div>
