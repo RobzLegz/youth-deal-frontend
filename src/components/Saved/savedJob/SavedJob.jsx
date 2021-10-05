@@ -12,9 +12,11 @@ import { userData } from '../../../slices/user/userSlice';
 import { removeFromSaved } from '../../../logic/jobOffers/swipe';
 import {getPossitionProffession} from '../../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
+import { languageData } from '../../../slices/languages/languageSlice';
 
 function SavedJob({info, filter}) {
     const userInfo = useSelector(userData);
+    const languageInfo = useSelector(languageData);
 
     const [companyInfo, setCompanyInfo] = useState(null);
     const [jobOfferInfo, setJobOfferInfo] = useState(null);
@@ -84,8 +86,8 @@ function SavedJob({info, filter}) {
                         <small>{relativeTime(jobOfferInfo.post_time)}</small>
                 </div>
                 </div>
-                <Location icon={Marker} iconAlt="marker" title="Atrašanās vieta"
-                    value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? 'Nezināma' : 
+                <Location icon={Marker} iconAlt="marker" title={languageInfo.text.jobOffer.location}
+                    value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? languageInfo.text.jobOffer.locationUnknown : 
                     <>
                         {(jobOfferInfo.position_country && jobOfferInfo.position_city) ? `${jobOfferInfo.position_country}, ${jobOfferInfo.position_city}` :
                         <>
@@ -94,25 +96,25 @@ function SavedJob({info, filter}) {
                         </>}
                     </>}
                 />
-                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                <Location icon={Suitcase} iconAlt="suitcase" title={languageInfo.text.jobOffer.proffession} value={possitionProffession}/>
                 {jobOfferInfo.photo && (
                     <div>
                         <img src={jobOfferInfo.photo} alt="jobOffer" className="job-panel__photo" />
                     </div>
                 )}
                 <div className="saved-job__info">
-                    <p className="saved-job__info__title">Darba apraksts</p>
+                    <p className="saved-job__info__title">{languageInfo.text.jobOffer.responsabilities}</p>
                     <p>{jobOfferInfo.position_info}</p>
                 </div>
                 <div className="saved-job__requirements">
-                    <p className="saved-job__requirements__title">Kompānija piedāvā</p>
+                    <p className="saved-job__requirements__title">{languageInfo.text.jobOffer.companyOffers}</p>
                     <p>{jobOfferInfo.position_requirements}</p>
                 </div>
                 <div className="saved-job__bottom">
-                <button className="saved-job__bottom__retract-submission" onClick={() => removeFromSaved(info, userInfo.accessToken, dispatch, userInfo.swipedPossitions)}>Atteikties</button>
+                <button className="saved-job__bottom__retract-submission" onClick={() => removeFromSaved(info, userInfo.accessToken, dispatch, userInfo.swipedPossitions)}>{languageInfo.text.jobOffer.signOff}</button>
                     <div className="saved-job__bottom__price-wrapper">
-                        <small>SĀKOT NO</small>
-                        <h2>€ {jobOfferInfo.price_range}/mēnesī</h2>
+                        <small>{languageInfo.text.jobOffer.salaryBeginningFrom}</small>
+                        <h2>€ {jobOfferInfo.price_range}/{languageInfo.text.jobOffer.salaryPerMonth}</h2>
                     </div>
                 </div>
         </div>)

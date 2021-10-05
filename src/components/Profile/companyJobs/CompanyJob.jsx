@@ -8,9 +8,11 @@ import { useSelector } from 'react-redux'
 import { userData } from '../../../slices/user/userSlice'
 import { getCompanyInfoById } from '../../../logic/company/info/companyInfo';
 import {getPossitionProffession} from "../../../logic/user/proffessions/proffessions"
+import { languageData } from '../../../slices/languages/languageSlice';
 
 function CompanyJob({info}) {
     const userInfo = useSelector(userData);
+    const languageInfo = useSelector(languageData);
     const [userSwiped, setUserSwiped] = useState(null);
 
     const [companyInfo, setCompanyInfo] = useState(null);
@@ -85,8 +87,8 @@ function CompanyJob({info}) {
                         <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
                     )}
                 </div>
-                <Location icon={Marker} iconAlt="marker" title="Atrašanās vieta"
-                    value={(!info.position_city && !info.position_country) ? 'Nezināma' :
+                <Location icon={Marker} iconAlt="marker" title={languageInfo.text.jobOffer.location}
+                    value={(!info.position_city && !info.position_country) ? languageInfo.text.jobOffer.locationUnknown :
                         <>
                             {(info.position_country && info.position_city) ? `${info.position_country}, ${info.position_city}` :
                                 <>
@@ -95,24 +97,24 @@ function CompanyJob({info}) {
                                 </>}
                         </>}
                 />
-                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                <Location icon={Suitcase} iconAlt="suitcase" title={languageInfo.text.jobOffer.proffession} value={possitionProffession}/>
                 {info.photo && (
                     <div>
                         <img src={info.photo} alt="info" className="job-panel__photo" />
                     </div>
                 )}
                 <div className="job-panel__requirements">
-                    <p className="job-panel__requirements__title">Prasmes un pienākumi</p>
+                    <p className="job-panel__requirements__title">{languageInfo.text.jobOffer.responsabilities}</p>
                     <p>{info.position_info}</p>
                 </div>
                 <div className="job-panel__info">
-                    <p className="job-panel__info__title">Kompānija piedāvā</p>
+                    <p className="job-panel__info__title">{languageInfo.text.jobOffer.companyOffers}</p>
                     <p>{info.position_requirements}</p>
                 </div>
                 <div className="job-panel__bottom">
                     <div className="job-panel__bottom__price-wrapper">
-                        <small>SĀKOT NO</small>
-                        <h2>€ {info.price_range}/mēnesī</h2>
+                        <small>{languageInfo.text.jobOffer.salaryBeginningFrom}</small>
+                        <h2>€ {info.price_range}/{languageInfo.text.jobOffer.salaryPerMonth}</h2>
                     </div>
                 </div>
             </div>

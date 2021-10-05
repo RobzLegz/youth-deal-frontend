@@ -16,6 +16,14 @@ export const supportedLanguages = [
     },
 ]
 
+/**
+ * To Add
+ * settings.security.button 'Verificēt tagad'
+ * settings.premium.plans 'Premium plāni'
+ * 
+ * profile.chat1 'Sarakste'
+ * profile.chat2 'Sākt saraksti'
+ */
 export const languages = {
     latvian: {
         header: {
@@ -70,7 +78,8 @@ export const languages = {
             jobType2: "Īstermiņa",
             jobType3: "Brīvprātigs",
             salary: "Kāda būs mēneša alga?",
-            addPhoto: "Pievienot foto",
+            add: "Pievienot",
+            photo: "foto",
             submit: "Iesniegt"
         },
         settings: {
@@ -119,6 +128,7 @@ export const languages = {
                     answer2: "Vissas Premium funkcijas nebūs Tev pieejamas, un Tu nevarēsi pilnībā izbaudīt mūsu Web-aplikāciju",
                     answer3: "Mums būs ļoti skumji. Tu taču nevēlējies, lai mums būtu skumji?",
                     reason: "Es gribu deaktivizēt manu premium statusu tāpēc ka...",
+                    chooseReason: "Izvēlies cēloni",
                     buton: "Deaktivizēt Premium"
                 }
             },
@@ -223,6 +233,7 @@ export const languages = {
                 phoneNum: "Telefona nummurs:",
                 profession: "Profesija",
                 change: "Mainīt",
+                choose: "Izvēlēties",
                 birthDate: "Dzimšanas datums:",
                 country: "Valsts:",
                 city: "Pilsēta:",
@@ -241,6 +252,7 @@ export const languages = {
         },
         jobOffer: {
             location: "Atrašanās vieta",
+            locationUnknown: "Nezināma",
             proffession: "Profesija",
             responsabilities: "Prasmes un pienākumi",
             companyOffers: "Kompānija piedāvā",
@@ -251,7 +263,6 @@ export const languages = {
             editModal: {
                 heading: "Rediģēt darba piedāvājumu",
                 responsibilities: "Darbinieku prasmes un pienākumi",
-                requirements: "Darbinieku prasmes un pienākumi",
                 jobDescription: "Uzņēmums darbiniekiem piedāvā:",
                 chooseCategory: "Izvēlies darba kategoriju",
                 changeCategory: "Mainīt darba kategoriju",
@@ -312,6 +323,7 @@ export const languages = {
             incorrectEmail: "Nav pareizs E-pasts!",
             password: "Parole",
             passwordLenght: "Parolei ir jābūt ne mazāk nekā 5 simboli!",
+            passwordEmpty: "Parole nevar būt tukša!",
             forgotPassword: "Aizmirsi paroli?",
             login: "Ieiet",
             otherOptions: "Vai ieej ar",
@@ -370,6 +382,11 @@ export const languages = {
             infoLink: "Privātuma Politikai",
             button1: "Piekrītu",
             button2: "Nepiekrītu"
+        },
+        saved: {
+            jobType1: "Ilgtermiņa darbi",
+            jobType2: "Īstermiņa darbi",
+            jobType3: "Brīvprātīgie darbi"
         }
     },
     english: {
@@ -425,7 +442,8 @@ export const languages = {
             jobType2: "Short-term",
             jobType3: "Voluntary",
             salary: "How much will be salary",
-            addPhoto: "Add photo",
+            add: "Add",
+            photo: "photo",
             submit: "Submit"
         },
         settings: {
@@ -473,6 +491,7 @@ export const languages = {
                     answer1: "If you have not used Premium by the end of the month for which you paid, it will be deactivated from the beginning of the following month.",
                     answer2: "Only limited Premium features will be available to you, and you will not be able to fully enjoy our Web-application ",
                     answer3: "We will be unhappy.  But you don't want us to be sad, do you?",
+                    chooseReason: "Choose reason",
                     reason: "I want to deactivate my Premium status because...",
                     buton: "Deactivate Premium"
                 }
@@ -578,6 +597,7 @@ export const languages = {
                 phoneNum: "Phone number:",
                 profession: "Profession",
                 change: "Change",
+                choose: "Choose",
                 birthDate: "Birth date:",
                 country: "Contry:",
                 city: "City:",
@@ -596,6 +616,7 @@ export const languages = {
         },
         jobOffer: {
             location: "Location",
+            locationUnknown: "Unknown",
             proffession: "Profession",
             responsabilities: "Skills and duties",
             companyOffers: "Companu offers",
@@ -606,7 +627,6 @@ export const languages = {
             editModal: {
                 heading: "Rediģēt darba piedāvājumu",
                 responsibilities: "Employee skills and duties",
-                requirements: "Employee skills and duties",
                 jobDescription: "Companu offers:",
                 chooseCategory: "Choose job category",
                 changeCategory: "Change category",
@@ -667,6 +687,7 @@ export const languages = {
             incorrectEmail: "Wrong e-mail!",
             password: "Password",
             passwordLenght: "Password must be at least 5 characters long!",
+            passwordEmpty: "Parole nevar būt tukša!",
             forgotPassword: "Aizmirsi paroli?",
             login: "Log in",
             otherOptions: "Log in wit",
@@ -725,6 +746,11 @@ export const languages = {
             infoLink: "Privacy policy",
             button1: "Accept",
             button2: "Reject"
+        },
+        saved: {
+            jobType1: "Ilgtermiņa darbi",
+            jobType2: "Īstermiņa darbi",
+            jobType3: "Brīvprātīgie darbi"
         }
     },
     russian: {
@@ -780,7 +806,8 @@ export const languages = {
             jobType2: "Īstermiņa",
             jobType3: "Brīvprātigs",
             salary: "Зарплата в месяц",
-            addPhoto: "Добавить фотографию",
+            add: "Добавить",
+            photo: "фотографию",
             submit: "Выложить"
         },
         settings: {
@@ -828,6 +855,7 @@ export const languages = {
                     answer1: "Если вы не использовалиПремиум до конца месяца за который заплатили, то он деактивизируется с начала следующего месяца.",
                     answer2: "Все Премиум функции не будут тебе доступны и ты не сможешь ощутить нашу Веб-приложение.",
                     answer3: "Нам будет очень грустно. Ты же не хочешь, чтобы нам было грустно?",
+                    chooseReason: "Выбери причину:",
                     reason: "Я хочу деактивизировать Премиум статусс, потому что...",
                     buton: "Деактивизировать Премиум статус"
                 }
@@ -932,6 +960,7 @@ export const languages = {
                 employeeCount: "Darbinieku skaits:",
                 phoneNum: "Telefona nummurs:",
                 profession: "Profesija",
+                choose: "Izvēlēties",
                 change: "Mainīt",
                 birthDate: "Dzimšanas datums:",
                 country: "Valsts:",
@@ -951,6 +980,7 @@ export const languages = {
         },
         jobOffer: {
             location: "Atrašanās vieta",
+            locationUnknown: "Nezināma",
             proffession: "Profesija",
             responsabilities: "Prasmes un pienākumi",
             companyOffers: "Kompānija piedāvā",
@@ -961,7 +991,6 @@ export const languages = {
             editModal: {
                 heading: "Rediģēt darba piedāvājumu",
                 responsibilities: "Darbinieku prasmes un pienākumi",
-                requirements: "Darbinieku prasmes un pienākumi",
                 jobDescription: "Uzņēmums darbiniekiem piedāvā:",
                 chooseCategory: "Izvēlies darba kategoriju",
                 changeCategory: "Mainīt darba kategoriju",
@@ -1022,6 +1051,7 @@ export const languages = {
             incorrectEmail: "Nav pareizs E-pasts!",
             password: "Parole",
             passwordLenght: "Parolei ir jābūt ne mazāk nekā 5 simboli!",
+            passwordEmpty: "Parole nevar būt tukša!",
             forgotPassword: "Aizmirsi paroli?",
             login: "Ieiet",
             otherOptions: "Vai ieej ar",
@@ -1080,6 +1110,11 @@ export const languages = {
             infoLink: "Privātuma Politikai",
             button1: "Piekrītu",
             button2: "Nepiekrītu"
+        },
+        saved: {
+            jobType1: "Ilgtermiņa darbi",
+            jobType2: "Īstermiņa darbi",
+            jobType3: "Brīvprātīgie darbi"
         }
     },
 };
