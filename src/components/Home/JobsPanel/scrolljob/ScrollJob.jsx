@@ -10,6 +10,7 @@ import EditJobsModal from '../../EditJobsModal/EditJobsModal';
 import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 import { useDispatch } from 'react-redux';
 import {getPossitionProffession} from "../../../../logic/user/proffessions/proffessions"
+import { languageData } from '../../../../slices/languages/languageSlice';
 
 function ScrollJob({ jobOffer }) {
     const [companyInfo, setCompanyInfo] = useState(null);
@@ -17,6 +18,7 @@ function ScrollJob({ jobOffer }) {
     const [possitionProffession, setPossitionProffession] = useState(null);
 
     const userInfo = useSelector(userData);
+    const languageInfo = useSelector(languageData);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -87,8 +89,8 @@ function ScrollJob({ jobOffer }) {
                         <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
                     )}
                 </div>
-                <Location icon={Marker} iconAlt="marker" title="Atrašanās vieta"
-                    value={(!jobOffer.position_city && !jobOffer.position_country) ? 'Nezināma' : 
+                <Location icon={Marker} iconAlt="marker" title={languageInfo.text.jobOffer.location}
+                    value={(!jobOffer.position_city && !jobOffer.position_country) ? languageInfo.text.jobOffer.locationUnknown : 
                     <>
                         {(jobOffer.position_country && jobOffer.position_city) ? `${jobOffer.position_country}, ${jobOffer.position_city}` :
                         <>
@@ -97,28 +99,28 @@ function ScrollJob({ jobOffer }) {
                         </>}
                     </>}
                 />
-                <Location icon={Suitcase} iconAlt="suitcase" title="Profesija" value={possitionProffession}/>
+                <Location icon={Suitcase} iconAlt="suitcase" title={languageInfo.text.jobOffer.proffession} value={possitionProffession}/>
                 {jobOffer.photo && (
                     <div>
                         <img src={jobOffer.photo} alt="jobOffer" className="job-panel__photo" />
                     </div>
                 )}
                 <div className="job-panel__requirements">
-                    <p className="job-panel__requirements__title">Prasmes un pienākumi</p>
+                    <p className="job-panel__requirements__title">{languageInfo.text.jobOffer.responsabilities}</p>
                     <p>{jobOffer.position_info}</p>
                 </div>
                 <div className="job-panel__info">
-                    <p className="job-panel__info__title">Kompānija piedāvā</p>
+                    <p className="job-panel__info__title">{languageInfo.text.jobOffer.companyOffers}</p>
                     <p>{jobOffer.position_requirements}</p>
                 </div>
                 <div className="job-panel__bottom">
                     {!userInfo.info.is_employer &&
-                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(1, jobOffer.id, userInfo.accessToken, dispatch)}>Pieteikties</button>
+                        <button className="job-panel__bottom__sign-up" onClick={() => jobSeekerAcceptJobOffer(1, jobOffer.id, userInfo.accessToken, dispatch)}>{languageInfo.text.jobOffer.signUp}</button>
                     }
                     {jobOffer.price_range !== "00.00" && (
                         <div className="job-panel__bottom__price-wrapper">
-                            <small>SĀKOT NO</small>
-                            <h2>€ {jobOffer.price_range}/mēnesī</h2>
+                            <small>{languageInfo.text.jobOffer.salaryBeginningFrom}</small>
+                            <h2>€ {jobOffer.price_range}/{languageInfo.text.jobOffer.salaryPerMonth}</h2>
                         </div>
                     )}
                 </div>

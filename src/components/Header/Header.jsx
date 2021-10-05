@@ -77,8 +77,8 @@ function Header({categoryRef, admRef, homeTop}){
                 {innerWidth <= 1200 &&
                     <div id="header__right">
                         <div className="header__auth-options">
-                            <button onClick={() => { history.push("/login"); }} className='header__auth-options__login'>{languageInfo.text.header.registerLink}</button>
-                            <button onClick={() => { history.push("/register"); }} className='header__auth-options__register'>{languageInfo.text.header.loginLink}</button>
+                            <button onClick={() => { history.push("/login"); }} className='header__auth-options__login'>{languageInfo.text.header.loginLink}</button>
+                            <button onClick={() => { history.push("/register"); }} className='header__auth-options__register'>{languageInfo.text.header.registerLink}</button>
                         </div>
 
                         <div className="header__languages">
