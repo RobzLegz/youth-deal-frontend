@@ -850,11 +850,9 @@ export const languages = {
                 subHeading2: "Верификация телефона",
                 recomended: "Рекомендовано",
                 phoneInfo: "Ваш телефон ещё не верифицирован. Нажмите на \"Верифицировать\", чтобы закончить верификайию телефона.",
-                button: "Verificēt tagad"
             },
             premium: {
                 heading: "Премиум",
-                link: "Premium plāni",
                 status: "Премиум Статус",
                 link: "Премиум планы",
                 active: "Активный",
@@ -929,7 +927,6 @@ export const languages = {
             voluntaryJobs: "Волонтёрство",
             job: "работы",
             users: "Пользователи",
-            adm: "#AJS",
             leftPanel: {
                 premium: "Премиум (активный)",
                 contacts: "Контакты",
