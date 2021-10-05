@@ -141,7 +141,7 @@ function Profile(){
                                                 NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
                                             }
                                         }}
-                                    >{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
+                                    >{hasChat ? languageInfo.text.profile.chat1 : languageInfo.text.profile.chat2}</button>
                                 )}
                             </div>
                             {isUsersProfile && (
@@ -237,7 +237,7 @@ function Profile(){
                                                 NewChat(userInfo.info.id, searchInfo.info.id, history, dispatch);
                                             }
                                         }}
-                                    >{hasChat ? "Sarakste" : "Sākt saraksti"}</button>
+                                    >{hasChat ? languageInfo.text.profile.chat1 : languageInfo.text.profile.chat2}</button>
                                 )}
                             </div>
                             {isUsersProfile && (

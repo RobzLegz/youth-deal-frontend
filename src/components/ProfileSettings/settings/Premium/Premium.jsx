@@ -24,7 +24,7 @@ function Premium(){
                 <div className="settings__premium__header">
                     <h2 className="settings__title"><img src={crown} alt="crown" />{languageInfo.text.settings.premium.heading}</h2>
                     <span>
-                        <Link to="/premium">Premium plāni</Link>
+                        <Link to="/premium">{languageInfo.text.settings.premium.link}</Link>
                     </span>
                 </div>
 
