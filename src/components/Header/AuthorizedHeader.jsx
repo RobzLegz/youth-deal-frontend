@@ -13,12 +13,15 @@ import Avatar from '../../assets/svg/avatar.svg';
 import SearchBar from './searchBar/SearchBar';
 import { infoData, setFilterTags } from '../../slices/info/infoSlice';
 import { languageData } from '../../slices/languages/languageSlice';
+import { supportedLanguages } from '../../data/languages';
+import { getTranslatedText } from '../../logic/languages/languageOptions';
 
 function AuthorizedHeader() {
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
     const [isHamburgerActive, setIsHamburgerActive] = useState(false)
     const [categoriesOpen, setCategoriesOpen] = useState(false);
     const [open, setOpen] = useState(false);
+    const [langOpen, setLangOpen] = useState(false);
 
     const proffessionInfo = useSelector(proffessionData);
     const userInfo = useSelector(userData);
@@ -101,7 +104,20 @@ function AuthorizedHeader() {
                                 {!userInfo.info.is_employer &&
                                     <li onClick={() => history.push('/saved')}>{languageInfo.text.authorizedHeader.dropdown.saved}</li>
                                 }
-                                <div className="dropdown__with__icon"><img src={Language} alt="language" id="profile_icon" /><li>Latviešu</li></div>
+                                <div className="dropdown__with__icon" onClick={() => setLangOpen(!langOpen)}>
+                                    <img src={Language} alt="language" id="profile_icon" />
+                                    <li>Language</li>
+                                </div>
+                                <div className={`dropdown__languages ${langOpen ? 'active' : ''}`}>
+                                    {supportedLanguages.map((lang, i) => (
+                                        <ul className="dropdown__languages__language" key={i}>
+                                            <li className="dropdown__with__icon" onClick={() => getTranslatedText(dispatch, lang.lng)}>
+                                                <img src={lang.flag} alt={`${lang.lng} flag`}></img>
+                                                {lang.short}
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </div>
                                 <li>€ EUR</li>
                                 <li onClick={() => history.push(`/settings`)}>{languageInfo.text.authorizedHeader.dropdown.settings}</li>
                                 {userInfo.info.isAdmin && (
