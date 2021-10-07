@@ -37,6 +37,7 @@ import { companyGetUsersSwiped, getUserAcceptedJobOffers } from './logic/jobOffe
 import { getCountries, getLocationToken } from './logic/locations/getLoactionData';
 import { getTranslatedText } from './logic/languages/languageOptions';
 import { languageData } from './slices/languages/languageSlice';
+import CoursePage from './components/courses/CoursePage';
 
 
 function App() {
@@ -273,6 +274,13 @@ function App() {
               <Route path="/saved">
                 <AuthorizedHeader />
                 <Saved />
+              </Route>
+            )}
+
+            {userInfo.loggedIn && userInfo.info && !userInfo.info.is_employer && (
+              <Route path="/courses">
+                <AuthorizedHeader />
+                <CoursePage />
               </Route>
             )}
   

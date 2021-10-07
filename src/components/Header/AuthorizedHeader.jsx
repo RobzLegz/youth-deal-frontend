@@ -78,6 +78,7 @@ function AuthorizedHeader() {
                     <p key={i} onClick={() => setFilterCategory({type: "category", title: proffession.title, id: proffession.id, occupations: proffession.occupations})}>{proffession.title}</p>
                 ))}
             </div>
+            <li onClick={() => history.push("/courses")}>Courses</li>
         </ul>
     };
 

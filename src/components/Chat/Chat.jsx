@@ -16,6 +16,7 @@ import { getSocket, socketData } from '../../slices/socket/socketSlice';
 import NoChatIcon from "../../assets/svg/chat/nochat.svg";
 import CloseIcon from "../../assets/svg/close-black.svg";
 import { languageData } from '../../slices/languages/languageSlice';
+import Message from './message/Message';
 
 function Chat() {
     const {id} = useParams();
@@ -136,28 +137,6 @@ function Chat() {
         setMessageText(`${messageText}${emoji}`);
     }
 
-    const relativeTime = (postTime) => {
-        const rtf = new Intl.RelativeTimeFormat('lv', {
-            localeMatcher: 'best fit',
-            numeric: 'auto',
-            style: 'long'
-        });
-        const diff = new Date(postTime) - new Date();
-        const units = {
-            year  : 24 * 60 * 60 * 1000 * 365,
-            month : 24 * 60 * 60 * 1000 * 365/12,
-            day   : 24 * 60 * 60 * 1000,
-            hour  : 60 * 60 * 1000,
-            minute: 60 * 1000,
-            second: 1000
-        }
-        for (const unit in  units) {
-            if (Math.abs(diff) > units[unit] || unit === 'seconds') {
-                return rtf.format(Math.round(diff/units[unit]), unit)
-            }
-        }
-    }
-
     return (
         <div id={'chat-container'}>
             <Contacts 
@@ -185,12 +164,10 @@ function Chat() {
                         {chatInfo.messages && chatInfo.messages.map((msg, i) => {
                             if(msg){
                                 return(
-                                    <div key={i} className={`chat__messages__message ${msg.senderId === userInfo.info.id ? 'my-msg' : 'target-msg'}`}>
-                                        <div className="chat__messages__message__text-box">
-                                            <p id='msg'>{msg.text}</p>
-                                            <small id='time'>{relativeTime(msg.createdAt)}</small>
-                                        </div>
-                                    </div>
+                                    <Message 
+                                        key={i}
+                                        msg={msg}
+                                    />
                                 )
                             }
                             return null
