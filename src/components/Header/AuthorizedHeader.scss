@@ -298,7 +298,21 @@ nav{
             border-top:1px solid $grayColor;
             padding-bottom: 10px;
         }
-
+        .dropdown__languages {
+            height: 0;
+            overflow: hidden;
+            &.active {
+                height: fit-content;
+            }
+            &__language {
+                li img {
+                    margin-right: 4px;
+                    height: 10px;
+                    width: 20px;
+                    object-fit: contain;
+                }
+            }
+        }
     }
 }
 
