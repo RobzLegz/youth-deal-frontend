@@ -46,7 +46,7 @@ function JobGiver(){
         setEmail(e.target.value)
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!re.test(String(e.target.value).toLowerCase())){
-            setEmailError('Nav pareizs E-pasts!')
+            setEmailError('Not valid E-mail!')
         }
         else{
             setEmailError('')
@@ -57,9 +57,9 @@ function JobGiver(){
         setPassword(e.target.value)
         
         if(e.target.value.length < 5 ) {
-            setPasswordError('Parolei ir jābūt ne mazāk nekā 5 simboli!')
+            setPasswordError('Password must be at least 5 characters long!')
             if(!e.target.value){
-                setPasswordError('Parole nevar būt tukša!')
+                setPasswordError('Password cannot be empty!')
             }
         }
         else{
@@ -124,7 +124,7 @@ function JobGiver(){
                     </div>   
                     {(passwordDirty && passwordError) && <div className="company__right__error"style={{color:"#FA4251"}}>{passwordError}</div>}
                     <div className="company__right__checkbox">
-                        <input type="checkbox" id="checkbox" name="" value=""/>
+                        <input type="checkbox" id="checkbox" name="" value="" required/>
                         <label htmlFor="checkbox">{languageInfo.text.registerJobgiverPage.privacyPolicy1} <u>{languageInfo.text.registerJobgiverPage.privacyPolicy2}</u></label>
                     </div>
                     <button type='submit' className='company__right__submit'>{languageInfo.text.registerJobgiverPage.button}</button>
