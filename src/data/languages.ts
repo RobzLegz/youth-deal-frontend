@@ -1066,7 +1066,7 @@ heading: "Редактирование профиля",
             forgotPassword: "Забыл пароль?",
             login: "Войти",
             otherOptions: "Или войди с помощью",
-            noAccount: "Ещё не зарегестрировался?",
+            noAccount: "Не зарегестрирован?",
             register: "Регестрироваться"
         },
         registerChoose: {

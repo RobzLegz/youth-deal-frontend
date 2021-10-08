@@ -10,7 +10,8 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { languageData } from '../../slices/languages/languageSlice';
 
-const popularFinds = ['Inženierzinātnes', 'Māksla un kultūra', 'Vadība un administrācija', 'Ekonomika', 'IT sfēra', 'Marketings,reklāma un PR', 'Valodniecība', 'Pakalpojumi un tūrisms', 'Skaistums un mode', 'Sports']
+//const popularFinds = ['Inženierzinātnes', 'Māksla un kultūra', 'Vadība un administrācija', 'Ekonomika', 'IT sfēra', 'Marketings,reklāma un PR', 'Valodniecība', 'Pakalpojumi un tūrisms', 'Skaistums un mode', 'Sports']
+const popularFinds = ['Engineering', 'Arts and Culture', 'Management and Admini...', 'Economics',' IT ',' Marketing, Advertising',' Linguistics', 'Services and Tourism', 'Beauty and Fashion', ' Sports' ]
 
 function Home({categoryRef, admRef, homeTop}){
     const [year] = useState(new Date().getFullYear())

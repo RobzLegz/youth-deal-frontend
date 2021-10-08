@@ -128,6 +128,7 @@
                 margin-right: 10px;
             }
             i {
+                transition: all 0.5s;
                 &.active {
                     transform: rotate(180deg);
                     margin-right: 10px;
