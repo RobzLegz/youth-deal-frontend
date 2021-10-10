@@ -92,7 +92,7 @@ function AuthorizedHeader() {
                     alt="profile"
                 />
                 <p onClick={() =>  history.push(`/profile/${userInfo.info.id}`)}>{isCompany ? `${userInfo.info.profile.company_name}` : `${userInfo.info.first_name} ${userInfo.info.last_name}`}</p>
-                <img onClick={() => setOpen(!open)} src={dropdown} alt="dropdown" id="image"/>
+                <img className={`header__top__right__user-wrapper__dropdown ${open ? 'active':''}`} onClick={() => setOpen(!open)} src={dropdown} alt="dropdown" id="image"/>
             </div>
             
             <div  id="dropdown">
@@ -108,6 +108,7 @@ function AuthorizedHeader() {
                                 <div className="dropdown__with__icon" onClick={() => setLangOpen(!langOpen)}>
                                     <img src={Language} alt="language" id="profile_icon" />
                                     <li>{languageInfo.text.authorizedHeader.dropdown.language}</li>
+                                    <i className={`fa fa-caret-down ${langOpen ? 'active' : ''}`} aria-hidden="true"></i>
                                 </div>
                                 <div className={`dropdown__languages ${langOpen ? 'active' : ''}`}>
                                     {supportedLanguages.map((lang, i) => (
