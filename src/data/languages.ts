@@ -32,6 +32,7 @@ export const languages = {
             home: "Sākums",
             chat: "Čats",
             categories: "Kategorijas",
+            courses: "Kursi",
             dropdown: {
                 profile: "Mans Konts",
                 newJobOffer: "Jauna darba vakance",
@@ -404,6 +405,7 @@ export const languages = {
             home: "Home",
             chat: "Chat",
             categories: "Categories",
+            courses: "Courses",
             dropdown: {
                 profile: "Profile",
                 newJobOffer: "New job offer",
@@ -776,6 +778,7 @@ export const languages = {
             home: "Начало",
             chat: "Чат",
             categories: "Категории",
+            courses: "Курсы",
             dropdown: {
                 profile: "Мой Профиль",
                 newJobOffer: "Новая вакансия",
