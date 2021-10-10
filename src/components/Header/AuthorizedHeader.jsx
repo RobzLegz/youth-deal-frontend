@@ -107,7 +107,7 @@ function AuthorizedHeader() {
                                 }
                                 <div className="dropdown__with__icon" onClick={() => setLangOpen(!langOpen)}>
                                     <img src={Language} alt="language" id="profile_icon" />
-                                    <li>Language</li>
+                                    <li>{languageInfo.text.authorizedHeader.dropdown.language}</li>
                                 </div>
                                 <div className={`dropdown__languages ${langOpen ? 'active' : ''}`}>
                                     {supportedLanguages.map((lang, i) => (
