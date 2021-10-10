@@ -38,6 +38,7 @@ export const languages = {
                 profileAdd: "Profila reklāma",
                 premium: "Premium",
                 saved: "Saglābātie",
+                language: "Valoda",
                 settings: "Iestatījumi",
                 logout: "Iziet"
             }
@@ -409,6 +410,7 @@ export const languages = {
                 profileAdd: "Profile ad",
                 premium: "Premium",
                 saved: "Saved",
+                language: "Language",
                 settings: "Settings",
                 logout: "Log out"
             }
@@ -780,6 +782,7 @@ export const languages = {
                 profileAdd: "Реклама профиля",
                 premium: "Premium",
                 saved: "Сохранённые",
+                language: "Язык",
                 settings: "Настройки",
                 logout: "Выйти"
             }
