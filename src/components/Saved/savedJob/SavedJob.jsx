@@ -13,6 +13,7 @@ import { removeFromSaved } from '../../../logic/jobOffers/swipe';
 import {getPossitionProffession} from '../../../logic/user/proffessions/proffessions';
 import { useDispatch } from 'react-redux';
 import { languageData } from '../../../slices/languages/languageSlice';
+import relativeTime from '../../RelativeTime/RelativeRime';
 
 function SavedJob({info, filter}) {
     const userInfo = useSelector(userData);
@@ -43,28 +44,6 @@ function SavedJob({info, filter}) {
         }
     }, [jobOfferInfo, info]);
 
-    const relativeTime = (postTime) => {
-        const rtf = new Intl.RelativeTimeFormat('lv', {
-            localeMatcher: 'best fit',
-            numeric: 'auto',
-            style: 'long'
-        });
-        const diff = new Date(postTime) - new Date();
-        const units = {
-            year  : 24 * 60 * 60 * 1000 * 365,
-            month : 24 * 60 * 60 * 1000 * 365/12,
-            day   : 24 * 60 * 60 * 1000,
-            hour  : 60 * 60 * 1000,
-            minute: 60 * 1000,
-            second: 1000
-        }
-        for (const unit in  units) {
-            if (Math.abs(diff) > units[unit] || unit === 'seconds') {
-                return rtf.format(Math.round(diff/units[unit]), unit)
-            }
-        }
-    }
-
     const Location = ({ icon, iconAlt, title, value }) => {
         return (
             <div className="saved-job__location">
@@ -83,8 +62,8 @@ function SavedJob({info, filter}) {
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
                     <div className="info">
                         <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
-                        <small>{relativeTime(jobOfferInfo.post_time)}</small>
-                </div>
+                        <small>{relativeTime(jobOfferInfo.post_time, languageInfo.langShort)}</small>
+                    </div>
                 </div>
                 <Location icon={Marker} iconAlt="marker" title={languageInfo.text.jobOffer.location}
                     value={(!jobOfferInfo.position_city && !jobOfferInfo.position_country) ? languageInfo.text.jobOffer.locationUnknown : 

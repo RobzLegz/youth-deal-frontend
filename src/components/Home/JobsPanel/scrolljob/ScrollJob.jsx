@@ -11,6 +11,7 @@ import { jobSeekerAcceptJobOffer } from '../../../../logic/jobOffers/swipe';
 import { useDispatch } from 'react-redux';
 import {getPossitionProffession} from "../../../../logic/user/proffessions/proffessions"
 import { languageData } from '../../../../slices/languages/languageSlice';
+import relativeTime from '../../../RelativeTime/RelativeRime';
 
 function ScrollJob({ jobOffer }) {
     const [companyInfo, setCompanyInfo] = useState(null);
@@ -39,28 +40,6 @@ function ScrollJob({ jobOffer }) {
 
     }, [jobOffer.post_time])
 
-    const relativeTime = (postTime) => {
-        const rtf = new Intl.RelativeTimeFormat('lv', {
-            localeMatcher: 'best fit',
-            numeric: 'auto',
-            style: 'long'
-        });
-        const diff = new Date(postTime) - new Date();
-        const units = {
-            year  : 24 * 60 * 60 * 1000 * 365,
-            month : 24 * 60 * 60 * 1000 * 365/12,
-            day   : 24 * 60 * 60 * 1000,
-            hour  : 60 * 60 * 1000,
-            minute: 60 * 1000,
-            second: 1000
-        }
-        for (const unit in  units) {
-            if (Math.abs(diff) > units[unit] || unit === 'seconds') {
-                return rtf.format(Math.round(diff/units[unit]), unit)
-            }
-        }
-    }
-
     const Location = ({ icon, iconAlt, title, value }) => {
         return (
             <div className="job-panel__location">
@@ -83,7 +62,7 @@ function ScrollJob({ jobOffer }) {
                     <img src={companyInfo.logo} alt="logo" className="logo" onClick={() => history.push(`/profile/${companyInfo.user}`)} />
                     <div className="info">
                         <h4 onClick={() => history.push(`/profile/${companyInfo.user}`)} >{companyInfo.company_name}</h4>
-                        <small>{relativeTime(jobOffer.post_time)}</small>
+                        <small>{relativeTime(jobOffer.post_time, languageInfo.langShort)}</small>
                     </div>
                     {userInfo.info.id === companyInfo.user && (
                         <img src={Pen} alt="options" className="options" onClick={() => setEditing(!editing)} />
