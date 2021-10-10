@@ -15,10 +15,13 @@ export const languageSlice = createSlice({
     reducers: {
         getTextFromLanguage: (state: any, action: any) => {
             if(action.payload === "Latvian"){
+                state.langShort = "lv"
                 state.text = languages.latvian;
             }else if(action.payload === "English"){
+                state.langShort = "en"
                 state.text = languages.english;
             }else if(action.payload === "Russian"){
+                state.langShort = "ru"
                 state.text = languages.russian;
             }
         }
