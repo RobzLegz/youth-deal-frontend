@@ -1,6 +1,6 @@
 @import '../../scss/variables.scss';
 
-#header__right {
+#header__right {	
     display: flex;
     align-items: center;
 }
@@ -75,7 +75,6 @@
             top: 30px;
             right: -25px;
             overflow: hidden;
-            height: fit-content;
             background: whitesmoke;
             transition: all .2s;
             padding: 0 10px;
