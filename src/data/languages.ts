@@ -1,4 +1,4 @@
-export const supportedLanguages = [
+export const supportedLanguages = [ 
     {
         lng: "English",
         short: "EN",
@@ -8,7 +8,7 @@ export const supportedLanguages = [
         lng: "Russian",
         short: "RU",
         flag: "https://flagpedia.net/data/flags/h80/ru.png"
-    },
+    },  
     {
         lng: "Latvian",
         short: "LV",
@@ -769,7 +769,7 @@ export const languages = {
             categoryLink: "Категории",
             admLink: "#AJS",
             premiumLink: "Premium",
-            registerLink: "Регестрироваться",
+            registerLink: "Регистрироваться",
             loginLink: "Войти",
         },
         authorizedHeader: {
@@ -1072,8 +1072,8 @@ heading: "Редактирование профиля",
             forgotPassword: "Забыл пароль?",
             login: "Войти",
             otherOptions: "Или войди с помощью",
-            noAccount: "Не зарегестрирован?",
-            register: "Регестрироваться"
+            noAccount: "Не зарегистрирован?",
+            register: "Регистрироваться"
         },
         registerChoose: {
             heading: "Регистрация",
@@ -1084,20 +1084,20 @@ heading: "Редактирование профиля",
         registerJobgiverPage: {
             header: "Регистрация компании",
             subHeader: "Это не займёт много времени",
-            alreadyRegistered: "Уже зарегестрированы?",
+            alreadyRegistered: "Уже зарегистрированы?",
             login: "Войти",
             companyName: "Название компании:",
             companyEmail: "Е-почта компании:",
             password: "Пароль",
             privacyPolicy1: "Я согласен с нашей ",
             privacyPolicy2: "Политикой конфиденциальности",
-            button: "Регестрироваться",
-            otherRegisterOptions: "Или зарегестрируйся с помощью"
+            button: "Регистрироваться",
+            otherRegisterOptions: "Или зарегистрируйся с помощью"
         },
         registerJobseekerPage: {
             header: "Регистрация",
             subHeader: "Это не заёмет много времени",
-            alreadyRegistered: "Уже зарегестрирован?",
+            alreadyRegistered: "Уже зарегистрирован?",
             login: "Войти",
             firstName: "Имя:",
             lastName: "Фамилия:",
@@ -1105,8 +1105,8 @@ heading: "Редактирование профиля",
             password: "Пароль:",
             privacyPolicy1: "Я согласен с нашей ",
             privacyPolicy2: "Политикой конфиденциальности",
-            button: "Регестрироваться",
-            otherRegisterOptions: "Или зарегестрируйся с помощью"
+            button: "Регитрироваться",
+            otherRegisterOptions: "Или зарегистрируйся с помощью"
         },
         footer: {
             links: {
