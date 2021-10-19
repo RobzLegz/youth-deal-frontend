@@ -607,7 +607,7 @@ export const languages = {
                 change: "Change",
                 choose: "Choose",
                 birthDate: "Birth date:",
-                country: "Contry:",
+                country: "Country:",
                 city: "City:",
                 isActiveJobSeeker: "Are you an active job seeker?",
                 yes: "Yes",
