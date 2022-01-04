@@ -23,6 +23,9 @@ export const languageSlice = createSlice({
             }else if(action.payload === "Russian"){
                 state.langShort = "ru"
                 state.text = languages.russian;
+            }else if(action.payload === "Spanish"){
+                state.langShort = "es"
+                state.text = languages.spanish;
             }
         }
     },
